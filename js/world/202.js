@@ -261,7 +261,6 @@ addLayer("202", {
                 }],
                 "blank",
                 ["clickable", 14],
-                "blank",
                 "grid",
                 ["upgrades", [311, 312, 313, 314]],
                 "blank",
@@ -476,7 +475,7 @@ addLayer("202", {
         getTitle(data, id) {
             let b
             if (id == 101) b = "hsl(0,80%,30%)"
-            else if (id == 202) b = "hsl(40,80%,30%)"
+            else if (id == 102) b = "hsl(40,80%,30%)"
             else if (id == 103) b = "hsl(80,80%,30%)"
             else if (id == 201) b = "hsl(120,80%,30%)"
             else if (id == 202) b = "hsl(160,80%,30%)"
@@ -497,8 +496,8 @@ addLayer("202", {
         },
         getStyle(id) {
             return {
-                width: "200px",
-                height: "90px"
+                width: "240px",
+                height: "80px"
             }
         }
     },
@@ -876,7 +875,7 @@ addLayer("202", {
             effect() {
                 return _D10
             },
-            cost: pow10(66),
+            cost: pow10(56),
             unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
         },
         3135: {
@@ -937,7 +936,7 @@ addLayer("202", {
             title: "一个联盟的进步",
             description: "乘数获取被一个联盟提升",
             effect() {
-                return _D(1.8)
+                return _D(1.7)
             },
             effectDisplay() {
                 return `^${format(this.effect())}`
@@ -949,7 +948,7 @@ addLayer("202", {
             title: "一个时代的进步",
             description: "乘数获取被一个时代提升",
             effect() {
-                return _D(2)
+                return _D(1.9)
             },
             effectDisplay() {
                 return `^${format(this.effect())}`
@@ -961,7 +960,7 @@ addLayer("202", {
             title: "一个宇宙的进步",
             description: "乘数获取被一个宇宙提升",
             effect() {
-                return _D(2.5)
+                return _D(2)
             },
             effectDisplay() {
                 return `^${format(this.effect())}`
@@ -990,7 +989,7 @@ addLayer("202", {
             fullDisplay() {
                 return `
 				<span><h3>${hasUpgrade(this.layer, 12112) ? "时间要加速了" : "你的下刻何必是刻"}</h3></span><br>
-				<span>${hasUpgrade(this.layer, 12112) ? "运行速度改为每秒2刻" : "每刻获得的点数减少,但是你不会吃亏的"}</span><br>
+				<span>${hasUpgrade(this.layer, 12112) ? "运行速度改为每秒2刻" : "丢弃现在的废物刻速度,但是你不会吃亏的"}</span><br>
                 <span>
                 效果: ${hasUpgrade(this.layer, 12112) ? `更快的速度` : "?"}
 			    </span>`
@@ -1014,6 +1013,20 @@ addLayer("202", {
             },
             effect() {
                 return player._202.dB
+            },
+            unlocked() { return inChallenge(this.layer, 121) && hasUpgrade(this.layer, 12) }
+        },
+        12122: {
+            fullDisplay() {
+                return `
+				<span><h3>${hasUpgrade(this.layer, 12122) ? "鲧墓" : "妈妈"}</h3></span><br>
+				<span>${hasUpgrade(this.layer, 12122) ? "滚木" : "你是一个瓦学弟,你要喊出你人生中的第一个妈妈了"}</span><br>
+                <span>
+                效果: ${hasUpgrade(this.layer, 12122) ? `棍母` : "?"}
+			    </span>`
+            },
+            pay() {
+                player[this.layer].points = player[this.layer].points.sub(100)
             },
             unlocked() { return inChallenge(this.layer, 121) && hasUpgrade(this.layer, 12) }
         },
