@@ -1,0 +1,101 @@
+let modInfo = {
+	name: "梦境树",
+	id: "1001tree",
+	author: "乾狐离光",
+	pointsName: "世界",
+	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js"],
+
+	discordName: "乾狐离光的官网",
+	discordLink: "https://qhlg.flime.top/",
+	initialStartPoints: new Decimal(0), // 用于硬重置和新玩家
+	offlineLimit: 0,  // 离线时间限制（小时）
+}
+
+// 在num和name中设置版本号
+let VERSION = {
+	num: 0.08,
+	name: ""
+}
+
+let changelog = `
+	<h1>更新日志:</h1><br><br>
+	<h3>v0.08 | 2025/8/27</h3><br>
+	更新了2个游戏<br><br>`
+
+let winText = ``
+
+// 如果在Layer内添加了新函数，并且这些函数在被调用时会产生效果，请在此处添加它们
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect']
+
+function getStartPoints() {
+	return new Decimal(modInfo.initialStartPoints)
+}
+
+// 决定是否醒着
+function canGenPoints() {
+	return false
+}
+
+// 计算点数/秒！
+function getPointGen() {
+	return _D0
+}
+
+// 你可以在此添加应该存入"player"并保存的非图层相关变量，以及默认值
+function addedPlayerData() {
+	return {
+		_101: {
+			asc1: _D0,
+			asc2: _D0,
+			asc3: _D0,
+			asc4: _D0,
+			asc5: _D0,
+		},
+		_102: {
+			t: _D0,
+			tickt: _D0,
+			keyseed: Date.now(),
+			dB: _D1,
+			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
+		}
+	}
+}
+
+// 在页面顶部显示新闻
+var displayNews = [
+	function () {
+		return `<div style="
+		width: calc(100% - 50px);
+		background-color: rgba(255,255,255,0.2);
+		margin: 5px auto;
+		border: solid 3px rgba(0,0,0,0.5);
+		min-height:24px;
+		"><span style="opacity: ${news.opacity};">${news.text}</span></div>`;
+	}
+];
+
+// 在页面顶部显示额外内容
+var displayThings = [
+	"作者QQ 1550187725 欢迎反馈bug!<br>如果下面什么也没有,请先刷新页面"
+]
+
+// 决定游戏何时"结束"
+function isEndgame() {
+	return false
+}
+
+// 后面是次要内容！
+
+// 背景样式，可以是函数
+var backgroundStyle = {
+}
+
+// 如果有内容可能被长时间tick破坏，可以修改这个值
+function maxTickLength() {
+	return 0.5
+}
+
+// 如果需要修复旧版本存档的数值膨胀问题，使用此函数。如果版本早于修复该问题的版本，
+// 你可以用此函数限制他们当前的资源。
+function fixOldSave(oldVersion) {
+}
