@@ -325,7 +325,7 @@ addLayer("202", {
 
         if (ic == 11) p = _D(pow10(-2))
         else if (ic == 12) p = _D(pow2(-9))
-        else if (ic == 21) p = _D(divNum(getEffect(this.layer, 2111, 10000).mul(_D(2).pow(player._202.t))))
+        else if (ic == 21) p = _D(divNum(getEffect(this.layer, 2111, _D(10000)).mul(_D(2).pow(player._202.t))))
         else if (ic == 22) p = _D(pow10(-2).neg())
         else if (ic == 31) p = this.getMulGetPoint()
 
@@ -651,10 +651,10 @@ addLayer("202", {
         2222: {
             fullDisplay() {
                 return `
-				<span><h3>${hasUpgrade(this.layer, 2222) ? "睡觉秘钥" : "大智若愚"}</h3></span><br>
+				<span><h3>${hasUpgrade(this.layer, 2222) ? "秘钥之名" : "大智若愚"}</h3></span><br>
 				<span>${hasUpgrade(this.layer, 2222) ? "这样,我在上一个升级开了一个讲座,你去听听就知道了" : "暂时失去10点数,你将很快拿回它们,请相信我"}</span><br>
                 <span>
-                效果: ${hasUpgrade(this.layer, 2222) ? `key is ${format(this.effect())}` : "?"}
+                效果: ${hasUpgrade(this.layer, 2222) ? `${this.effect()}` : "?"}
 			    </span><br>
                 花费: 10点数`
             },
@@ -662,7 +662,7 @@ addLayer("202", {
                 player[this.layer].points = player[this.layer].points.sub(10)
             },
             effect() {
-                return _D(372559)
+                return "价格是二进制!"
             },
             unlocked() { return inChallenge(this.layer, 22) && hasUpgrade(this.layer, 12) }
         },
@@ -1290,6 +1290,9 @@ addLayer("202", {
             onComplete() {
                 player.main.points = player.main.points.add(1)
             },
+            unlocked() {
+                return hasChallenge(this.layer, 121)
+            },
             target: 115277425
         },
     },
@@ -1306,9 +1309,7 @@ addLayer("202", {
             display() { return "对当前的概率进行质疑,可能会改变现在的概率" },
             canClick() { return true },
             onClick() {
-                let audio = document.getElementById('s1')
-                audio.currentTime = 0
-                audio.play()
+                playersound("s1")
 
                 player._202.dB = player._202.dB.add(1)
             },

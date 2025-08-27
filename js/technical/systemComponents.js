@@ -177,6 +177,7 @@ var systemComponents = {
             <tr>
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab?"单页面":"双页面" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
 			</tr>
         </table>
 		`
@@ -247,6 +248,9 @@ var systemComponents = {
         	</audio>
 			<audio id="s1">
         		<source src="/song/sound1.wav" type="audio/wav">
+    		</audio>
+			<audio id="s2">
+        		<source src="/song/sound2.wav" type="audio/wav">
     		</audio>
     	</div>`
 	},

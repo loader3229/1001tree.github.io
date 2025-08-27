@@ -17,7 +17,8 @@ function getStartOptions() {
 		oldStyle: false,
 		forceTooltips: true,
 		hideMilestonePopups: false,
-		songshown: true
+		songshown: true,
+		sloganshown: true
 	}
 }
 

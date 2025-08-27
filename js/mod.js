@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "梦境树",
+	name: "一千零一树",
 	id: "1001tree",
 	author: "乾狐离光 userincre",
 	pointsName: "世界",
@@ -57,7 +57,7 @@ function addedPlayerData() {
 			keyseed: Date.now(),
 			dB: _D1,
 			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
-		},
+		}
 	}
 }
 
@@ -77,10 +77,12 @@ var displayNews = [
 
 // 在页面顶部显示额外内容
 var displayThings = [
-	`出bug请联系QQ1550187725<br>如果下面什么也没有,请先刷新页面
-	<span class="slogan">
-			EMBRACE the NIGHT!!!
-	</span>`
+	"出bug请联系QQ1550187725<br>如果下面什么也没有,请先刷新页面",
+	function () {
+		if (options.sloganshown) return `<span class="slogan">
+			${slogan}
+		</span>`
+	}
 ]
 
 // 决定游戏何时"结束"

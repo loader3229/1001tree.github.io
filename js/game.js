@@ -435,5 +435,9 @@ var interval = setInterval(function() {
 	updateNewsDisplay(diff)
 }, 16)
 
+var interval = setInterval(function() {
+	player.slogan.p = player.slogan.p.add(_DR())
+}, 1000)
+
 
 setInterval(function() {needCanvasUpdate = true}, 500)

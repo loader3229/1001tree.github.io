@@ -516,7 +516,7 @@ function getYFromOrderedPoints(points, x) {
 
 // 你知道的太多了
 // 避免重复定义开销
-const randomString_chars = `ABCDEFGHJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890?!;=+-/@#$%^&*~|"'()[]{},.          `;
+const randomString_chars = `ABCDEFGHJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890?!;=+-/@#$%^&*~|"'()[]{},.`;
 function randomString(length) {
 	let result = '';
 
@@ -539,10 +539,17 @@ function ifElseVirable(exp, a, b, vir, virName = "v") {
 	return eval(`((${virName}) => ${exp} ? ${a} : ${b} )(${vir})`);
 }
 
+function playersound(id) {
+	let audio = document.getElementById(id)
+	audio.currentTime = 0
+	audio.play()
+}
+
 // 新闻
 function getNewsList() {
 	return [
-		"欢迎来到梦境树,以下是本游戏的规则怪谈",
+		"欢迎来到一千零一树,以下是本游戏的规则怪谈",
+		' <img src="resources/bx.gif" width="40px"/>',
 		'有没有发现"饕餮"两个字最下面都是"良"字（良子）',
 		'双子塔跟比萨斜塔说"哥们,灵敏度发一下"',
 		"为什么黑人很少坐邮轮,因为他们知道吸取教训",
@@ -601,8 +608,44 @@ function getNewsList() {
 		"我做了一个梦.在梦里,雨水不停的落下,直到淹没一切.淅淅沥沥的雨声从未停止,水,虽然是柔软的东西,但它也能摧毁那些坚硬无比的石头.城市被埋藏在地底,人们祈求着天晴,但雨从未停止",
 		"解释笑点就像是解剖青蛙,你可以知道青蛙的内部构造,也会在以后见到类似的青蛙时有一个认识,但这只青蛙会死的透透的",
 		"好笑吗?我只看到一位快饿死的魅魔撕不开食品包装",
-		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?"
+		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
+		"1+1!=2"
 	]
+}
+
+function getSlogan() {
+	let s = [
+		"EMBRACE the NIGHT!!!",
+		"Also try the sleep tree",
+		"KiraKira☆DokiDoki",
+		"这里没有任意的标语",
+		"f(x)=x^x,g(x)=f(f(x))",
+		"Mindcraft : Dream Edit",
+		"this=1 this'=0 '=0",
+		"Freedown Dive↓↓↓↓↓",
+		"undefined",
+		"I feel it in my b*ood",
+		"Try to catch me there",
+		"哦哈啊啊啦咯嚓嚓吧喏啦",
+		"qwertyuiopasdfghjklzxcvbnm",
+		"There is O game here",
+		"Go to 127.0.0.1:5500",
+		"1<sup>2<sup>3<sup>4<sup>5<sup>6<sup>7<sup>8<sup>9</sup></sup></sup></sup></sup></sup></sup></sup>",
+		"I fucked 100 people!",
+		`<button onclick="playersound('s2')">1</button><button onclick="playersound('s2')">1</button><button onclick="playersound('s2')">4</button><button onclick="playersound('s2')">5</button><button onclick="playersound('s2')">1</button><button onclick="playersound('s2')">4</button>`,
+		"v1.797693134862e+308",
+		"[Object object]",
+		_DR(),
+		randomString(20),
+		"1001tree.github.io",
+		"гRεε匚③つ≒？",
+		"不敢睁开眼,希望是我的幻觉",
+		'<img src="resources/bx.gif" />',
+		"Nothing can beat your 1001tree",
+		()=>{ return ()=>false },
+	]
+
+	return s[Math.floor(Math.random() * s.length)]
 }
 
 // 在player中保存新闻文字会导致新闻无法被保存
@@ -616,6 +659,8 @@ var news = {
 	fadeStartTime: 0,
 	opacity: 1
 }
+
+var slogan = getSlogan()
 
 function updateNewsDisplay() {
 	const newsList = getNewsList();
