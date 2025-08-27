@@ -413,12 +413,6 @@ function gridRun(layer, func, data, id) {
 
 // # 自定义
 // 特殊数字简写
-const _D86400 = _D(86400);
-const _D3600 = _D(3600);
-const _D100 = _D(100);
-const _D60 = _D(60);
-const _D50 = _D(50);
-const _D30 = _D(30);
 const _D10 = _D(10);
 const _D9 = _D(9);
 const _D8 = _D(8);
@@ -437,7 +431,7 @@ function _D(num) {
 }
 
 function _DR() {
-	return _D(Math.random()) 
+	return _D(Math.random())
 }
 
 // 工具函数
@@ -712,30 +706,31 @@ function reinitializeNews() {
 	news.opacity = 1;
 }
 
+function decimalMax(...values) {
+	if (values.length === 0) {
+		return new Decimal(0);
+	}
+
+	let max = new Decimal(values[0]);
+
+	for (let i = 1; i < values.length; i++) {
+		const current = new Decimal(values[i]);
+		if (current.gt(max)) {
+			max = current;
+		}
+	}
+
+	return max;
+}
+
 function getGameName(id) {
 	let name = {
 		101: ["10p1sc", "时间墙堆砌,很无聊"],
-		102: ["概率统治世界", "尝试和作者勾心斗角"]
+		102: ["点击墙", "点击墙的点击墙"],
+		202: ["概率统治世界", "尝试和作者勾心斗角"]
 	}[id]
 
 	if (typeof name == 'undefined') name = ['未完成游戏', "这个游戏目前是棍木"]
 
 	return name
-}
-
-function decimalMax(...values) {
-    if (values.length === 0) {
-        return new Decimal(0);
-    }
-    
-    let max = new Decimal(values[0]);
-    
-    for (let i = 1; i < values.length; i++) {
-        const current = new Decimal(values[i]);
-        if (current.gt(max)) {
-            max = current;
-        }
-    }
-    
-    return max;
 }

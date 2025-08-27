@@ -1,9 +1,9 @@
 let modInfo = {
 	name: "梦境树",
 	id: "1001tree",
-	author: "乾狐离光",
+	author: "乾狐离光 userincre",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js"],
+	modFiles: ["layers.js", "tree.js", "world/101.js", "world/202.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -51,13 +51,13 @@ function addedPlayerData() {
 			asc4: _D0,
 			asc5: _D0,
 		},
-		_102: {
+		_202: {
 			t: _D0,
 			tickt: _D0,
 			keyseed: Date.now(),
 			dB: _D1,
 			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
-		}
+		},
 	}
 }
 
@@ -70,13 +70,17 @@ var displayNews = [
 		margin: 5px auto;
 		border: solid 3px rgba(0,0,0,0.5);
 		min-height:24px;
-		"><span style="opacity: ${news.opacity};">${news.text}</span></div>`;
+		"><span style="opacity: ${news.opacity};">${news.text}</span></div>
+		`;
 	}
 ];
 
 // 在页面顶部显示额外内容
 var displayThings = [
-	"作者QQ 1550187725 欢迎反馈bug!<br>如果下面什么也没有,请先刷新页面"
+	`出bug请联系QQ1550187725<br>如果下面什么也没有,请先刷新页面
+	<span class="slogan">
+			EMBRACE the NIGHT!!!
+	</span>`
 ]
 
 // 决定游戏何时"结束"

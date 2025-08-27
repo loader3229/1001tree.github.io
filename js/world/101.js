@@ -19,15 +19,15 @@ addLayer("101", {
         }
 
         player._101.asc1 = player._101.asc1
-            .add(getEffect(this.layer, 41, 0).mul(diff))
+            .add(getEffect(this.layer, 41, _D0).mul(diff))
         player._101.asc2 = player._101.asc2
-            .add(getEffect(this.layer, 42, 0).mul(diff))
+            .add(getEffect(this.layer, 42, _D0).mul(diff))
         player._101.asc3 = player._101.asc3
-            .add(getEffect(this.layer, 43, 0).mul(diff))
+            .add(getEffect(this.layer, 43, _D0).mul(diff))
         player._101.asc4 = player._101.asc4
-            .add(getEffect(this.layer, 44, 0).mul(diff))
+            .add(getEffect(this.layer, 44, _D0).mul(diff))
         player._101.asc5 = player._101.asc5
-            .add(getEffect(this.layer, 45, 0).mul(diff))
+            .add(getEffect(this.layer, 45, _D0).mul(diff))
     },
     startData() {
         return {
@@ -44,11 +44,11 @@ addLayer("101", {
                 (hasUpgrade(this.layer, 13) ?
                     (hasUpgrade(this.layer, 14) ?
                         (hasUpgrade(this.layer, 15) ?
-                            getEffect(this.layer, 15, 1) :
-                            getEffect(this.layer, 14, 1))
-                        : getEffect(this.layer, 13, 1))
-                    : getEffect(this.layer, 12, 1))
-                : getEffect(this.layer, 11, 1))
+                            getEffect(this.layer, 15, _D0) :
+                            getEffect(this.layer, 14, _D0))
+                        : getEffect(this.layer, 13, _D0))
+                    : getEffect(this.layer, 12, _D0))
+                : getEffect(this.layer, 11, _D0))
             : _D0)
             .mul(getEffect(this.layer, 21, 1))
             .mul(getEffect(this.layer, 22, 1))
@@ -72,11 +72,11 @@ addLayer("101", {
                 (hasUpgrade(this.layer, 33) ?
                     (hasUpgrade(this.layer, 34) ?
                         (hasUpgrade(this.layer, 35) ?
-                            getEffect(this.layer, 35, 1) :
-                            getEffect(this.layer, 34, 1))
-                        : getEffect(this.layer, 33, 1))
-                    : getEffect(this.layer, 32, 1))
-                : getEffect(this.layer, 31, 1))
+                            getEffect(this.layer, 35, _D1) :
+                            getEffect(this.layer, 34, _D1))
+                        : getEffect(this.layer, 33, _D1))
+                    : getEffect(this.layer, 32, _D1))
+                : getEffect(this.layer, 31, _D1))
             : _D1)
     },
     C1() {

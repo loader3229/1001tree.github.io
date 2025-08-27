@@ -310,3 +310,24 @@
 .pn {
 	font-size: 1.4em;
 }
+
+.slogan {
+	font-size: 1.5em;
+	position: absolute;
+	right: 80px;
+	bottom: -20px;
+	color: #FFFF55;
+	animation: slogan1 1.5s infinite;
+	animation-timing-function: ease-in-out;
+	animation-direction: alternate;
+}
+
+@keyframes slogan1 {
+	0% {
+		transform: scale(1) rotate(-14deg) translateY(0);
+	}
+
+	100% {
+		transform: scale(1.15) rotate(-12deg) translateY(-5px);
+	}
+}
