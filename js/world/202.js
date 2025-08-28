@@ -2,7 +2,7 @@ addLayer("202", {
     name: getGameName(this.layer),
     symbol: "⏳️",
     resource: "点数",
-    row: 1,
+    row: 2,
     position: 2,
     color: "hsl(0,50%,50%)",
     update(diff) {
