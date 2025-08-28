@@ -25,7 +25,7 @@ let changelog = `
 let winText = ``
 
 // 如果在Layer内添加了新函数，并且这些函数在被调用时会产生效果，请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect']
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset']
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -58,6 +58,7 @@ function addedPlayerData() {
 			maxpoints: _D0,
 			mode: 1,
 			divclick: _D0,
+			subclick: _D0,
 		},
 		_202: {
 			t: _D0,
