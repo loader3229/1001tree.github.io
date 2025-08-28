@@ -248,15 +248,15 @@ addLayer("202", {
                     ">
                     <span class="p1">${format(player._202.mul[0])} </span>×
                     <span class="p2">${format(player._202.mul[1])} </span>×
-                    <span class="p3">${format(player._202.mul[2])} </span>×
+                    <span class="p3">${format(player._202.mul[2])} </span>×<br>
                     <span class="p4">${format(player._202.mul[3])} </span>×
                     <span class="p5">${format(player._202.mul[4])} </span>×
-                    <span class="p6">${format(player._202.mul[5])} </span>×
+                    <span class="p6">${format(player._202.mul[5])} </span>×<br>
                     <span class="p7">${format(player._202.mul[6])} </span>×
                     <span class="p8">${format(player._202.mul[7])} </span>×
-                    <span class="p9">${format(player._202.mul[8])} </span>
+                    <span class="p9">${format(player._202.mul[8])} </span>=
                     <br>
-                    <span class="pn">ΠM = <span class="pt">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> → <span style="color: var(--points)">${format(layers[this.layer].getMulGetPoint())}</span></span>
+                    <span class="pn">ΔP = <span class="pt">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> → <span style="color: var(--points)">${format(layers[this.layer].getMulGetPoint())}</span></span>
                     </div>`
                 }],
                 "blank",
@@ -476,11 +476,11 @@ addLayer("202", {
             let b
             if (id == 101) b = "hsl(0,80%,30%)"
             else if (id == 102) b = "hsl(40,80%,30%)"
-            else if (id == 103) b = "hsl(80,80%,30%)"
-            else if (id == 201) b = "hsl(120,80%,30%)"
-            else if (id == 202) b = "hsl(160,80%,30%)"
+            else if (id == 103) b = "hsl(70,80%,30%)"
+            else if (id == 201) b = "hsl(140,80%,30%)"
+            else if (id == 202) b = "hsl(170,80%,30%)"
             else if (id == 203) b = "hsl(200,80%,30%)"
-            else if (id == 301) b = "hsl(240,80%,30%)"
+            else if (id == 301) b = "hsl(250,80%,30%)"
             else if (id == 302) b = "hsl(280,80%,30%)"
             else if (id == 303) b = "hsl(0,0%,30%)"
 

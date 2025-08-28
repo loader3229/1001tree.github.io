@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "一千零一树",
 	id: "1001tree",
-	author: "乾狐离光 userincre",
+	author: "乾狐离光 userincre banana3864",
 	pointsName: "世界",
 	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js"],
 
@@ -13,14 +13,16 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.08,
+	num: 0.12,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.08 | 2025/8/27</h3><br>
-	更新了2个游戏<br><br>`
+	<h3>v0.12 | 2025/8/29</h3><br>
+	更新了3个游戏<br><br>
+	<h3>游戏立项 | 2025/8/28</h3><br>
+	1001tree team 成立!<br><br>`
 
 let winText = ``
 

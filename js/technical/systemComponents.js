@@ -141,6 +141,8 @@ var systemComponents = {
         The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda and FlamemasterNXF
         <br>
         The Prestige Tree made by Jacorb and Aarex
+		<br>
+		游戏的默认字体为<a v-bind:href="'https://hyperos.mi.com/font/zh/'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >"Microsoft YaHei"</a>
 		<br><br>
 		<div class="link" onclick="showTab('changelog-tab')">更新日志</div><br>
         <span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
@@ -160,22 +162,21 @@ var systemComponents = {
                 <td><button class="opt" onclick="save()">保存</button></td>
                 <td><button class="opt" onclick="toggleOpt('autosave')">自动保存<br>{{ formatOption('autosave') }}</button></td>
                 <td><button class="opt" onclick="hardReset()">硬重置</button></td>
-                <td><button class="opt" onclick="toggleOpt('offlineProd');">离线进度<br>{{ formatOption('offlineProd') }}</button></td>
-            </tr>
-            <tr>
                 <td><button class="opt" onclick="exportSave()">导出存档<br/>到剪贴板</button></td>
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
-                <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
+            </tr>
+            <tr>
             </tr>
             <tr>
                 <td><button class="opt" onclick="switchTheme()">主题<br>{{ getThemeName() }}</button></td>
                 <td><button class="opt" onclick="adjustFont()">字体<br>{{ FONT_DISPLAYS[FONT_SETTINGS.indexOf(options.font)] }}</button></td>
                 <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "单页面" : "优先双页面 窄屏单页面" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
             </tr>
             <tr>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab?"单页面":"双页面" }}</button></td>
+                <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
 			</tr>
@@ -251,6 +252,9 @@ var systemComponents = {
     		</audio>
 			<audio id="s2">
         		<source src="/song/sound2.wav" type="audio/wav">
+    		</audio>
+			<audio id="g1">
+        		<source src="/song/song1.mp3" type="audio/mpeg">
     		</audio>
     	</div>`
 	},

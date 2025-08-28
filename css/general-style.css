@@ -28,6 +28,16 @@
 	unicode-range: U+0000-007F;
 }
 
+@font-face {
+	font-family: MiSans;
+	src: url('../font/MiSans.ttf');
+}
+
+@font-face {
+	font-family: DJGSHT;
+	src: url('../font/等距更纱黑体.ttf');
+}
+
 /* Global things */
 body {
 	color: var(--color);
@@ -46,7 +56,7 @@ h3,
 b,
 input {
 	display: inline;
-	font-family: var(--Font, "Microsoft YaHei"), "Microsoft YaHei";
+	font-family: var(--Font), "Microsoft YaHei";
 }
 
 /* These are styles for different states of components. You can make layer-specific versions with .c.locked, for example */

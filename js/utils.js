@@ -550,6 +550,7 @@ function getNewsList() {
 	return [
 		"欢迎来到一千零一树,以下是本游戏的规则怪谈",
 		' <img src="resources/bx.gif" width="40px"/>',
+		' <img src="resources/ksm.gif" width="60px"/>',
 		'有没有发现"饕餮"两个字最下面都是"良"字（良子）',
 		'双子塔跟比萨斜塔说"哥们,灵敏度发一下"',
 		"为什么黑人很少坐邮轮,因为他们知道吸取教训",
@@ -609,12 +610,14 @@ function getNewsList() {
 		"解释笑点就像是解剖青蛙,你可以知道青蛙的内部构造,也会在以后见到类似的青蛙时有一个认识,但这只青蛙会死的透透的",
 		"好笑吗?我只看到一位快饿死的魅魔撕不开食品包装",
 		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
-		"1+1!=2"
+		"1+1!=2",
 	]
 }
 
 function getSlogan() {
 	let s = [
+		"150 bpm for 400000 minutes!",
+		"<span class='p1'>我</span><span class='p2'>要</span><span class='p3'>玩</span><span class='p4'>一</span><span class='p5'>千</span><span class='p6'>零</span><span class='p7'>一</span><span class='p8'>树</span><span class='p9'>就现在</span>",
 		"EMBRACE the NIGHT!!!",
 		"Also try the sleep tree",
 		"KiraKira☆DokiDoki",
@@ -641,8 +644,9 @@ function getSlogan() {
 		"гRεε匚③つ≒？",
 		"不敢睁开眼,希望是我的幻觉",
 		'<img src="resources/bx.gif" />',
-		"Nothing can beat your 1001tree",
+		`<button onclick="playersound('g1')">Nothing can beat your 1001tree</button>`,
 		()=>{ return ()=>false },
+		"你看到这句话的频率不再为0!",
 	]
 
 	return s[Math.floor(Math.random() * s.length)]

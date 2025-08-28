@@ -82,7 +82,7 @@ a {
 	font-size: 20px;
 	color: var(--points);
 	cursor: pointer;
-	font-family: var(--Font, "Microsoft YaHei"), "Microsoft YaHei";
+	font-family: var(--Font), "Microsoft YaHei";
 	text-decoration: none;
 }
 
