@@ -338,3 +338,8 @@
 	color: #a0a0a0;
 	text-shadow: 0 0 15px #a0a0a0;
 }
+
+.cpt {
+	color: var(--color);
+	text-shadow: 0 0 15px var(--color);
+}

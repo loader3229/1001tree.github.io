@@ -64,7 +64,7 @@ addLayer("202", {
                             let id = i * 100 + j
                             let d = getGridData(this.layer, id)
                             while (player[this.layer].points.gte(layers[this.layer].grid.getPrice(d, id))) {
-                                player[this.layer].points = player[this.layer].points.sub(layers[this.layer].grid.getPrice(d, id))
+                                if (!hasUpgrade(this.layer, 3114)) player[this.layer].points = player[this.layer].points.sub(layers[this.layer].grid.getPrice(d, id))
                                 setGridData(this.layer, id, d.add(1))
                                 d = d.add(1)
                             }
@@ -256,13 +256,27 @@ addLayer("202", {
                     <span class="p8">${format(player._202.mul[7])} </span>×
                     <span class="p9">${format(player._202.mul[8])} </span>=
                     <br>
-                    <span class="pn">ΔP = <span class="pt">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> → <span style="color: var(--points)">${format(layers[this.layer].getMulGetPoint())}</span></span>
+                    <span class="pn">ΔP ← <span class="p1">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> × <span class="p1">${format(layers[this.layer].getMulMulti())}</span> (<span class="p1">${formatWhole(divNum(layers[this.layer].getTickTime()))}</span>tps)
+                    <br>
+                    ΔP = <span class="p8">${format(layers[this.layer].getMulGetPoint())}</span>
+                    P = <span class="cpt">${format(player[this.layer].points)}</span>
+                    </span>
                     </div>`
                 }],
                 "blank",
                 ["clickable", 14],
                 "grid",
-                ["upgrades", [311, 312, 313, 314]],
+                ["upgrades", [312, 313, 314, 315, 311]],
+                ["display-text", function () {
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                }],
+                ["display-text", function () {
+                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                }],
+                ["display-text", function () {
+                    return `+${formatSmall(layers[this.layer].getPoint())}/刻`
+                }],
+                "main-display",
                 "blank",
                 ["challenge", 31],
             ],
@@ -297,7 +311,7 @@ addLayer("202", {
         c4: {
             content: [
                 ["display-text", function () {
-                    return `密码是 <h1 style="color: var(--points)">${player[this.layer].points.toString()}</h1> 吗?`
+                    return `密码是 <h1 class="cpt">${player[this.layer].points.toString()}</h1> 吗?`
                 }],
                 ["display-text", function () {
                     return `+${layers[this.layer].getPoint().toString()}/刻`
@@ -343,12 +357,13 @@ addLayer("202", {
             .add(getEffect(this.layer, 12233, 0))
             .mul(player[this.layer].points == layers[this.layer].challenges[122].target ? 0 : 1)
 
-        if (ic == 121) return p
+        //31挑战的升级效果不在此计算
+        if (ic == 121 || ic == 31) return p
 
         p = p
             .mul(getEffect(this.layer, 11, 1))
 
-        if (ic == 111 | ic == 112) return p
+        if (ic == 111 || ic == 112) return p
 
         p = p
             .mul(getEffect(this.layer, 13, 1))
@@ -383,6 +398,18 @@ addLayer("202", {
         }
         return p
     },
+    getMulMulti() {
+        return decimalMax(
+            getEffect(this.layer, 3151, 1),
+            getEffect(this.layer, 3152, 1),
+            getEffect(this.layer, 3153, 1),
+            getEffect(this.layer, 3154, 1),
+            getEffect(this.layer, 3155, 1),
+            getEffect(this.layer, 3156, 1),
+        )
+            .mul(getEffect(this.layer, 11, 1))
+            .mul(getEffect(this.layer, 13, 1))
+    },
     getMulPower() {
         return decimalMax(
             getEffect(this.layer, 3121, 1),
@@ -391,10 +418,10 @@ addLayer("202", {
             getEffect(this.layer, 3124, 1),
             getEffect(this.layer, 3125, 1),
             getEffect(this.layer, 3126, 1),
-        )
+        ).pow(getEffect(this.layer, 3116, 1))
     },
     getMulGetPoint() {
-        return this.getMulPoint().pow(this.getMulPower())
+        return this.getMulPoint().pow(this.getMulPower()).mul(this.getMulMulti())
     },
     getChallenge() {
         for (i in layers[this.layer].challenges) {
@@ -438,15 +465,15 @@ addLayer("202", {
         getPrice(data, id) {
             let l = _D(this.getLayer(id))
 
-            let p = l.add(1).div(30).add(1.1)
+            let p = l.add(1).div(20).add(1.1)
             let d = pow10(pow2(l))
 
-            return d.mul(p.pow(data.pow(1.01)))
+            return d.mul(p.pow(data.pow(1.03)))
         },
         getEffect(data, id) {
             let l = _D(this.getLayer(id))
 
-            let d = _D3.pow(l).div(200)
+            let d = _D4.pow(l).div(200)
 
             return d.mul(data).pow(
                 decimalMax(
@@ -463,12 +490,12 @@ addLayer("202", {
             if (hasUpgrade(this.layer, 3111)) {
                 let d = data
                 while (player[this.layer].points.gte(this.getPrice(d, id))) {
-                    player[this.layer].points = player[this.layer].points.sub(this.getPrice(d, id))
+                    if (!hasUpgrade(this.layer, 3114)) player[this.layer].points = player[this.layer].points.sub(this.getPrice(d, id))
                     setGridData(this.layer, id, d.add(1))
                     d = d.add(1)
                 }
             } else {
-                player[this.layer].points = player[this.layer].points.sub(this.getPrice(data, id))
+                if (!hasUpgrade(this.layer, 3114)) player[this.layer].points = player[this.layer].points.sub(this.getPrice(data, id))
                 setGridData(this.layer, id, data.add(1))
             }
         },
@@ -734,41 +761,47 @@ addLayer("202", {
         3111: {
             title: "QoL 1",
             description: "购买方块时购买最大方块数",
-            /* 
-            effect() {
-
-            },
-            effectDisplay() {
-                return `${format(this.effect())}`
-            }, */
-            cost: pow10(6),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            cost: pow10(5),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3112: {
             title: "QoL 2",
             description: "解锁批量最大购买按钮(优先购买高级方块)",
-            /* 
-            effect() {
-
-            },
-            effectDisplay() {
-                return `${format(this.effect())}`
-            }, */
-            cost: pow10(24),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            cost: pow10(15),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3113: {
             title: "QoL 3",
             description: "自动购买方块",
-            /* 
+            cost: pow10(50),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3114: {
+            title: "QoL 4",
+            description: "购买方块免费",
+            cost: pow10(150),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3115: {
+            title: "FlY 1",
+            description: "[核反应堆]效果受指数影响",
+            cost: pow10(1600),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3116: {
+            title: "BooM",
+            description: "指数^1.1",
             effect() {
-
+                return _D(1.1)
             },
-            effectDisplay() {
-                return `${format(this.effect())}`
-            }, */
-            cost: pow10(120),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            cost: pow10(3000),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3121: {
             title: "微小的进度",
@@ -780,7 +813,8 @@ addLayer("202", {
                 return `${format(this.effect())}`
             },
             cost: pow10(10),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3122: {
             title: "渺小的进度",
@@ -792,7 +826,8 @@ addLayer("202", {
                 return `${format(this.effect())}`
             },
             cost: pow10(20),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3123: {
             title: "弱小的进度",
@@ -804,7 +839,8 @@ addLayer("202", {
                 return `${format(this.effect())}`
             },
             cost: pow10(40),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3124: {
             title: "小的进度",
@@ -816,7 +852,8 @@ addLayer("202", {
                 return `${format(this.effect())}`
             },
             cost: pow10(80),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3125: {
             title: "普通的进度",
@@ -828,19 +865,21 @@ addLayer("202", {
                 return `${format(this.effect())}`
             },
             cost: pow10(160),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3126: {
             title: "大的进度",
             description: "指数大地提升",
             effect() {
-                return layers[this.layer].getMulPoint().pow(0.2).log(1000).add(1)
+                return layers[this.layer].getMulPoint().pow(0.25).log(1000).add(1)
             },
             effectDisplay() {
                 return `${format(this.effect())}`
             },
             cost: pow10(320),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3131: {
             title: "缓慢的速度",
@@ -849,7 +888,8 @@ addLayer("202", {
                 return _D2
             },
             cost: pow10(6),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3132: {
             title: "较慢的速度",
@@ -858,7 +898,8 @@ addLayer("202", {
                 return _D3
             },
             cost: pow10(16),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3133: {
             title: "慢的速度",
@@ -867,7 +908,8 @@ addLayer("202", {
                 return _D5
             },
             cost: pow10(36),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3134: {
             title: "普通的速度",
@@ -876,7 +918,8 @@ addLayer("202", {
                 return _D10
             },
             cost: pow10(56),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3135: {
             title: "可观的速度",
@@ -885,7 +928,8 @@ addLayer("202", {
                 return _D(15)
             },
             cost: pow10(136),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3136: {
             title: "最快的速度",
@@ -894,11 +938,12 @@ addLayer("202", {
                 return _D(20)
             },
             cost: pow10(216),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3141: {
             title: "一个人的进步",
-            description: "乘数获取被一个人提升",
+            description: "乘数获取被人提升",
             effect() {
                 return _D(1.1)
             },
@@ -906,11 +951,12 @@ addLayer("202", {
                 return `^${format(this.effect())}`
             },
             cost: pow10(14),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3142: {
             title: "一个团队的进步",
-            description: "乘数获取被一个团队提升",
+            description: "乘数获取被团队提升",
             effect() {
                 return _D(1.3)
             },
@@ -918,11 +964,12 @@ addLayer("202", {
                 return `^${format(this.effect())}`
             },
             cost: pow10(24),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3143: {
             title: "一个国家的进步",
-            description: "乘数获取被一个国家提升",
+            description: "乘数获取被国家提升",
             effect() {
                 return _D(1.5)
             },
@@ -930,11 +977,12 @@ addLayer("202", {
                 return `^${format(this.effect())}`
             },
             cost: pow10(44),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3144: {
             title: "一个联盟的进步",
-            description: "乘数获取被一个联盟提升",
+            description: "乘数获取被联盟提升",
             effect() {
                 return _D(1.7)
             },
@@ -942,11 +990,12 @@ addLayer("202", {
                 return `^${format(this.effect())}`
             },
             cost: pow10(84),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3145: {
             title: "一个时代的进步",
-            description: "乘数获取被一个时代提升",
+            description: "乘数获取被时代提升",
             effect() {
                 return _D(1.9)
             },
@@ -954,19 +1003,121 @@ addLayer("202", {
                 return `^${format(this.effect())}`
             },
             cost: pow10(144),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         3146: {
             title: "一个宇宙的进步",
-            description: "乘数获取被一个宇宙提升",
+            description: "乘数获取被宇宙提升",
             effect() {
-                return _D(2)
+                return decimalMax(
+                    getEffect(this.layer, 3121, _D1),
+                    getEffect(this.layer, 3122, _D1),
+                    getEffect(this.layer, 3123, _D1),
+                    getEffect(this.layer, 3124, _D1),
+                    getEffect(this.layer, 3125, _D1),
+                    getEffect(this.layer, 3126, _D1),
+                ).pow(0.425)
             },
             effectDisplay() {
                 return `^${format(this.effect())}`
             },
             cost: pow10(184),
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3151: {
+            title: "电子",
+            description: "点数获取提升",
+            effect() {
+                return _D(2)
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(8),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3152: {
+            title: "电流",
+            description: "点数获取提升蛮多",
+            effect() {
+                return _D(5)
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(18),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3153: {
+            title: "电池",
+            description: "点数获取提升更多",
+            effect() {
+                return _D(20)
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(38),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3154: {
+            title: "电池组",
+            description: "点数获取提升再多",
+            effect() {
+                return _D(500)
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(58),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3155: {
+            title: "发电机",
+            description: "点数获取提升真多",
+            effect() {
+                return _D(40000)
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(98),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
+        },
+        3156: {
+            title: "核反应堆",
+            description: "点数获取基于点数提升",
+            effect() {
+                let p = decimalMax(
+                    getEffect(this.layer, 3121, _D1),
+                    getEffect(this.layer, 3122, _D1),
+                    getEffect(this.layer, 3123, _D1),
+                    getEffect(this.layer, 3124, _D1),
+                    getEffect(this.layer, 3125, _D1),
+                    getEffect(this.layer, 3126, _D1),
+                )
+
+                let m = layers[this.layer].getMulGetPoint().add(1).log(
+                    _D1.add(_D10.div(p))
+                ).add(1).pow(p)
+
+                if (hasUpgrade(this.layer, 3115)) m = m.pow(layers[this.layer].getMulPower())
+
+                return m
+            },
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            cost: pow10(168),
+            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
+            style: { minHeight: "90px" }
         },
         12111: {
             fullDisplay() {
@@ -1196,7 +1347,7 @@ addLayer("202", {
         31: {
             name: "一般的增量游戏体验",
             challengeDescription: "每秒有1概率获得1点数",
-            goalDescription: "1.79e308 点数",
+            goalDescription() { return `${format(_DInf)} 点数` },
             canComplete() {
                 return player[this.layer].points.gte(_DInf)
             },
@@ -1350,7 +1501,7 @@ addLayer("202", {
                         let id = i * 100 + j
                         let d = getGridData(this.layer, id)
                         while (player[this.layer].points.gte(layers[this.layer].grid.getPrice(d, id))) {
-                            player[this.layer].points = player[this.layer].points.sub(layers[this.layer].grid.getPrice(d, id))
+                            if (!hasUpgrade(this.layer, 3114)) player[this.layer].points = player[this.layer].points.sub(layers[this.layer].grid.getPrice(d, id))
                             setGridData(this.layer, id, d.add(1))
                             d = d.add(1)
                         }
