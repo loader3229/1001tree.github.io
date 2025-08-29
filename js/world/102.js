@@ -70,7 +70,7 @@ addLayer("102", {
         if (hasMilestone("102", 1)) spow = spow.mul(layers[this.layer].m2effect())
         if (inChallenge("102", 11)) spow = spow.mul(4)
         if (hasChallenge("102", 22)) spow = spow.mul(Decimal.pow(1.1, getBuyableAmount("102",13)))
-        if (hasChallenge("102"), 12) spow = spow.mul(layers[this.layer].divpower().pow(2.5))
+        if (hasChallenge("102", 12)) spow = spow.mul(layers[this.layer].divpower().pow(2.5))
         if (hasMilestone("102", 4)) spow = spow.pow(1.2)
         if (inChallenge("102", 11)) spow = spow.mul(Decimal.pow(0.97, player._102.subclick.max(0)))
         if (inChallenge("102", 21)) spow = spow.pow(0.8)
