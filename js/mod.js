@@ -59,8 +59,11 @@ function addedPlayerData() {
 			wallbreak: _D0,
 			maxpoints: _D0,
 			mode: 1,
+			trig: false,
+			trig2: false,
 			divclick: _D0,
 			subclick: _D0,
+			timeplayed: _D0,
 		},
 		_202: {
 			t: _D0,
