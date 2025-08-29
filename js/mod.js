@@ -3,7 +3,7 @@ let modInfo = {
 	id: "1001tree",
 	author: "乾狐离光 userincre banana3864",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js"],
+	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -13,21 +13,21 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.12,
+	num: 0.16,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.12 | 2025/8/29</h3><br>
-	更新了3个游戏<br><br>
+	<h3>v0.16 | 2025/8/29</h3><br>
+	更新了4个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
 let winText = ``
 
 // 如果在Layer内添加了新函数，并且这些函数在被调用时会产生效果，请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset']
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset','checkHash','nextHash']
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -54,6 +54,22 @@ function addedPlayerData() {
 			asc5: _D0,
 		},
 		_102: {
+			tickt: _D0,
+			now: 0,
+			rnd: Math.random(),
+			level: 0,
+			cold: _D0,
+			salt: Date.now(),
+			pause: false
+		},
+		_202: {
+			t: _D0,
+			tickt: _D0,
+			keyseed: Date.now(),
+			dB: _D1,
+			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
+		},
+		_203: {
 			hp: _D10,
 			maxhp: _D10,
 			wallbreak: _D0,
@@ -64,14 +80,8 @@ function addedPlayerData() {
 			divclick: _D0,
 			subclick: _D0,
 			timeplayed: _D0,
+			click: _D0,
 		},
-		_202: {
-			t: _D0,
-			tickt: _D0,
-			keyseed: Date.now(),
-			dB: _D1,
-			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
-		}
 	}
 }
 

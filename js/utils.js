@@ -25,8 +25,6 @@ function canBuyBuyable(layer, id) {
 	return (b.unlocked && run(b.canAfford, b) && player[layer].buyables[id].lt(b.purchaseLimit) && !tmp[layer].deactivated)
 }
 
-
-
 function canAffordPurchase(layer, thing, cost) {
 	if (thing.currencyInternalName) {
 		let name = thing.currencyInternalName
@@ -460,6 +458,14 @@ function getChallengeEffect(layer, id, def) {
 	return hasChallenge(layer, id) ? challengeEffect(layer, id) : def
 }
 
+function getMilestoneEffect(layer, id, def) {
+	return hasMilestone(layer, id) ? layers[layer].milestones[id].effect() : def
+}
+
+function s256(text) {
+	return CryptoJS.SHA256(text).toString().toUpperCase()
+}
+
 // 核心函数 - 自定义事件驱动
 function myTicking(diff) {
 	if (diff < 0) return;
@@ -567,13 +573,13 @@ function getNewsList() {
 		"对立很有名气,当年光一个人砍她二十多刀都没叫一声的狠人,后面一问才知道第一刀砍到声带了",
 		"小学一年级,老师让我们把0到9分成两组,别人都是02468,13579.只有我是23468,01579.因为23468能组成绿一色",
 		"天哪这简直就是我",
-		"一个孕妇挺着大肚子下楼梯,楼梯边一个鬼躲着准备吓她,突然一只手把鬼拖走暴打了一顿,边打边骂：你把我妈吓流产了,老子怎么投胎?",
+		"一个孕妇挺着大肚子下楼梯,楼梯边一个鬼躲着准备吓她,突然一只手把鬼拖走暴打了一顿,边打边骂:你把我妈吓流产了,老子怎么投胎?",
 		"我要对你倒苦水——死库水!",
 		"带假鸡巴去教室被老师赶出来了,委屈的想哭,明明那么多人带真鸡巴进教室也没人管",
 		"Qxe1+ Rxe1 Rxe1+ Rxe1 Rxe1#",
 		"你知道吗,蟹膏是螃蟹的精液! 是吗我一直很喜欢吃. 真的,对了你要来我家吃蟹膏吗? 你买螃蟹了吗? 我是巨蟹座.",
 		"我操.这人怎么看了我一眼?",
-		"突击检查：上一条新闻是什么?",
+		"突击检查:上一条新闻是什么?",
 		"怎么感觉感觉到这么多感觉,就像感觉到了感觉一样很多感觉,感觉挺感觉的,就是感觉感觉有点感觉",
 		"我曾有个和我母亲同名的女朋友,我们在爱爱的时候我不允许我叫她的名字,因为会让我想起我的女朋友",
 		"今天是民国114年5月1日星期4,而且还有19分钟就是19:19:08.10,一生只能转一次",
@@ -581,7 +587,7 @@ function getNewsList() {
 		"路易十六不喜欢高斯,因为高斯的兄弟高德总叫他掉头",
 		"太好了,是QQ聊天记录,这下不得不信了",
 		"别人对你说滚的时候怎么办?就像下棋一样,你要应招,对方对你走了滚这步棋,你就走母,你发一个母,这样对方的攻击全部化为泡影.你赢了",
-		"我们都知道,赛马,是马赢.那马术与赛马的区别是什么?答案：马术就是马加骑手赢",
+		"我们都知道,赛马,是马赢.那马术与赛马的区别是什么?答案:马术就是马加骑手赢",
 		"胃酸是硫酸还是硝酸? 盐酸. 怎么可能是盐酸?盐酸在我肚子里我不得咸死了吗? 你胃有味觉吗? 都胃觉了,胃怎么可能没有胃觉?",
 		"蚁酸是甲酸,但是乙酸居然是醋酸,这不神奇吗?",
 		"我发现一件事,女孩子小时候喜欢玩娃娃,男孩子喜欢玩电动玩具,然而长大后女孩子喜欢用电动玩具,男孩子喜欢用娃娃,这大概就是成长吧",
@@ -589,7 +595,7 @@ function getNewsList() {
 		"我昨天让你删除的文件你怎么删了???",
 		"为什么地球online能开麦不让聊天框,挠馋游戏!还不给退款. 有的,拼多多可以仅退款.",
 		"当时有一男一女两个老玩家直接就把游戏塞我手上了,我都没说要玩,结果游戏退不出来了,只能玩了",
-		'媒体："疫情使俄罗斯倒退了四十年" 普京："还有这好事"',
+		'媒体:"疫情使俄罗斯倒退了四十年" 普京:"还有这好事"',
 		"孩子们,你们其实不用羡慕上海沪爷,因为在你出生之前你是京爷",
 		"这个机器人是真人吗",
 		"我的肉体是我祖传基因的,我的思想是网上各种梗组成的,我还在努力工作孕育AI,请问我是谁?",
@@ -611,11 +617,19 @@ function getNewsList() {
 		"好笑吗?我只看到一位快饿死的魅魔撕不开食品包装",
 		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
 		"1+1!=2",
+		"专家最新发现:男人有格调",
 	]
 }
 
 function getSlogan() {
 	let s = [
+		`This is a <span style="background: linear-gradient(in hsl longer hue 90deg,
+			hsl(-30, 100%, 50%),
+			hsl(330, 100%, 50%));
+			color: transparent;
+			background-clip: text;
+			-webkit-background-clip: text;
+			">RAINBOW</span>`,
 		"150 bpm for 400000 minutes!",
 		"<span class='p1'>我</span><span class='p2'>要</span><span class='p3'>玩</span><span class='p4'>一</span><span class='p5'>千</span><span class='p6'>零</span><span class='p7'>一</span><span class='p8'>树</span><span class='p9'>就现在</span>",
 		"EMBRACE the NIGHT!!!",
@@ -647,6 +661,8 @@ function getSlogan() {
 		`<button onclick="playersound('g1')">Nothing can beat your 1001tree</button>`,
 		()=>{ return ()=>false },
 		"你看到这句话的频率不再为0!",
+		"不要等失去才学会珍惜",
+		"We think you’re gonna like it here.",
 	]
 
 	return s[Math.floor(Math.random() * s.length)]
@@ -775,8 +791,9 @@ function decimalMax(...values) {
 function getGameName(id) {
 	let name = {
 		101: ["10p1sc", "时间墙堆砌,很无聊"],
-		102: ["点击墙", "点击墙的点击墙"],
-		202: ["概率统治世界", "尝试和作者勾心斗角"]
+		102: ["挖矿增量", "真的是挖矿,极速版"],
+		202: ["概率统治世界", "尝试和作者勾心斗角"],
+		203: ["点击墙", "点击墙的点击墙"],
 	}[id]
 
 	if (typeof name == 'undefined') name = ['未完成游戏', "这个游戏目前是棍木"]

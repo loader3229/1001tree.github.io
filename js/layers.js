@@ -10,7 +10,7 @@ addLayer("main", {
     startData() {
         return {
             unlocked: true,
-            points: _D1
+            points: _D2
         }
     },
     type: "none",
@@ -70,5 +70,33 @@ addLayer("main", {
     layerShown() { return true },
     hotkeys: [
     ],
-    branches: []
 });
+
+/*
+addLayer("", {
+    name: getGameName(this.layer),
+    symbol: "",
+    resource: "",
+    row: 1,
+    position: 1,
+    color: "#a0a0a0",
+    update(diff) {
+    },
+    startData() {
+        return {
+            unlocked: true,
+            points: _D0
+        }
+    },
+    type: "none",
+    tabFormat: [
+    ],
+    upgrades: {
+    },
+    milestones: {
+    },
+    layerShown() { return getGridData('main', this.layer) },
+    hotkeys: [
+    ],
+});
+*/

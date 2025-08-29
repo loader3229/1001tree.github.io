@@ -547,7 +547,7 @@ addLayer("101", {
         },
         55: {
             title: "终于结束了",
-            description: "抹除十重软上限效果和增益<br>梦力+1",
+            description: "抹除十重软上限效果和增益<br>完成世界 梦力+1",
             effect() {
                 return _D1
             },
@@ -565,5 +565,4 @@ addLayer("101", {
     layerShown() { return getGridData('main', this.layer) },
     hotkeys: [
     ],
-    branches: []
 });

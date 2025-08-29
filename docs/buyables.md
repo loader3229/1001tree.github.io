@@ -51,7 +51,7 @@ buyables: {
 
 - style: **可选**。以对象的格式，控制此 buyable 的 css。
         
-- purchaseLimit: **可选**。此 buyable 的上限，默认为无上限。
+-  **可选**。此 buyable 的上限，默认为无上限。
 
 - marked: **可选** 如果是 "true"，会在 buyable 的角落里出现一个星号，也可以是图片的 url。
 

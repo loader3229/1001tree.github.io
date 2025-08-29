@@ -131,7 +131,9 @@ addLayer("202", {
                     return `你来啦！我为你准备了一些工作,快来看看吧!`
                 }],
                 "blank",
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -149,7 +151,9 @@ addLayer("202", {
         },
         work: {
             content: [
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -169,7 +173,9 @@ addLayer("202", {
                     return `这里是一些更艰难的挑战,如果你想的话<br>你可以在完成它们之后获得一个额外的梦力(而不仅仅是回收你支付的梦力)!`
                 }],
                 "blank",
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -185,7 +191,9 @@ addLayer("202", {
         },
         w3: {
             content: [
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -206,7 +214,9 @@ addLayer("202", {
         },
         w4: {
             content: [
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -227,7 +237,9 @@ addLayer("202", {
         },
         w5: {
             content: [
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -239,7 +251,7 @@ addLayer("202", {
                 }],
                 "blank",
                 ["display-text", function () {
-                    return `<div style="
+                    if (inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12)) return `<div style="
                         min-width: 600px;
                         padding: 10px;
 	                    border-radius: 5px;
@@ -258,13 +270,13 @@ addLayer("202", {
                     <br>
                     <span class="pn">ΔP ← <span class="p1">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> × <span class="p1">${format(layers[this.layer].getMulMulti())}</span> (<span class="p1">${formatWhole(divNum(layers[this.layer].getTickTime()))}</span>tps)
                     <br>
-                    ΔP = <span class="p8">${format(layers[this.layer].getMulGetPoint())}</span>
-                    P = <span class="cpt">${format(player[this.layer].points)}</span>
+                    ΔP = <span class="p1">${format(layers[this.layer].getMulGetPoint())}</span>&ensp;&ensp;
+                    P = <span class="p1pt">${format(player[this.layer].points)}</span>
                     </span>
                     </div>`
                 }],
                 "blank",
-                ["clickable", 14],
+                ["clickable", 13],
                 "grid",
                 ["upgrades", [312, 313, 314, 315, 311]],
                 ["display-text", function () {
@@ -276,7 +288,9 @@ addLayer("202", {
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 "blank",
                 ["challenge", 31],
             ],
@@ -286,7 +300,9 @@ addLayer("202", {
         },
         c3: {
             content: [
-                "main-display",
+                ["display-text", function () {
+                    return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
+                }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
@@ -311,7 +327,7 @@ addLayer("202", {
         c4: {
             content: [
                 ["display-text", function () {
-                    return `密码是 <h1 class="cpt">${player[this.layer].points.toString()}</h1> 吗?`
+                    return `密码是 <h1 class="p1pt">${player[this.layer].points.toString()}</h1> 吗?`
                 }],
                 ["display-text", function () {
                     return `+${layers[this.layer].getPoint().toString()}/刻`
@@ -718,10 +734,10 @@ addLayer("202", {
                 <span>
                 效果: ${hasUpgrade(this.layer, 2231) ? `×${format(this.effect())}` : "?"}
 			    </span><br>
-                花费: 100,000,000点数`
+                花费: 10,000,000点数`
             },
             pay() {
-                player[this.layer].points = player[this.layer].points.sub(100000000)
+                player[this.layer].points = player[this.layer].points.sub(10000000)
             },
             effect() {
                 return _D0
@@ -736,10 +752,10 @@ addLayer("202", {
                 <span>
                 效果: ${hasUpgrade(this.layer, 2232) ? `=${format(this.effect())}` : "?"}
 			    </span><br>
-                花费: 1,000点数`
+                花费: 100,000,000点数`
             },
             pay() {
-                player[this.layer].points = player[this.layer].points.sub(1000)
+                player[this.layer].points = player[this.layer].points.sub(100000000)
             },
             effect() {
                 return _D1
@@ -750,11 +766,11 @@ addLayer("202", {
             fullDisplay() {
                 return `
 				<span><h3>${hasUpgrade(this.layer, 2233) ? "已读不回" : "最高指示"}</h3></span><br>
-				<span>${hasUpgrade(this.layer, 2233) ? "我们离婚吧" : "为了证明你的富有,请你支付我1000万点数,这不是请求,这是命令!"}</span><br><br>
-                花费: 10,000,000点数`
+				<span>${hasUpgrade(this.layer, 2233) ? "我们离婚吧" : "为了证明你的富有,请你支付我1000点数,这不是请求,这是命令!"}</span><br><br>
+                花费: 1,000点数`
             },
             pay() {
-                player[this.layer].points = player[this.layer].points.sub(10000000)
+                player[this.layer].points = player[this.layer].points.sub(1000)
             },
             unlocked() { return inChallenge(this.layer, 22) && hasUpgrade(this.layer, 12) }
         },
@@ -795,9 +811,9 @@ addLayer("202", {
         },
         3116: {
             title: "BooM",
-            description: "指数^1.1",
+            description: "指数^1.11",
             effect() {
-                return _D(1.1)
+                return _D(1.11)
             },
             cost: pow10(3000),
             unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) },
@@ -1351,7 +1367,7 @@ addLayer("202", {
             canComplete() {
                 return player[this.layer].points.gte(_DInf)
             },
-            rewardDescription: "梦力+1",
+            rewardDescription: "完成世界 梦力+1",
             onEnter() {
                 layers[this.layer].resetGame()
             },
@@ -1477,22 +1493,12 @@ addLayer("202", {
 
                 player._202.dB = player._202.dB.add(1)
             },
+            onHold() {
+                this.onClick()
+            },
             unlocked() { return inChallenge(this.layer, 121) && hasUpgrade(this.layer, 12) }
         },
         13: {
-            title() { return "異議あり！" },
-            display() { return "对当前的概率进行质疑,可能会改变现在的概率" },
-            canClick() { return true },
-            onClick() {
-                let audio = document.getElementById('s1')
-                audio.currentTime = 0
-                audio.play()
-
-                player._202.dB = player._202.dB.add(1)
-            },
-            unlocked() { return inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12) }
-        },
-        14: {
             title() { return "购买最大方块" },
             canClick() { return true },
             onClick() {
@@ -1532,5 +1538,4 @@ addLayer("202", {
     layerShown() { return getGridData('main', this.layer) },
     hotkeys: [
     ],
-    branches: []
 });
