@@ -177,6 +177,7 @@ addLayer("501", {
             return `请记住当前的盘面!这很重要!不要点击!`
         }
         if (s.eq(20)) {
+            if (player._501.cnt == 0) return `已完成!恭喜你通关了(请等完剩下的时间)`
             return `你有40秒的时间完成:<br>位置从上到下,从左到右,左上角是第1个<br>
             点击 <b style="color:#a0a0a0">在上个盘面中是蓝色且上上个提示的代码对应位置上是1</b> 的位置<br>
             和 <b style="color:#a0a0a0">在上个盘面中是绿色且上上个提示的代码对应位置上是0</b> 的位置`
@@ -247,7 +248,7 @@ addLayer("501", {
     resetgrid(force) {
         s = player._501.stage
         if (player._501.timeleft.mod(10).lte(0) || force) {
-            player._501.cnt = 0
+            if(s.neq(20))player._501.cnt = 0
             for (i in player[this.layer].grid) {
                 if (s.neq(20)) player[this.layer].grid[i] = Math.floor(Math.random() * ((s.eq(5) || s.eq(12) || s.eq(15)) ? 3 : 2)) + 1;
                 else if (player[this.layer].grid[i] != 0) player[this.layer].grid[i] = Math.floor(Math.random() * ((s.eq(5) || s.eq(12) || s.eq(15)) ? 3 : 2)) + 1;
@@ -263,7 +264,7 @@ addLayer("501", {
                     if (player[this.layer].grid[i] == 1) player._501.gnum[x][y] = (player._501.gnum[x][y]) & 1
                     else player._501.gnum[x][y] = (!player._501.gnum[x][y]) & 1
                 }
-                if (s.eq(20)) {
+                if (s.eq(19)) {
                     var x = Math.floor(i / 100 - 1)
                     var y = Math.floor(i % 10 - 1)
                     if (player._501.gnum[x][y] == 1) player._501.cnt++
@@ -288,7 +289,7 @@ addLayer("501", {
                         player._501.trig[14] = true
                     }
                 }
-                if (player._501.cnt > 0) {
+                if (player._501.cnt > 0 &&  player._501.stage.neq(19)) {
                     player._501.started = false
                     player.subtabs[this.layer].mainTabs = "AprilFools"
                     if (player._501.stage.eq(7)) player._501.trig[6] = true
