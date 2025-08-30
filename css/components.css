@@ -316,8 +316,8 @@
 .slogan {
 	font-size: 1.4em;
 	position: absolute;
-	right: 8%;
-	bottom: -20%;
+	right: 5%;
+	bottom: -30%;
 	color: #FFFF55;
 	animation: slogan1 1s infinite;
 	animation-timing-function: ease-in-out;

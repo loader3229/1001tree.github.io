@@ -26,8 +26,8 @@ let changelog = `
 
 let winText = ``
 
-// 如果在Layer内添加了新函数，并且这些函数在被调用时会产生效果，请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset','checkHash','nextHash',"resetgrid","getWrongPage","getRandomcode"]
+// 如果在Layer内添加了新函数,并且这些函数在被调用时会产生效果,请在此处添加它们
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'clickwallReset', 'checkHash', 'nextHash', "resetgrid", "getWrongPage", "getRandomcode"]
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -38,12 +38,12 @@ function canGenPoints() {
 	return false
 }
 
-// 计算点数/秒！
+// 计算点数/秒!
 function getPointGen() {
 	return _D0
 }
 
-// 你可以在此添加应该存入"player"并保存的非图层相关变量，以及默认值
+// 你可以在此添加应该存入"player"并保存的非图层相关变量,以及默认值
 function addedPlayerData() {
 	return {
 		_101: {
@@ -87,11 +87,15 @@ function addedPlayerData() {
 			started: false,
 			timeleft: new Decimal(10),
 			cnt: 999,
-			exlosetext: `你输了，因为未能在限定时间内点击按钮`,
-			trig: [false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+			exlosetext: `你输了,因为未能在限定时间内点击按钮`,
+			trig: [false, false, false, false, false, false, false, true, false, false, false, false, false, false, false],
 			rp: 0,
-			gnum: [[0,0,0,0,0],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],
+			gnum: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 			rc: "",
+			complete: false,
+		},
+		global: {
+			mynews: "请输入文本"
 		}
 	}
 }
@@ -125,18 +129,18 @@ function isEndgame() {
 	return false
 }
 
-// 后面是次要内容！
+// 后面是次要内容!
 
-// 背景样式，可以是函数
+// 背景样式,可以是函数
 var backgroundStyle = {
 }
 
-// 如果有内容可能被长时间tick破坏，可以修改这个值
+// 如果有内容可能被长时间tick破坏,可以修改这个值
 function maxTickLength() {
 	return 0.5
 }
 
-// 如果需要修复旧版本存档的数值膨胀问题，使用此函数。如果版本早于修复该问题的版本，
-// 你可以用此函数限制他们当前的资源。
+// 如果需要修复旧版本存档的数值膨胀问题,使用此函数.如果版本早于修复该问题的版本,
+// 你可以用此函数限制他们当前的资源.
 function fixOldSave(oldVersion) {
 }

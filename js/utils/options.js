@@ -73,7 +73,7 @@ function adjustFont() {
 	document.body.style.setProperty("--Font", options.font);
 }
 
-const COUNT_DISPLAYS = ["常规", "对数计数法", "中文表示法", "？？？"];
+const COUNT_DISPLAYS = ["常规", "对数计数法", "中文表示法", "???"];
 
 const COUNT_SETTINGS = ["xex", "exx", "chi", "wtf"];
 

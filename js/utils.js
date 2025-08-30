@@ -601,7 +601,7 @@ function getNewsList() {
 		"我的肉体是我祖传基因的,我的思想是网上各种梗组成的,我还在努力工作孕育AI,请问我是谁?",
 		"洛是谁,必这么达",
 		"有什么事情白人能做黑人不能做? Hey Dad.",
-		"如果你一直把窗口宽度拉来拉去,新闻就会出bug,我不想修了",
+		"如果你一直把窗口宽度拉来拉去,新闻就会出bug,我不想修了(已经回退到现在的新闻样式,不再有bug \\^o^/)",
 		"时间就是金钱,时间墙就是金山银山",
 		"现在有一个概率p,代表每秒获得1点数的概率,有一个刻速度1/d,代表每秒刻速,现在请用p和d计算每刻获得点数的概率",
 		"今天像往常一样,把手机塞好等着来消息时振动带来的快感,等了半天以为没人给我发消息,原来是开免打扰了啊哈哈",
@@ -618,6 +618,18 @@ function getNewsList() {
 		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
 		"1+1!=2",
 		"专家最新发现:男人有格调",
+		"时间墙的存在不是为了阻挡你,而是为了证明你究竟有多渴望背后的世界",
+		"猫耳是不能乱摸的哦..啊啊..是你啊!你的话应该没问题的哦",
+		`我不想写新闻了,你自己写:<input
+  			type="text"
+ 			maxlength="50"
+ 			size="50" 
+			placeholder="请输入文本,至多50字符,5秒不输入切换新闻"
+			oninput="
+				news.completeTime = Date.now()
+				player.global.mynews = this.value
+			" />`,
+		`玩家自定义新闻,不代表开发者立场|${player.global.mynews}`,
 	]
 }
 
@@ -639,6 +651,12 @@ function getSlogan() {
 		"f(x)=x^x,g(x)=f(f(x))",
 		"Mindcraft : Dream Edit",
 		"this=1 this'=0 '=0",
+		"this=x this'=1 '=1/x",
+		"this=x^2 this'=2x '=2/x",
+		"this=x^n this'=nx^(n-1) '=n/x",
+		"this=x^x this'=x^x(lnx+1) '=1/(lnx+1)",
+		"this=∫f(x)dx this'=f(x) '=1/∫dx",
+		"∫ dx的结果是多少?",
 		"Freedown Dive↓↓↓↓↓",
 		"undefined",
 		"I feel it in my b*ood",
@@ -659,10 +677,14 @@ function getSlogan() {
 		"不敢睁开眼,希望是我的幻觉",
 		'<img src="resources/bx.gif" />',
 		`<button onclick="playersound('g1')">Nothing can beat your 1001tree</button>`,
-		()=>{ return ()=>false },
+		() => { return () => false },
 		"你看到这句话的频率不再为0!",
 		"不要等失去才学会珍惜",
 		"We think you’re gonna like it here.",
+		"我不想干活 我要写标语",
+		"Today is 4.1 right?",
+		"God damn why is it so hard?",
+		"含1001(2)+2↑↑3个小游戏的游戏",
 	]
 
 	return s[Math.floor(Math.random() * s.length)]

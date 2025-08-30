@@ -46,10 +46,10 @@ addLayer("203", {
                     return `你已经击破了<h2 class="p2pt"> ${formatWhole(player._203.wallbreak)} </h2>堵点击墙`
                 }],
                 ["display-text", function () {
-                    return `你完成的<h2 class="p2pt"> ${formatWhole(layers[this.layer].chalcomp())} </h2>个挑战使得点击墙变为<h2 class="p2pt"> ${format(layers[this.layer].chaleff())} </h2>次方！`
+                    return `你完成的<h2 class="p2pt"> ${formatWhole(layers[this.layer].chalcomp())} </h2>个挑战使得点击墙变为<h2 class="p2pt"> ${format(layers[this.layer].chaleff())} </h2>次方!`
                 }],
                 ["display-text", function () {
-                    return `注意:进入或退出挑战将导致你从头开始,因此最好合理安排进入时机来完成挑战,挑战难度不一定递增！`
+                    return `注意:进入或退出挑战将导致你从头开始,因此最好合理安排进入时机来完成挑战,挑战难度不一定递增!`
                 }],
                 "blank",
                 "challenges",
@@ -381,7 +381,7 @@ addLayer("203", {
         },
         11: {
             requirementDescription() { return `2556点数` },
-            effectDescription() { return `恭喜获得额外梦力！` },
+            effectDescription() { return `恭喜获得额外梦力!` },
             done() { return player._203.maxpoints.gte(2556) },
             onComplete() {
                 if (player._203.trig2 == false) {

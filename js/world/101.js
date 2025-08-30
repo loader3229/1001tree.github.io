@@ -519,7 +519,7 @@ addLayer("101", {
             unlocked() { return hasUpgrade(this.layer, 45) }
         },
         52: {
-            title: "我知道，再来一行",
+            title: "我知道,再来一行",
             description: "抹除五六重软上限效果和增益",
             effect() {
                 return _D1
@@ -528,7 +528,7 @@ addLayer("101", {
             unlocked() { return hasUpgrade(this.layer, 51) }
         },
         53: {
-            title: "我去，是时间墙",
+            title: "我去,是时间墙",
             description: "抹除七八重软上限效果和增益",
             effect() {
                 return _D1

@@ -128,7 +128,7 @@ addLayer("202", {
         point: {
             content: [
                 ["display-text", function () {
-                    return `你来啦！我为你准备了一些工作,快来看看吧!`
+                    return `你来啦!我为你准备了一些工作,快来看看吧!`
                 }],
                 "blank",
                 ["display-text", function () {
@@ -1485,7 +1485,7 @@ addLayer("202", {
             unlocked() { return hasChallenge(this.layer, 21) }
         },
         12: {
-            title() { return "異議あり！" },
+            title() { return "異議あり!" },
             display() { return "对当前的概率进行质疑,可能会改变现在的概率" },
             canClick() { return true },
             onClick() {

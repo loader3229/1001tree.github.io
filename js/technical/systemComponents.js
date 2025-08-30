@@ -245,7 +245,7 @@ var systemComponents = {
         	controlsList="nodownload noplaybackrate"
         	loop>
         	    <source src="/song/background.mp3" type="audio/mpeg">
-        	    您的浏览器不支持 audio 元素。
+        	    您的浏览器不支持 audio 元素.
         	</audio>
 			<audio id="s1">
         		<source src="/song/sound1.wav" type="audio/wav">
