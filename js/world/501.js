@@ -330,7 +330,7 @@ addLayer("501", {
                     else player._501.trig[i] = false
                 }
                 player._501.started = true
-                player._501.stage = _D(17)
+                player._501.stage = _D1
                 layers[this.layer].resetgrid(true)
             },
             unlocked() { return !player._501.started },
