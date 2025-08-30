@@ -27,7 +27,7 @@ let changelog = `
 let winText = ``
 
 // 如果在Layer内添加了新函数，并且这些函数在被调用时会产生效果，请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset','checkHash','nextHash']
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect','clickwallReset','checkHash','nextHash',"resetgrid","getWrongPage","getRandomcode"]
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -85,9 +85,13 @@ function addedPlayerData() {
 		_501: {
 			stage: _D0,
 			started: false,
-			timeleft: new Decimal(300),
+			timeleft: new Decimal(10),
 			cnt: 999,
-			trig: [false,false,false,false,false,false,false,false,false]
+			exlosetext: `你输了，因为未能在限定时间内点击按钮`,
+			trig: [false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+			rp: 0,
+			gnum: [[0,0,0,0,0],[0,0,0,0,1],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]],
+			rc: "",
 		}
 	}
 }
