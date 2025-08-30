@@ -16,7 +16,7 @@ addLayer("501", {
         AprilFools: {
             content: [
                 ["display-text", function () {
-                    return `你好, 这个游戏只需要你坚持甚至不到4分钟!然后你就能完成世界然后获得1梦力`
+                    return `你好,这个世界只需要你坚持不到4分钟,就能完成世界然后获得1梦力`
                 }],
                 ["display-text", function () {
                     return `你需要遵循下面的指示点击正确按钮,提示每10s更换一次,错误的点击将导致...`
@@ -31,7 +31,7 @@ addLayer("501", {
                 }],
                 "grid",
                 ["display-text", function () {
-                    return ((!player._501.started) ? player._501.trig[2] ? player._501.exlosetext : layers[this.layer].getLoseText() : ``)
+                    return ((!player._501.started) ? layers[this.layer].getLoseText() : ``)
                 }],
                 ["clickables", [2]],
                 "blank",
@@ -88,7 +88,7 @@ addLayer("501", {
         }
         if (s.eq(10)) {
             if (player._501.trig[7] == false) return `已完成!请等待下个回合开始`
-            return `请点击所有<b style="color:#00000000">透明色</b>的按钮`
+            return `请点击所有<b style="color:#00000000">透明</b>的按钮`
         }
         if (s.eq(11)) {
             if (player._501.cnt == 0) return `已完成!请等待下个回合开始`
@@ -197,23 +197,30 @@ addLayer("501", {
         s = player._501.stage
         if (player._501.trig[1]) {
             player._501.started = false
-            return `你输了,因为点击了其他颜色的按钮`
+            return `你输了,因为点击了其他的按钮`
+        }
+        if (player._501.trig[2]) {
+            player._501.started = false
+            return `你输了,因为未能在限定时间内点击按钮`
         }
         if (player._501.trig[3]) {
             player._501.started = false
-            if (s.eq(5)) return `你输了,你点的是<b style="color:#EE8800">橙色</b>而不是<b style="color:#DDDD00">黄色</b>`
-            if (s.eq(12)) return `你输了,你点的是<b style="color:#0000FD">#0000FD</b>而不是<b style="color:#0000FF">#0000FF</b>`
+            if (s.eq(5)) return `你输了,你点的是<b style="color:#EE8800">橙色</b>而不是<b style="color:#DDDD00">黄色</b>的按钮`
+            if (s.eq(12)) return `你输了,你点的是<b style="color:#0000FD">#0000FD</b>而不是<b style="color:#0000FF">#0000FF</b>的按钮`
         }
         if (player._501.trig[4]) {
             player._501.started = false
-            if (s.eq(6)) return `你输了,这里没有白色字的<b style="color:#FFFFFF">按钮</b>`
-            if (s.eq(8)) return `你输了,为什么不歇着呢`
-            if (s.eq(10) || s.eq(13) || s.eq(17) || s.eq(19)) return `你输了,因为点击了错误的按钮`
+            if (s.eq(6)) return `你输了,这里没有白色的<b style="color:#FFFFFF">按钮</b>,它们是黑色的`
+            if (s.eq(8)) return `你输了,你的鼠标累死了,为什么不歇着呢`
+            if (s.eq(10)) return `你输了,因为点的按钮不是<b style="color:#00000000">透明</b>的`
+            if (s.eq(13)) return `你输了,因为我说了不要点击,而且我甚至说了请`
+            if (s.eq(17)) return `你输了,因为点击了错误的按钮`
+            if (s.eq(19)) return `你输了,因为又一次,我说了不要点击,而且我甚至加了感叹号!`
             if (s.eq(20)) return `你输了,因为点击了错误的按钮,加油,胜利只差一步!!!`
         }
         if (player._501.trig[5]) {
             player._501.started = false
-            return `你输了,这里没有白色字的<b style="color:#FFFFFF">按钮</b>`
+            return `你输了,但你本不应该看到这句话,也许你开挂了吧,给你一个成就`
         }
         if (player._501.trig[6]) {
             player._501.started = false
@@ -221,20 +228,20 @@ addLayer("501", {
         }
         if (player._501.trig[8]) {
             player._501.started = false
-            return `你输了,有些时候要细心观察`
+            return `你输了,有些时候要细心观察,刚刚很明显就是有些时候,但你没有`
         }
         if (player._501.trig[9] && s.eq(13)) {
             player._501.started = false
-            return `你输了,捷径会使人忘却规则`
+            return `你输了,捷径会使人忘却规则,而规则写的很清楚`
         }
         if (!player._501.trig[10] && s.eq(15)) {
             player._501.started = false
-            return `你输了,遵守过度的规则必须依靠捷径的力量`
+            return `你输了,遵守不合理的规则就是要依靠捷径的力量`
         }
         if (player._501.trig[11]) {
             player._501.started = false
             player.subtabs[this.layer].mainTabs = "AprilFools"
-            return `你输了,点击了假按钮!`
+            return `你输了,因为点击了假按钮!`
         }
         if (player._501.trig[12]) {
             player._501.started = false
@@ -279,7 +286,7 @@ addLayer("501", {
                 if (player._501.stage.eq(20)) {
                     if (player._501.cnt == 0) {
                         player._501.trig[0] = true
-                        player._501.isstarted = false
+                        player._501.started = false
                         if (!player._501.complete) {
                             player._501.complete = true
                             player.main.points = player.main.points.add(1)
@@ -287,6 +294,7 @@ addLayer("501", {
                         }
                     } else {
                         player._501.trig[14] = true
+                        player._501.lose = true
                     }
                 }
                 if (player._501.cnt > 0 &&  player._501.stage.neq(19)) {
@@ -295,6 +303,7 @@ addLayer("501", {
                     if (player._501.stage.eq(7)) player._501.trig[6] = true
                     else if (player._501.stage.eq(20)) player._501.trig[13] = true
                     else player._501.trig[2] = true
+                    player._501.lose = true
                 }
                 if (player._501.stage.eq(15)) {
                     player._501.rp = layers[this.layer].getWrongPage()
@@ -310,7 +319,7 @@ addLayer("501", {
                 player._501.trig[12] = confirm(`有一个值发生了错误: "timeleft". 请告诉这个模组树的作者. 你现在可以刷新这个页面,然后页面将会回溯至你的上一步操作.`)
             }
         } else {
-            player._501.timeleft = _D(10)
+            player._501.timeleft = _D10
         }
         if (player._501.started && player._501.stage.eq(20)) {
             layers[this.layer].resetgrid(true)
@@ -431,7 +440,7 @@ addLayer("501", {
             else if (data == 1 && s.neq(18)) return { "border": "3px solid", "border-color": "#0460EB", "background-color": "#0000FF", "font-size": "17.5px" }
             else if (data == 2 || s.eq(18)) return { "border": "3px solid", "border-color": "#52ED0A", "background-color": "#00CC00", "font-size": "17.5px" }
             else if (data == 3 && (s.eq(5) || s.eq(15))) return { "border": "3px solid", "border-color": "#F05D0899", "background-color": "#EE8800", "font-size": "17.5px" }
-            else if (data == 3 && s.eq(12)) return { "border": "3px solid", "border-color": "#0460EB00", "background-color": "#0000FD", "font-size": "17.5px" }
+            else if (data == 3 && s.eq(12)) return { "border": "3px solid", "border-color": "#00000000", "background-color": "#0000FD", "font-size": "17.5px" }
         }
     },
 })

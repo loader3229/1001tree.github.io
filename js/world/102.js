@@ -41,10 +41,10 @@ addLayer("102", {
                 border: 2px solid white;
                 background: #111111;
             ">
-            当前 Number = ${player._102.now}<br>
+            当前检验 ${player._102.now}<br>
             <span class="nmpt">${s256(`${player._102.now}${player._102.salt}`)}</span><br>
             <br>
-            目标<br>
+            目标内容<br>
             <span class="nmpt">${layers[this.layer].getTarget()}</span>
             </div>`
         }],

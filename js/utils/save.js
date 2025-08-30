@@ -200,13 +200,6 @@ function load() {
 		loadOptions();
 	}
 
-	if (options.offlineProd) {
-		if (player.offTime === undefined)
-			player.offTime = { remain: 0 };
-		player.offTime.remain += (Date.now() - player.time) / 1000;
-		if (player.offTime.remain > 21600) player.offTime.remain = (((player.offTime.remain / 3600) ** 0.5 * 24) - 6) * 3600
-		// 在这里把超过六小时的放置时间添加一个软上限
-	}
 	player.time = Date.now();
 	versionCheck();
 	changeTheme();
@@ -236,7 +229,7 @@ function loadOptions() {
 
 function setupModInfo() {
 	modInfo.changelog = changelog;
-	modInfo.winText = winText ? winText : `Congratulations! You have reached the end and beaten this game, but for now...`;
+	modInfo.winText = winText;
 
 }
 function fixNaNs() {
@@ -267,7 +260,8 @@ function NaNcheck(data) {
 function exportSave() {
 	//if (NaNalert) return
 	player.realTime = Date.now()
-	let str = btoa(JSON.stringify(player));
+
+	let str = btoa(encodeURIComponent(JSON.stringify(player)));
 
 	const el = document.createElement("textarea");
 	el.value = str;
@@ -281,7 +275,7 @@ function importSave(imported = undefined, forced = false) {
 	if (imported === undefined)
 		imported = prompt("请在这里输入你的存档");
 	try {
-		tempPlr = Object.assign(getStartPlayer(), JSON.parse(atob(imported)));
+		tempPlr = Object.assign(getStartPlayer(), JSON.parse(decodeURIComponent(atob(imported))));
 		if (tempPlr.versionType != getModID() && !forced && !confirm("这个存档看似不是这个游戏的存档!你确定要覆盖现在的存档吗?")) // Wrong save (use "Forced" to force it to accept.)
 			return;
 		player = tempPlr;

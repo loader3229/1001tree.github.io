@@ -121,29 +121,36 @@ var systemComponents = {
         <h2>{{modInfo.name}}</h2>
         <br>
         <h3>{{VERSION.withName}}</h3>
-        <span v-if="modInfo.author">
+		<br>
+        <span>
             <br>
-            作者 {{modInfo.author}}
+            开发<br>
+			乾狐离光<br>
+			userincre<br>
+			banana3864<br>
         </span>
         <span>
             <br>
-            模组树汉化 乾狐离光
+            文案 夏鸣<br>
+        </span>
+        <span>
+            <br>
+            测试 奇硅箱 寿司 ＾＿＾ 狐彪<br>
+        </span>
+        <span>
+            <br>
+            模组树汉化 乾狐离光<br>
         </span>
         <br>
         <ct>
             游玩 你
 		</ct>
 		<br>
-		<br>
-		<img src="./resources/QHLG.jpg" width="128px"/>
-		<br>
         <br>
         The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda and FlamemasterNXF
         <br>
         The Prestige Tree made by Jacorb and Aarex
-		<br>
-		游戏的默认字体为<a v-bind:href="'https://hyperos.mi.com/font/zh/'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >"Microsoft YaHei"</a>
-		<br><br>
+		<br><br><br>
 		<div class="link" onclick="showTab('changelog-tab')">更新日志</div><br>
         <span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
         <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">模组树服务器</a><br>
@@ -151,8 +158,10 @@ var systemComponents = {
 		<br><br>
         游玩时间: {{ formatTime(player.timePlayed) }}<br><br>
         <h3>热键</h3><br>
+		<ct>25个游戏刚好对应25个键,但还有一个键我们不知道选谁,感觉去掉谁都不好,所以没选热键,你信吗</ct>
         <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
-    `
+		
+		`
 	},
 
 	'options-tab': {

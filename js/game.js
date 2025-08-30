@@ -409,10 +409,8 @@ var interval = setInterval(function() {
 	let now = Date.now()
 	let diff = (now - player.time) / 1e3
 	let trueDiff = diff
-	if (player.offTime !== undefined) {player.offTime = undefined
-	}
-	if (player.devSpeed) diff *= player.devSpeed
-	player.time = now
+	player.time = Date.now();
+	if (player.offTime !== undefined) { player.offTime = undefined }
 	if (needCanvasUpdate){ resizeCanvas();
 		needCanvasUpdate = false;
 	}
@@ -426,14 +424,12 @@ var interval = setInterval(function() {
 	fixNaNs()
 	adjustPopupTime(trueDiff)
 	updateParticles(trueDiff)
+	updateNewsDisplay(diff)
 	ticking = false
 }, 50)
 
-var interval = setInterval(function() {
-	let now = Date.now()
-	let diff = (now - news.time) / 1e3
-	
-	updateNewsDisplay(diff)
-}, 16)
+setInterval(() => {
+	player.global.achseed = Date.now()
+}, 10000)
 
 setInterval(function() {needCanvasUpdate = true}, 500)

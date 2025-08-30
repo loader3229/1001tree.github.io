@@ -1,9 +1,8 @@
 let modInfo = {
 	name: "一千零一树",
 	id: "1001tree",
-	author: "乾狐离光 userincre banana3864",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/501.js"],
+	modFiles: ["layers.js", "tree.js", "const.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/501.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -13,21 +12,24 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.16,
+	num: 0.2,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.16 | 2025/8/29</h3><br>
-	更新了4个游戏<br><br>
+	<h3>v0.2 | 2025/8/31</h3><br>
+	更新了5个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
-let winText = ``
+let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全成就收集前进吧!`
 
 // 如果在Layer内添加了新函数,并且这些函数在被调用时会产生效果,请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'clickwallReset', 'checkHash', 'nextHash', "resetgrid", "getWrongPage", "getRandomcode"]
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
+	'clickwallReset', 'checkHash', 'nextHash',
+	"resetgrid", "getWrongPage", "getRandomcode",
+	"getSomeText"]
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -44,6 +46,7 @@ function getPointGen() {
 }
 
 // 你可以在此添加应该存入"player"并保存的非图层相关变量,以及默认值
+// 有关常量定义请在const.js中进行!
 function addedPlayerData() {
 	return {
 		_101: {
@@ -87,15 +90,18 @@ function addedPlayerData() {
 			started: false,
 			timeleft: new Decimal(10),
 			cnt: 999,
-			exlosetext: `你输了,因为未能在限定时间内点击按钮`,
 			trig: [false, false, false, false, false, false, false, true, false, false, false, false, false, false, false],
 			rp: 0,
 			gnum: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
 			rc: "",
 			complete: false,
+			lose: false,
+			trigach: false
 		},
 		global: {
-			mynews: "请输入文本"
+			//此处存放全局变量
+			mynews: "请输入文本",
+			achseed: Date.now()
 		}
 	}
 }
@@ -126,7 +132,7 @@ var displayThings = [
 
 // 决定游戏何时"结束"
 function isEndgame() {
-	return false
+	return player.points.gte(25)
 }
 
 // 后面是次要内容!
@@ -137,7 +143,7 @@ var backgroundStyle = {
 
 // 如果有内容可能被长时间tick破坏,可以修改这个值
 function maxTickLength() {
-	return 0.5
+	return 1
 }
 
 // 如果需要修复旧版本存档的数值膨胀问题,使用此函数.如果版本早于修复该问题的版本,

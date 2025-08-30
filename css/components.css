@@ -16,13 +16,18 @@
 	border-color: rgba(0, 0, 0, 0.125);
 	font-size: 10px;
 	color: white;
+	background-size: cover;
+	border: 2px solid #88888888;
 	text-shadow: 0 0 2px #000000;
 }
 
 .achievement:hover {
 	box-shadow: 0 0 10px var(--points);
 	z-index: 7;
-	transform: scale(1.1, 1.1)
+	transform: scale(1.5, 1.5) translateY(16.7px);
+	font-size: 7.5px;
+	color: #FFFFFFAA;
+	text-shadow: unset;
 }
 
 .buyable {
