@@ -3,7 +3,7 @@ let modInfo = {
 	id: "1001tree",
 	author: "乾狐离光 userincre banana3864",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js"],
+	modFiles: ["layers.js", "tree.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/501.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -82,6 +82,13 @@ function addedPlayerData() {
 			timeplayed: _D0,
 			click: _D0,
 		},
+		_501: {
+			stage: _D0,
+			started: false,
+			timeleft: new Decimal(300),
+			cnt: 999,
+			trig: [false,false,false,false,false,false,false,false,false]
+		}
 	}
 }
 
