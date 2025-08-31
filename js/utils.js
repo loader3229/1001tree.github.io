@@ -422,7 +422,7 @@ const _D3 = _D(3);
 const _D2 = _D(2);
 const _D1 = _D(1);
 const _D0 = _D(0);
-const _DInf = _D(1.7976931348623157).mul(pow10(308));
+const _DInf = _D(Number.MAX_VALUE);
 
 function _D(num) {
 	return new Decimal(num)
@@ -471,13 +471,19 @@ function myTicking(diff) {
 	if (diff < 0) return;
 }
 
+function completeWorld(id) {
+	player.world[id] = true
+	player.main.points = player.main.points.add(1)
+	player.points = player.points.add(1)
+}
+
 function getYFromOrderedPoints(points, x) {
 	// 将输入x转换为Decimal
-	const xDec = new Decimal(x);
+	const xDec = _D(x);
 
 	// 检查点数列是否为空
 	if (!points || points.length === 0) {
-		return new Decimal(NaN);
+		return _D(NaN);
 	}
 
 	// 检查x是否在定义域内
@@ -485,7 +491,7 @@ function getYFromOrderedPoints(points, x) {
 	const lastX = new Decimal(points[points.length - 1][0]);
 
 	if (xDec.lt(firstX) || xDec.gt(lastX)) {
-		return new Decimal(NaN);
+		return _D(NaN);
 	}
 
 	// 二分查找优化（适用于大数组）
@@ -533,6 +539,11 @@ function randomString(length) {
 	return result;
 }
 
+function achievementComplete() {
+	player[this.layer].points = player[this.layer].points.add(1)
+    player.global.achseed = Date.now()
+}
+
 function chooseOneInArray(array,seed) {
 	if (seed) return array[Math.floor(seed % array.length)]
 	else return array[Math.floor(Math.random() * array.length)]
@@ -550,7 +561,7 @@ function ifElseVirable(exp, a, b, vir, virName = "v") {
 	return eval(`((${virName}) => ${exp} ? ${a} : ${b} )(${vir})`);
 }
 
-function playersound(id) {
+function playsound(id) {
 	let audio = document.getElementById(id)
 	audio.currentTime = 0
 	audio.play()
@@ -663,17 +674,34 @@ function reinitializeNews() {
 
 function decimalMax(...values) {
 	if (values.length === 0) {
-		return new Decimal(0);
+		return _D0;
 	}
 
-	let max = new Decimal(values[0]);
+	let max = _D(values[0]);
 
 	for (let i = 1; i < values.length; i++) {
-		const current = new Decimal(values[i]);
+		const current = _D(values[i]);
 		if (current.gt(max)) {
 			max = current;
 		}
 	}
 
 	return max;
+}
+
+function decimalMin(...values) {
+	if (values.length === 0) {
+		return _D0;
+	}
+
+	let min = _D(values[0]);
+
+	for (let i = 1; i < values.length; i++) {
+		const current = _D(values[i]);
+		if (current.lt(max)) {
+			min = current;
+		}
+	}
+
+	return min;
 }

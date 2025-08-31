@@ -98,8 +98,17 @@ function addedPlayerData() {
 			lose: false,
 			trigach: false
 		},
+		world: {
+			"101": false, "102": false, "103": false, "104": false, "105": false,
+			"201": false, "202": false, "203": false, "204": false, "205": false,
+			"301": false, "302": false, "303": false, "304": false, "305": false,
+			"401": false, "402": false, "403": false, "404": false, "405": false,
+			"501": false, "502": false, "503": false, "504": false, "505": false,
+		},
 		global: {
 			//此处存放全局变量
+			name: "player", //玩家的名字
+			import: false,
 			mynews: "请输入文本",
 			achseed: Date.now()
 		}

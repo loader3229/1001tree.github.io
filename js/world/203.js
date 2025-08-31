@@ -354,8 +354,7 @@ addLayer("203", {
             done() { return player._203.maxpoints.gte(1035) },
             onComplete() {
                 if (player._203.trig == false) {
-                    player.main.points = player.main.points.add(1)
-                    player.points = player.points.add(1)
+                    completeWorld(this.layer)
                     player._203.trig = true
                 }
             },

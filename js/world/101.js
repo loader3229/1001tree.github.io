@@ -553,8 +553,7 @@ addLayer("101", {
             },
             pay() {
                 player[this.layer].points = player[this.layer].points.sub(182)
-                player.main.points = player.main.points.add(1)
-                player.points = player.points.add(1)
+                completeWorld(this.layer)
             },
             cost: new Decimal(182),
             unlocked() { return hasUpgrade(this.layer, 54) }

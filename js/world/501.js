@@ -289,8 +289,7 @@ addLayer("501", {
                         player._501.started = false
                         if (!player._501.complete) {
                             player._501.complete = true
-                            player.main.points = player.main.points.add(1)
-                            player.points = player.points.add(1)
+                            completeWorld(this.layer)
                         }
                     } else {
                         player._501.trig[14] = true

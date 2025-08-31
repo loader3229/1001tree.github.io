@@ -168,8 +168,7 @@ addLayer("102", {
             effectDescription() { return `完成世界 获得一个梦力` },
             done() { return player._102.level >= 500 },
             onComplete() {
-                player.points = player.main.points.add(1)
-                player.main.points = player.main.points.add(1)
+                completeWorld(this.layer)
             },
         }
     },

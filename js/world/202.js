@@ -1378,8 +1378,7 @@ addLayer("202", {
                 return hasChallenge(this.layer, 22)
             },
             onComplete() {
-                player.main.points = player.main.points.add(1)
-                player.points = player.points.add(1)
+                completeWorld(this.layer)
             }
         },
         111: {
@@ -1489,7 +1488,7 @@ addLayer("202", {
             display() { return "对当前的概率进行质疑,可能会改变现在的概率" },
             canClick() { return true },
             onClick() {
-                playersound("s1")
+                playsound("s1")
 
                 player._202.dB = player._202.dB.add(1)
             },

@@ -280,6 +280,7 @@ function importSave(imported = undefined, forced = false) {
 			return;
 		player = tempPlr;
 		player.versionType = getModID();
+		player.global.import = true;
 		fixSave();
 		versionCheck();
 		NaNcheck(save)

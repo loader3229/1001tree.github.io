@@ -143,8 +143,19 @@ var systemComponents = {
         </span>
         <br>
         <ct>
-            游玩 你
+            游玩 {{player.global.name}}
 		</ct>
+		<br>
+		<br>
+		您希望我们称呼您为什么?
+		<br>
+		<input type="text"
+ 			maxlength="10"
+ 			size="15" 
+			placeholder="请在此处输入名字"
+			onchange="
+				player.global.name = this.value
+			"></input>
 		<br>
         <br>
         The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda and FlamemasterNXF
