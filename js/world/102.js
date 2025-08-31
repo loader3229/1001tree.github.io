@@ -35,11 +35,11 @@ addLayer("102", {
         "blank",
         ["display-text", function () {
             return `<div style="
-                min-width: 600px;
+                width: 700px;
                 padding: 10px;
                 border-radius: 5px;
                 border: 2px solid white;
-                background: #111111;
+                background: #111;
             ">
             当前检验 ${player._102.now}<br>
             <span class="nmpt">${s256(`${player._102.now}${player._102.salt}`)}</span><br>

@@ -18,7 +18,12 @@ function getStartOptions() {
 		forceTooltips: true,
 		hideMilestonePopups: false,
 		songshown: true,
-		sloganshown: true
+		sloganshown: true,
+		news: true,
+		newsa: false,
+		newsv: false,
+		newsh: false,
+		newss: true,
 	}
 }
 

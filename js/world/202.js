@@ -252,11 +252,11 @@ addLayer("202", {
                 "blank",
                 ["display-text", function () {
                     if (inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12)) return `<div style="
-                        min-width: 600px;
+                        width: 700px;
                         padding: 10px;
 	                    border-radius: 5px;
 	                    border: 2px solid white;
-                        background: #111111;
+                        background: #111;
                     ">
                     <span class="p1">${format(player._202.mul[0])} </span>×
                     <span class="p2">${format(player._202.mul[1])} </span>×

@@ -118,7 +118,7 @@ function addedPlayerData() {
 // 在页面顶部显示新闻
 var displayNews = [
 	function () {
-		return `<div style="
+		if (options.news) return `<div style="
 		width: calc(100% - 50px);
 		background-color: rgba(255,255,255,0.2);
 		margin: 5px auto;

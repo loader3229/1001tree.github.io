@@ -1,5 +1,5 @@
 // ************ Themes ************
-var themes = ["default", "aqua", "fox","light","blind"]
+var themes = ["default", "aqua", "fox","blind"]
 
 var colors = {
 	default: {
@@ -40,20 +40,6 @@ var colors = {
 		highlight: "#19858a",
 		background_tooltip: "rgba(22, 86, 104, 0.75)",
 	},
-	light: {
-		1: "#222222",
-		2: "#444444",
-		3: "#777777",
-		color: "#222222",
-		points: "#666666",
-		superPoints: "#996666",
-		bought: "#7ef1a1",
-		locked: "#d1a3c2",
-		background: "#f0f0f0",
-		background2: "#d0d0d0",
-		highlight: "#f0f0f0",
-		background_tooltip: "rgba(200, 200, 200, 0.75)",
-	},
 	blind: {
 		1: "#D8D8D8",
 		2: "#D8D8D8",
@@ -91,7 +77,6 @@ function getThemeName() {
 		'default': '默认',
 		'aqua': '水色',
 		'fox': '狐狸',
-		'light': '亮色',
 		'blind': '瞎子'
 	}[options.theme ?? '默认']
 }

@@ -182,6 +182,24 @@
 	animation: rainbow 6s linear infinite;
 }
 
+.c2 {
+	background: linear-gradient(in hsl 90deg,
+			hsl(0, 100%, 50%),
+			hsl(20, 100%, 40%));
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
+.c3 {
+	background: linear-gradient(in hsl 90deg,
+			hsl(270, 100%, 50%),
+			hsl(290, 100%, 40%));
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
 @keyframes rainbow {
 	0% {
 		background-position: 0% center;
@@ -449,4 +467,49 @@
 	background-clip: text;
 	-webkit-background-clip: text;
 	text-shadow: 0 0 15px hsl(0, 0%, 80%);
+}
+
+.p1tx {
+	color: hsl(0, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p2tx {
+	color: hsl(40, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p3tx {
+	color: hsl(70, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p4tx {
+	color: hsl(140, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p5tx {
+	color: hsl(170, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p6tx {
+	color: hsl(200, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p7tx {
+	color: hsl(250, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p8tx {
+	color: hsl(280, 100%, 50%);
+	text-shadow: 1px 1px 0px #444;
+}
+
+.p9tx {
+	color: #EEE;
+	text-shadow: 1px 1px 0px #444;
 }

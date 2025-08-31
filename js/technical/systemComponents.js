@@ -186,8 +186,6 @@ var systemComponents = {
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
             </tr>
             <tr>
-            </tr>
-            <tr>
                 <td><button class="opt" onclick="switchTheme()">主题<br>{{ getThemeName() }}</button></td>
                 <td><button class="opt" onclick="adjustFont()">字体<br>{{ FONT_DISPLAYS[FONT_SETTINGS.indexOf(options.font)] }}</button></td>
                 <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}</button></td>
@@ -199,7 +197,15 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
+				<td><button class="opt" onclick="player.你是不是觉得这个会炸档但是其实它不会而且你还不会获得一个成就因为这个伎俩我早就在睡觉树用过了众所周知一个聪明人不会两次用同样的伎俩哈哈哈 = NaN">一键崩溃</button></td>
 			</tr>
+            <tr>
+				<td><button class="opt" onclick="toggleOpt('news');reinitializeNews();">新闻显示<br>{{ formatOption('news') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsa');reinitializeNews();">成就剧透<br>{{ formatOption('newsa') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsv');reinitializeNews();">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsh');reinitializeNews();">地狱笑话<br>{{ formatOption('newsh') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newss');reinitializeNews();">其他梗语<br>{{ formatOption('newss') }}</button></td>
+            </tr>
         </table>
 		`
 	},

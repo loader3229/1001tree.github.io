@@ -22,6 +22,16 @@ addLayer("main", {
                 ["display-text", "此条为宽度检测条,如果你无法看到这个条的两端<br>请在设置中将页面布局改为单页面(或减小浏览器缩放比例)以获得最佳显示"],
                 ["bar", 1],
                 "blank",
+                ["display-text", `<div style="
+                        width: 400px;
+                        padding: 10px;
+	                    border-radius: 5px;
+	                    border: 2px solid white;
+                        background: #111;
+                    ">
+                    游戏类型 | <span class='c1'>???</span> <span class='c2'>增量/放置/点击</span> <span class='c3'>其他游戏</span>
+                    </div>`],
+                "blank",
                 "grid"
             ]
         }
@@ -49,20 +59,30 @@ addLayer("main", {
             return true
         },
         getCanClick(data, id) {
-            return player[this.layer].points.gte(1) && !data && getGameName(id)[0] != "未完成游戏"
+            if (data) return true
+            else return player[this.layer].points.gte(1) && !getGameName(id)[0].includes("未完成游戏")
         },
         onClick(data, id) {
+            if (data) return
             player[this.layer].points = player[this.layer].points.sub(1)
             setGridData(this.layer, id, true)
         },
         getDisplay(data, id) {
-            return `<h2>${getGameName(id)[0]}</h2><br>${getGameName(id)[1]}<br>${data ? "已解锁" : "未解锁"}`
+            return `<h2>${getGameName(id)[0]}</h2><br>${getGameName(id)[1]}<br><br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
         },
         getStyle(data, id) {
-            return {
-                width: "110px",
-                height: "110px"
+            let style = {
+                width: "120px",
+                height: "120px",
+                backgroundClip: "padding-box",
             }
+
+            if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
+            else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
+            else if (this.getCanClick(data,id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
+            else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
+
+            return style
         }
     },
     milestones: {
@@ -107,71 +127,64 @@ addLayer("ach", {
             name: "小世界",
             done() { return player.points.gte(1) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p1pt">完成1世界</span>',
+            tooltip() { return this.done() ? '<span class="p1pt">完成1世界</span>' : `完成${formatWhole(player.points)}/1世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/11.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         12: {
             name: "世界计划",
             done() { return player.points.gte(5) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p2pt">完成5世界</span>',
+            tooltip() { return this.done() ? '<span class="p2pt">完成5世界</span>' : `完成${formatWhole(player.points)}/5世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/12.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         13: {
             name: "世界收割机",
             done() { return player.points.gte(10) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p4pt">完成10世界</span>',
+            tooltip() { return this.done() ? '<span class="p4pt">完成10世界</span>' : `完成${formatWhole(player.points)}/10世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/13.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         14: {
             name: "世界大富翁",
             done() { return player.points.gte(15) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p6pt">完成15世界</span>',
+            tooltip() { return this.done() ? '<span class="p6pt">完成15世界</span>' : `完成${formatWhole(player.points)}/15世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/14.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         15: {
             name: "世界征服者",
             done() { return player.points.gte(20) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p8pt">完成20世界</span>',
+            tooltip() { return this.done() ? '<span class="p8pt">完成20世界</span>' : `完成${formatWhole(player.points)}/20世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/15.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         16: {
             name: "所有世界的王<br>宇宙的新统领",
             done() { return player.points.gte(25) },
             onComplete() { achievementComplete() },
-            tooltip: '<span class="p9pt">完成25世界</span>',
+            tooltip() { return this.done() ? '<span class="p9pt">完成25世界</span>' : `完成${formatWhole(player.points)}/25世界` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/16.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         17: {
             name: "但我继续前进",
             done() { return player.keepGoing },
             onComplete() { achievementComplete() },
-            tooltip: '选择继续游戏',
+            tooltip() { return this.done() ? '在结束(?)后选择继续游戏' : `现在谈这个为时尚早` },
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/17.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
         },
         21: {
             name: "E4444",
@@ -253,7 +266,7 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
-        1001: {
+        301: {
             name: "所有,除了这一个",
             done() {
                 return player[this.layer].points.gte(_D(Object.keys(layers[this.layer].achievements).length - 3.5))
@@ -262,8 +275,7 @@ addLayer("ach", {
             tooltip: "完成其他所有成就",
             style: {
                 backgroundImage: "linear-gradient(in hsl longer hue to bottom, hsl(0,100%,30%), hsl(330,100%,60%))",
-            },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            }
         },
     },
     layerShown() { return true },

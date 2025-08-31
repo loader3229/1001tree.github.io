@@ -65,6 +65,13 @@ input {
 	cursor: not-allowed;
 }
 
+.achlocked {
+	background-image: linear-gradient(to bottom, #FF000040, #00FFFF40),url(../achpic/0.jpg)  !important;
+	color: #00000000 !important;
+	text-shadow: unset !important;
+	cursor: not-allowed;
+}
+
 /* Can meens can be clicked/bought/etc */
 .can {
 	cursor: pointer;
