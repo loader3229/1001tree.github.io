@@ -1,15 +1,15 @@
 # layer 详解
 
-这是一个相对较小的包含很少特性的 layer。大部分的东西都需要额外的特性。
+这是一个相对较小的包含很少特性的 layer.大部分的东西都需要额外的特性.
 
 ```js
 addLayer("p", {
     startData() { return {                  // startData 是一个返回玩家初始数据的函数
-        unlocked: true,                     // 你可以添加更多的变量，这会成为你的 layer 的变量
+        unlocked: true,                     // 你可以添加更多的变量,这会成为你的 layer 的变量
         points: new Decimal(0),             // "points" 是这一个 layer 资源的内部名
     }},
 
-    color: "#4BDC13",                       // 这一 layer 的颜色，会影响很多东西
+    color: "#4BDC13",                       // 这一 layer 的颜色,会影响很多东西
     resource: "prestige points",            // 这一 layer 主要声望点的名字
     row: 0,                                 // 这一 layer 所处的行 (0 是第一行)
 
@@ -23,13 +23,13 @@ addLayer("p", {
     exponent: 0.5,                          // "normal" 获取到的是 (currency^exponent)
 
     gainMult() {                            // 返回对于这一 layer 声望点获取增益（乘数）
-        return new Decimal(1)               // 升级或其他地方获取到的乘数因子，在这里生效
+        return new Decimal(1)               // 升级或其他地方获取到的乘数因子,在这里生效
     },
     gainExp() {                             // 返回对于这一 layer 声望点获取增益（指数）
         return new Decimal(1)
     },
 
-    layerShown() { return true },          // 返回一个 Boolean，表示这个 layer 的节点是否出现在树上
+    layerShown() { return true },          // 返回一个 Boolean,表示这个 layer 的节点是否出现在树上
 
     upgrades: {
         // 参考升级文档

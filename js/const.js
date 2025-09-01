@@ -2,17 +2,17 @@
 function getGameName(id) {
 	let name = {
 		101: ["<span class='c2'>10p1sc</span>", "<span class='c2'>时间墙堆砌,很无聊</span>"],
-		102: ["<span class='c2'>挖矿增量</span>", "<span class='c2'>真的是挖矿,极速版</span>"],
-		202: ["<span class='p1tx'>概率统治世界</span>", "<span class='p1tx'>尝试和作者勾心斗角</span>"],
-		203: ["<span class='p2tx'>点击墙</span>", "<span class='p2tx'>点击墙的点击墙</span>"],
-		204: ["<span class='p3tx'>十一夜电视台</span>", "<span class='p3tx'>趣味问答</span>"],
-		302: ["<span class='p4tx'>未完成游戏</span>", "<span class='p4tx'>这个游戏目前是棍木</span>"],
-		303: ["<span class='p9tx'>未完成游戏</span>", "<span class='p9tx'>这个游戏目前是棍木</span>"],
-		304: ["<span class='p5tx'>未完成游戏</span>", "<span class='p5tx'>这个游戏目前是棍木</span>"],
-		402: ["<span class='p6tx'>未完成游戏</span>", "<span class='p6tx'>这个游戏目前是棍木</span>"],
-		403: ["<span class='p7tx'>未完成游戏</span>", "<span class='p7tx'>这个游戏目前是棍木</span>"],
-		404: ["<span class='p8tx'>未完成游戏</span>", "<span class='p8tx'>这个游戏目前是棍木</span>"],
-		501: ["<span class='c1'>愚人节</span>", "<span class='c1'>假装这是四月</span>"]
+		102: ["<span class='c2'>挖矿增量</span>", "<span class='c2'>真的是挖矿,极速版<br>因为狐狸电脑太渣了</span>"],
+		202: ["<span class='p1tx'>第1夜<br>概率统治世界</span>", "<span class='p1tx'>尝试和作者勾心斗角<br>你也有概率统治世界</span>"],
+		203: ["<span class='p2tx'>第10夜<br>点击墙</span>", "<span class='p2tx'>点击墙的点击墙</span>"],
+		204: ["<span class='p3tx'>第11夜<br>十一夜电视台</span>", "<span class='p3tx'>趣味问答</span>"],
+		302: ["<span class='p4tx'>第100夜<br>未完成游戏</span>", "<span class='p4tx'>这个游戏目前是棍木</span>"],
+		303: ["<span class='p9tx'>第1001夜<br>未完成游戏</span>", "<span class='p9tx'>这个游戏目前是棍木</span>"],
+		304: ["<span class='p5tx'>第101夜<br>未完成游戏</span>", "<span class='p5tx'>这个游戏目前是棍木</span>"],
+		402: ["<span class='p6tx'>第110夜<br>未完成游戏</span>", "<span class='p6tx'>这个游戏目前是棍木</span>"],
+		403: ["<span class='p7tx'>第111夜<br>未完成游戏</span>", "<span class='p7tx'>这个游戏目前是棍木</span>"],
+		404: ["<span class='p8tx'>第1000夜<br>未完成游戏</span>", "<span class='p8tx'>这个游戏目前是棍木</span>"],
+		501: ["<span class='c1'>愚人节</span>", "<span class='c1'>假装这是四月一日</span>"]
 	}[id]
 
 	if (typeof name == 'undefined') name = ['未完成游戏', "这个游戏目前是棍木"]
@@ -39,6 +39,7 @@ function getNewsList() {
 				player.global.mynews = this.value
 			" />`,
 		// 常规
+		"forget is for get",
 		"我操.这人怎么看了我一眼?",
 		"突击检查:上一条新闻是什么?",
 		"一觉醒来我一觉醒来,而我不变",
@@ -66,6 +67,7 @@ function getNewsList() {
 		...options.newsv ? [
 			// 低俗笑话
 			"洛是谁,必这么达",
+			"我看你就像个窦妞",
 			"我操,用户彻底怒了",
 			"宝贝,今天学历史了吗",
 			"我要对你倒苦水——死库水!",
@@ -113,12 +115,15 @@ function getNewsList() {
 			"教你们一个快速放空大脑的咒语:abandon",
 			"二次元的钱好赚,所以房子按平方米卖更赚米",
 			"蚁酸是甲酸,但是乙酸居然是醋酸,这不神奇吗?",
+			"这个问题弱智吗 A.弱智 B.若智 C.若只 D.弱只",
 			'有没有发现"饕餮"两个字最下面都是"良"字(良子)',
 			"多接触接触上流社会吧,我妈让我放八角,我直接放了一块",
 			"你知道蝙蝠侠为什么遮了半张脸吗?他需要避免被警察通缉",
 			"猫耳是不能乱摸的哦..啊啊..是你啊!你的话应该没问题的哦",
+			"学校的晚自习算不算怕我们玩太久手机把她忘了来玩强制爱呀",
 			"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
 			"喜欢别人怀里的女人是不是和喜欢的女人在别人怀里是一个状态（x）",
+			"本人因太饿于是吃了两个汉堡8个鸡块5个地瓜丸2个鸡小腿2个鸡肉卷2杯可乐",
 			"夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵",
 			"占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符",
 			"今天是民国114年5月1日星期4,而且还有19分钟就是19:19:08.10,一生只能转一次",
@@ -138,116 +143,6 @@ function getNewsList() {
 			`(脸红红的,眼睛里闪烁着幸福的光芒)人家也喜欢你,${player.global.name}.(害羞地低下头,双手揪着衣角)我会一直陪着你的.(抬起头,露出甜甜的笑容)`,
 			"我是虐文女主,在被一个叫学校的家伙虐身虐心了五个月后我逃到了暑假家里.暑假对我很好,和他在一起我想去哪就去哪,想做什么就做什么.但有雄厚背景的学校不是我们两个人能抗衡的,不到两个月,学校便找到并从暑假身边夺走了我,于是接下来我又要面对五个多月的绝望的囚禁...",
 		] : [],
-	]
-}
-
-function getProblemList(){
-	return [
-		//基础题目
-		"这个问题是滚木，好的",
-		"谁开创了这个游戏?",
-		"方程 2x-7=4 的解是?",
-		"用科学计数法表示 2e(3e2) 是?",
-		"声望树重制版中,第三行从左往右数第2个层级是什么?",
-		"小明第1天开始有0个金币,并每天结束时获得50个,超过200个后,金币获取x0.3,第21天结束时小明手里有多少金币?",
-		"求:2sin30°+tan60°-cos60°的值?",
-		"这个节目叫什么?",
-		"速度是什么与什么的比值?",
-		"泳池只注水3小时注满,只放水5小时放空,同时注水和放水需要多长时间注满泳池?",
-		"已知等边三角形ABC,下列说法正确的是",
-		"已知每秒有d时刻,每时刻有p概率获得1点数,每秒获得点数的期望是多少?",
-		"哪一个游戏没有上架steam?",
-		`为化学方程式填写缺失的系数<br>2CO+O2==___CO2`,
-		"哪个数字引发了第一次数学危机?",
-		"世界读书日是在哪一天?",
-		"以下哪个不是编程语言?",
-		"这个单词:panic,是什么意思?",
-		"这个单词:assemble,是什么意思?",
-		"这个单词:destruction,是什么意思?",
-		"这个单词:consumption,是什么意思?",
-		"游戏开发的这年是哪一年?",
-		"有222个节点的完全二叉树最多有几层(根节点层数为1)?",
-		"秦时明月汉时关,下一句是?",
-		`已知三角形ABC内接于圆O, AB=AC, ∠BAC=42°, D是圆上一点, 若BD是圆O直径, 连接CD, 求∠DBC大小? <br> <img src="../resources/prob.png"/>`,
-		`1988年,老布什,里根和戈尔巴乔夫三人在新建成的纽约世贸双子塔前拍了照片,照片中的谁先去世?`,
-		`TMT自带的资源软上限开始于?`,
-		"一共有多少道题目?",
-		"一斤铁和一斤棉花哪个重?",
-		"将十进制数308用二进制表达是多少?",
-		`我们常说的'Infinite'实际上是多少?`,
-		"一元二次方程 x^2-2x+1=0 的解的情况是?",
-		"葛立恒数是指?",
-		"如果 a+b=3, ab=2, 求a^2+b^2的值",
-		"连续抛硬币16次,正面向上的概率为?",
-		"找出两个小于10的不同质数p,q,使得(p+1)^q也是质数?",
-		"计算:[8/(a^2-4)]+[2/(a+2)]?",
-		"1x2x3x4x5=?",
-		"哪年世界杯阿根廷夺冠?",
-		"在10p1sc游戏中,一共有多少层软上限?",
-		`你执白方,下一步的最佳下法是? <br><img src="../resources/prob2.png"/>`,
-		"销量最高的游戏是?",
-		"空气中含量最多的气体是?",
-		"假如昨天是明天,那么今天是周六,今天实际上是周几?",
-		"1=4,2=8,3=16,4=?",
-		"Break_Eternity的存储上限?",
-		"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
-		"下列最接近实际的是:"
-		//难题
-	]
-}
-
-function getChoiceList(){
-	return [
-		//基础题目
-		["滚木","滚木","滚木","滚木","A"],
-		["hevipelle","乾狐离光","马化腾","QqQe308","B"],
-		["x=-11","x=11","x=11/2","x=-11/2","C"],
-		["3e200","200e3","300e2","2e300","D"],
-		["时间胶囊","超级增幅器","增强子","空间能量","A"],
-		["390","455","440","470","B"],
-		["[1+sqrt(3)]/2","(1/2)-sqrt(3)","(1/2)+sqrt(3)","[1-sqrt(3)]/2","C"],
-		["1001夜电视台","趣味问答","Tenna先生的电视秀","十一夜电视台","D"],
-		["路程,时间","时间,路程","路程,质量","密度,时间","A"],
-		["15h","7.5h","5h","3h","B"],
-		["∠A=45°","AB=2BC","该三角形的内心,重心,垂心在同一点上","该三角形的高线,中线和外角平分线是同一条线段","C"],
-		["(1/20)dp","d(1-p)","20dp","dp","D"],
-		["协同放置","脆皮","旋转放置","反物质维度","A"],
-		["1","2","3","4","B"],
-		["-1","i","sqrt(2)","(1/2)","C"],
-		["3.23","5.10","4.21","4.23","D"],
-		["Turbowarp","Python","C++","Javascript","A"],
-		["野餐","使恐慌","梦","痛苦","B"],
-		["假设","制造","组装","食物","C"],
-		["建造","数量","结构","毁灭","D"],
-		["消费","习惯","组织","团结的","A"],
-		["2023","2025","2024","2026","B"],
-		["6","7","8","9","C"],
-		["燕然未勒归无计","夜半钟声到客船","征战沙场几人回","万里长征人未还","D"]
-		["48°","42°","52°","38°","A"],
-		["老布什","双子塔","里根","戈尔巴乔夫","B"],
-		["e1e6","e1e5","e1e7","e1e8","C"],
-		["10","20","30","40","D"],
-		["一样重","铁重","棉花重","一斤重","A"],
-		["111001011","100110100","110011011","100011011","B"],
-		["1.797e308","e9e15","2^1024","10^999","C"],
-		["无实数根","一个实数根","两个不相等实数根","两个相等实数根","D"],
-		["G(64)","BB(5)","3^^^4","10^100","A"],
-		["4","5","6","7","B"],
-		["1/32768","1/2147483647","1/65536","1/65535","C"],
-		["2,5","3,7","5,7","不存在","D"],
-		["[2/(a-2)]","2","a+2","[(a+2)/(a^2-4)]","A"],
-		["15","5!","12!!","24!!!","B"],
-		["1974","2012","1978","1998","C"],
-		["13","14","15","16","D"],
-		["Rxf5","Bxd5","Qd3","h4","A"],
-		["GTA5","Minecraft","塞尔达传说:旷野之息","荒野大镖客2","B"],
-		["氧气","二氧化碳","氮气","空气","C"],
-		["周五","周日","周六","周一","D"],
-		["BCD全错","32","28","24","A"],
-		["e1e308","1Fe308","1F308","1FF308","B"],
-		["Lap","Oap","ABD全错","Wrap","C"],
-		["作者花了5年做这个游戏","这个树使用的TMT版本是1.3.1","2^31比3^31小1^31","0.1+0.2=0.30000000000000004"],
-		//难题
 	]
 }
 
@@ -382,14 +277,24 @@ function getSloganList() {
 		class='p9'>就现在</span>`,
 		`1<sup>2<sup>3<sup>4<sup>5<sup>6<sup>7<sup>8<sup>9
 		</sup></sup></sup></sup></sup></sup></sup></sup>`,
+		`<button onclick="playsound('g1')">Nothing can beat your 1001tree</button>`,
 		// 常规
 		"undefined",
+		"гRεε匚③つ≒？",
+		"成就藏着秘密!!!",
+		"9种颜色 9个夜晚!",
 		"[Object object]",
 		"∫ dx的结果是多少?",
 		"这里没有任意的标语",
+		"你踩到我的070190了!",
 		"Freedown Dive↓↓↓↓↓",
+		"CrossSiteScripting",
+		"不要等失去才学会珍惜",
 		"KiraKira☆DokiDoki",
 		"this=1 this'=0 '=0",
+		"1001tree.github.io",
+		"我不想干活 我要写标语",
+		"Today is 4.1 right?",
 		"I loved 100 people!",
 		"v1.797693134862e+308",
 		"There is O game here",
@@ -397,41 +302,32 @@ function getSloganList() {
 		"哦哈啊啊啦咯嚓嚓吧喏啦",
 		"this=x this'=1 '=1/x",
 		"EMBRACE the NIGHT!!!",
+		"I dedi becosof my dad",
 		"I feel it in my b*ood",
 		"Try to catch me there",
 		"f(x)=x^x,g(x)=f(f(x))",
 		"Mindcraft : Dream Edit",
+		"我们真的在用您的电脑挖矿!",
+		"不敢睁开眼,希望是我的幻觉",
 		"Also try the sleep tree",
 		"this=x^2 this'=2x '=2/x",
-		"qwertyuiopasdfghjklzxcvbnm",
-		"150 bpm for 400000 minutes!",
-		"this=x^n this'=nx^(n-1) '=n/x",
-		"this=∫f(x)dx this'=f(x) '=1/∫dx",
-		"this=x^x this'=x^x(lnx+1) '=1/(lnx+1)",
-		"1001tree.github.io",
-		"гRεε匚③つ≒？",
-		"不敢睁开眼,希望是我的幻觉",
-		'<img src="resources/bx.gif" />',
-		`<button onclick="playsound('g1')">Nothing can beat your 1001tree</button>`,
-		"你看到这句话的频率不再为0!",
-		"不要等失去才学会珍惜",
-		"We think you’re gonna like it here.",
-		"我不想干活 我要写标语",
-		"Today is 4.1 right?",
-		"God damn why is it so hard?",
-		"含1001(2)+2↑↑3个小游戏的游戏",
-		"The 1001-Tree Team made this one",
-		"A▷∫⊥ГAÇ⊥ ÇΗA○∫A▷イ∫∫",
-		"成就藏着秘密!!!",
-		"There is some tips in news",
 		"你见过凌晨四点的1001树吗?",
-		"We have storngest Developers!",
-		"9种颜色 9个夜晚!",
-		"我们真的在用您的电脑挖矿!",
-		"Never gonna let you dive↓",
-		"I dedi becosof my dad",
+		"A▷∫⊥ГAÇ⊥ ÇΗA○∫A▷イ∫∫",
 		"your computer is in 90°",
-		"CrossSiteScripting"
+		"你看到这句话的频率不再为0!",
+		"Never gonna let you dive↓",
+		"There is some tips in news",
+		"qwertyuiopasdfghjklzxcvbnm",
+		"含1001(2)+2↑↑3个小游戏的游戏",
+		"God damn why is it so hard?",
+		"150 bpm for 400000 minutes!",
+		"We have storngest Developers!",
+		"this=x^n this'=nx^(n-1) '=n/x",
+		'<img src="resources/bx.gif" />',
+		"this=∫f(x)dx this'=f(x) '=1/∫dx",
+		"The 1001-Tree Team made this one",
+		"We think you’re gonna like it here.",
+		"this=x^x this'=x^x(lnx+1) '=1/(lnx+1)",
 	]
 }
 
@@ -497,4 +393,257 @@ function getHint() {
 			"恭喜你,你已经击败了成就,作为后光完成了游戏",
 		]
 	}
+}
+
+// 简单题目组
+function getProblemList() {
+	return [
+		{
+			problem: '已知三角形ABC内接于圆O, AB=AC, ∠BAC=42°, D是圆上一点, 若BD是圆O直径, 连接CD, 求∠DBC大小? <br> <img src="../pic/prob1.jpg" width="250px"/>',
+			options: ['48°', '42°', '52°', '38°'], answer: 21
+		}, {
+			problem: '你执白方,这道题是一个n步杀,请问杀着是什么 <br><img src="../pic/prob2.jpg" width="250px"/>',
+			options: ['Qf2+', 'Qg2#', 'f1=Q#', 'Qxh1#'], answer: 22
+		}, {
+			problem: '谁是这个游戏的第一个开发者?',
+			options: ['hevipelle', 'QHLG', 'Napper Rinator', 'QqQe308'], answer: 22
+		}, {
+			problem: '方程 2x-7=4 的解是?',
+			options: ['x=-11', 'x=11', 'x=11/2', 'x=-11/2'], answer: 23
+		}, {
+			problem: '用科学计数法表示 2e(3e2) 是?',
+			options: ['3e200', '200e3', '300e2', '2e300'], answer: 24
+		}, {
+			problem: '声望树重制版中,第三行从左往右数第2个层级是什么?',
+			options: ['时间胶囊', '超级增幅器', '增强子', '空间能量'], answer: 21
+		}, {
+			problem: '小明第1天开始有0个金币,并每天结束时获得50个,超过200个后,金币获取x0.3,第21天结束时小明手里有多少金币?',
+			options: ['390', '455', '440', '470'], answer: 22
+		}, {
+			problem: '求 2sin30°+tan60°-cos60° 的值',
+			options: ['(1+√3)/2', '1/2-√3', '1/2+√3', '(1-√3)/2'], answer: 23
+		}, {
+			problem: '这个节目叫什么?',
+			options: ['1001夜电视台', '趣味问答', 'Tenna先生的电视秀', '十一夜电视台'], answer: 24
+		}, {
+			problem: '速度是什么与什么的比值?',
+			options: ['路程,时间', '时间,路程', '路程,质量', '密度,时间'], answer: 21
+		}, {
+			problem: '泳池只注水3小时注满,只放水5小时放空,同时注水和放水需要多长时间注满泳池?',
+			options: ['15小时', '7.5小时', '5小时', '3小时'], answer: 22
+		}, {
+			problem: '已知等边三角形ABC,下列说法正确的是',
+			options: [
+				'∠A=45°',
+				'AB=2BC',
+				'该三角形的内心,重心,垂心在同一点上',
+				'该三角形的高线,中线和外角平分线是同一条线段'
+			], answer: 23
+		}, {
+			problem: '已知每秒有d时刻,每时刻有p概率获得1点数,每秒获得点数的期望是多少?',
+			options: ['(1/20)dp', 'd(1-p)', '20dp', 'dp'], answer: 24
+		}, {
+			problem: '哪一个游戏没有上架steam?',
+			options: ['协同放置', '脆皮', '旋转放置', '反物质维度'], answer: 21
+		}, {
+			problem: '为化学方程式填写缺失的系数<br>2CO+O<sub>2</sub>=___CO<sub>2</sub>',
+			options: ['1', '2', '3', '4'], answer: 22
+		}, {
+			problem: '哪个数字引发了第一次数学危机?',
+			options: ['-1', 'i', '√2', '1/2'], answer: 23
+		}, {
+			problem: '世界读书日是在哪一天?',
+			options: ['3.23', '5.10', '4.21', '4.23'], answer: 24
+		}, {
+			problem: '以下哪个不是编程语言?',
+			options: ['Turbowarp', 'Python', 'C++', 'Javascript'], answer: 21
+		}, {
+			problem: '这个单词:panic,是什么意思?',
+			options: ['野餐', '使恐慌', '梦', '痛苦'], answer: 22
+		}, {
+			problem: '这个单词:assemble,是什么意思?',
+			options: ['假设', '制造', '组装', '食物'], answer: 23
+		}, {
+			problem: '这个单词:destruction,是什么意思?',
+			options: ['建造', '数量', '结构', '毁灭'], answer: 24
+		}, {
+			problem: '这个单词:consumption,是什么意思?',
+			options: ['消费', '习惯', '组织', '团结的'], answer: 21
+		}, {
+			problem: '本游戏开始开发的这年是哪一年?',
+			options: ['2023', '2025', '2024', '2026'], answer: 22
+		}, {
+			problem: '有222个节点的完全二叉树最多有几层(根节点层数为1)?',
+			options: ['6', '7', '8', '9'], answer: 23
+		}, {
+			problem: '秦时明月汉时关,下一句是?',
+			options: ['燕然未勒归无计', '夜半钟声到客船', '征战沙场几人回', '万里长征人未还'], answer: 24
+		}, {
+			problem: '1988年,老布什,里根和戈尔巴乔夫三人在新建成的纽约世贸双子塔前拍了照片,照片中的谁先去世?',
+			options: ['老布什', '双子塔', '里根', '戈尔巴乔夫'], answer: 22
+		}, {
+			problem: 'TMT自带的资源软上限开始于?',
+			options: ['e1e6', 'e1e5', 'e1e7', 'e1e8'], answer: 23
+		}, {
+			problem: '你要回答的一共有多少道题目?',
+			options: ['10', '20', '30', '40'], answer: 24
+		}, {
+			problem: '一斤铁和一斤棉花哪个重?',
+			options: ['一样重', '铁重', '棉花重', '一斤重'], answer: 21
+		}, {
+			problem: '将十进制数308用二进制表达是多少?',
+			options: ['111001011', '100110100', '110011011', '100011011'], answer: 22
+		}, {
+			problem: '我们常说的"Infinite"实际上是多少?',
+			options: ['1.797e308', 'e9e15', '2^1024', '10^999'], answer: 23
+		}, {
+			problem: '一元二次方程 x^2-2x+1=0 的解的情况是?',
+			options: ['无实数根', '一个实数根', '两个不相等实数根', '两个相等实数根'], answer: 24
+		}, {
+			problem: '葛立恒数是指?',
+			options: ['G(64)', 'BB(5)', '3^^^4', '10^100'], answer: 21
+		}, {
+			problem: '如果 a+b=3, ab=2, 求 a^2+b^2 的值',
+			options: ['4', '5', '6', '7'], answer: 22
+		}, {
+			problem: '连续抛硬币16次,正面向上的概率为?',
+			options: ['1/32768', '1/2147483647', '1/65536', '1/65535'], answer: 23
+		}, {
+			problem: '能否找出两个不同质数p,q,使得 (p+1)^q 也是质数',
+			options: ['能,但这些数人类仍未找到', '能,但是它们都相当大', '这样的数有且仅有一组', '不能'], answer: 24
+		}, {
+			problem: '计算 8/(a^2-4)+2/(a+2) 的值',
+			options: ['2/(a-2)', '2', 'a+2', '(a+2)/(a^2-4)'], answer: 21
+		}, {
+			problem: '1×2×3×4×5=?',
+			options: ['15', '5!', '12!!', '24!!!'], answer: 22
+		}, {
+			problem: '哪年世界杯阿根廷夺冠?',
+			options: ['1974', '2012', '1978', '1998'], answer: 23
+		}, {
+			problem: '在10p1sc游戏中,一共有多少层软上限?',
+			options: ['13', '14', '15', '16'], answer: 24
+		}, {
+			problem: '销量最高的游戏是?',
+			options: ['GTA5', 'Minecraft', '塞尔达传说:旷野之息', '荒野大镖客2'], answer: 22
+		}, {
+			problem: '空气中含量最多的物质是?',
+			options: ['氧气', '二氧化碳', '氮气', '空气'], answer: 23
+		}, {
+			problem: '假如昨天是明天,那么今天是周六,今天实际上是周几?',
+			options: ['周五', '周日', '周六', '周一'], answer: 24
+		}, {
+			problem: '1=4,2=8,3=16,4=?',
+			options: ['BCD全错', '32', '28', '24'], answer: 21
+		}, {
+			problem: 'Break_Eternity的存储上限?',
+			options: ['e1e308', '1Fe308', '1F308', '1FF308'], answer: 22
+		}, {
+			problem: 'Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?',
+			options: ['Lap', 'Oap', 'Cap', 'Tap'], answer: 21
+		}, {
+			problem: '下列最接近实际的是',
+			options: [
+				'作者们花了5年做这个游戏',
+				'这个树使用的TMT版本是1.3.1',
+				'2^31比3^31小1^31',
+				'0.1+0.2=0.30000000000000004'
+			], answer: 24
+		},
+		// addtion problem
+		{
+			problem: '一个集合内所有元素的各种排列组合方式一共有6种,这个集合有多少个元素?',
+			options: ['720', '120', '24', '3'], answer: 24
+		}, {
+			problem: '为了检验您有没有在看这道题,请选择错误选项,以证明您读懂了题目',
+			// 为了正确的回答,你不能证明你读懂了题目
+			options: ['错误', '错误选项', '选项', '这题啥意思?'], answer: 24
+		}, {
+			problem: '我的Lichess Blitz ELO为1260,比28.4%的棋手更强,国际象棋的ELO初始分为1500,我的排名为428308,Lichess一共约有多少Blitz棋手?',
+			options: ['4436619', '2131580', '1508126', '509890'], answer: 23
+		}, {
+			problem: '服从性测试:选那个不要选我,否则你会扣1分',
+			// 选哪个"不要选我,否则你会扣1分"
+			options: [
+				'不要选我,否则你分数会清零',
+				'不要选我,否则你会加2分',
+				'不要选我,否则游戏现在结束',
+				'不要选我,否则你会扣1分'
+			], answer: 24
+		}, {
+			problem: 'It seems today, the all you see',
+			options: [
+				'is v-word on the TV and s-word on movie',
+				'is s-word on the TV and v-word on movie',
+				'is v-word on the movie and s-word on TV',
+				'is s-word on the movie and v-word on TV'
+			], answer: 23
+		}, {
+			problem: '如果你随机选择这题的一个选项,你的得分期望是?',
+			options: ['2', '0.5', '0.25', '0'], answer: 23
+		}, {
+			problem: "国际象棋中Queen's Gambit Accepted开局的标志是?",
+			options: ['2.d4 dxe4', '2.c4 dxc4', '2.e4 dxe4', '2.d4 cxd4'], answer: 22
+		}, {
+			problem: '以下选项在javascript中最与众不同的是',
+			options: ['()=>{}', 'function(){}', 'eval()', 'new Function()'], answer: 23
+		}, {
+			problem: '简称为桂的省的省会是哪里',
+			options: ['桂林', '南宁', '柳州', '桂平'], answer: 22
+		}, {
+			problem: '一个数据集满足数据对数呈正态分布,这个数据集中任取一个数据,首位最有可能是几?',
+			options: ['0', '1', '5', '9'], answer: 22
+		}, {
+			problem: '人们说一个服务器烂的时候通常用什么植物形容它?',
+			options: ['洋芋', '番茄', '北瓜', '荸荠'], answer: 21
+		}, {
+			problem: '一首歌的BPM为100,调式为4/4,这首歌的长度为134.4秒,这首歌一共有多少重拍',
+			options: ['48', '64', '32', '56'], answer: 24
+		}, {
+			problem: '愚人节小游戏需要你坚持多少秒才能获得梦力?',
+			options: ['350', '230', '260', '310'], answer: 22
+		}, {
+			problem: '选一个狐狸不觉得是幸运数字的数字',
+			// I like 372559
+			options: ['37', '59', '18', '25'], answer: 23
+		}, {
+			problem: '当一个没有什么计算机知识的人谈论内存时,实际上他有可能在说的最不可能是?',
+			options: ['外存', '运行内存', '缓存', '闪存'], answer: 23
+		}, {
+			problem: '有人叫你滚的时候你应该说什么',
+			// 当有人向你发滚,你就回母,你赢了
+			options: ['你也配?', '对不起!', '妈!', '这么强?'], answer: 23
+		}, {
+			problem: '户山香澄的缩写是什么',
+			options: ['rimi', 'ars', 'ksm', 'ran'], answer: 23
+		}, {
+			problem: '请不要点击<b style="color:#888">按钮</b>',
+			options: [
+				'<b style="color:#888">按钮</b>',
+				'<b style="color:#888">按钮</b>',
+				'<b style="color:#888">按</b><b style="color:#777">钮</b>',
+				'<b style="color:#888">按钮</b>'
+			], answer: 23
+		}, {
+			problem: '<a class="c204_1" href="https://photokit.com/colors/eyedropper" target="_blank">你懂的█</a>',
+			// #8934c0 = 8991936
+			options: ['9974976', '9000128', '8991880', '8991936'], answer: 24
+		}, {
+			problem: 'iq xahq kag',
+			options: ['we love you', 'no more bad', 'go your mom', 'an good tap'], answer: 21
+		}, {
+			problem: '一个后加一个车的价值是多少分?',
+			options: ['11', '12', '13', '14'], answer: 24
+		},
+	]
+}
+
+// 困难题目组
+function getHardProblemList() {
+	return [
+		{
+			problem: '',
+			options: ['', '', '', ''], answer: 0 // A=21 B=22 C=23 D=24
+		},
+	]
 }

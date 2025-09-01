@@ -1,5 +1,4 @@
 addLayer("202", {
-    name: getGameName(this.layer),
     symbol: "⏳️",
     resource: "点数",
     row: 2,
@@ -251,13 +250,8 @@ addLayer("202", {
                 }],
                 "blank",
                 ["display-text", function () {
-                    if (inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12)) return `<div style="
-                        width: 700px;
-                        padding: 10px;
-	                    border-radius: 5px;
-	                    border: 2px solid white;
-                        background: #111;
-                    ">
+                    if (inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12)) return `<div 
+                    class="tbox">
                     <span class="p1">${format(player._202.mul[0])} </span>×
                     <span class="p2">${format(player._202.mul[1])} </span>×
                     <span class="p3">${format(player._202.mul[2])} </span>×<br>

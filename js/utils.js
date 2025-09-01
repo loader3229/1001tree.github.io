@@ -472,6 +472,8 @@ function myTicking(diff) {
 }
 
 function completeWorld(id) {
+	if (player.world[id]) console.log(`写给开发者的话:你在哪里,当然我猜是在世界${id
+	},重复调用了完成世界函数,你知道这会导致什么吗?你应该庆幸这里有一个错误检查`)
 	player.world[id] = true
 	player.main.points = player.main.points.add(1)
 	player.points = player.points.add(1)
@@ -540,7 +542,8 @@ function randomString(length) {
 }
 
 function achievementComplete() {
-	player[this.layer].points = player[this.layer].points.add(1)
+	player.ach.points = player.ach.points.add(1)
+	player.ach.points = decimalMin(_D(Object.keys(layers.ach.achievements).length - 2),player.ach.points)
     player.global.achseed = Date.now()
 }
 
@@ -593,7 +596,7 @@ function decimalMin(...values) {
 
 	for (let i = 1; i < values.length; i++) {
 		const current = _D(values[i]);
-		if (current.lt(max)) {
+		if (current.lt(min)) {
 			min = current;
 		}
 	}

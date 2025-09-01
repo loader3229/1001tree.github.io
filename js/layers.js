@@ -79,7 +79,7 @@ addLayer("main", {
 
             if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
             else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
-            else if (this.getCanClick(data,id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
+            else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
             else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
 
             return style
@@ -207,6 +207,21 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        23: {
+            name: "复读机",
+            done() {
+                return player._204.answer[21] == 40 ||
+                    player._204.answer[22] == 40 ||
+                    player._204.answer[23] == 40 ||
+                    player._204.answer[24] == 40
+            },
+            onComplete() { achievementComplete() },
+            tooltip: "敷衍的回答所有问题,通过按下Enter键,当然你还不能点太快否则就会误判",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/23.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         101: {
             name: "愚人节玩笑",
             done() { return !player._501.lose && player._501.complete },
@@ -293,10 +308,15 @@ addLayer("ach", {
     clickables: {
         11: {
             title: "完成所有成就",
-            display: "测试用,强行将成就条件设置为真,可能会出bug",
+            display: "测试用,可能会出bug",
             canClick() { return true },
             onClick() {
-
+                for (key in layers[this.layer].achievements) {
+                    if (key == "rows" || key == "cols") continue
+                    else if (hasAchievement(this.layer,key)) continue
+                    player[this.layer].achievements.push(key)
+                    achievementComplete()
+                }
             }
         }
     }

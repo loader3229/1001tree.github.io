@@ -29,7 +29,8 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash',
 	"resetgrid", "getWrongPage", "getRandomcode",
-	"getSomeText","getRandomProblem"]
+	"getSomeText", "getRandomProblem", "randomProblem"
+]
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -88,10 +89,17 @@ function addedPlayerData() {
 		_204: {
 			maxscore: _D0,
 			started: false,
-			problist: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
+			problist: [],
 			sol: 0,
-			problem: "",
-			ans: "",
+			problem: { problem: '', options: ['', '', '', ''], answer: 0 },
+			ans: 0,
+			button: [21, 22, 23, 24],
+			answer: {
+				21: 0,
+				22: 0,
+				23: 0,
+				24: 0
+			}
 		},
 		_501: {
 			stage: _D0,

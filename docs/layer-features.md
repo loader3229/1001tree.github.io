@@ -1,173 +1,173 @@
-以下是层级可添加功能的完整列表。您可以根据需要自由添加其他功能或关联值，但以下功能具有特殊用途。
+以下是层级可添加功能的完整列表.您可以根据需要自由添加其他功能或关联值,但以下功能具有特殊用途.
 
-几乎所有数值都可以通过函数实现动态化，包括所有显示文本和样式/颜色功能。
+几乎所有数值都可以通过函数实现动态化,包括所有显示文本和样式/颜色功能.
 
 层级定义功能
-layer: 自动赋值。与该层级名称相同，可通过player[this.layer].points等方式访问存储值。便于代码复制到新层级，同时也会赋给所有升级项和可购买项等。
+layer: 自动赋值.与该层级名称相同,可通过player[this.layer].points等方式访问存储值.便于代码复制到新层级,同时也会赋给所有升级项和可购买项等.
 
-name: 可选。用于重置确认提示（及默认信息框标题）。若未设置则使用层级ID。
+name: 可选.用于重置确认提示（及默认信息框标题）.若未设置则使用层级ID.
 
-startData(): 返回该层级默认存档数据的函数。需添加所有自定义变量，注意使用Decimal类型而非普通数字。
+startData(): 返回该层级默认存档数据的函数.需添加所有自定义变量,注意使用Decimal类型而非普通数字.
 
 标准值：
 - 必需项：
-- unlocked: 布尔值，决定该层级是否解锁
-- points: Decimal类型，该层级主货币
+- unlocked: 布尔值,决定该层级是否解锁
+- points: Decimal类型,该层级主货币
 - 可选项：
-- total: Decimal类型，记录主声望货币总量（始终追踪但需在此添加才会显示）
-- best: Decimal类型，记录主声望货币历史最高值
+- total: Decimal类型,记录主声望货币总量（始终追踪但需在此添加才会显示）
+- best: Decimal类型,记录主声望货币历史最高值
 - unlockOrder: 记录该层级解锁前已解锁的相关层级
-- resetTime: 数字类型，记录上次重置至今的时间
+- resetTime: 数字类型,记录上次重置至今的时间
 
-color: 该层级的主题色（十六进制字符串格式，如"#FF0000"）
+color: 该层级的主题色（十六进制字符串格式,如"#FF0000"）
 
-row: 层级所在行数（从0开始），影响节点在标准树中的位置及受哪些重置影响。
+row: 层级所在行数（从0开始）,影响节点在标准树中的位置及受哪些重置影响.
 
-使用"side"替代数字将使层级显示为侧边小节点（适用于成就和统计）。侧边层级不受重置影响，除非添加doReset函数。
+使用"side"替代数字将使层级显示为侧边小节点（适用于成就和统计）.侧边层级不受重置影响,除非添加doReset函数.
 
-displayRow: 覆盖项 仅改变节点显示位置而不影响重置顺序。
+displayRow: 覆盖项 仅改变节点显示位置而不影响重置顺序.
 
-resource: 通过该层级重置获得的主货币名称。
+resource: 通过该层级重置获得的主货币名称.
 
-effect(): 可选。计算并返回主货币固有加成的函数，可返回单个值或多个值的对象。需自行实现加成应用逻辑
+effect(): 可选.计算并返回主货币固有加成的函数,可返回单个值或多个值的对象.需自行实现加成应用逻辑
 
-effectDescription: 可选。返回效果描述的函数。若文本固定可直接使用字符串。
+effectDescription: 可选.返回效果描述的函数.若文本固定可直接使用字符串.
 
-layerShown(): 可选。返回布尔值决定该层级节点是否显示（可返回"ghost"隐藏节点但仍占位）。默认为true。
+layerShown(): 可选.返回布尔值决定该层级节点是否显示（可返回"ghost"隐藏节点但仍占位）.默认为true.
 
-hotkeys: 可选。该层级的快捷键配置数组：
+hotkeys: 可选.该层级的快捷键配置数组：
 
 JS
 hotkeys: [
     {
-        key: "p", // 快捷键按键。组合键使用大写字母或"ctrl+x"格式
+        key: "p", // 快捷键按键.组合键使用大写字母或"ctrl+x"格式
         description: "p: 重置点数获取声望点", // 游戏指南页显示的描述
         onPress() { if (player.p.unlocked) doReset("p") },
         unlocked() {return hasMilestone('p', 3)} // 可选解锁条件
     }
 ]
-style: 可选。CSS对象（键为CSS属性），影响该层级整个标签页的样式。
+style: 可选.CSS对象（键为CSS属性）,影响该层级整个标签页的样式.
 
-tabFormat: 可选。自定义标签页布局。详见
+tabFormat: 可选.自定义标签页布局.详见
 
-midsection: 可选。tabFormat的替代方案，插入到标准布局的里程碑与可购买项之间（不支持子标签页）。
+midsection: 可选.tabFormat的替代方案,插入到标准布局的里程碑与可购买项之间（不支持子标签页）.
 
 核心功能（均为可选）
-upgrades: 一次性购买项，可自定义解锁条件、货币成本和加成。详见
+upgrades: 一次性购买项,可自定义解锁条件、货币成本和加成.详见
 
-milestones: 资源达到阈值时获得的加成列表，常用于自动化/QOL优化。详见
+milestones: 资源达到阈值时获得的加成列表,常用于自动化/QOL优化.详见
 
-challenges: 玩家可进入的挑战模式，达成目标后获得奖励。详见
+challenges: 玩家可进入的挑战模式,达成目标后获得奖励.详见
 
-buyables: 可多次购买的升级项，支持重置。详见
+buyables: 可多次购买的升级项,支持重置.详见
 
-clickables: 多功能通用按钮，存在点击限制。详见
+clickables: 多功能通用按钮,存在点击限制.详见
 
-microtabs: 子标签页功能区域。详见
+microtabs: 子标签页功能区域.详见
 
-bars: 进度条/仪表盘等可视化组件，支持垂直显示。详见
+bars: 进度条/仪表盘等可视化组件,支持垂直显示.详见
 
-achievements: 类似里程碑但显示风格不同。详见
+achievements: 类似里程碑但显示风格不同.详见
 
-achievementPopups/milestonePopups: 可选。设为false可禁用获得时的弹窗提示（默认true）。
+achievementPopups/milestonePopups: 可选.设为false可禁用获得时的弹窗提示（默认true）.
 
-infoboxes: 可折叠的信息框。详见
+infoboxes: 可折叠的信息框.详见
 
-grid: 行为相同但数据独立的按钮网格。详见
+grid: 行为相同但数据独立的按钮网格.详见
 
 声望公式功能
-type: 可选。决定使用的声望公式类型（默认为"none"）：
+type: 可选.决定使用的声望公式类型（默认为"none"）：
 
-"normal": 获得货币量与当前量无关（如Prestige），基础公式为baseResource^exponent
-"static": 成本取决于重置后总量，基础公式为base^(x^exponent)
+"normal": 获得货币量与当前量无关（如Prestige）,基础公式为baseResource^exponent
+"static": 成本取决于重置后总量,基础公式为base^(x^exponent)
 "custom": 完全自定义计算方式和按钮文本
 "none": 该层级无重置功能
-baseResource: 决定重置获得主货币量的资源名称。
+baseResource: 决定重置获得主货币量的资源名称.
 
-baseAmount(): 获取基础资源当前值的函数。
+baseAmount(): 获取基础资源当前值的函数.
 
-requires: Decimal值，获得1点声望货币所需基础资源量（也是解锁该层级的条件）。可设为函数实现动态难度（基于unlockOrder）。
+requires: Decimal值,获得1点声望货币所需基础资源量（也是解锁该层级的条件）.可设为函数实现动态难度（基于unlockOrder）.
 
-exponent: 公式中的指数值。
+exponent: 公式中的指数值.
 
-base: 有时必需。"static"类型必需参数（默认为2），必须大于1。
+base: 有时必需."static"类型必需参数（默认为2）,必须大于1.
 
-roundUpCost: 可选。布尔值，为true时对资源成本向上取整（适用于"static"货币）。
+roundUpCost: 可选.布尔值,为true时对资源成本向上取整（适用于"static"货币）.
 
-gainMult()/gainExp(): 可选。对"normal"类型计算增益乘数和指数；对"static"类型则作用于资源成本（因此增益应减小gainMult并增大gainExp）。
+gainMult()/gainExp(): 可选.对"normal"类型计算增益乘数和指数；对"static"类型则作用于资源成本（因此增益应减小gainMult并增大gainExp）.
 
-directMult(): 可选。最终直接乘数（在指数和软上限计算之后）。对"static"类型实际增加资源获取而非降低成本。
+directMult(): 可选.最终直接乘数（在指数和软上限计算之后）.对"static"类型实际增加资源获取而非降低成本.
 
-softcap/softcapPower: 可选。"normal"类型中，超过[softcap]的收益将进行[softcapPower]次方运算（默认softcap为e1e7，power为0.5）。
+softcap/softcapPower: 可选."normal"类型中,超过[softcap]的收益将进行[softcapPower]次方运算（默认softcap为e1e7,power为0.5）.
 
 其他声望相关功能
-canBuyMax(): 有时必需。"static"类型必需函数，用于判断是否允许最大购买。
+canBuyMax(): 有时必需."static"类型必需函数,用于判断是否允许最大购买.
 
-onPrestige(gain): 可选。重置时触发的函数（在获得货币前执行），可用于次级资源获取或重新计算等。
+onPrestige(gain): 可选.重置时触发的函数（在获得货币前执行）,可用于次级资源获取或重新计算等.
 
-resetDescription: 可选。替换重置按钮上的"Reset for "文本。
+resetDescription: 可选.替换重置按钮上的"Reset for "文本.
 
-prestigeButtonText(): 有时必需。完全自定义重置按钮文本（"custom"类型必需）。
+prestigeButtonText(): 有时必需.完全自定义重置按钮文本（"custom"类型必需）.
 
-passiveGeneration(): 可选。返回每秒自动生成的声望货币倍数（不设置则不生效），适用于自动化"normal"类型。
+passiveGeneration(): 可选.返回每秒自动生成的声望货币倍数（不设置则不生效）,适用于自动化"normal"类型.
 
-autoPrestige(): 可选。返回布尔值决定是否自动执行重置，适用于自动化"static"类型。
+autoPrestige(): 可选.返回布尔值决定是否自动执行重置,适用于自动化"static"类型.
 
 树形图/节点功能
-symbol: 可选。节点显示文本（默认为首字母大写的层级ID）。
+symbol: 可选.节点显示文本（默认为首字母大写的层级ID）.
 
-image: 覆盖项。节点图片URL（覆盖symbol）。
+image: 覆盖项.节点图片URL（覆盖symbol）.
 
-position: 可选。决定节点在行中的水平位置（默认按层级ID字母排序）。
+position: 可选.决定节点在行中的水平位置（默认按层级ID字母排序）.
 
-branches: 可选。连接线配置数组，可包含目标层级ID、颜色值（十六进制或1-3主题色）及线宽。
+branches: 可选.连接线配置数组,可包含目标层级ID、颜色值（十六进制或1-3主题色）及线宽.
 
-nodeStyle: 可选。CSS对象，用于节点样式定制。
+nodeStyle: 可选.CSS对象,用于节点样式定制.
 
-tooltip()/tooltipLocked(): 可选。返回节点提示文本的函数（返回""可禁用提示）。
+tooltip()/tooltipLocked(): 可选.返回节点提示文本的函数（返回""可禁用提示）.
 
-marked: 可选。节点角标（true显示星标，或使用图片URL）。
+marked: 可选.节点角标（true显示星标,或使用图片URL）.
 
 其他功能
-doReset(resettingLayer): 可选。当更高层级重置时触发。默认行为是重置同行级内容（对side层级默认不重置）。可通过layerDataReset(layer, keep)保留指定数据。
+doReset(resettingLayer): 可选.当更高层级重置时触发.默认行为是重置同行级内容（对side层级默认不重置）.可通过layerDataReset(layer, keep)保留指定数据.
 
-update(diff): 可选。每游戏tick执行的函数（diff为时间差），用于被动资源生产等。
+update(diff): 可选.每游戏tick执行的函数（diff为时间差）,用于被动资源生产等.
 
-autoUpgrade: 可选。布尔值，为true时自动购买该层级的升级项（默认false）。
+autoUpgrade: 可选.布尔值,为true时自动购买该层级的升级项（默认false）.
 
-automate(): 可选。每tick在资源生产后执行，用于实现特殊自动化。
+automate(): 可选.每tick在资源生产后执行,用于实现特殊自动化.
 
-resetsNothing: 可选。返回true时该层级重置不触发其他重置。
+resetsNothing: 可选.返回true时该层级重置不触发其他重置.
 
-increaseUnlockOrder: 可选。层级ID数组，当该层级首次解锁时，将增加列表中未解锁层级的unlockOrder值（提高解锁难度）。
+increaseUnlockOrder: 可选.层级ID数组,当该层级首次解锁时,将增加列表中未解锁层级的unlockOrder值（提高解锁难度）.
 
-shouldNotify: 可选。返回true时高亮该层级节点（可购买升级时自动高亮）。
+shouldNotify: 可选.返回true时高亮该层级节点（可购买升级时自动高亮）.
 
-glowColor: 可选。高亮颜色（默认红色），可用于多种通知类型。
+glowColor: 可选.高亮颜色（默认红色）,可用于多种通知类型.
 
-componentStyles: 可选。组件样式函数集：
+componentStyles: 可选.组件样式函数集：
 
 JS
 componentStyles: {
     "challenge"() { return {'height': '200px'} },
     "prestige-button"() { return {'color': '#AA66AA'} }
 }
-leftTab: 可选。为true时使用左侧标签页。
+leftTab: 可选.为true时使用左侧标签页.
 
-previousTab: 可选。指定返回箭头指向的层级ID。
+previousTab: 可选.指定返回箭头指向的层级ID.
 
-deactivated: 可选。为true时禁用该层级的所有升级/挑战/成就检测和交互功能（需自行处理相关效果禁用）。
+deactivated: 可选.为true时禁用该层级的所有升级/挑战/成就检测和交互功能（需自行处理相关效果禁用）.
 
 自定义声望类型功能
 （以下功能也可用于其他声望类型）
 
-getResetGain(): 主要用于自定义类型。返回当前重置应获得的点数。可通过getResetGain(this.layer, useType = "static")计算其他类型的收益。
+getResetGain(): 主要用于自定义类型.返回当前重置应获得的点数.可通过getResetGain(this.layer, useType = "static")计算其他类型的收益.
 
-getNextAt(canMax=false): 主要用于自定义类型。返回获得下一点所需基础资源量。canMax参数用于区分"static"类型的首次重置条件和任意收益条件。
+getNextAt(canMax=false): 主要用于自定义类型.返回获得下一点所需基础资源量.canMax参数用于区分"static"类型的首次重置条件和任意收益条件.
 
-canReset(): 主要用于自定义类型。返回是否满足重置条件。
+canReset(): 主要用于自定义类型.返回是否满足重置条件.
 
-prestigeNotify(): 主要用于自定义类型。返回true时轻微高亮节点提示有意义的重置收益。
+prestigeNotify(): 主要用于自定义类型.返回true时轻微高亮节点提示有意义的重置收益.
 
 # Layer Features
 

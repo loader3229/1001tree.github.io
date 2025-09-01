@@ -1,5 +1,4 @@
 addLayer("204", {
-    name: getGameName(this.layer),
     symbol: "❓",
     resource: "点数",
     row: 2,
@@ -16,153 +15,191 @@ addLayer("204", {
         problems: {
             content: [
                 ["display-text", function () {
-                    return `你有<h2 class="p2pt"> ${formatWhole(player[this.layer].points)} </h2>分数`
+                    return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)} / 40</h2> 分数`
                 }],
                 ["display-text", function () {
-                    return `你曾获得过的最高分数是:${player._204.maxscore}`
+                    return `你曾获得过的最高分数是${player._204.maxscore},达到40分来完成世界!`
                 }],
                 "blank",
                 ["display-text", function () {
-                    return `题目${player._204.sol+1}:${player._204.problem}`
+                    if (player._204.started) return `题目${player._204.sol + 1} : ${player._204.problem?.problem}`
                 }],
                 "blank",
-                "clickables",
+                ["clickables", [1]],
+                "blank",
+                function () {
+                    return [
+                        "row", [
+                            ["clickable", player._204.button[0]],
+                            ["clickable", player._204.button[1]],
+                        ]
+                    ]
+                },
+                function () {
+                    return [
+                        "row", [
+                            ["clickable", player._204.button[2]],
+                            ["clickable", player._204.button[3]],
+                        ]
+                    ]
+                },
+                "blank",
                 ["display-text", function () {
                     return `题目答对+2分,答错-1分,你已经答了${formatWhole(player._204.sol)}/40道题目`
                 }],
             ]
         },
     },
-    getRandomProblem(){
-        let i=40;
-        var j;
-        var t;
-        while(i>0){
-            j=Math.floor(Math.random()*i)+1
-            t=player._204.problist[i]
-            player._204.problist[i]=player._204.problist[j];
-            player._204.problist[j]=t;
-            i--;
-        }
+    randomProblem() {
+        // 告诉你题库现在有多少题目
+        // console.log(getProblemList().length)
+        let array = [...Array(getProblemList().length).keys()]
+        const shuffled = [...array].sort(() => Math.random() - 0.5);
+        // 取41个元素避免报错
+        return shuffled.slice(0, 41);
     },
-    update(diff){
-        if(player._204.started == true && player._204.sol == 40){
-            if(player[this.layer].points.gte(40)){
-                player.points = player.points.add(1)
-                player.main.points = player.main.points.add(1)
-            }
+    randomButton() {
+        return [21, 22, 23, 24].sort(() => Math.random() - 0.5)
+    },
+    update(diff) {
+        if (player._204.started == true && player._204.sol == 40) {
             player._204.started = false
+            if (player[this.layer].points.gte(40)) {
+                // 请使用下面的函数完成世界,而不是
+                // player.points = player.points.add(1)
+                // player.main.points = player.main.points.add(1)
+                completeWorld(this.layer)
+            }
+            player[this.layer].points = player._204.maxscore
+            player._204.sol = 0
+            player._204.ans = 0
+            player._204.problist = []
+            player._204.problem = { problem: '', options: ['', '', '', ''], answer: 0 }
+            player._204.button = this.randomButton()
         }
     },
-    clickables:{
-        11:{
-            title(){return `开始答题!`},
-            display(){return `获得至少40分以完成世界并获得1梦力,共40题!`},
-            onClick(){
+    clickables: {
+        11: {
+            title() { return `开始答题!` },
+            display() { return `获得至少40分以完成世界并获得1梦力,共40题!` },
+            onClick() {
+                player._204.answer = { 21: 0, 22: 0, 23: 0, 24: 0 }
+                player[this.layer].points = _D0
                 player._204.sol = 0
-                player._204.ans = ""
-                layers[this.layer].getRandomProblem();
-                a = getProblemList()
-                player._204.problem = a[player._204.problist[1]]
+                player._204.ans = 0
+                player._204.problist = layers[this.layer].randomProblem()
+                player._204.button = layers[this.layer].randomButton()
                 player._204.started = true
+                player._204.problem = getProblemList()[player._204.problist[0]]
             },
-            unlocked(){return !player._204.started},
-            canClick(){return !player._204.started},
+            unlocked() { return !player._204.started },
+            canClick() { return !player._204.started },
         },
-        12:{
-            title(){return `确认你的答案`},
-            display(){return `一旦确认后不可更改!`},
-            onClick(){
-                a = getChoiceList()
-                if(player._204.ans==a[player._204.problist[player._204.sol+1]][4]){
-                    player[this.layer].points=player[this.layer].points.add(2)
-                    player._204.maxscore=player[this.layer].points.max(player._204.maxscore)
-                }else{
-                    player[this.layer].points=player[this.layer].points.sub(1)
-                    player._204.maxscore=player[this.layer].points.max(player._204.maxscore)
+        12: {
+            title() { return player._204.sol == 39 ? "结束回答并结算" : "确认你的答案" },
+            display() { return `一旦确认后不可更改!` },
+            onClick() {
+                player._204.answer[[21, 22, 23, 24][player._204.button.indexOf(parseInt(player._204.ans))]]++
+                if (player._204.problem.answer != player._204.ans) player[this.layer].points = player[this.layer].points.sub(1)
+                else {
+                    player[this.layer].points = player[this.layer].points.add(2)
+                    player._204.problem = player._204.maxscore = decimalMax(player._204.maxscore, player[this.layer].points)
                 }
-                b = getProblemList()
-                player._204.problem = b[player._204.problist[player._204.sol+1]]
                 player._204.sol++
-                player._204.ans=""
+                player._204.problem = getProblemList()[player._204.problist[player._204.sol]]
+                player._204.ans = 0
+                player._204.button = layers[this.layer].randomButton()
             },
-            unlocked(){return player._204.started&&player._204.ans!=""},
-            canClick(){return player._204.started&&player._204.ans!=""},
-        },
-        21:{
-            display(){
-                a = getChoiceList()
-                return `A.`+a[player._204.problist[player._204.sol+1]][0]
-            },
-            onClick(){
-                player._204.ans="A"
-            },
-            unlocked(){return player._204.started},
-            canClick(){return player._204.started&&player._204.ans!="A"},
-            style:{
-                "background-color"(){
-                    if(player._204.ans == "A"){
-                        return "hsl(70,100%,50%)"
-                    }
-                    return "#a0a0a0"
-                },
+            unlocked() { return player._204.started && player._204.sol < 40 },
+            canClick() { return player._204.started && player._204.ans != 0 },
+            style: {
+                "width": "200px",
+                "minHeight": "90px"
             }
         },
-        22:{
-            display(){
-                a = getChoiceList()
-                return `B.`+a[player._204.problist[player._204.sol+1]][1]
+        13: {
+            title() { return `自动确认` },
+            display() { return `当前状态<br>${getClickableState(this.layer, this.id) ? "开启" : "关闭"}` },
+            onClick() {
+                setClickableState(this.layer, this.id, !getClickableState(this.layer, this.id))
             },
-            onClick(){
-                player._204.ans="B"
-            },
-            unlocked(){return player._204.started},
-            canClick(){return player._204.started&&player._204.ans!="B"},
-            style:{
-                "background-color"(){
-                    if(player._204.ans == "B"){
-                        return "hsl(70,100%,50%)"
-                    }
-                    return "#a0a0a0"
-                }
+            unlocked() { return player._204.started && player._204.sol < 40 },
+            canClick() { return player._204.started },
+            style: {
+                "width": "90px",
+                "minHeight": "90px"
             }
         },
-        23:{
-            display(){
-                a = getChoiceList()
-                return `C.`+a[player._204.problist[player._204.sol+1]][2]
+        21: {
+            display() {
+                return player._204.problem?.options[0]
             },
-            onClick(){
-                player._204.ans="C"
+            onClick() {
+                player._204.ans = this.id
+                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
-            unlocked(){return player._204.started},
-            canClick(){return player._204.started&&player._204.ans!="C"},
-            style:{
-                "background-color"(){
-                    if(player._204.ans == "C"){
-                        return "hsl(70,100%,50%)"
-                    }
-                    return "#a0a0a0"
-                }
+            unlocked() { return player._204.started },
+            canClick() { return player._204.started && player._204.ans != this.id },
+            style: {
+                "background-color"() { return player._204.ans == 21 ? "hsl(70,100%,50%)" : "hsl(70,50%,90%)" },
+                "fontSize": "16px",
+                "width": "350px",
+                "minHeight": "90px",
+                "wordBreak": "break-all",
             }
         },
-        24:{
-            display(){
-                a = getChoiceList()
-                return `D.`+a[player._204.problist[player._204.sol+1]][3]
+        22: {
+            display() {
+                return player._204.problem?.options[1]
             },
-            onClick(){
-                player._204.ans="D"
+            onClick() {
+                player._204.ans = this.id
+                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
-            unlocked(){return player._204.started},
-            canClick(){return player._204.started&&player._204.ans!="D"},
-            style:{
-                "background-color"(){
-                    if(player._204.ans == "D"){
-                        return "hsl(70,100%,50%)"
-                    }
-                    return "#a0a0a0"
-                }
+            unlocked() { return player._204.started },
+            canClick() { return player._204.started && player._204.ans != this.id },
+            style: {
+                "background-color"() { return player._204.ans == 22 ? "hsl(70,100%,50%)" : "hsl(70,50%,90%)" },
+                "fontSize": "16px",
+                "width": "350px",
+                "minHeight": "90px",
+                "wordBreak": "break-all",
+            }
+        },
+        23: {
+            display() {
+                return player._204.problem?.options[2]
+            },
+            onClick() {
+                player._204.ans = this.id
+                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+            },
+            unlocked() { return player._204.started },
+            canClick() { return player._204.started && player._204.ans != this.id },
+            style: {
+                "background-color"() { return player._204.ans == 23 ? "hsl(70,100%,50%)" : "hsl(70,50%,90%)" },
+                "fontSize": "16px",
+                "width": "350px",
+                "minHeight": "90px",
+                "wordBreak": "break-all",
+            }
+        },
+        24: {
+            display() {
+                return player._204.problem?.options[3]
+            },
+            onClick() {
+                player._204.ans = this.id
+                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+            },
+            unlocked() { return player._204.started },
+            canClick() { return player._204.started && player._204.ans != this.id },
+            style: {
+                "background-color"() { return player._204.ans == 24 ? "hsl(70,100%,50%)" : "hsl(70,50%,90%)" },
+                "fontSize": "16px",
+                "width": "350px",
+                "minHeight": "90px",
+                "wordBreak": "break-all",
             }
         },
     }

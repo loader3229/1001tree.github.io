@@ -1,5 +1,4 @@
 addLayer("102", {
-    name: getGameName(this.layer),
     symbol: "⛏️",
     resource: "Hash点",
     row: 1,
@@ -34,13 +33,8 @@ addLayer("102", {
         }],
         "blank",
         ["display-text", function () {
-            return `<div style="
-                width: 700px;
-                padding: 10px;
-                border-radius: 5px;
-                border: 2px solid white;
-                background: #111;
-            ">
+            return `<div 
+            class="tbox">
             当前检验 ${player._102.now}<br>
             <span class="nmpt">${s256(`${player._102.now}${player._102.salt}`)}</span><br>
             <br>

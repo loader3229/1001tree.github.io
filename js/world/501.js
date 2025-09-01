@@ -1,5 +1,4 @@
 addLayer("501", {
-    name: getGameName(this.layer),
     symbol: "😂",
     resource: "点数",
     row: 5,

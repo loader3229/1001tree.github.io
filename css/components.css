@@ -171,6 +171,14 @@
 	border-color: rgba(0, 0, 0, 0.125);
 }
 
+div.tbox {
+	width: 700px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 2px solid white;
+	background: #111;
+}
+
 .c1 {
 	background: linear-gradient(in hsl longer hue 60deg,
 			hsl(0, 100%, 50%),
@@ -512,4 +520,11 @@
 .p9tx {
 	color: #EEE;
 	text-shadow: 1px 1px 0px #444;
+}
+
+.c204_1 {
+	background: #8934c0;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
 }
