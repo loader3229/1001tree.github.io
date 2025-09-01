@@ -2,7 +2,7 @@ let modInfo = {
 	name: "一千零一树",
 	id: "1001tree",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "const.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/501.js"],
+	modFiles: ["layers.js", "tree.js", "const.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/204.js", "world/501.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -29,7 +29,7 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash',
 	"resetgrid", "getWrongPage", "getRandomcode",
-	"getSomeText"]
+	"getSomeText","getRandomProblem"]
 
 function getStartPoints() {
 	return new Decimal(modInfo.initialStartPoints)
@@ -84,6 +84,14 @@ function addedPlayerData() {
 			subclick: _D0,
 			timeplayed: _D0,
 			click: _D0,
+		},
+		_204: {
+			maxscore: _D0,
+			started: false,
+			problist: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
+			sol: 0,
+			problem: "",
+			ans: "",
 		},
 		_501: {
 			stage: _D0,
