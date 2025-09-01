@@ -113,7 +113,8 @@ addLayer("ach", {
             return `你有 ${formatWhole(ach)}/${formatWhole(tac)} 成就,加成成就获取+1<br>${layers[this.layer].getSomeText(ach.div(tac))}`
         }],
         "blank",
-        "achievements"
+        "achievements",
+        "clickables"
     ],
     getSomeText(progress) {
         let p = progress.eq_tolerance(1) ? 6 : Decimal.ceil(progress.mul(5)).toNumber()
@@ -257,12 +258,22 @@ addLayer("ach", {
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
         205: {
+            name: "再次...欢迎回来",
+            done() { return player.hardreset },
+            onComplete() { achievementComplete() },
+            tooltip: "点击硬重置按钮但不硬重置",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/205.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
+        206: {
             name: "冒名顶替者",
             done() { return player.global.name == "乾狐离光" || player.global.name == "userincre" || player.global.name == "banana3864" },
             onComplete() { achievementComplete() },
             tooltip: "将名字设置为开发者之一",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/205.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/206.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -279,6 +290,16 @@ addLayer("ach", {
         },
     },
     layerShown() { return true },
+    clickables: {
+        11: {
+            title: "完成所有成就",
+            display: "测试用,强行将成就条件设置为真,可能会出bug",
+            canClick() { return true },
+            onClick() {
+
+            }
+        }
+    }
 });
 
 /*

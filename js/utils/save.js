@@ -7,7 +7,6 @@ function save(force) {
 	if (player) player.realTime = Date.now()
 	localStorage.setItem(getModID(), btoa(unescape(encodeURIComponent(JSON.stringify(player)))));
 	localStorage.setItem(getModID() + "_options", btoa(unescape(encodeURIComponent(JSON.stringify(options)))));
-
 }
 function startPlayerBase() {
 	return {

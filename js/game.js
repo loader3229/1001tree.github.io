@@ -392,6 +392,7 @@ function gameLoop(diff) {
 }
 
 function hardReset(resetOptions) {
+	player.hardreset = true
 	if (!confirm("你真的要重置吗?这会清除你的所有进度!")) return
 	player = null
 	if(resetOptions) options = null
