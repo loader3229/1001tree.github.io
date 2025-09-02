@@ -123,7 +123,7 @@ function getNewsList() {
 			"学校的晚自习算不算怕我们玩太久手机把她忘了来玩强制爱呀",
 			"Lap的妈妈有三个儿子,一个叫Nap,一个叫Map,最后一个叫什么?",
 			"喜欢别人怀里的女人是不是和喜欢的女人在别人怀里是一个状态（x）",
-			"本人因太饿于是吃了两个汉堡8个鸡块5个地瓜丸2个鸡小腿2个鸡肉卷2杯可乐",
+			"本人因太饿于是吃了2个汉堡8个鸡块5个地瓜丸2个鸡小腿2个鸡肉卷2杯可乐",
 			"夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵夸我喵",
 			"占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符占位符",
 			"今天是民国114年5月1日星期4,而且还有19分钟就是19:19:08.10,一生只能转一次",
@@ -253,6 +253,8 @@ function getSloganList() {
 		Math.random(),
 		randomString(20),
 		() => { return () => false },
+		`<button onclick="playsound('g1')">Nothing can beat your 1001tree</button>`,
+		'<img src="resources/bx.gif" />',
 		`This is a <span style="background: linear-gradient(in hsl longer hue 90deg,
             hsl(-30, 100%, 50%),
             hsl(330, 100%, 50%));
@@ -277,7 +279,6 @@ function getSloganList() {
 		class='p9'>就现在</span>`,
 		`1<sup>2<sup>3<sup>4<sup>5<sup>6<sup>7<sup>8<sup>9
 		</sup></sup></sup></sup></sup></sup></sup></sup>`,
-		`<button onclick="playsound('g1')">Nothing can beat your 1001tree</button>`,
 		// 常规
 		"undefined",
 		"гRεε匚③つ≒？",
@@ -302,7 +303,7 @@ function getSloganList() {
 		"哦哈啊啊啦咯嚓嚓吧喏啦",
 		"this=x this'=1 '=1/x",
 		"EMBRACE the NIGHT!!!",
-		"I dedi becosof my dad",
+		"I dedi becosof my bab",
 		"I feel it in my b*ood",
 		"Try to catch me there",
 		"f(x)=x^x,g(x)=f(f(x))",
@@ -323,7 +324,6 @@ function getSloganList() {
 		"150 bpm for 400000 minutes!",
 		"We have storngest Developers!",
 		"this=x^n this'=nx^(n-1) '=n/x",
-		'<img src="resources/bx.gif" />',
 		"this=∫f(x)dx this'=f(x) '=1/∫dx",
 		"The 1001-Tree Team made this one",
 		"We think you’re gonna like it here.",
@@ -642,104 +642,116 @@ function getProblemList() {
 function getHardProblemList() {
 	return [
 		{
-			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是? <br> <img src="../pic/prob3.jpg" width="250px"/>',
+			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是?<br><img src="../pic/prob3.jpg" width="250px"/>',
 			options: ['(31/17,5/17)', '((10√17)/17,√17)', '(5/31,5/17)', '(√17/10,5/31)'], answer: 21 // A=21 B=22 C=23 D=24
 		}, {
 			problem: '在TMT中,若想修改玩家所处的页面,可以使用哪个参数?',
-			options: ['player.tabs','player.subtabs[层级].mainTabs','player.层级.tabs','player.层级.subtabs'], answer: 22,
+			options: ['player.tabs', 'player.subtabs[层级].mainTabs', 'player.层级.tabs', 'player.层级.subtabs'], answer: 22,
 		}, {
 			problem: '反物质维度现实前的最后一次更新发表于何时?',
-			options: ['2022.12.15','2019.6.2','2018.6.17','2017.6.4'], answer: 23,
+			options: ['2022.12.15', '2019.6.2', '2018.6.17', '2017.6.4'], answer: 23,
 		}, {
 			problem: '已知函数S(n)表示n的数位之和, 如S(321)=3+2+1=6. f(n)表示斐波那契数列的第n项, 其中f(1)=1,f(2)=1,f(3)=2. 求(S(f(1000))+S(f(999))+S(f(998))+....+S(f(2))+S(f(1))) mod 9的值',
-			options: ['3','2','1','0'], answer: 24,
+			options: ['3', '2', '1', '0'], answer: 24,
 		}, {
 			problem: 'Galaxy.click上,编号580的游戏是?',
-			options: ['The disencouragement tree','Karyofox','Reverse them all','The doors tree'], answer: 21,
+			options: ['The disencouragement tree', 'Karyofox', 'Reverse them all', 'The doors tree'], answer: 21,
 		}, {
 			problem: '子串包含所有k位二进制01串的字符串最小长度是?',
-			options: ['2^k','2^k+k-1','k^2+2k-1','2^(k+1)'], answer: 22,
+			options: ['2^k', '2^k+k-1', 'k^2+2k-1', '2^(k+1)'], answer: 22,
 		}, {
 			problem: '愚人节小游戏中, player._501.trig[3]代表哪种失败条件?',
-			options: ['得到一个成就','未遵循指示','在5或12回合中点击不明显错误颜色的按钮','忘却规则'], answer: 23,
+			options: ['得到一个成就', '未遵循指示', '在5或12回合中点击不明显错误颜色的按钮', '忘却规则'], answer: 23,
 		}, {
 			problem: 'NTY ek56 U1RF UFE9P UT09',
-			options: ['432529','575612','736455','563725'], answer: 24,
+			options: ['432529', '575612', '736455', '563725'], answer: 24,
 		}, {
 			problem: '牌堆里有a张A牌和b张B牌(a,b>0),从这个牌堆中拿走75张B牌(不能全拿也不能不拿),且1/[(a/b)+(b/a)+2]的值不变,a的最大值为多少?',
-			options: ['1406','5625','1369','1444'], answer: 21,
+			options: ['1406', '5625', '1369', '1444'], answer: 21,
 		}, {
-			problem: '今天是第几夜?',
-			options: ['1001','3','11','2'], answer: 22,
+			problem: '这里有几个夜晚,所以今天是第几夜?',
+			options: ['1001', '3', '11', '2'], answer: 22,
 		}, {
 			problem: '自然数基数集和实数基数集之间是否存在别的基数?',
-			options: ['有,但是人类还没发现','没有','我不知道啊,问康托尔去','什么是自然数?'], answer: 23,
+			options: ['有,但是人类还没发现', '没有', '我不知道啊,问康托尔去', '什么是自然数?'], answer: 23,
 		}, {
 			problem: '以下没有在新闻中出现的是',
-			options: [player.global.mynews,'abandon','format c: /q','闲鱼回收二手货'], answer: 24,
+			options: [player.global.mynews, 'abandon', 'format c: /q', '闲鱼回收二手货'], answer: 24,
 		}, {
 			problem: '以下没有在新闻中出现的是',
-			options: ['1+1=2','血腥的晚餐','shift+1','为了得到而失去'], answer: 21,
+			options: ['1+1=2', '血腥的晚餐', 'shift+1', '为了得到而失去'], answer: 21,
 		}, {
 			problem: '以下没有在新闻中出现的是',
-			options: ['85222','23648','4925','114514'], answer: 22,
+			options: ['285222', '23648', '4925', '114514'], answer: 22,
 		}, {
 			problem: '以下没有在新闻中出现的是',
-			options: ['可爱的拜谢酱','HCl','炮二平五','线性增长=指数增长/x'], answer: 23,
+			options: ['可爱的拜谢酱', 'HCl', '炮二平五', '线性增长=指数增长/x'], answer: 23,
 		}, {
 			problem: '以下没有在标语中出现的是',
-			options: ['可爱的拜谢酱','070190','汉字顺的序不会响影阅读','embrace the night'], answer: 24,
+			options: ['可爱的拜谢酱', '070190', 'this.value', 'embrace the night'], answer: 24,
 		}, {
 			problem: '以下没有在标语中出现的是',
-			options: ['123456789','134217728','自由潜泳','秘密'], answer: 21,
+			options: ['live server默认端口', '九层妖塔', '自由潜泳', '秘密'], answer: 24,
 		}, {
 			problem: '这个单词:lamprophony, 是什么意思?',
 			options: ['实验室', '声音响亮的', '预言', '生疏的'], answer: 22,
 		}, {
 			problem: '这个单词:thyroxine, 是什么意思?',
-			options: ['蛋白质','猪肉杆菌','甲状腺素','奶制品中毒'], answer: 23,
+			options: ['蛋白质', '猪肉杆菌', '甲状腺素', '奶制品中毒'], answer: 23,
 		}, {
 			problem: '以下单词中,和其他不同的是?',
-			options: ['jetty','lucre','auspice','accurate'], answer: 24,//最后一个是四级词汇，其他是专八
+			options: ['jetty', 'lucre', 'auspice', 'accurate'], answer: 24,//最后一个是四级词汇，其他是专八 回复:???	
 		}, {
 			problem: '以下单词中,和其他不同的是?',
-			options: ['admire','boundary','favour','waist'], answer: 21//第一个是必修一词汇，其他是选修一		
+			options: ['admire', 'boundary', 'favour', 'waist'], answer: 21//第一个是必修一词汇，其他是选修一 回复:???	
 		}, {
-			problem: '求方程(a/b+c)+(b/a+c)+(c/a+b)=4的整数解中a的值?',
-			options: ['154476802108746166444331315019919<br>837485661423469565431700026634898<br>253202009877999','154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035277999','154429382108746166441951315019919<br>837485664325669563232000026634898<br>253202035279999','154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035077999'], answer:22
+			problem: '求方程(a/b+c)+(b/a+c)+(c/a+b)=4的已知最小整数解中a的值?',
+			options: ['154476802108746166444331315019919<br>837485661423469565431700026634898<br>253202009877999',
+				'154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035277999',
+				'154429382108746166441951315019919<br>837485664325669563232000026634898<br>253202035279999',
+				'154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035077999'], answer: 22
 		}, {
-			problem: '<b style = "color: #c11077">你懂的■</b>',
-			options: ['<b style = "color: #c11076">选项</b>','<b style = "color: #c11077fe">选项</b>','<b style = "color: #c11077">选项</b>','<b style = "color: #c01077">选项</b>'], answer: 23
+			problem: '<span style = "color: #c11077">你懂的█</b>',
+			options: ['<span style = "color: #c11076">选项█</span>', '<span style = "color: #c11077fe">选项█</span>', '<span style = "color: #c11077">选项█</span>', '<span style = "color: #c01077">选项█</vpan>'], answer: 23
 		}, {
 			problem: '小明一开始有1金币,每秒获得1e200金币,经过软上限折算后1000s最终有1e201+1金币,该软上限可能是?',
-			options: ['金币获取开平方根','超过9e200金币后,获取除以990','金币获取/1000','金币获取/100'], answer:24
+			options: ['金币获取开平方根', '超过9e200金币后,获取除以990', '金币获取/1000', '金币获取/100'], answer: 24
 		}, {
 			problem: '求 (¬r∧(p∨q))∨(p∧q) 的合取范式?',
-			options: ['(¬r∨p)∧(¬r∨q)∧(p∨q)','(¬r∨p)∧(¬r∨q)','(¬p∨q)∧(¬r∨(p∧q))','(¬r∨p∨q)∧(p∨q)'], answer:21,
+			options: ['(¬r∨p)∧(¬r∨q)∧(p∨q)', '(¬r∨p)∧(¬r∨q)', '(¬p∨q)∧(¬r∨(p∧q))', '(¬r∨p∨q)∧(p∨q)'], answer: 21,
 		}, {
 			problem: 'Lap的妈妈有三个儿子,一个叫Map,一个叫Nap,另一个的性别是?',
-			options: ['女','男','无','中'], answer: 22,
+			options: ['女', '男', '无', '中'], answer: 22,
 		}, {
-			problem: '命题 "∃x" 的哥德尔数是?',
-			options: ['23328','13286025','25509168','98876953125'], answer: 23,
+			problem: '命题 ∃x 的哥德尔数是?',
+			options: ['23328', '13286025', '25509168', '98876953125'], answer: 23,
 		}, {
 			problem: '如果昨天是后天,前天的昨天是周二的明天,今天实际上是周几?',
-			options: ['周六','周五','周四','周三'], answer: 24,
+			options: ['周六', '周五', '周四', '周三'], answer: 24,
 		}, {
 			problem: '下列层级最多的是?',
-			options: ['1 points = 1 layer','声望树重制版','生命树','增量宇宙树'], answer: 21,
+			options: ['1 points = 1 layer', '声望树重制版', '生命树', '增量宇宙树'], answer: 21,
 		}, {
 			problem: '下列哪个数字和其他的不同?',
-			options: ['-1','e','ln(1)','log10(10)'], answer:22,
+			options: ['-1', 'e', 'ln(1)', 'log10(10)'], answer: 22,
 		}, {
 			problem: '下列哪个数字和其他的不同?',
-			options: ['e^π','e^i','e^iπ','e^e'], answer:23,
+			options: ['e^π', 'e^i', 'e^iπ', 'e^e'], answer: 23,
 		}, {
 			problem: '为化学方程式填入缺失的系数:<br>__KMnO<sub>4</sub>+__FeCl<sub>2</sub>+__H<sub>2</sub>SO<sub>4</sub>=__K<sub>2</sub>SO<sub>4</sub>+__MnSO<sub>4</sub>+__Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>+__Cl<sub>2</sub>+__H<sub>2</sub>O',
-			options: ['14 5 10 6 3 6 8 20','2 3 4 2 10 5 7 11','3 5 12 1 10 5 12 24','6 10 24 3 6 5 10 24'], answer:24,
+			options: ['14 5 10 6 3 6 8 20', '2 3 4 2 10 5 7 11', '3 5 12 1 10 5 12 24', '6 10 24 3 6 5 10 24'], answer: 24,
 		}, {
 			problem: '公元1年1日(含自身)到2025年9月2日(含自身)一共多少天?',
-			options: ['739498','739508','749123','745301'], answer:21, 
-		},
+			options: ['739498', '739508', '749123', '745301'], answer: 21,
+		}, {
+			problem: 'Exponential Idle中理论9所需σ数量是?',
+			options: ['5', '10', '20', '40'], answer: 24,
+		}, {
+			problem: 'Unnamed space idle中区域24B的boss船体血量为',
+			options: ['3.11e20', '3.46e19', '1.54e19', '1.14e19'], answer: 22,
+		}, {
+			problem: 'Antimatter Dimensions中第2个佩勒裂缝使用什么资源填充',
+			options: ['IP', '复制器', 'EP', 'DT'], answer: 22,
+		}
 	]
 }

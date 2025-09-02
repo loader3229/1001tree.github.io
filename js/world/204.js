@@ -15,10 +15,10 @@ addLayer("204", {
         problems: {
             content: [
                 ["display-text", function () {
-                    return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)} / ${player._204.hardmode?30:40}</h2> 分数`
+                    return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)} / ${player._204.hardmode ? 30 : 40}</h2> 分数`
                 }],
                 ["display-text", function () {
-                    return `你曾获得过的最高分数是${player._204.maxscore}`+(player._204.hardmax.gte(1)? `/${player._204.hardmax}(困难模式)`:``)+`,达到40分来完成世界!`
+                    return `你曾获得过的最高分数是${player._204.maxscore}` + (player._204.hardmax.gte(1) ? `/${player._204.hardmax}(困难模式)` : ``) + `,达到40分来完成世界!`
                 }],
                 "blank",
                 ["display-text", function () {
@@ -45,7 +45,7 @@ addLayer("204", {
                 },
                 "blank",
                 ["display-text", function () {
-                    return `题目答对+2分,答错-1分,你已经答了${formatWhole(player._204.sol)}/`+(player._204.hardmode?`30`:`40`)+`道题目`
+                    return `题目答对+2分,答错-1分,你已经答了${formatWhole(player._204.sol)}/` + (player._204.hardmode ? `30` : `40`) + `道题目`
                 }],
             ]
         },
@@ -54,7 +54,7 @@ addLayer("204", {
         // 告诉你题库现在有多少题目
         // console.log(getProblemList().length)
         let array
-        if(!player._204.hardmode) array = [...Array(getProblemList().length).keys()]
+        if (!player._204.hardmode) array = [...Array(getProblemList().length).keys()]
         else array = [...Array(getHardProblemList().length).keys()]
         const shuffled = [...array].sort(() => Math.random() - 0.5);
         // 取41个元素避免报错
@@ -64,15 +64,15 @@ addLayer("204", {
         return [21, 22, 23, 24].sort(() => Math.random() - 0.5)
     },
     update(diff) {
-        if (player._204.started == true && player._204.sol == (player._204.hardmode ? 30:40)) {
+        if (player._204.started == true && player._204.sol == (player._204.hardmode ? 30 : 40)) {
             player._204.started = false
-            if (player[this.layer].points.gte(40)) {
+            if (player[this.layer].points.gte(40) && !player._204.hardmode) {
                 // 请使用下面的函数完成世界,而不是
                 // player.points = player.points.add(1)
                 // player.main.points = player.main.points.add(1)
                 completeWorld(this.layer)
             }
-            if (player[this.layer].points.gte(30) && player._204.hardmode && player._204.trig){
+            else if (player[this.layer].points.gte(30) && player._204.hardmode && player._204.trig) {
                 player.main.points = player.main.points.add(1)
                 player._204.trig = false
             }
@@ -97,7 +97,7 @@ addLayer("204", {
                 player._204.problist = layers[this.layer].randomProblem()
                 player._204.button = layers[this.layer].randomButton()
                 player._204.started = true
-                player._204.problem =((player._204.hardmode) ? getHardProblemList()[player._204.problist[0]] : getProblemList()[player._204.problist[0]])
+                player._204.problem = ((player._204.hardmode) ? getHardProblemList()[player._204.problist[0]] : getProblemList()[player._204.problist[0]])
             },
             unlocked() { return !player._204.started },
             canClick() { return !player._204.started },
@@ -107,11 +107,11 @@ addLayer("204", {
             display() { return `一旦确认后不可更改!` },
             onClick() {
                 player._204.answer[[21, 22, 23, 24][player._204.button.indexOf(parseInt(player._204.ans))]]++
-                if (player._204.problem.answer != player._204.ans) player[this.layer].points = player[this.layer].points.sub(1).max(0)
+                if (player._204.problem.answer != player._204.ans) player[this.layer].points = player[this.layer].points.sub(1)
                 else {
                     player[this.layer].points = player[this.layer].points.add(2)
-                    if(!player._204.hardmode) player._204.problem = player._204.maxscore = decimalMax(player._204.maxscore, player[this.layer].points)
-                    else  player._204.problem = player._204.hardmax = decimalMax(player._204.hardmax, player[this.layer].points)
+                    if (!player._204.hardmode) player._204.problem = player._204.maxscore = decimalMax(player._204.maxscore, player[this.layer].points)
+                    else player._204.problem = player._204.hardmax = decimalMax(player._204.hardmax, player[this.layer].points)
                 }
                 player._204.sol++
                 player._204.problem = ((player._204.hardmode) ? getHardProblemList()[player._204.problist[player._204.sol]] : getProblemList()[player._204.problist[player._204.sol]])
@@ -152,8 +152,8 @@ addLayer("204", {
                 player._204.started = true
                 player._204.problem = getHardProblemList()[player._204.problist[0]]
             },
-            unlocked() { return !player._204.started&&player._204.maxscore.gte(40) },
-            canClick() { return !player._204.started&&player._204.maxscore.gte(40) },
+            unlocked() { return !player._204.started && player._204.maxscore.gte(40) },
+            canClick() { return !player._204.started && player._204.maxscore.gte(40) },
         },
         21: {
             display() {
