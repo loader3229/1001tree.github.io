@@ -752,6 +752,21 @@ function getHardProblemList() {
 		}, {
 			problem: 'Antimatter Dimensions中第2个佩勒裂缝使用什么资源填充',
 			options: ['IP', '复制器', 'EP', 'DT'], answer: 22,
-		}
+		}, {
+			problem: '基本原理中,第一个原子的初始花费是多少?',
+			options: ['24','16','3','32'], answer: 21,
+		}, {
+			problem: 'Phigros中Stardust:RAY IN有多少个drag?',
+			options: ['609','434','250','99'], answer:22,
+		}, {
+			problem: '选一个狐狸喜欢的数字',
+			options: ['37','11','23','56'], answer:21,
+		}, {
+			problem: '吃披萨时把披萨卷起来的原因是?',
+			options: ['这样好吃','满足刚体力学','高斯绝妙定理','费马最后定理'],answer:23,
+		}, {
+			problem: '好了我出不下去了,这题你只要选D我就给你分....抱歉,选项被打乱了....',
+			options: ['A','B','C','D'],answer:24
+		},
 	]
 }
