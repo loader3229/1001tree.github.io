@@ -88,7 +88,10 @@ function addedPlayerData() {
 		},
 		_204: {
 			maxscore: _D0,
+			hardmax: _D0,
 			started: false,
+			hardmode: false,
+			trig: true,
 			problist: [],
 			sol: 0,
 			problem: { problem: '', options: ['', '', '', ''], answer: 0 },

@@ -534,7 +534,7 @@ function getProblemList() {
 			options: ['周五', '周日', '周六', '周一'], answer: 24
 		}, {
 			problem: '1=4,2=8,3=16,4=?',
-			options: ['BCD全错', '32', '28', '24'], answer: 21
+			options: ['其他三个全错', '32', '28', '24'], answer: 21
 		}, {
 			problem: 'Break_Eternity的存储上限?',
 			options: ['e1e308', '1Fe308', '1F308', '1FF308'], answer: 22
@@ -642,8 +642,77 @@ function getProblemList() {
 function getHardProblemList() {
 	return [
 		{
-			problem: '',
-			options: ['', '', '', ''], answer: 0 // A=21 B=22 C=23 D=24
+			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是? <br> <img src="../pic/prob3.jpg" width="250px"/>',
+			options: ['(31/17,5/17)', '((10√17)/17,√17)', '(5/31,5/17)', '(√17/10,5/31)'], answer: 21 // A=21 B=22 C=23 D=24
+		}, {
+			problem: '在TMT中,若想修改玩家所处的页面,可以使用哪个参数?',
+			options: ['player.tabs','player.subtabs[层级].mainTabs','player.层级.tabs','player.层级.subtabs'], answer: 22,
+		}, {
+			problem: '反物质维度现实前的最后一次更新发表于何时?',
+			options: ['2022.12.15','2019.6.2','2018.6.17','2017.6.4'], answer: 23,
+		}, {
+			problem: '已知函数S(n)表示n的数位之和, 如S(321)=3+2+1=6. f(n)表示斐波那契数列的第n项, 其中f(1)=1,f(2)=1,f(3)=2. 求(S(f(1000))+S(f(999))+S(f(998))+....+S(f(2))+S(f(1))) mod 9的值',
+			options: ['3','2','1','0'], answer: 24,
+		}, {
+			problem: 'Galaxy.click上,编号580的游戏是?',
+			options: ['The disencouragement tree','Karyofox','Reverse them all','The doors tree'], answer: 21,
+		}, {
+			problem: '子串包含所有k位二进制01串的字符串最小长度是?',
+			options: ['2^k','2^k+k-1','k^2+2k-1','2^(k+1)'], answer: 22,
+		}, {
+			problem: '愚人节小游戏中, player._501.trig[3]代表哪种失败条件?',
+			options: ['得到一个成就','未遵循指示','在5或12回合中点击不明显错误颜色的按钮','忘却规则'], answer: 23,
+		}, {
+			problem: 'NTY ek56 U1RF UFE9P UT09',
+			options: ['432529','575612','563725','732455'], answer: 24,
+		}, {
+			problem: '牌堆里有a张A牌和b张B牌(a,b>0),从这个牌堆中拿走75张B牌(不能全拿也不能不拿),且1/[(a/b)+(b/a)+2]的值不变,a的最大值为多少?',
+			options: ['1406','5625','1369','1444'], answer: 21,
+		}, {
+			problem: '今天是第几夜?',
+			options: ['1001','3','11','2'], answer: 22,
+		}, {
+			problem: '自然数基数集和实数基数集之间是否存在别的基数?',
+			options: ['有,但是人类还没发现','没有','我不知道啊,问康托尔去','什么是自然数?'], answer: 23,
+		}, {
+			problem: '以下没有在新闻中出现的是',
+			options: [player.global.mynews,'abandon','format c: /q','闲鱼回收二手货'], answer: 24,
+		}, {
+			problem: '以下没有在新闻中出现的是',
+			options: ['1+1=2','血腥的晚餐','shift+1','为了得到而失去'], answer: 21,
+		}, {
+			problem: '以下没有在新闻中出现的是',
+			options: ['85222','23648','4925','114514'], answer: 22,
+		}, {
+			problem: '以下没有在新闻中出现的是',
+			options: ['可爱的拜谢酱','HCl','炮二平五','线性增长=指数增长/x'], answer: 23,
+		}, {
+			problem: '以下没有在标语中出现的是',
+			options: ['可爱的拜谢酱','070190','汉字顺的序不会响影阅读','embrace the night'], answer: 24,
+		}, {
+			problem: '以下没有在标语中出现的是',
+			options: ['123456789','134217728','自由潜泳','秘密'], answer: 21,
+		}, {
+			problem: '这个单词:lamprophony, 是什么意思?',
+			options: ['实验室', '声音响亮的', '预言', '生疏的'], answer: 22,
+		}, {
+			problem: '这个单词:thyroxine, 是什么意思?',
+			options: ['蛋白质','猪肉杆菌','甲状腺素','奶制品中毒'], answer: 23,
+		}, {
+			problem: '以下单词中,和其他不同的是?',
+			options: ['jetty','lucre','auspice','accurate'], answer: 24,//最后一个是四级词汇，其他是专八
+		}, {
+			problem: '以下单词中,和其他不同的是?',
+			options: ['admire','boundary','favour','waist'], answer: 21//第一个是必修一词汇，其他是选修一		
+		}, {
+			problem: '求方程(a/b+c)+(b/a+c)+(c/a+b)=4的整数解中a的值?',
+			options: ['154476802108746166444331315019919<br>837485661423469565431700026634898<br>253202009877999','154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035277999','154429382108746166441951315019919<br>837485664325669563232000026634898<br>253202035279999','154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035077999'], answer:22
+		}, {
+			problem: '<b style = "color: #c11077">你懂的■</b>',
+			options: ['<b style = "color: #c11076">选项</b>','<b style = "color: #c11077fe">选项</b>','<b style = "color: #c11077">选项</b>','<b style = "color: #c01077">选项</b>'], answer: 23
+		}, {
+			problem: '小明一开始有1金币,每秒获得1e200金币,经过软上限折算后1000s最终有1e201+1金币,该软上限可能是?',
+			options: ['金币获取开平方根','超过9e200金币后,获取除以990','金币获取/1000','金币获取/100'], answer:24
 		},
 	]
 }
