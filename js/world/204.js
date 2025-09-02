@@ -73,7 +73,7 @@ addLayer("204", {
                 completeWorld(this.layer)
             }
             if (player[this.layer].points.gte(30) && player._204.hardmode && player._204.trig){
-                player._204.main.points = player.main.points.add(1)
+                player.main.points = player.main.points.add(1)
                 player._204.trig = false
             }
             player[this.layer].points = player._204.maxscore
@@ -97,7 +97,7 @@ addLayer("204", {
                 player._204.problist = layers[this.layer].randomProblem()
                 player._204.button = layers[this.layer].randomButton()
                 player._204.started = true
-                player._204.problem = getProblemList()[player._204.problist[0]]
+                player._204.problem =((player._204.hardmode) ? getHardProblemList()[player._204.problist[0]] : getProblemList()[player._204.problist[0]])
             },
             unlocked() { return !player._204.started },
             canClick() { return !player._204.started },
@@ -114,11 +114,11 @@ addLayer("204", {
                     else  player._204.problem = player._204.hardmax = decimalMax(player._204.hardmax, player[this.layer].points)
                 }
                 player._204.sol++
-                player._204.problem = getHardProblemList()[player._204.problist[player._204.sol]]
+                player._204.problem = ((player._204.hardmode) ? getHardProblemList()[player._204.problist[player._204.sol]] : getProblemList()[player._204.problist[player._204.sol]])
                 player._204.ans = 0
                 player._204.button = layers[this.layer].randomButton()
             },
-            unlocked() { return player._204.started && player._204.sol < (player._204.hardmode) ? 30 : 40 },
+            unlocked() { return player._204.started && player._204.sol < ((player._204.hardmode) ? 30 : 40) },
             canClick() { return player._204.started && player._204.ans != 0 },
             style: {
                 "width": "200px",
@@ -131,7 +131,7 @@ addLayer("204", {
             onClick() {
                 setClickableState(this.layer, this.id, !getClickableState(this.layer, this.id))
             },
-            unlocked() { return player._204.started && player._204.sol < (player._204.hardmode) ? 30 : 40 },
+            unlocked() { return player._204.started && player._204.sol < ((player._204.hardmode) ? 30 : 40) },
             canClick() { return player._204.started },
             style: {
                 "width": "90px",

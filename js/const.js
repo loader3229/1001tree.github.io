@@ -664,7 +664,7 @@ function getHardProblemList() {
 			options: ['得到一个成就','未遵循指示','在5或12回合中点击不明显错误颜色的按钮','忘却规则'], answer: 23,
 		}, {
 			problem: 'NTY ek56 U1RF UFE9P UT09',
-			options: ['432529','575612','563725','732455'], answer: 24,
+			options: ['432529','575612','736455','563725'], answer: 24,
 		}, {
 			problem: '牌堆里有a张A牌和b张B牌(a,b>0),从这个牌堆中拿走75张B牌(不能全拿也不能不拿),且1/[(a/b)+(b/a)+2]的值不变,a的最大值为多少?',
 			options: ['1406','5625','1369','1444'], answer: 21,
@@ -713,6 +713,33 @@ function getHardProblemList() {
 		}, {
 			problem: '小明一开始有1金币,每秒获得1e200金币,经过软上限折算后1000s最终有1e201+1金币,该软上限可能是?',
 			options: ['金币获取开平方根','超过9e200金币后,获取除以990','金币获取/1000','金币获取/100'], answer:24
+		}, {
+			problem: '求 (¬r∧(p∨q))∨(p∧q) 的合取范式?',
+			options: ['(¬r∨p)∧(¬r∨q)∧(p∨q)','(¬r∨p)∧(¬r∨q)','(¬p∨q)∧(¬r∨(p∧q))','(¬r∨p∨q)∧(p∨q)'], answer:21,
+		}, {
+			problem: 'Lap的妈妈有三个儿子,一个叫Map,一个叫Nap,另一个的性别是?',
+			options: ['女','男','无','中'], answer: 22,
+		}, {
+			problem: '命题 "∃x" 的哥德尔数是?',
+			options: ['23328','13286025','25509168','98876953125'], answer: 23,
+		}, {
+			problem: '如果昨天是后天,前天的昨天是周二的明天,今天实际上是周几?',
+			options: ['周六','周五','周四','周三'], answer: 24,
+		}, {
+			problem: '下列层级最多的是?',
+			options: ['1 points = 1 layer','声望树重制版','生命树','增量宇宙树'], answer: 21,
+		}, {
+			problem: '下列哪个数字和其他的不同?',
+			options: ['-1','e','ln(1)','log10(10)'], answer:22,
+		}, {
+			problem: '下列哪个数字和其他的不同?',
+			options: ['e^π','e^i','e^iπ','e^e'], answer:23,
+		}, {
+			problem: '为化学方程式填入缺失的系数:<br>__KMnO<sub>4</sub>+__FeCl<sub>2</sub>+__H<sub>2</sub>SO<sub>4</sub>=__K<sub>2</sub>SO<sub>4</sub>+__MnSO<sub>4</sub>+__Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>+__Cl<sub>2</sub>+__H<sub>2</sub>O',
+			options: ['14 5 10 6 3 6 8 20','2 3 4 2 10 5 7 11','3 5 12 1 10 5 12 24','6 10 24 3 6 5 10 24'], answer:24,
+		}, {
+			problem: '公元1年1日(含自身)到2025年9月2日(含自身)一共多少天?',
+			options: ['739498','739508','749123','745301'], answer:21, 
 		},
 	]
 }
