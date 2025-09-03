@@ -380,6 +380,21 @@ function loadVue() {
 
 
 	// data = optionally, array of rows for the grid to show
+	Vue.component('gridcompact', {
+		props: ['layer', 'data'],
+		template: `
+		<div v-if="tmp[layer].grid" class="upgTable">
+			<div v-for="row in (data === undefined ? tmp[layer].grid.rows : data)" class="upgRow">
+				<div v-for="col in tmp[layer].grid.cols"><div v-if="run(layers[layer].grid.getUnlocked, layers[layer].grid, row*100+col)"
+					class="upgAlign" v-bind:style="{'margin': '-1px',  'height': 'inherit',}">
+					<gridable :layer = "layer" :data = "row*100+col" v-bind:style="tmp[layer].componentStyles.gridable"></gridable>
+				</div></div>
+				<br>
+			</div>
+		</div>
+	`
+	})
+	
 	Vue.component('grid', {
 		props: ['layer', 'data'],
 		template: `

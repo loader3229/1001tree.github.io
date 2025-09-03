@@ -2,7 +2,10 @@ let modInfo = {
 	name: "一千零一树",
 	id: "1001tree",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "const.js", "world/101.js", "world/102.js", "world/202.js", "world/203.js", "world/204.js", "world/501.js"],
+	modFiles: ["layers.js", "tree.js", "const.js",
+		"world/101.js", "world/102.js", "world/105.js",
+		"world/202.js", "world/203.js", "world/204.js",
+		"world/501.js"],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -65,6 +68,9 @@ function addedPlayerData() {
 			cold: _D0,
 			salt: Date.now(),
 			pause: false
+		},
+		_105: {
+			local: [0, [1, 1]],
 		},
 		_202: {
 			t: _D0,

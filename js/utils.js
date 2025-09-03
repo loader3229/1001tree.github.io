@@ -555,18 +555,6 @@ function chooseOneInArray(array, seed) {
 	else return array[Math.floor(Math.random() * array.length)]
 }
 
-/**
- * 带变量的if else语句表达式简写版本,例如 a ? "abc".length : "abc" 可表达为 ifElseViarable("a", "v.length", "v", "abc")
- * @param {boolean} exp - 用于判断的表达式,可以是文本
- * @param {text} a - 真分支表达式
- * @param {text} b - 假分支表达式
- * @param {text} vir - 变量值
- * @param {text} [virName="v"] - 变量名
- */
-function ifElseVirable(exp, a, b, vir, virName = "v") {
-	return eval(`((${virName}) => ${exp} ? ${a} : ${b} )(${vir})`);
-}
-
 function playsound(id) {
 	let audio = document.getElementById(id)
 	audio.currentTime = 0

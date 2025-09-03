@@ -324,7 +324,6 @@ addLayer("ach", {
 
 /*
 addLayer("", {
-    name: getGameName(this.layer),
     symbol: "",
     resource: "",
     row: 1,
