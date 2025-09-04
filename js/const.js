@@ -802,30 +802,44 @@ function getHardProblemList() {
 
 function getBlockTraits(id) {
 	return {
-		0: {},
-		1: { move: true },
-		2: { affect: true },
-		3: { affect: true },
-		10: {},
-		11: { affect: true },
-		20: { affect: true },
-		21: { affect: true },
-		30: { affect: true },
-		31: { affect: true },
-		100: {},
-		101: { move: true },
+		//背景
+		"000": {},
+		//道路
+		"001": { move: true },
+		//上楼
+		"002": { affect: true },
+		//下楼
+		"003": { affect: true },
+		//墙
+		"010": {},
+		//碎墙
+		"011": { affect: true },
+		//图鉴
+		"020": { affect: true },
+		//信息
+		"021": { affect: true },
+		//按钮
+		"030": { affect: true },
+		//激活的按钮
+		"031": { affect: true },
+		//关闭的门
+		"100": {},
+		//开启的门
+		"101": { move: true },
 	}[id]
 }
 
-function getMap(layer) {
-	return {
-		0: {
-			map: [
-				["010","010","010","010"]
-			],
-			data: [
-				
-			]
-		}
-	}[layer]
+let getMap = {
+	0: {
+		map: [
+			["010", "020", "010", "010", "010", "010"],
+			["010", "001", "001", "001", "002", "010"],
+			["010", "021", "010", "010", "010", "010"],
+		],
+		data: [
+			{ x: 1, y: 0, trans: "010", text: "你在一片虚无中醒来...<br>这里只有一个问号和一个感叹号,你不知道这是干嘛用的" },
+			{ x: 1, y: 2, trans: "010", manual: ["001", "002"], text: "你可以通过这个方块来解锁新的方块,只需要与它交互" },
+			{ x: 4, y: 1, goto: [1, { x: 1, y: 1 }] },
+		]
+	}
 }
