@@ -594,3 +594,7 @@ function decimalMin(...values) {
 
 	return min;
 }
+
+function decimalBetween(value,min,max) {
+	return decimalMin(decimalMax(value,min),max)
+}

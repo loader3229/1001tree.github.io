@@ -33,7 +33,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash',
 	"resetgrid", "getWrongPage", "getRandomcode",
 	"getSomeText", "getRandomProblem", "randomProblem",
-	"xytoid","face"
+	"xytoid", "face"
 ]
 
 function getStartPoints() {
@@ -71,8 +71,8 @@ function addedPlayerData() {
 			pause: false
 		},
 		_105: {
-			local: {l:0, p:{ x: 1, y: 1 }, f:3},
-			manual: new Set(["000", "020", "021"]),
+			local: { l: 0, p: { x: 1, y: 1 }, f: 3 },
+			manual: ["000", "020", "021"],
 			needupdate: 0,
 			display: "=教程=<br>WASD键移动,当然你现在移动不了<br>F键与选取内容交互",
 		},

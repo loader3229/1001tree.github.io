@@ -114,6 +114,10 @@ function formatTime(s) {
     else return formatWhole(Math.floor(s / 31536000)) + "年 " + formatWhole(Math.floor(s / 86400) % 365) + "天 " + formatWhole(Math.floor(s / 3600) % 24) + "时 " + formatWhole(Math.floor(s / 60) % 60) + "分 " + format(s % 60) + "秒"
 }
 
+function formatPersent(n,d) {
+    return `${format(_D(n).mul(100),d)}%`
+}
+
 function toPlaces(x, precision, maxAccepted) {
     x = new Decimal(x)
     let result = x.toStringWithDecimalPlaces(precision)

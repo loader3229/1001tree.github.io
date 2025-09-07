@@ -23,7 +23,8 @@ function getStartOptions() {
 		newsa: false,
 		newsv: false,
 		newsh: false,
-		newss: true,
+		newsp: true,
+		newsn: true,
 	}
 }
 

@@ -204,7 +204,10 @@ var systemComponents = {
 				<td><button class="opt" onclick="toggleOpt('newsa');reinitializeNews();">成就剧透<br>{{ formatOption('newsa') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsv');reinitializeNews();">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsh');reinitializeNews();">地狱笑话<br>{{ formatOption('newsh') }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('newss');reinitializeNews();">其他梗语<br>{{ formatOption('newss') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsp');reinitializeNews();">特殊新闻<br>{{ formatOption('newsp') }}</button></td>
+            </tr>
+            <tr>
+				<td><button class="opt" onclick="toggleOpt('newsn');reinitializeNews();">其他梗语<br>{{ formatOption('newsn') }}</button></td>
             </tr>
         </table>
 		`

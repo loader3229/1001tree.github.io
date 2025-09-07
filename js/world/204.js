@@ -15,7 +15,7 @@ addLayer("204", {
         problems: {
             content: [
                 ["display-text", function () {
-                    return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)} / ${player._204.hardmode ? 30 : 40}</h2> 分数`
+                    return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)}</h2> 分数`
                 }],
                 ["display-text", function () {
                     return `你曾获得过的最高分数是${player._204.maxscore}` + (player._204.hardmax.gte(1) ? `/${player._204.hardmax}(困难模式)` : ``) + `,达到40分来完成世界!`
