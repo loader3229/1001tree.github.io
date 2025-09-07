@@ -411,7 +411,7 @@ addLayer("501", {
         },
         onClick(data, id) {
             s = player._501.stage
-            if (data == 2 && (s.eq(1) || s.eq(9) || s.eq(15) || s.eq(16))) {
+            if (data == 2 && (s.eq(1) || s.eq(9) || s.eq(11) || s.eq(15) || s.eq(16))) {
                 player._501.trig[1] = true
             }
             if (data == 1 && (s.eq(2) || s.eq(3) || s.eq(4) || s.eq(15) || s.eq(16))) {
