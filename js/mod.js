@@ -4,8 +4,8 @@ let modInfo = {
 	pointsName: "世界",
 	modFiles: ["layers.js", "tree.js", "const.js",
 		"world/101.js", "world/102.js", "world/105.js",
-		"world/202.js", "world/203.js", "world/204.js",
-		"world/501.js"],
+		"world/201.js", "world/202.js", "world/203.js", "world/204.js",
+		"world/501.js",],
 
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
@@ -75,6 +75,10 @@ function addedPlayerData() {
 			manual: ["000", "020", "021"],
 			needupdate: 0,
 			display: "=教程=<br>WASD键移动,当然你现在移动不了<br>F键与选取内容交互",
+		},
+		_201: {
+			gen: _D1,
+			point1: _D0,
 		},
 		_202: {
 			t: _D0,

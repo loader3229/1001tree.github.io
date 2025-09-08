@@ -4,6 +4,7 @@ function getGameName(id) {
 		101: ["<span class='c2'>10p1sc</span>", "<span class='c2'>时间墙堆砌,很无聊</span>"],
 		102: ["<span class='c2'>挖矿增量</span>", "<span class='c2'>真的是挖矿,极速版<br>因为狐狸电脑太渣了</span>"],
 		105: ["<span class='c3'>镜之塔</span>", "<span class='c3'>一个不知道是什么的塔</span>"],
+		201: ["<span class='c2'>暴涨子</span>", "<span class='c2'>增长永无止境</span>"],
 		202: ["<span class='p1tx'>第1夜<br>概率统治世界</span>", "<span class='p1tx'>尝试和作者勾心斗角<br>你也有概率统治世界</span>"],
 		203: ["<span class='p2tx'>第10夜<br>点击墙</span>", "<span class='p2tx'>点击墙的点击墙</span>"],
 		204: ["<span class='p3tx'>第11夜<br>十一夜电视台</span>", "<span class='p3tx'>趣味问答</span>"],

@@ -27,7 +27,7 @@ addLayer("105", {
                 }
 
                 let item = map[pos.y][pos.x]
-                item = _p.manual.includes(item) ? item : "000"
+               // item = _p.manual.includes(item) ? item : "000"
                 setGridData(this.layer, id, item)
 
             }
