@@ -316,8 +316,8 @@ function updateNewsDisplay() {
 	}
 
 	const timeDiff = now - news.lastUpdate;
-	if (timeDiff >= 150) {
-		const charsToAdd = Math.floor(timeDiff / 150);
+	if (timeDiff >= options.newsspeed) {
+		const charsToAdd = Math.floor(timeDiff / options.newsspeed);
 		let newCharIndex = news.charIndex;
 
 		for (let i = 0; i < charsToAdd && newCharIndex < currentNews.length; i++) {

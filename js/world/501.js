@@ -10,7 +10,7 @@ addLayer("501", {
             points: _D0,
         }
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     tabFormat: {
         AprilFools: {
             content: [

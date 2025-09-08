@@ -73,10 +73,10 @@ addLayer("main", {
                 height: "115px",
                 backgroundClip: "padding-box",
             }
-            
+
             let mode = getClickableState(this.layer, 11)
 
-            if(mode) {
+            if (mode) {
                 if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(#EEE)"
                 else style.backgroundImage = "linear-gradient(#999)"
             } else {
@@ -126,16 +126,29 @@ addLayer("ach", {
         }
     },
     type: "none",
-    tabFormat: [
-        ["display-text", function () {
-            let tac = _D(Object.keys(layers[this.layer].achievements).length - 2)
-            let ach = player[this.layer].points
-            return `你有 ${formatWhole(ach)}/${formatWhole(tac)} 成就,加成成就获取+1<br>${layers[this.layer].getSomeText(ach.div(tac))}`
-        }],
-        "blank",
-        "achievements",
-        "clickables"
-    ],
+    tabFormat: {
+        成就: {
+            content: [
+                ["display-text", function () {
+                    let tac = _D(Object.keys(layers[this.layer].achievements).length - 2)
+                    let ach = player[this.layer].points
+                    return `你有 ${formatWhole(ach)}/${formatWhole(tac)} 成就,加成成就获取+1<br>${layers[this.layer].getSomeText(ach.div(tac))}`
+                }],
+                "blank",
+                "achievements",
+                "clickables",
+            ]
+        },
+       世界: {
+            content: [
+                ["row", [["milestone", 101], ["milestone", 102], ["milestone", 103], ["milestone", 104], ["milestone", 105],]],
+                ["row", [["milestone", 201], ["milestone", 202], ["milestone", 203], ["milestone", 204], ["milestone", 205],]],
+                ["row", [["milestone", 301], ["milestone", 302], ["milestone", 303], ["milestone", 304], ["milestone", 305],]],
+                ["row", [["milestone", 401], ["milestone", 402], ["milestone", 403], ["milestone", 404], ["milestone", 405],]],
+                ["row", [["milestone", 501], ["milestone", 502], ["milestone", 503], ["milestone", 504], ["milestone", 505],]],
+            ]
+        }
+    },
     getSomeText(progress) {
         let p = progress.eq_tolerance(1) ? 6 : Decimal.ceil(progress.mul(5)).toNumber()
         let s = player.global.achseed
@@ -334,7 +347,7 @@ addLayer("ach", {
             }
         },
     },
-    layerShown() { return true },
+    layerShown() { return !options.achivement },
     clickables: {
         11: {
             title: "完成所有成就",
@@ -349,6 +362,108 @@ addLayer("ach", {
                 }
             }
         }
+    },
+    milestones: {
+        101: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        102: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        103: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        104: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        105: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        201: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        202: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        203: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        204: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        205: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        301: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        302: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        303: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        304: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        305: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        401: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        402: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        403: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        404: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        405: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        501: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        502: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        503: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        504: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
+        505: {
+            requirementDescription() { return `世界${this.id}完成!` },
+            done() { return player.world[this.id] }
+        },
     }
 });
 
@@ -374,7 +489,7 @@ addLayer("", {
     },
     milestones: {
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
     ],
 });

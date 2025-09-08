@@ -10,9 +10,9 @@ addLayer("204", {
             points: _D0,
         }
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     tabFormat: {
-        problems: {
+        "快问~快答~": {
             content: [
                 ["display-text", function () {
                     return `你有 <h2 class="p3pt">${formatWhole(player[this.layer].points)}</h2> 分数`

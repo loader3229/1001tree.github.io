@@ -10,9 +10,9 @@ addLayer("203", {
             points: _D0,
         }
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     tabFormat: {
-        clickwall: {
+        点击墙: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p2pt"> ${format(player[this.layer].points)}/${format(player._203.maxpoints)} </h2>点数`
@@ -36,7 +36,7 @@ addLayer("203", {
                 }],
             ]
         },
-        challenge: {
+        挑战: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p2pt"> ${format(player[this.layer].points)}/${format(player._203.maxpoints)} </h2>点数`
@@ -56,7 +56,7 @@ addLayer("203", {
             ],
             unlocked() { return hasMilestone("203", 7) || player._203.trig }
         },
-        milestones: {
+        里程碑: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p2pt"> ${format(player[this.layer].points)}/${format(player._203.maxpoints)} </h2>点数`

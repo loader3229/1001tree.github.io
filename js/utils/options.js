@@ -4,6 +4,7 @@ let options = {}
 
 function getStartOptions() {
 	return {
+		achivement: false,
 		autosave: true,
 		msDisplay: "always",
 		font: "",
@@ -12,6 +13,7 @@ function getStartOptions() {
 		hqTree: false,
 		offlineProd: false,
 		hideChallenges: false,
+		hideWorld: false,
 		showStory: true,
 		forceOneTab: false,
 		oldStyle: false,
@@ -25,6 +27,11 @@ function getStartOptions() {
 		newsh: false,
 		newsp: true,
 		newsn: true,
+		saveclass: true,
+		themeclass: true,
+		tmtclass: true,
+		newclass: true,
+		newsspeed: 150
 	}
 }
 
@@ -72,7 +79,7 @@ function adjustMSDisp() {
 
 const FONT_DISPLAYS = ["默认", "Sligoil", "Angus", "Step mono", "Unica One", "Mathd", "Misans 中文字体大请耐心等待", "等距更纱黑体 中文字体大请耐心等待"];
 
-const FONT_SETTINGS = ["", "Sligoil", "Angus", "Stepmono", "Unica", "Mathd", "Misans","DJGSHT"];
+const FONT_SETTINGS = ["", "Sligoil", "Angus", "Stepmono", "Unica", "Mathd", "Misans", "DJGSHT"];
 
 function adjustFont() {
 	options.font = FONT_SETTINGS[(FONT_SETTINGS.indexOf(options.font) + 1) % FONT_SETTINGS.length];
@@ -85,6 +92,14 @@ const COUNT_SETTINGS = ["xex", "exx", "chi", "wtf"];
 
 function adjustCount() {
 	options.count = COUNT_SETTINGS[(COUNT_SETTINGS.indexOf(options.count) + 1) % COUNT_SETTINGS.length];
+}
+
+const NEWSSPEED_DISPLAYS = ["普通", "快", "更快", "很快", "瞬间", "很慢", "更慢", "慢"];
+
+const NEWSSPEED_SETTINGS = [150, 120, 90, 50, 0, 500, 300, 200];
+
+function adjustSpeed() {
+	options.newsspeed = NEWSSPEED_SETTINGS[(NEWSSPEED_SETTINGS.indexOf(options.newsspeed) + 1) % NEWSSPEED_SETTINGS.length];
 }
 
 function milestoneShown(layer, id) {

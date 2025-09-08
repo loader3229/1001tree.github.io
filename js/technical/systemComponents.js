@@ -178,36 +178,49 @@ var systemComponents = {
 	'options-tab': {
 		template: `
         <table>
-            <tr>
+			<tr>
+                <td><button class="opt_class" onclick="toggleOpt('saveclass');">存档相关</button></td>
+                <td><button class="opt_class" onclick="toggleOpt('themeclass');">个性化主题</button></td>
+                <td><button class="opt_class" onclick="toggleOpt('tmtclass');">功能样式</button></td>
+                <td><button class="opt_class" onclick="toggleOpt('newclass');">新闻设置</button></td>
+			</tr>
+            <tr v-if="options.saveclass">
                 <td><button class="opt" onclick="save()">保存</button></td>
                 <td><button class="opt" onclick="toggleOpt('autosave')">自动保存<br>{{ formatOption('autosave') }}</button></td>
                 <td><button class="opt" onclick="hardReset()">硬重置</button></td>
                 <td><button class="opt" onclick="exportSave()">导出存档<br/>到剪贴板</button></td>
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
+				<td><button class="opt" onclick="player.你是不是觉得这个会炸档但是其实它不会而且你还不会获得一个成就因为这个伎俩我早就在睡觉树用过了众所周知一个聪明人不会两次用同样的伎俩哈哈哈 = NaN">一键崩溃</button></td>
             </tr>
-            <tr>
+            <tr v-if="options.themeclass">
                 <td><button class="opt" onclick="switchTheme()">主题<br>{{ getThemeName() }}</button></td>
                 <td><button class="opt" onclick="adjustFont()">字体<br>{{ FONT_DISPLAYS[FONT_SETTINGS.indexOf(options.font)] }}</button></td>
                 <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "单页面" : "优先双页面 窄屏单页面" }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
-            </tr>
-            <tr>
-                <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
-				<td><button class="opt" onclick="player.你是不是觉得这个会炸档但是其实它不会而且你还不会获得一个成就因为这个伎俩我早就在睡觉树用过了众所周知一个聪明人不会两次用同样的伎俩哈哈哈 = NaN">一键崩溃</button></td>
-			</tr>
-            <tr>
 				<td><button class="opt" onclick="toggleOpt('news');reinitializeNews();">新闻显示<br>{{ formatOption('news') }}</button></td>
+            </tr>
+            <tr v-if="options.tmtclass">
+                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "单页面" : "优先双页面 窄屏单页面" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
+                <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hideWorld')">已完成世界<br>{{ options.hideWorld?"隐藏":"显示" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('achivement')">成就<br>{{ options.achivement?"隐藏":"显示" }}</button></td>
+			</tr>
+            <tr v-if="options.newclass">
 				<td><button class="opt" onclick="toggleOpt('newsa');reinitializeNews();">成就剧透<br>{{ formatOption('newsa') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsv');reinitializeNews();">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsh');reinitializeNews();">地狱笑话<br>{{ formatOption('newsh') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsp');reinitializeNews();">特殊新闻<br>{{ formatOption('newsp') }}</button></td>
-            </tr>
-            <tr>
 				<td><button class="opt" onclick="toggleOpt('newsn');reinitializeNews();">其他梗语<br>{{ formatOption('newsn') }}</button></td>
+				<td><button class="opt" onclick="adjustSpeed()">新闻速度<br>{{ NEWSSPEED_DISPLAYS[NEWSSPEED_SETTINGS.indexOf(options.newsspeed)] }}</button></td>
+            </tr>
+            <tr v-if="options.newclass">
+				<td><button class="opt" onclick="news.fadeStartTime=new Date('2005-05-09')">切换新闻</button></td>
+				<td><button class="opt" onclick="player.global.mynews='请输入文本';reinitializeNews();">重置我的新闻</button></td>
+				<td><button class="opt" onclick="console.log(getNewsList(),'部分内容来源网络,侵联删,谢谢!')">获取新闻列表</button></td>
+				<td><button class="opt" onclick='alert(\`请前往"关于"中的1001树游戏群并联系管理员\`)'>贡献新闻</button></td>
             </tr>
         </table>
 		`

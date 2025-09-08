@@ -124,7 +124,7 @@ addLayer("202", {
     },
     type: "none",
     tabFormat: {
-        point: {
+        升级: {
             content: [
                 ["display-text", function () {
                     return `你来啦!我为你准备了一些工作,快来看看吧!`
@@ -148,7 +148,7 @@ addLayer("202", {
                 ["upgrades", [1]]
             ]
         },
-        work: {
+        工作: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
@@ -166,7 +166,7 @@ addLayer("202", {
                 ["challenges", [1, 2, 3]]
             ]
         },
-        "HARD CORK": {
+        挑战: {
             content: [
                 ["display-text", function () {
                     return `这里是一些更艰难的挑战,如果你想的话<br>你可以在完成它们之后获得一个额外的梦力(而不仅仅是回收你支付的梦力)!`
@@ -188,7 +188,7 @@ addLayer("202", {
                 ["challenges", [11, 12, 13]]
             ]
         },
-        w3: {
+        工作3: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
@@ -211,7 +211,7 @@ addLayer("202", {
                 return inChallenge(202, 21) && hasUpgrade(202, 12)
             }
         },
-        w4: {
+        工作4: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
@@ -234,7 +234,7 @@ addLayer("202", {
                 return inChallenge(202, 22) && hasUpgrade(202, 12)
             }
         },
-        w5: {
+        工作5: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
@@ -292,7 +292,7 @@ addLayer("202", {
                 return inChallenge(202, 31) && hasUpgrade(202, 12)
             }
         },
-        c3: {
+        挑战3: {
             content: [
                 ["display-text", function () {
                     return `你有<h2 class="p1pt"> ${format(player[this.layer].points)} </h2>点数`
@@ -318,7 +318,7 @@ addLayer("202", {
                 return inChallenge(202, 121) && hasUpgrade(202, 12)
             }
         },
-        c4: {
+        挑战4: {
             content: [
                 ["display-text", function () {
                     return `密码是 <h1 class="p1pt">${player[this.layer].points.toString()}</h1> 吗?`
@@ -1528,7 +1528,7 @@ addLayer("202", {
             }
         }
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
     ],
 });

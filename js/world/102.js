@@ -241,7 +241,7 @@ addLayer("102", {
             }
         }
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
     ],
 });

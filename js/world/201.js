@@ -90,7 +90,7 @@ addLayer("201", {
             cost: _D(1e7),
         },
     },
-    layerShown() { return getGridData('main', this.layer) },
+    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
     ],
 });

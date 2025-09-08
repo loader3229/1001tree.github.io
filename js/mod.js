@@ -6,22 +6,22 @@ let modInfo = {
 		"world/101.js", "world/102.js", "world/105.js",
 		"world/201.js", "world/202.js", "world/203.js", "world/204.js",
 		"world/501.js", "world/502.js"],
-	discordName: "乾狐离光的官网",
-	discordLink: "https://qhlg.flime.top/",
+	discordName: "1001树游戏群",
+	discordLink: "https://qm.qq.com/q/ApvcgvPhN8",
 	initialStartPoints: new Decimal(0), // 用于硬重置和新玩家
 	offlineLimit: 0,  // 离线时间限制（小时）
 }
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.28,
+	num: 0.24,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.28 | 2025/9/8</h3><br>
-	更新了7个游戏<br><br>
+	<h3>v0.24 | 2025/9/8</h3><br>
+	更新了6个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
