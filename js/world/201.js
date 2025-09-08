@@ -3,7 +3,7 @@ addLayer("201", {
     resource: "点数",
     row: 2,
     position: 1,
-    color: "#a0a0a0",
+    color: "#aaa",
     update(diff) { 
         if(hasUpgrade("201",11)){
             player._201.gen = player._201.gen.times(layers[this.layer].calcmul().pow(diff))

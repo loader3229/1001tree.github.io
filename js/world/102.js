@@ -3,7 +3,7 @@ addLayer("102", {
     resource: "Hash点",
     row: 1,
     position: 2,
-    color: "#a0a0a0",
+    color: "#aaa",
     update(diff) {
         if (player._102.pause) return
 

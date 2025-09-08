@@ -14,15 +14,13 @@ addLayer("main", {
         }
     },
     type: "none",
-    tabFormat: {
-        "Dream": {
-            content: [
-                "main-display",
-                "blank",
-                ["display-text", "此条为宽度检测条,如果你无法看到这个条的两端<br>请在设置中将页面布局改为单页面(或减小浏览器缩放比例)以获得最佳显示"],
-                ["bar", 1],
-                "blank",
-                ["display-text", `<div style="
+    tabFormat: [
+        "main-display",
+        "blank",
+        ["display-text", "此条为宽度检测条,如果你无法看到这个条的两端<br>请在设置中将页面布局改为单页面(或减小浏览器缩放比例)以获得最佳显示"],
+        ["bar", 1],
+        "blank",
+        ["display-text", `<div style="
                         width: 400px;
                         padding: 10px;
 	                    border-radius: 5px;
@@ -31,11 +29,10 @@ addLayer("main", {
                     ">
                     游戏类型 | <span class='c1'>???</span> <span class='c2'>增量/放置/点击</span> <span class='c3'>其他游戏</span>
                     </div>`],
-                "blank",
-                "grid"
-            ]
-        }
-    },
+        "blank",
+        "grid",
+        "clickables",
+    ],
     bars: {
         1: {
             direction: RIGHT,
@@ -72,20 +69,43 @@ addLayer("main", {
         },
         getStyle(data, id) {
             let style = {
-                width: "120px",
-                height: "120px",
+                width: "144px",
+                height: "115px",
                 backgroundClip: "padding-box",
             }
+            
+            let mode = getClickableState(this.layer, 11)
 
-            if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
-            else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
-            else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
-            else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
+            if(mode) {
+                if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(#EEE)"
+                else style.backgroundImage = "linear-gradient(#999)"
+            } else {
+                if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
+                else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
+                else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
+                else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
+            }
 
             return style
         }
     },
-    milestones: {
+    clickables: {
+        11: {
+            title() { return getClickableState(this.layer, this.id) ? "常规模式" : "简洁模式" },
+            onClick() {
+                setClickableState(this.layer, this.id, !getClickableState(this.layer, this.id))
+            },
+            canClick() { return true },
+            onHold() { },
+            style() {
+                return {
+                    minHeight: "50px",
+                    width: "720px",
+                    transform: "unset",
+                    backgroundColor: "#eee"
+                }
+            }
+        }
     },
     layerShown() { return true },
     hotkeys: [
@@ -232,6 +252,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        102: {
+            name: "幸运玩家...还是倒霉玩家?",
+            done() { return player._502.final },
+            onComplete() { achievementComplete() },
+            tooltip: "到最后一刻才点到25",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/102.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },
@@ -313,7 +343,7 @@ addLayer("ach", {
             onClick() {
                 for (key in layers[this.layer].achievements) {
                     if (key == "rows" || key == "cols") continue
-                    else if (hasAchievement(this.layer,key)) continue
+                    else if (hasAchievement(this.layer, key)) continue
                     player[this.layer].achievements.push(key)
                     achievementComplete()
                 }
@@ -328,7 +358,7 @@ addLayer("", {
     resource: "",
     row: 1,
     position: 1,
-    color: "#a0a0a0",
+    color: "#aaa",
     update(diff) {
     },
     startData() {

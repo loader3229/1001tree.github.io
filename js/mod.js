@@ -5,8 +5,7 @@ let modInfo = {
 	modFiles: ["layers.js", "tree.js", "const.js",
 		"world/101.js", "world/102.js", "world/105.js",
 		"world/201.js", "world/202.js", "world/203.js", "world/204.js",
-		"world/501.js",],
-
+		"world/501.js", "world/502.js"],
 	discordName: "乾狐离光的官网",
 	discordLink: "https://qhlg.flime.top/",
 	initialStartPoints: new Decimal(0), // 用于硬重置和新玩家
@@ -15,14 +14,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.24,
+	num: 0.28,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.24 | 2025/9/2</h3><br>
-	更新了6个游戏<br><br>
+	<h3>v0.28 | 2025/9/8</h3><br>
+	更新了7个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
@@ -30,10 +29,11 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 
 // 如果在Layer内添加了新函数,并且这些函数在被调用时会产生效果,请在此处添加它们
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
-	'clickwallReset', 'checkHash', 'nextHash',
-	"resetgrid", "getWrongPage", "getRandomcode",
-	"getSomeText", "getRandomProblem", "randomProblem",
-	"xytoid", "face"
+	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue",
+	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid",
+	"getSomeText", "getRandomProblem", "randomProblem","normalEndGame",
+	"xytoid", "idtoxy", "face", "getArrow", "click",
+	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6"
 ]
 
 function getStartPoints() {
@@ -130,6 +130,12 @@ function addedPlayerData() {
 			complete: false,
 			lose: false,
 			trigach: false
+		},
+		_502: {
+			inGame: false,
+			final: false,
+			ai: 0,
+			board: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
 		},
 		world: {
 			"101": false, "102": false, "103": false, "104": false, "105": false,

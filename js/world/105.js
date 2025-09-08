@@ -3,7 +3,7 @@ addLayer("105", {
     resource: "层数",
     row: 1,
     position: 5,
-    color: "#a0a0a0",
+    color: "#aaa",
     update(diff) {
         let l = layers[this.layer]
         let p = player[this.layer]
@@ -27,7 +27,7 @@ addLayer("105", {
                 }
 
                 let item = map[pos.y][pos.x]
-               // item = _p.manual.includes(item) ? item : "000"
+                item = _p.manual.includes(item) ? item : "000"
                 setGridData(this.layer, id, item)
 
             }
@@ -80,7 +80,7 @@ addLayer("105", {
                 width: "80px",
                 height: "80px",
                 borderRadius: "unset",
-                border: "unset",
+                border: "1px dashed white",
                 backgroundImage,
                 backgroundSize: "cover",
                 transitionDuration: "0.15s",

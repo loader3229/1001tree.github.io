@@ -3,7 +3,7 @@ addLayer("101", {
     resource: "点数",
     row: 1,
     position: 1,
-    color: "#a0a0a0",
+    color: "#aaa",
     update(diff) {
         let gap = this.gap()
         for (let i = 0; i < gap.length; i++) {
