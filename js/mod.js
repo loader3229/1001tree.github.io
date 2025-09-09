@@ -78,7 +78,12 @@ function addedPlayerData() {
 		},
 		_201: {
 			gen: _D1,
+			bzbase: [null,_D(1.03),_D(1.03),_D1,_D1],
+			bzmul: [null,_D(1.03),_D(1.03),_D1,_D1],
+			bztime: [null,_D0,_D0,_D0,_D0],
+			base: _D1,
 			point1: _D0,
+			engine: _D0,
 		},
 		_202: {
 			t: _D0,
