@@ -84,6 +84,9 @@ function addedPlayerData() {
 			base: _D1,
 			point1: _D0,
 			engine: _D0,
+			rengine: _D0,
+			reff: _D1,
+			rg: 50,
 		},
 		_202: {
 			t: _D0,
