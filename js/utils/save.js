@@ -256,26 +256,65 @@ function NaNcheck(data) {
 		}
 	}
 }
-function exportSave() {
+
+function exportSave(file = false) {
 	//if (NaNalert) return
 	player.realTime = Date.now()
 
 	let str = btoa(encodeURIComponent(JSON.stringify(player)));
 
+	if (file) {
+		downloadSave(str)
+		return
+	}
+
 	const el = document.createElement("textarea");
 	el.value = str;
 	document.body.appendChild(el);
 	el.select();
-	el.setSelectionRange(0, 99999);
+	el.setSelectionRange(0, 999999);
 	document.execCommand("copy");
 	document.body.removeChild(el);
 }
+
+async function downloadSave(content) {
+	const now = new Date();
+	const timestamp = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, '0')}_${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}_${String(now.getMinutes()).padStart(2, '0')}_${String(now.getSeconds()).padStart(2, '0')}`;
+	const filename = `save_${timestamp}.txt`;
+
+	try {
+		const handle = await showSaveFilePicker({
+			suggestedName: filename,
+			types: [{
+				description: 'Text Files',
+				accept: { 'text/plain': ['.txt'] },
+			}],
+		});
+
+		const writable = await handle.createWritable();
+		await writable.write(content);
+		await writable.close();
+	} catch (err) {
+		if (err.name !== 'AbortError') {
+			const blob = new Blob([content], { type: 'text/plain' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = filename;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			URL.revokeObjectURL(url);
+		}
+	}
+}
+
 function importSave(imported = undefined, forced = false) {
 	if (imported === undefined)
 		imported = prompt("请在这里输入你的存档");
 	try {
 		tempPlr = Object.assign(getStartPlayer(), JSON.parse(decodeURIComponent(atob(imported))));
-		if (tempPlr.versionType != getModID() && !forced && !confirm("这个存档看似不是这个游戏的存档!你确定要覆盖现在的存档吗?")) // Wrong save (use "Forced" to force it to accept.)
+		if (tempPlr.versionType != getModID() && !forced && !confirm("这个存档看似不是这个游戏的存档!你确定要覆盖现在的存档吗?"))
 			return;
 		player = tempPlr;
 		player.versionType = getModID();

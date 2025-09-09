@@ -405,7 +405,7 @@ addLayer("101", {
         },
         31: {
             title: "软上限软上限",
-            description: "将所有软上限开0.95次方",
+            description: "将所有软上限乘0.95次方",
             effect() {
                 return _D(0.95)
             },
@@ -414,7 +414,7 @@ addLayer("101", {
         },
         32: {
             title: "我们对你失望透顶",
-            description: "将所有软上限开0.9次方而不是0.95次方",
+            description: "将所有软上限乘0.9次方而不是0.95次方",
             effect() {
                 return _D(0.9)
             },
@@ -423,7 +423,7 @@ addLayer("101", {
         },
         33: {
             title: "似乎有点不对劲",
-            description: "将所有软上限开0.85次方而不是0.9次方",
+            description: "将所有软上限乘0.85次方而不是0.9次方",
             effect() {
                 return _D(0.85)
             },
@@ -432,7 +432,7 @@ addLayer("101", {
         },
         34: {
             title: "会不会炸档?",
-            description: "将所有软上限开0.8次方而不是0.85次方",
+            description: "将所有软上限乘0.8次方而不是0.85次方",
             effect() {
                 return _D(0.8)
             },
@@ -441,7 +441,7 @@ addLayer("101", {
         },
         35: {
             title: "最好的承诺是棍木",
-            description: "将所有软上限开0.75次方而不是0.8次方",
+            description: "将所有软上限乘0.75次方而不是0.8次方",
             effect() {
                 return _D(0.75)
             },
@@ -458,7 +458,7 @@ addLayer("101", {
                 return `+${format(this.effect())}`
             },
             cost: new Decimal(55),
-            unlocked() { return hasUpgrade(this.layer, 34) }
+            unlocked() { return hasUpgrade(this.layer, 35) }
         },
         42: {
             title: "我已经习惯了",
@@ -560,7 +560,7 @@ addLayer("101", {
     },
     milestones: {
     },
-    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
+    layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
     ],
 });

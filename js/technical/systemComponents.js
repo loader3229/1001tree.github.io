@@ -189,7 +189,10 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('autosave')">自动保存<br>{{ formatOption('autosave') }}</button></td>
                 <td><button class="opt" onclick="hardReset()">硬重置</button></td>
                 <td><button class="opt" onclick="exportSave()">导出存档<br/>到剪贴板</button></td>
+                <td><button class="opt" onclick="exportSave(true)">导出存档<br/>到文件</button></td>
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
+			</tr>
+            <tr v-if="options.saveclass">
 				<td><button class="opt" onclick="player.你是不是觉得这个会炸档但是其实它不会而且你还不会获得一个成就因为这个伎俩我早就在睡觉树用过了众所周知一个聪明人不会两次用同样的伎俩哈哈哈 = NaN">一键崩溃</button></td>
             </tr>
             <tr v-if="options.themeclass">

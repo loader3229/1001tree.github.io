@@ -939,6 +939,9 @@ function getHardProblemList() {
 		}, {
 			problem: '对于一个有n个不同项的数列,将其各项打乱.若所有的项都不在原来的位置上,则称其为错排.设将n个项打乱后得到的排列是错排的概率为P.当n趋近于无穷大时,P趋近于多少?',
 			options: ['1/4', 'φ', '1/e', '1/π'], answer: 23
+		}, {
+			problem: '数列F满足 f<sup>a</sup><sub>b</sub>=a×f<sup>a</sup><sub>b-2</sub>+f<sup>a</sup><sub>b-1</sub> (a为实数,b为大于等于2的整数),定义f<sub>0</sub>=f<sub>1</sub>=1,给定符合F定义的数m和n,求n趋向于正无穷时, f<sup>m</sup><sub>n</sub>/f<sup>m</sup><sub>n-1</sub> 的值(当它收敛时)',
+			options: ['(-1-√(1+4m))/2','(-1+√(1+4m))/2','(1-√(1+4m))/2','(1+√(1+4m))/2'],answer:22
 		}
 	]
 }

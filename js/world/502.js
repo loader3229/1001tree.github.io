@@ -29,8 +29,8 @@ addLayer("502", {
     ],
     normalEndGame() {
         let _p = player._502
-        let p = player[502]
         _p.board = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+        _p.aiopen = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
         _p.inGame = false
     },
     grid: {
@@ -74,7 +74,11 @@ addLayer("502", {
         getStyle(data, id) {
             let backgroundImage, border
 
-            if (data >= 0) {
+            let { x, y } = this.idtoxy(id)
+            
+            if (player._502.aiopen[y][x] && player._502.ai == 6) {
+                backgroundImage = `url(pic/502_ai.png)`
+            } else if (data >= 0) {
                 backgroundImage = `url(pic/502_${data}.png)`
             }
             else {
@@ -183,6 +187,7 @@ addLayer("502", {
                 let _p = player._502
                 let p = player[502]
                 _p.board = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+                _p.aiopen = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
                 _p.inGame = false
                 for (b in p.grid) {
                     p.grid[b] = -1
@@ -221,7 +226,7 @@ addLayer("502", {
             }
         },
         13: {
-            title() {return `AI强度 ${player._502.ai}`},
+            title() { return `AI强度 ${player._502.ai}` },
             canClick() {
                 return !player._502.inGame
             },
@@ -335,6 +340,8 @@ addLayer("502", {
             let xy = this.idtoxy(id)
             let d = this.getValue(xy, player._502.board)
 
+            player._502.aiopen[xy.y][xy.x] = 1
+
             setGridData(this.layer, id, d)
 
             if (d == 16) layers[this.layer].normalEndGame()
@@ -420,17 +427,17 @@ addLayer("502", {
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">0</td>
                 <td>最基础的AI,它非常蠢,只会随机选择一个空格子</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">1</td>
-                <td>请输入文本</td>
+                <td>依旧弱不禁风,以2:1的权重加权随机选择潜在格或安全格</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">2</td>
-                <td>请输入文本</td>
+                <td>以攻击为主要目的,从不防守,从潜在格中随机选取一个格子</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">3</td>
-                <td>请输入文本</td>
+                <td>讲究策略,先从潜在格中随机选取一个格子,在后期逐渐保守</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">4</td>
-                <td>请输入文本</td>
+                <td>使用神秘算法,这里太小写不下</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">5</td>
-                <td>请输入文本</td>
+                <td>在4级AI的基础上,可以开挂,可以读取盘面<br>10%抹除运算结果直接开出25</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">6</td>
-                <td>在5级AI的基础上,可以开挂,可以读取盘面<br>10%抹除运算结果直接开出25</td>
+                <td>在5级AI的基础上,你无法看到AI开的格的箭头数,除非它是×</td>
                 </tr></table>
                 <h3>得分表</h3><br>
                 <table style="border: 2px solid #fff; border-collapse: collapse; width: 90%;">
@@ -445,5 +452,5 @@ addLayer("502", {
                 </table>` },
         },
     },
-    layerShown() { return getGridData('main', this.layer) && (options.hideWorld || !player.world[this.layer]) },
+    layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
 });
