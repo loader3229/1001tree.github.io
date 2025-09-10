@@ -642,7 +642,7 @@ function getProblemList() {
 			options: ['1974', '2012', '1978', '1998'], answer: 23
 		}, {
 			problem: '在10p1sc游戏中,一共有多少层软上限?',
-			options: ['13', '14', '15', '16'], answer: 24
+			options: ['13', '14', '15', '16'], answer: 23
 		}, {
 			problem: '销量最高的游戏是?',
 			options: ['GTA5', 'Minecraft', '塞尔达传说:旷野之息', '荒野大镖客2'], answer: 22

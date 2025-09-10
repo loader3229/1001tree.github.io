@@ -85,8 +85,11 @@ function addedPlayerData() {
 			point1: _D0,
 			engine: _D0,
 			rengine: _D0,
+			hengine: _D2,
 			reff: _D1,
 			rg: 50,
+			rb: _D10,
+			trig: true
 		},
 		_202: {
 			t: _D0,
