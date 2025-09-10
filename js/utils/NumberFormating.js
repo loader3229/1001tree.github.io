@@ -12,12 +12,6 @@ function exponentialFormat(num, precision, mantissa = true) {
     else return "e" + e
 }
 
-function exponentialFormat_exx(num, precision) {
-    let e = num.log10()
-    e = e.toStringWithDecimalPlaces(precision)
-    return "e" + e
-}
-
 function commaFormat(num, precision) {
     if (num === null || num === undefined) return "NaN"
     if (num.mag < 0.001) return (0).toFixed(precision)
@@ -46,7 +40,7 @@ function sumValues(x) {
     return x.reduce((a, b) => Decimal.add(a, b))
 }
 
-function format(decimal, precision = 3, small, chi) {
+function format(decimal, precision = 2, small) {
     small = small || modInfo.allowSmall
     decimal = new Decimal(decimal)
     if (isNaN(decimal.sign) || isNaN(decimal.layer) || isNaN(decimal.mag)) {
@@ -55,41 +49,21 @@ function format(decimal, precision = 3, small, chi) {
     }
     if (decimal.sign < 0) return "-" + format(decimal.neg(), precision, small)
     if (decimal.mag == Number.POSITIVE_INFINITY) return "Infinity"
-
-    if (options.count == "wtf") {
-        return randomString(5)
-    }
-
     if (decimal.gte("eeee1000")) {
         var slog = decimal.slog()
         if (slog.gte(1e6)) return "F" + format(slog.floor())
         else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
     }
     else if (decimal.gte("1e1000000")) return exponentialFormat(decimal, 0, false)
+    else if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0)
+    else if (decimal.gte(1e9)) return exponentialFormat(decimal, precision)
+    else if (decimal.gte(1e3)) return commaFormat(decimal, 0)
+    else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
+    else if (decimal.eq(0)) return (0).toFixed(precision)
 
-    if (options.count == "xex") {
-        if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0)
-        else if (decimal.gte(1e9)) return exponentialFormat(decimal, precision)
-        else if (decimal.gte(1e3)) return commaFormat(decimal, 0)
-        else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
-        else if (decimal.eq(0)) return (0).toFixed(precision)
-    } else if (options.count == "exx") {
-        if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0)
-        else if (decimal.gte(1000)) return exponentialFormat_exx(decimal, precision)
-        else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
-        else if (decimal.eq(0)) return (0).toFixed(precision)
-    } else if (chi) {
-        const exponent = Decimal.floor(decimal.log10());
-        return regularFormat(decimal, Decimal.max(_D0, precision - exponent))
-    } else if (options.count == "chi") {
-        if (decimal.gte(1e3)) return ChineseCount(decimal, precision)
-        else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
-        else if (decimal.eq(0)) return (0).toFixed(precision)
-    }
-
-    decimal = divNum(decimal)
+    decimal = invertOOM(decimal)
     let val = ""
-    if (decimal.gt("1e10000")) {
+    if (decimal.lt("1e1000")) {
         val = exponentialFormat(decimal, precision)
         return val.replace(/([^(?:e|F)]*)$/, '-$1')
     }
@@ -100,9 +74,8 @@ function format(decimal, precision = 3, small, chi) {
 
 function formatWhole(decimal) {
     decimal = new Decimal(decimal)
-    if (decimal.gte(1e9)) return format(decimal)
-    if (decimal.lte(0.99) && !decimal.eq(0)) return format(decimal)
-    if (options.count == "exx" && decimal.gte(1e3)) return format(decimal)
+    if (decimal.gte(1e9)) return format(decimal, 2)
+    if (decimal.lte(0.99) && !decimal.eq(0)) return format(decimal, 2)
     return format(decimal, 0)
 }
 
@@ -115,8 +88,8 @@ function formatTime(s) {
     else return formatWhole(Math.floor(s / 31536000)) + "年 " + formatWhole(Math.floor(s / 86400) % 365) + "天 " + formatWhole(Math.floor(s / 3600) % 24) + "时 " + formatWhole(Math.floor(s / 60) % 60) + "分 " + format(s % 60) + "秒"
 }
 
-function formatPersent(n,d) {
-    return `${format(_D(n).mul(100),d)}%`
+function formatPersent(n, d) {
+    return `${format(_D(n).mul(100), d)}%`
 }
 
 function toPlaces(x, precision, maxAccepted) {
@@ -167,47 +140,4 @@ function showTime(time) {
         const years = time.div(31536000);
         return `${ChineseCount(years)}年`;
     }
-}
-
-
-function ChineseCount(decimal, precision) {
-    const d = new Decimal(decimal);
-
-    if (d.eq(0)) {
-        return "0";
-    }
-
-    const basenum = [
-        { base: 0, code: "" },
-        { base: 4, code: "万" },
-        { base: 8, code: "亿" },
-        { base: 12, code: "兆" },
-        { base: 16, code: "京" },
-        { base: 20, code: "垓" },
-        { base: 24, code: "秭" },
-        { base: 28, code: "穰" },
-        { base: 32, code: "沟" },
-        { base: 36, code: "涧" },
-        { base: 40, code: "正" },
-        { base: 44, code: "载" },
-        { base: 48, code: "极" },
-        { base: 52, code: "恒河沙" },
-        { base: 56, code: "阿僧祇" },
-        { base: 60, code: "那由他" },
-        { base: 64, code: "不可思议" },
-        { base: 68, code: "无量" },
-    ];
-
-    const exponent = Decimal.floor(d.log10());
-
-    if (decimal.gte(1e72)) {
-        let bignum = Decimal.floor(exponent.div(72))
-        return ChineseCount(d.div(pow10(bignum.mul(72))), precision) + `(大数^${format(bignum, 0)})`;
-    }
-
-    const baseIndex = Decimal.floor(exponent.div(4)).toNumber();
-
-    const selectedBase = basenum[baseIndex];
-
-    return format(d.div(pow10(new Decimal(selectedBase.base))), precision, false, true) + selectedBase.code;
 }

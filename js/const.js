@@ -1,21 +1,21 @@
 // 获取游戏名字
 function getGameName(id) {
 	let name = {
-		101: ["<span class='c2'>10p1sc</span>", "<span class='c2'>时间墙堆砌,很无聊</span>"],
-		102: ["<span class='c2'>挖矿增量</span>", "<span class='c2'>真的是挖矿,极速版<br>因为狐狸电脑太渣了</span>"],
-		105: ["<span class='c3'>镜之塔</span>", "<span class='c3'>一个不知道是什么的塔</span>"],
-		201: ["<span class='c2'>暴涨子</span>", "<span class='c2'>增长永无止境</span>"],
-		202: ["<span class='p1tx'>第1夜<br>概率统治世界</span>", "<span class='p1tx'>尝试和作者勾心斗角<br>你也有概率统治世界</span>"],
-		203: ["<span class='p2tx'>第10夜<br>点击墙</span>", "<span class='p2tx'>点击墙的点击墙</span>"],
-		204: ["<span class='p3tx'>第11夜<br>十一夜电视台</span>", "<span class='p3tx'>趣味问答</span>"],
-		302: ["<span class='p4tx'>第100夜<br>未完成游戏</span>", "<span class='p4tx'>这个游戏目前是棍木</span>"],
-		303: ["<span class='p9tx'>第1001夜<br>未完成游戏</span>", "<span class='p9tx'>这个游戏目前是棍木</span>"],
-		304: ["<span class='p5tx'>第101夜<br>未完成游戏</span>", "<span class='p5tx'>这个游戏目前是棍木</span>"],
-		402: ["<span class='p6tx'>第110夜<br>未完成游戏</span>", "<span class='p6tx'>这个游戏目前是棍木</span>"],
-		403: ["<span class='p7tx'>第111夜<br>未完成游戏</span>", "<span class='p7tx'>这个游戏目前是棍木</span>"],
-		404: ["<span class='p8tx'>第1000夜<br>未完成游戏</span>", "<span class='p8tx'>这个游戏目前是棍木</span>"],
-		501: ["<span class='c1'>愚人节</span>", "<span class='c1'>假装这是四月一日</span>"],
-		502: ["<span class='c3'>数字炸弹</span>", "<span class='c3'>小心翼翼千万别被炸掉</span>"],
+		101: ["10p1sc", "时间墙堆砌,很无聊", 'c2'],
+		102: ["挖矿增量", "真的是挖矿,极速版<br>因为狐狸电脑太渣了", 'c2'],
+		105: ["镜之塔", "一个不知道是什么的塔<br>!!未完成!!", 'c3'],
+		201: ["暴涨子", "增长永无止境", 'c2'],
+		202/* 第0001夜 */: ["概率统治世界", "尝试和作者勾心斗角<br>你也有概率统治世界", 'p1tx'],
+		203/* 第0010夜 */: ["点击墙", "点击墙的点击墙", 'p2tx'],
+		204/* 第0011夜 */: ["十一夜电视台", "趣味问答", 'p3tx'],
+		302/* 第0100夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p4tx'],
+		303/* 第1001夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p9tx'],
+		304/* 第0101夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p5tx'],
+		402/* 第0110夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p6tx'],
+		403/* 第0111夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p7tx'],
+		404/* 第1001夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p8tx'],
+		501: ["愚人节", "假装这是四月一日", 'c1'],
+		502: ["数字炸弹", "小心翼翼千万别被炸掉<br>!!未完成!!", 'c3'],
 	}[id]
 
 	if (typeof name == 'undefined') name = ['未完成游戏', "这个游戏目前是棍木"]
@@ -29,6 +29,8 @@ function getNewsList() {
 		// 默认新闻
 		"欢迎来到一千零一树,以下是本游戏的规则怪谈",
 		// 常规
+		`${player.global.name} is playing this game...`,
+		`(脸红红的,眼睛里闪烁着幸福的光芒)人家也喜欢你,${player.global.name}.(害羞地低下头,双手揪着衣角)我会一直陪着你的.(抬起头,露出甜甜的笑容)`,
 		"厉=100",
 		"forget is for get",
 		"新闻才是游戏的主功能",
@@ -137,9 +139,10 @@ function getNewsList() {
 		] : [],
 		...options.newsp ? [
 			// 特殊新闻
+			' <a href="https://xfqtphx.netlify.app/" target="_blank">值得每一个英雄尊重的网站</a>',
+			' <a href="https://photokit.com/colors/eyedropper" target="_blank">也许你在某一夜会用到的工具</a>',
 			' <img src="resources/bx.gif" width="40px"/>',
 			' <img src="resources/ksm.gif" width="60px"/>',
-			`${player.global.name} is playing this game...`,
 			`玩家自定义新闻,不代表开发者立场|${player.global.mynews}`,
 			`我不想写新闻了,你自己写:<input
   			type="text"
@@ -150,7 +153,6 @@ function getNewsList() {
 				news.completeTime = Date.now()
 				player.global.mynews = this.value
 			" />`,
-			`(脸红红的,眼睛里闪烁着幸福的光芒)人家也喜欢你,${player.global.name}.(害羞地低下头,双手揪着衣角)我会一直陪着你的.(抬起头,露出甜甜的笑容)`,
 		] : [],
 		...options.newsn ? [
 			// 其他梗语
@@ -745,7 +747,7 @@ function getProblemList() {
 				'<b style="color:#888">按钮</b>'
 			], answer: 23
 		}, {
-			problem: '<a class="c204_1" href="https://photokit.com/colors/eyedropper" target="_blank">你懂的█</a>',
+			problem: '<span class="c204_1">你懂的█</span>',
 			// #8934c0 = 8991936
 			options: ['9974976', '9000128', '8991880', '8991936'], answer: 24
 		}, {
@@ -804,7 +806,7 @@ function getHardProblemList() {
 		{
 			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是?<br><img src="../pic/prob3.jpg" width="250px"/>',
 			options: ['(31/17,5/17)', '((10√17)/17,√17)', '(5/31,5/17)', '(√17/10,5/31)'], answer: 21 // A=21 B=22 C=23 D=24
-		},{
+		}, {
 			problem: '<img src="../pic/prob4.jpg" width="250px"/>',
 			options: ['20021001', '20200110', '20020101', '20201001'], answer: 22
 		}, {
@@ -874,8 +876,12 @@ function getHardProblemList() {
 				'154429382108746166441951315019919<br>837485664325669563232000026634898<br>253202035279999',
 				'154476802108746166441951315019919<br>837485664325669565431700026634898<br>253202035077999'], answer: 22
 		}, {
-			problem: '<span style = "color: #c11077">你懂的█</b>',
-			options: ['<span style = "color: #c11076">选项█</span>', '<span style = "color: #c11077fe">选项█</span>', '<span style = "color: #c11077">选项█</span>', '<span style = "color: #c01077">选项█</vpan>'], answer: 23
+			problem: '<span style="color: #c11077">你懂的█</b>',
+			options: ['<span style="color: #c11076">选项█</span>',
+				'<span style="color: #c11077fe">选项█</span>',
+				'<span style="color: #c11077">选项█</span>',
+				'<span style="color: #c01077">选项█</vpan>'
+			], answer: 23
 		}, {
 			problem: '小明一开始有1金币,每秒获得1e200金币,经过软上限折算后1000s最终有1e201+1金币,该软上限可能是?',
 			options: ['金币获取开平方根', '超过9e200金币后,获取除以990', '金币获取/1000', '金币获取/100'], answer: 24
@@ -941,7 +947,7 @@ function getHardProblemList() {
 			options: ['1/4', 'φ', '1/e', '1/π'], answer: 23
 		}, {
 			problem: '数列F满足 f<sup>a</sup><sub>b</sub>=a×f<sup>a</sup><sub>b-2</sub>+f<sup>a</sup><sub>b-1</sub> (a为实数,b为大于等于2的整数),定义f<sub>0</sub>=f<sub>1</sub>=1,给定符合F定义的数m和n,求n趋向于正无穷时, f<sup>m</sup><sub>n</sub>/f<sup>m</sup><sub>n-1</sub> 的值(当它收敛时)',
-			options: ['(-1-√(1+4m))/2','(-1+√(1+4m))/2','(1-√(1+4m))/2','(1+√(1+4m))/2'],answer:22
+			options: ['(-1-√(1+4m))/2', '(-1+√(1+4m))/2', '(1-√(1+4m))/2', '(1+√(1+4m))/2'], answer: 22
 		}
 	]
 }

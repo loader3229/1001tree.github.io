@@ -111,6 +111,7 @@ var systemComponents = {
 				<span class="overlayThing"> {{modInfo.pointsName}}</span>
 			<br>
 			<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
+			
 		</div>
 	`
 	},
@@ -179,51 +180,134 @@ var systemComponents = {
 		template: `
         <table>
 			<tr>
-                <td><button class="opt_class" onclick="toggleOpt('saveclass');">存档相关</button></td>
-                <td><button class="opt_class" onclick="toggleOpt('themeclass');">个性化主题</button></td>
-                <td><button class="opt_class" onclick="toggleOpt('tmtclass');">功能样式</button></td>
-                <td><button class="opt_class" onclick="toggleOpt('newclass');">新闻设置</button></td>
+				<td><button class="info" disabled>展开设置</button></td>
+                <td><button class="opt" onclick="toggleOpt('saveclass');">存档相关<br>{{ formatOption('saveclass') }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('themeclass');">主题设置<br>{{ formatOption('themeclass') }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('tmtclass');">功能样式<br>{{ formatOption('tmtclass') }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('newclass');">新闻设置<br>{{ formatOption('newclass') }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('pauseclass');">游戏暂停<br>{{ formatOption('pauseclass') }}</button></td>
+			</tr>
+			<tr>
+			<br>
 			</tr>
             <tr v-if="options.saveclass">
+				<td><button class="info" disabled>存档操作</button></td>
                 <td><button class="opt" onclick="save()">保存</button></td>
                 <td><button class="opt" onclick="toggleOpt('autosave')">自动保存<br>{{ formatOption('autosave') }}</button></td>
-                <td><button class="opt" onclick="hardReset()">硬重置</button></td>
                 <td><button class="opt" onclick="exportSave()">导出存档<br/>到剪贴板</button></td>
                 <td><button class="opt" onclick="exportSave(true)">导出存档<br/>到文件</button></td>
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
 			</tr>
             <tr v-if="options.saveclass">
+				<td><button class="info" disabled>除错</button></td>
+                <td><button class="opt" onclick="save();window.location.reload();">保存并<br>刷新页面</button></td>
+				<td></td>
+				<td><button class="info" disabled>危险区</button></td>
+                <td><button class="opt" onclick="hardReset()">硬重置</button></td>
 				<td><button class="opt" onclick="player.你是不是觉得这个会炸档但是其实它不会而且你还不会获得一个成就因为这个伎俩我早就在睡觉树用过了众所周知一个聪明人不会两次用同样的伎俩哈哈哈 = NaN">一键崩溃</button></td>
             </tr>
+			<tr v-if="options.saveclass">
+			<br>
+			</tr>
+
             <tr v-if="options.themeclass">
+				<td><button class="info" disabled>个性化</button></td>
                 <td><button class="opt" onclick="switchTheme()">主题<br>{{ getThemeName() }}</button></td>
                 <td><button class="opt" onclick="adjustFont()">字体<br>{{ FONT_DISPLAYS[FONT_SETTINGS.indexOf(options.font)] }}</button></td>
-                <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}</button></td>
+            </tr>
+            <tr v-if="options.themeclass">
+				<td><button class="info" disabled>组件显示</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('news');reinitializeNews();">新闻显示<br>{{ formatOption('news') }}</button></td>
             </tr>
+			<tr v-if="options.themeclass">
+			<br>
+			</tr>
+
             <tr v-if="options.tmtclass">
+				<td><button class="info" disabled>显示</button></td>
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "单页面" : "优先双页面 窄屏单页面" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hcmode')">世界选择器<br>{{ options.hcmode?"易读模式":"普通模式" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
                 <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
+			</tr>
+            <tr v-if="options.tmtclass">
+				<td><button class="info" disabled>游戏</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideWorld')">已完成世界<br>{{ options.hideWorld?"隐藏":"显示" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('autopause')">完成世界<br>自动暂停<br>{{ formatOption('autopause') }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('achivement')">成就<br>{{ options.achivement?"隐藏":"显示" }}</button></td>
 			</tr>
+			<tr v-if="options.tmtclass">
+			<br>
+			</tr>
+
             <tr v-if="options.newclass">
-				<td><button class="opt" onclick="toggleOpt('newsa');reinitializeNews();">成就剧透<br>{{ formatOption('newsa') }}</button></td>
+				<td><button class="info" disabled>新闻内容</button></td>
+				<td><button class="opt" onclick="
+					if (!options.newsa) {
+						let p = confirm('您确定打开成就剧透吗?这可能影响到您的游戏体验!');
+						if (!p) return
+					}
+					toggleOpt('newsa');reinitializeNews();
+					">成就剧透<br>{{ formatOption('newsa') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsv');reinitializeNews();">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsh');reinitializeNews();">地狱笑话<br>{{ formatOption('newsh') }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('newsp');reinitializeNews();">特殊新闻<br>{{ formatOption('newsp') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsp');reinitializeNews();">特殊样式<br>{{ formatOption('newsp') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsn');reinitializeNews();">其他梗语<br>{{ formatOption('newsn') }}</button></td>
-				<td><button class="opt" onclick="adjustSpeed()">新闻速度<br>{{ NEWSSPEED_DISPLAYS[NEWSSPEED_SETTINGS.indexOf(options.newsspeed)] }}</button></td>
             </tr>
             <tr v-if="options.newclass">
+				<td><button class="info" disabled>新闻操作</button></td>
 				<td><button class="opt" onclick="news.fadeStartTime=new Date('2005-05-09')">切换新闻</button></td>
-				<td><button class="opt" onclick="player.global.mynews='请输入文本';reinitializeNews();">重置我的新闻</button></td>
-				<td><button class="opt" onclick="console.log(getNewsList(),'部分内容来源网络,侵联删,谢谢!')">获取新闻列表</button></td>
+				<td><button class="opt" onclick="adjustSpeed()">新闻速度<br>{{ NEWSSPEED_DISPLAYS[NEWSSPEED_SETTINGS.indexOf(options.newsspeed)] }}</button></td>
+				<td><button class="opt" onclick="alert('用户自定义新闻重置完毕');player.global.mynews='请输入文本';reinitializeNews();">重置我的新闻</button></td>
+				<td><button class="opt" onclick="alert('当前已选中新闻列表已输出至控制台');console.log(getNewsList(),'部分内容来源网络,侵联删,谢谢!')">获取新闻列表</button></td>
 				<td><button class="opt" onclick='alert(\`请前往"关于"中的1001树游戏群并联系管理员\`)'>贡献新闻</button></td>
+            </tr>
+			<tr v-if="options.newclass">
+			<br>
+			</tr>
+			
+            <tr v-if="options.pauseclass">
+				<td><button class="info" disabled>暂停仍可交互<br>仅禁止刻更新</button></td>
+				<td><button class="opt" onclick="player.pause[101]=!player.pause[101]">{{ getGameName(101)[0] }}<br>暂停:{{ formatBoolean(player.pause[101]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[102]=!player.pause[102]">{{ getGameName(102)[0] }}<br>暂停:{{ formatBoolean(player.pause[102]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[103]=!player.pause[103]">{{ getGameName(103)[0] }}<br>暂停:{{ formatBoolean(player.pause[103]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[104]=!player.pause[104]">{{ getGameName(104)[0] }}<br>暂停:{{ formatBoolean(player.pause[104]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[105]=!player.pause[105]">{{ getGameName(105)[0] }}<br>暂停:{{ formatBoolean(player.pause[105]) }}</button></td>
+            </tr>
+            <tr v-if="options.pauseclass">
+				<td><button class="info" disabled>此处世界顺序<br>与解锁页面同</button></td>
+				<td><button class="opt" onclick="player.pause[201]=!player.pause[201]">{{ getGameName(201)[0] }}<br>暂停:{{ formatBoolean(player.pause[201]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[202]=!player.pause[202]">{{ getGameName(202)[0] }}<br>暂停:{{ formatBoolean(player.pause[202]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[203]=!player.pause[203]">{{ getGameName(203)[0] }}<br>暂停:{{ formatBoolean(player.pause[203]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[204]=!player.pause[204]">{{ getGameName(204)[0] }}<br>暂停:{{ formatBoolean(player.pause[204]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[205]=!player.pause[205]">{{ getGameName(205)[0] }}<br>暂停:{{ formatBoolean(player.pause[205]) }}</button></td>
+            </tr>
+            <tr v-if="options.pauseclass">
+				<td><button class="info" disabled>为了让这对齐<br>我加这五按钮</button></td>
+				<td><button class="opt" onclick="player.pause[301]=!player.pause[301]">{{ getGameName(301)[0] }}<br>暂停:{{ formatBoolean(player.pause[301]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[302]=!player.pause[302]">{{ getGameName(302)[0] }}<br>暂停:{{ formatBoolean(player.pause[302]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[303]=!player.pause[303]">{{ getGameName(303)[0] }}<br>暂停:{{ formatBoolean(player.pause[303]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[304]=!player.pause[304]">{{ getGameName(304)[0] }}<br>暂停:{{ formatBoolean(player.pause[304]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[305]=!player.pause[305]">{{ getGameName(305)[0] }}<br>暂停:{{ formatBoolean(player.pause[305]) }}</button></td>
+            </tr>
+            <tr v-if="options.pauseclass">
+				<td><button class="info" disabled>但我以不知晓<br>后续该写何文</button></td>
+				<td><button class="opt" onclick="player.pause[401]=!player.pause[401]">{{ getGameName(401)[0] }}<br>暂停:{{ formatBoolean(player.pause[401]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[402]=!player.pause[402]">{{ getGameName(402)[0] }}<br>暂停:{{ formatBoolean(player.pause[402]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[403]=!player.pause[403]">{{ getGameName(403)[0] }}<br>暂停:{{ formatBoolean(player.pause[403]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[404]=!player.pause[404]">{{ getGameName(404)[0] }}<br>暂停:{{ formatBoolean(player.pause[404]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[405]=!player.pause[405]">{{ getGameName(405)[0] }}<br>暂停:{{ formatBoolean(player.pause[405]) }}</button></td>
+            </tr>
+            <tr v-if="options.pauseclass">
+				<td><button class="info" disabled>正如你所见到<br>我已江郎才尽</button></td>
+				<td><button class="opt" onclick="player.pause[501]=!player.pause[501]">{{ getGameName(501)[0] }}<br>暂停:{{ formatBoolean(player.pause[501]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[502]=!player.pause[502]">{{ getGameName(502)[0] }}<br>暂停:{{ formatBoolean(player.pause[502]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[503]=!player.pause[503]">{{ getGameName(503)[0] }}<br>暂停:{{ formatBoolean(player.pause[503]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[504]=!player.pause[504]">{{ getGameName(504)[0] }}<br>暂停:{{ formatBoolean(player.pause[504]) }}</button></td>
+				<td><button class="opt" onclick="player.pause[505]=!player.pause[505]">{{ getGameName(505)[0] }}<br>暂停:{{ formatBoolean(player.pause[505]) }}</button></td>
             </tr>
         </table>
 		`

@@ -121,6 +121,7 @@ addLayer("203", {
         return e
     },
     update(diff) {
+        if (player.pause[this.layer]) return
         if (hasMilestone(this.layer, 9) && player._203.wallbreak.lte(15)) layers[this.layer].clickables[11].onClick()
         player._203.timeplayed = player._203.timeplayed.add(diff)
     },

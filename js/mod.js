@@ -27,13 +27,19 @@ let changelog = `
 
 let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全成就收集前进吧!`
 
-// 如果在Layer内添加了新函数,并且这些函数在被调用时会产生效果,请在此处添加它们
+// 如果在Layer内添加了新函数,请在此处添加它们
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue",
-	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid",
-	"getSomeText", "getRandomProblem", "randomProblem","normalEndGame",
-	"xytoid", "idtoxy", "face", "getArrow", "click",
-	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6"
+	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime',
+	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame",
+	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul',
+	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti',
+	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect',
+	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', '', 'randomButton', 'getText',
+	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
+	'getRandomcode', 'getLoseText', 'getWrongPage',
+	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "sC1", "sC2", "sC3", "sC4", "sC5",
+	"aC1", "aC2", "aC3", "aC4", "aC5", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10",
 ]
 
 function getStartPoints() {
@@ -78,9 +84,9 @@ function addedPlayerData() {
 		},
 		_201: {
 			gen: _D1,
-			bzbase: [null,_D1,_D1,_D1,_D1],
-			bzmul: [null,_D1,_D1,_D1,_D1],
-			bztime: [null,_D0,_D0,_D0,_D0],
+			bzbase: [null, _D1, _D1, _D1, _D1],
+			bzmul: [null, _D1, _D1, _D1, _D1],
+			bztime: [null, _D0, _D0, _D0, _D0],
 			base: _D1,
 			point1: _D0,
 			engine: _D0,
@@ -156,6 +162,13 @@ function addedPlayerData() {
 			"401": false, "402": false, "403": false, "404": false, "405": false,
 			"501": false, "502": false, "503": false, "504": false, "505": false,
 		},
+		pause: {
+			"101": false, "102": false, "103": false, "104": false, "105": false,
+			"201": false, "202": false, "203": false, "204": false, "205": false,
+			"301": false, "302": false, "303": false, "304": false, "305": false,
+			"401": false, "402": false, "403": false, "404": false, "405": false,
+			"501": false, "502": false, "503": false, "504": false, "505": false,
+		},
 		global: {
 			//此处存放全局变量
 			name: "player", //玩家的名字
@@ -182,7 +195,13 @@ var displayNews = [
 
 // 在页面顶部显示额外内容
 var displayThings = [
-	"出bug请联系QQ1550187725<br>如果下面什么也没有,请先刷新页面",
+	"如果游戏出现问题,请先尝试刷新页面,如果问题可复现<br>请截图错误界面,导出存档并提交给开发组",
+	function () {
+		try {
+			if (Object.values(player.pause).some(Boolean)) return "当前有游戏暂停运算,你可在设置查阅"
+		}
+		catch { return null }
+	},
 	function () {
 		if (options.sloganshown) return `<span class="slogan">
 			${slogan}

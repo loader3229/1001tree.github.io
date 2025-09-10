@@ -64,25 +64,7 @@ addLayer("204", {
         return [21, 22, 23, 24].sort(() => Math.random() - 0.5)
     },
     update(diff) {
-        if (player._204.started == true && player._204.sol == (player._204.hardmode ? 30 : 40)) {
-            player._204.started = false
-            if (player[this.layer].points.gte(40) && !player._204.hardmode) {
-                // 请使用下面的函数完成世界,而不是
-                // player.points = player.points.add(1)
-                // player.main.points = player.main.points.add(1)
-                completeWorld(this.layer)
-            }
-            else if (player[this.layer].points.gte(30) && player._204.hardmode && player._204.trig) {
-                player.main.points = player.main.points.add(1)
-                player._204.trig = false
-            }
-            player[this.layer].points = player._204.maxscore
-            player._204.sol = 0
-            player._204.ans = 0
-            player._204.problist = []
-            player._204.problem = { problem: '', options: ['', '', '', ''], answer: 0 }
-            player._204.button = this.randomButton()
-        }
+        if (player.pause[this.layer]) return
     },
     clickables: {
         11: {
@@ -117,8 +99,25 @@ addLayer("204", {
                 player._204.problem = ((player._204.hardmode) ? getHardProblemList()[player._204.problist[player._204.sol]] : getProblemList()[player._204.problist[player._204.sol]])
                 player._204.ans = 0
                 player._204.button = layers[this.layer].randomButton()
+
+                if (player._204.started && (player._204.sol >= (player._204.hardmode ? 30 : 40))) {
+                    player._204.started = false
+                    if (player[this.layer].points.gte(40) && !player._204.hardmode) {
+                        completeWorld(this.layer)
+                    }
+                    else if (player[this.layer].points.gte(30) && player._204.hardmode && player._204.trig) {
+                        player.main.points = player.main.points.add(1)
+                        player._204.trig = false
+                    }
+                    player[this.layer].points = player._204.maxscore
+                    player._204.sol = 0
+                    player._204.ans = 0
+                    player._204.problist = []
+                    player._204.problem = { problem: '', options: ['', '', '', ''], answer: 0 }
+                    player._204.button = layers[this.layer].randomButton()
+                }
             },
-            unlocked() { return player._204.started && player._204.sol < ((player._204.hardmode) ? 30 : 40) },
+            unlocked() { return player._204.started },
             canClick() { return player._204.started && player._204.ans != 0 },
             style: {
                 "width": "200px",
@@ -131,7 +130,7 @@ addLayer("204", {
             onClick() {
                 setClickableState(this.layer, this.id, !getClickableState(this.layer, this.id))
             },
-            unlocked() { return player._204.started && player._204.sol < ((player._204.hardmode) ? 30 : 40) },
+            unlocked() { return player._204.started },
             canClick() { return player._204.started },
             style: {
                 "width": "90px",
@@ -161,7 +160,7 @@ addLayer("204", {
             },
             onClick() {
                 player._204.ans = this.id
-                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+                if (!(player._204.sol == (player._204.hardmode ? 29 : 39)) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
             unlocked() { return player._204.started },
             canClick() { return player._204.started && player._204.ans != this.id },
@@ -179,7 +178,7 @@ addLayer("204", {
             },
             onClick() {
                 player._204.ans = this.id
-                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+                if (!(player._204.sol == (player._204.hardmode ? 29 : 39)) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
             unlocked() { return player._204.started },
             canClick() { return player._204.started && player._204.ans != this.id },
@@ -197,7 +196,7 @@ addLayer("204", {
             },
             onClick() {
                 player._204.ans = this.id
-                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+                if (!(player._204.sol == (player._204.hardmode ? 29 : 39)) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
             unlocked() { return player._204.started },
             canClick() { return player._204.started && player._204.ans != this.id },
@@ -215,7 +214,7 @@ addLayer("204", {
             },
             onClick() {
                 player._204.ans = this.id
-                if (!(player._204.sol == 39) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
+                if (!(player._204.sol == (player._204.hardmode ? 29 : 39)) && getClickableState(this.layer, 13)) layers[this.layer].clickables[12].onClick()
             },
             unlocked() { return player._204.started },
             canClick() { return player._204.started && player._204.ans != this.id },

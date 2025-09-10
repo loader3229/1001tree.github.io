@@ -480,6 +480,7 @@ function completeWorld(id) {
 	player.world[id] = true
 	player.main.points = player.main.points.add(1)
 	player.points = player.points.add(1)
+	if (options.autopause) player.pause[id] = true
 }
 
 function getYFromOrderedPoints(points, x) {

@@ -4,8 +4,6 @@ addLayer("502", {
     row: 5,
     position: 2,
     color: "#aaa",
-    update(diff) {
-    },
     startData() {
         return {
             unlocked: true,
@@ -75,7 +73,7 @@ addLayer("502", {
             let backgroundImage, border
 
             let { x, y } = this.idtoxy(id)
-            
+
             if (player._502.aiopen[y][x] && player._502.ai == 6) {
                 backgroundImage = `url(pic/502_ai.png)`
             } else if (data >= 0) {
@@ -290,6 +288,13 @@ addLayer("502", {
                 layers[this.layer].normalEndGame()
                 return
             }
+
+            if (sb.length == 0) {
+                this.click(chooseOneInArray(db))
+            } else {
+                let rs = chooseOneInArray([sb, db, db])
+                this.click(chooseOneInArray(rs))
+            }
         },
         ai2() {
             let { sb, db, tb } = this.analyzeGrid()
@@ -299,6 +304,7 @@ addLayer("502", {
                 return
             }
 
+            this.click(chooseOneInArray(db))
         },
         ai3() {
             let { sb, db, tb } = this.analyzeGrid()
@@ -346,65 +352,95 @@ addLayer("502", {
 
             if (d == 16) layers[this.layer].normalEndGame()
         },
+        xytoid(x, y) {
+            return 100 * y + x + 101
+        },
         idtoxy(id) {
             return { x: id % 100 - 1, y: ~~(id / 100) - 1 }
         },
         getValue(xy, array) {
-            const { x, y } = xy;
-            const n = 5;
-            const c = array[y][x];
-            let d = [0, 0, 0, 0];
+            const { x, y } = xy
+            const n = 5
+            const c = array[y][x]
+            let d = [0, 0, 0, 0]
 
             if (c == 25) return 16
 
-            for (let j = x - 1; j >= 0; j--) { if (array[y][j] > c) { d[0] = 1; break; } }
-            for (let i = y + 1; i < n; i++) { if (array[i][x] > c) { d[1] = 1; break; } }
-            for (let j = x + 1; j < n; j++) { if (array[y][j] > c) { d[2] = 1; break; } }
-            for (let i = y - 1; i >= 0; i--) { if (array[i][x] > c) { d[3] = 1; break; } }
+            for (let j = x - 1; j >= 0; j--) { if (array[y][j] > c) { d[0] = 1; break } }
+            for (let i = y + 1; i < n; i++) { if (array[i][x] > c) { d[1] = 1; break } }
+            for (let j = x + 1; j < n; j++) { if (array[y][j] > c) { d[2] = 1; break } }
+            for (let i = y - 1; i >= 0; i--) { if (array[i][x] > c) { d[3] = 1; break } }
 
-            const v = d[0] * 8 + d[1] * 4 + d[2] * 2 + d[3] * 1;
+            const v = d[0] * 8 + d[1] * 4 + d[2] * 2 + d[3] * 1
             return v;
         },
         analyzeGrid() {
             const g = player[this.layer].grid
 
+            const grid2D = []
+            for (let y = 0; y < 5; y++) {
+                grid2D[y] = []
+                for (let x = 0; x < 5; x++) {
+                    const id = this.xytoid(x, y)
+                    grid2D[y][x] = g[id]
+                }
+            }
+
             const tb = []
             for (const i in g) {
-                if (g[i] < 0) tb.push(parseInt(i))
+                if (g[i] < 0) tb.push(i)
             }
 
             const sb = []
             const db = []
 
-            for (const i of tb) {
-                const x = i % 100 - 1
-                const y = ~~(i / 100) - 1
+            for (const id of tb) {
+                const { x, y } = this.idtoxy(id)
 
-                let p = false
+                let allLeftPoint = true
+                let allRightPoint = true
+                let allDownPoint = true
+                let allUpPoint = true
 
+
+                for (let k = y + 1; k < 5; k++) {
+                    if (grid2D[k][x] >= 0) {
+                        if ((grid2D[k][x] & 1) == 0) {
+                            allDownPoint = false
+                        }
+                    }
+                }
                 for (let j = x - 1; j >= 0; j--) {
-                    const l = 100 * y + j + 101;
-                    if (g[l] >= 0 && (g[l] & 2)) { p = true; break; }
+                    if (grid2D[y][j] >= 0) {
+                        if ((grid2D[y][j] & 2) == 0) {
+                            allLeftPoint = false
+                        }
+                    }
                 }
-                if (!p) for (let j = x + 1; j < 5; j++) {
-                    const r = 100 * y + j + 101
-                    if (g[r] >= 0 && (g[r] & 8)) { p = true; break; }
+                for (let k = y - 1; k >= 0; k--) {
+                    if (grid2D[k][x] >= 0) {
+                        if ((grid2D[k][x] & 4) == 0) {
+                            allUpPoint = false
+                        }
+                    }
                 }
-                if (!p) for (let k = y + 1; k < 5; k++) {
-                    const d = 100 * k + x + 101
-                    if (g[d] >= 0 && (g[d] & 1)) { p = true; break; }
-                }
-                if (!p) for (let k = y - 1; k >= 0; k--) {
-                    const u = 100 * k + x + 101
-                    if (g[u] >= 0 && (g[u] & 4)) { p = true; break; }
+                for (let j = x + 1; j < 5; j++) {
+                    if (grid2D[y][j] >= 0) {
+                        if ((grid2D[y][j] & 8) == 0) {
+                            allRightPoint = false
+                        }
+                    }
                 }
 
-                p ? sb.push(i) : db.push(i);
+                let allPoint = allUpPoint && allRightPoint && allDownPoint && allLeftPoint
+                let isSafe = true
+                if (allPoint) isSafe = false
+                isSafe ? sb.push(id) : db.push(id)
             }
 
-            // safeBlock dangerBlock totalBlock
+            console.log(db)
             return { sb, db, tb };
-        },
+        }
     },
     infoboxes: {
         0: {

@@ -5,6 +5,7 @@ addLayer("102", {
     position: 2,
     color: "#aaa",
     update(diff) {
+        if (player.pause[this.layer]) return
         if (player._102.pause) return
 
         player._102.tickt = player._102.tickt.add(diff)

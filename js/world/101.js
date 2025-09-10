@@ -5,6 +5,8 @@ addLayer("101", {
     position: 1,
     color: "#aaa",
     update(diff) {
+        if (player.pause[this.layer]) return
+
         let gap = this.gap()
         for (let i = 0; i < gap.length; i++) {
             if (player[this.layer].points.lt(gap[i])) {
@@ -557,8 +559,6 @@ addLayer("101", {
             cost: new Decimal(182),
             unlocked() { return hasUpgrade(this.layer, 54) }
         },
-    },
-    milestones: {
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
     hotkeys: [

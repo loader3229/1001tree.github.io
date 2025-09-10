@@ -65,7 +65,18 @@ addLayer("main", {
             setGridData(this.layer, id, true)
         },
         getDisplay(data, id) {
-            return `<h2>${getGameName(id)[0]}</h2><br>${getGameName(id)[1]}<br><br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
+            let mode = options.hcmode
+            let style = getGameName(id)[2]
+
+            if (mode) {
+                return `<h1>${getGameName(id)[0]}</h1>
+                <h3>${getGameName(id)[1]}</h3>
+                <br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
+            } else {
+                return `<h2 class="${style}">${getGameName(id)[0]}</h2>
+                <span class="${style}">${getGameName(id)[1]}</span>
+                <br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
+            }
         },
         getStyle(data, id) {
             let style = {
@@ -74,11 +85,13 @@ addLayer("main", {
                 backgroundClip: "padding-box",
             }
 
-            let mode = getClickableState(this.layer, 11)
+            let mode = options.hcmode
 
             if (mode) {
-                if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(#EEE)"
-                else style.backgroundImage = "linear-gradient(#999)"
+                if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #AAF, #FAA)"
+                else if (data) style.backgroundImage = "linear-gradient(to bottom, #EEE, #FAA)"
+                else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #EEE, #999)"
+                else style.backgroundImage = "linear-gradient(#666)"
             } else {
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
                 else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
@@ -91,9 +104,9 @@ addLayer("main", {
     },
     clickables: {
         11: {
-            title() { return getClickableState(this.layer, this.id) ? "常规模式" : "简洁模式" },
+            title() { return options.hcmode ? "易读模式" : "常规模式" },
             onClick() {
-                setClickableState(this.layer, this.id, !getClickableState(this.layer, this.id))
+                toggleOpt('hcmode')
             },
             canClick() { return true },
             onHold() { },
@@ -139,7 +152,7 @@ addLayer("ach", {
                 "clickables",
             ]
         },
-       世界: {
+        世界: {
             content: [
                 ["row", [["milestone", 101], ["milestone", 102], ["milestone", 103], ["milestone", 104], ["milestone", 105],]],
                 ["row", [["milestone", 201], ["milestone", 202], ["milestone", 203], ["milestone", 204], ["milestone", 205],]],
@@ -475,6 +488,7 @@ addLayer("", {
     position: 1,
     color: "#aaa",
     update(diff) {
+        if (player.pause[this.layer]) return
     },
     startData() {
         return {

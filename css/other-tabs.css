@@ -102,19 +102,17 @@ a {
 	cursor: pointer;
 }
 
-.opt:hover {
-	background-color: var(--highlight);
-}
-
-.opt_class {
+.info {
 	height: 100px;
 	width: 100px;
 	border: 4px solid;
-	background-color: var(--background2);
+	background-color: var(--background);
 	border-color: rgba(255, 255, 255, 0.125);
-	background-image: linear-gradient(rgba(255, 255, 255, 0.125));
 	color: var(--color);
-	cursor: pointer;
+}
+
+.opt:hover {
+	background-color: var(--highlight);
 }
 
 .opt_class:hover {

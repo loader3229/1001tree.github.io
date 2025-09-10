@@ -5,6 +5,7 @@ addLayer("202", {
     position: 2,
     color: "hsl(0,50%,50%)",
     update(diff) {
+        if (player.pause[this.layer]) return
         let ltl = layers[this.layer];
 
         let ic = this.getChallenge()

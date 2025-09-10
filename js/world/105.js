@@ -5,6 +5,7 @@ addLayer("105", {
     position: 5,
     color: "#aaa",
     update(diff) {
+        if (player.pause[this.layer]) return
         let l = layers[this.layer]
         let p = player[this.layer]
         let _p = player._105

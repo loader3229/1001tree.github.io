@@ -5,6 +5,7 @@ addLayer("201", {
     position: 1,
     color: "#aaa",
     update(diff) {
+        if (player.pause[this.layer]) return
         if(player[this.layer].points.gte("10^^2025")&&player._201.trig){
             player._201.trig = false
             completeWorld(this.layer)
@@ -128,19 +129,19 @@ addLayer("201", {
                     return `你有 <h2 class='nmpt'> ${format(player[this.layer].points)} </h2> 点数 (+${format(hasUpgrade("201", 11) ? player._201.base.times(player._201.gen).pow(layers[this.layer].engineeff()[0]) : _D0)}/s),到达1F2025完成世界`
                 }],
                 ["display-text", function () {
-                    return `你有 <h2 class='nmpt'> ${format(player._201.engine)} </h2> 指数引擎(+${format(layers[this.layer].enginegen())}/s), 点数获取变为^${format(layers[this.layer].engineeff()[0])}, 暴涨I效果` + (hasUpgrade("201", 44) ? `^` : `x`) + `${format(layers[this.layer].engineeff()[1])}`
+                    return `你有 <h2 class='nmpt'> ${format(player._201.engine)} </h2> 指数引擎(+${format(layers[this.layer].enginegen())}/s)<br>点数获取变为^${format(layers[this.layer].engineeff()[0])}, 暴涨I效果` + (hasUpgrade("201", 44) ? `^` : `x`) + `${format(layers[this.layer].engineeff()[1])}`
                 }],
                 "blank",
                 ["buyables",[1]],
                 "blank",
                 ["display-text", function () {
-                    return hasUpgrade("201",51) ? `你有 <h2 class='nmpt'> ${format(player._201.rengine)} </h2> 随机引擎(+${format(layers[this.layer].renginegen())}/s), 指数引擎效果x${format(layers[this.layer].rengineeff()[0])}, 暴涨II效果+${format(layers[this.layer].rengineeff()[1])}` : ``
+                    return hasUpgrade("201",51) ? `你有 <h2 class='nmpt'> ${format(player._201.rengine)} </h2> 随机引擎(+${format(layers[this.layer].renginegen())}/s)<br>指数引擎效果x${format(layers[this.layer].rengineeff()[0])}, 暴涨II效果+${format(layers[this.layer].rengineeff()[1])}` : ``
                 }],
                 "blank",
                 ["buyables",[2]],
                 "blank",
                 ["display-text", function () {
-                    return hasUpgrade("201",51) ? `你有 <h2 class='nmpt'> ${format(player._201.hengine)} </h2> 超越引擎, 随机引擎效果x${format(layers[this.layer].hengineeff()[0])}, 暴涨III指数+${format(layers[this.layer].hengineeff()[1])}, 每秒将自身变为^${format(layers[this.layer].hengineeff()[2])}` : ``
+                    return hasUpgrade("201",63) ? `你有 <h2 class='nmpt'> ${format(player._201.hengine)} </h2> 超越引擎<br>随机引擎效果x${format(layers[this.layer].hengineeff()[0])}, 暴涨III指数+${format(layers[this.layer].hengineeff()[1])}, 每秒将自身变为^${format(layers[this.layer].hengineeff()[2])}` : ``
                 }],
                 "blank",
                 ["buyables",[3]]
@@ -504,25 +505,25 @@ addLayer("201", {
             cost(x) { return x.tetrate(x.add(1).slog().div(50).add(3)) },
             effect(x) { return Decimal.pow(1.2,x) },
             canAfford() { return player._201.hengine.gte(this.cost()) },
-            unlocked() { return true },
+            unlocked() { return hasUpgrade("201",63) },
             buy() {
                 player._201.hengine = player._201.hengine.div(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style: { "height": "140px", "width": "140px", "min-height": "100px", "border": "4px solid", "border-color": "#999" }
         },        
-        31: {
+        32: {
             title() { return `最终之塔` },
             display() {
                 return `最终暴涨效果+0.0005
                             数量:${format(getBuyableAmount(this.layer, this.id))}
-                            效果:x${format(this.effect())}
+                            效果:+${format(this.effect())}
                             下一个需要(除法):${format(this.cost())}`
             },
-            cost(x) { return x.tetrate(3).times("e1e10000") },
+            cost(x) { return x.tetrate(3).times("e1e10000").add(1) },
             effect(x) { return x.times(0.0005) },
             canAfford() { return player._201.hengine.gte(this.cost()) },
-            unlocked() { return true },
+            unlocked() { return hasUpgrade("201",63) },
             buy() {
                 player._201.hengine = player._201.hengine.div(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))

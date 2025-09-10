@@ -6,10 +6,11 @@ function getStartOptions() {
 	return {
 		achivement: false,
 		autosave: true,
+		autopause: false,
+		hcmode: false,
 		msDisplay: "always",
 		font: "",
 		theme: "default",
-		count: "xex",
 		hqTree: false,
 		offlineProd: false,
 		hideChallenges: false,
@@ -31,6 +32,7 @@ function getStartOptions() {
 		themeclass: true,
 		tmtclass: true,
 		newclass: true,
+		pauseclass: false,
 		newsspeed: 150
 	}
 }
@@ -86,14 +88,6 @@ function adjustFont() {
 	document.body.style.setProperty("--Font", options.font);
 }
 
-const COUNT_DISPLAYS = ["常规", "对数计数法", "中文表示法", "???"];
-
-const COUNT_SETTINGS = ["xex", "exx", "chi", "wtf"];
-
-function adjustCount() {
-	options.count = COUNT_SETTINGS[(COUNT_SETTINGS.indexOf(options.count) + 1) % COUNT_SETTINGS.length];
-}
-
 const NEWSSPEED_DISPLAYS = ["普通", "快", "更快", "很快", "瞬间", "很慢", "更慢", "慢"];
 
 const NEWSSPEED_SETTINGS = [150, 120, 90, 50, 0, 500, 300, 200];
@@ -124,4 +118,8 @@ function milestoneShown(layer, id) {
 
 function formatOption(opt) {
 	return options[opt] ? '启用' : '关闭'
+}
+
+function formatBoolean(opt) {
+	return opt ? '启用' : '关闭'
 }

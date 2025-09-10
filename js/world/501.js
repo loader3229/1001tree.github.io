@@ -279,6 +279,7 @@ addLayer("501", {
         }
     },
     update(diff) {
+        if (player.pause[this.layer]) return
         if (player._501.started) {
             player._501.timeleft = player._501.timeleft.sub(diff)
             if (player._501.timeleft.lt(0)) {
