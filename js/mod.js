@@ -14,14 +14,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.24,
+	num: 0.32,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.24 | 2025/9/8</h3><br>
-	更新了6个游戏<br><br>
+	<h3>v0.32 | 2025/9/11</h3><br>
+	更新了8个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
@@ -29,15 +29,15 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 
 // 如果在Layer内添加了新函数,请在此处添加它们
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
-	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue",
+	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next',
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame",
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect',
-	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', '', 'randomButton', 'getText',
+	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff',  'randomButton', 'getText',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
-	'getRandomcode', 'getLoseText', 'getWrongPage',
+	'getRandomcode', 'getLoseText', 'getWrongPage', 'find25', 'calculateInfoDensity',
 	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "sC1", "sC2", "sC3", "sC4", "sC5",
 	"aC1", "aC2", "aC3", "aC4", "aC5", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10",
 ]
@@ -74,7 +74,8 @@ function addedPlayerData() {
 			level: 0,
 			cold: _D0,
 			salt: Date.now(),
-			pause: false
+			pause: false,
+			right: 3
 		},
 		_105: {
 			local: { l: 0, p: { x: 1, y: 1 }, f: 3 },
@@ -174,7 +175,8 @@ function addedPlayerData() {
 			name: "player", //玩家的名字
 			import: false,
 			mynews: "请输入文本",
-			achseed: Date.now()
+			achseed: Date.now(),
+			tickTime: []
 		}
 	}
 }
@@ -182,20 +184,26 @@ function addedPlayerData() {
 // 在页面顶部显示新闻
 var displayNews = [
 	function () {
-		if (options.news) return `<div style="
+		if (options.newsshown) return `<div style="
 		width: calc(100% - 50px);
 		background-color: rgba(255,255,255,0.2);
 		margin: 5px auto;
 		border: solid 3px rgba(0,0,0,0.5);
 		min-height:24px;
 		"><span style="opacity: ${news.opacity};">${news.text}</span></div>
-		`;
+		`
+		else return "<br>"
 	}
 ];
 
 // 在页面顶部显示额外内容
 var displayThings = [
-	"如果游戏出现问题,请先尝试刷新页面,如果问题可复现<br>请截图错误界面,导出存档并提交给开发组",
+	function () {
+		if (options.tipshown) return `
+		如果游戏出现问题,请先尝试刷新页面,如果问题可复现<br>
+		请截图错误界面,导出存档并提交给开发组<br>
+		当前游戏运行速度 ${Cal_TPS()[0]}tps / ${Cal_TPS()[1]}ms`
+	},
 	function () {
 		try {
 			if (Object.values(player.pause).some(Boolean)) return "当前有游戏暂停运算,你可在设置查阅"
@@ -217,7 +225,13 @@ function isEndgame() {
 // 后面是次要内容!
 
 // 背景样式,可以是函数
-var backgroundStyle = {
+function backgroundStyle() {
+	if (options.bgi) return {
+		backgroundImage: `linear-gradient(rgba(from var(--background) r g b / 0.75)),
+    	url(${options.bgi})`,
+		backgroundSize: "cover",
+		backgroundPosition: "center center",
+	}
 }
 
 // 如果有内容可能被长时间tick破坏,可以修改这个值

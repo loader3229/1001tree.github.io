@@ -12,7 +12,8 @@ addLayer("502", {
     },
     type: "none",
     tabFormat: [
-        "main-display",
+        ["main-display", 1],
+        ["display-text", "获得200分数后点新的一局/结束游戏以完成世界"],
         ["infobox", 0],
         "blank",
         ["blank", "10px"],
@@ -136,10 +137,13 @@ addLayer("502", {
                 let _p = player._502
                 let p = player[502]
                 _p.board = this.getBoard()
+                _p.aiopen = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
                 _p.inGame = true
                 for (b in p.grid) {
                     p.grid[b] = -1
                 }
+
+                if (!player.world[this.layer] && player[this.layer].points.gte(200)) completeWorld(this.layer)
             },
             width: "300px",
             height: "50px",
@@ -190,6 +194,8 @@ addLayer("502", {
                 for (b in p.grid) {
                     p.grid[b] = -1
                 }
+
+                if (!player.world[this.layer] && player[this.layer].points.gte(200)) completeWorld(this.layer)
             },
             width: "300px",
             height: "50px",
@@ -272,6 +278,8 @@ addLayer("502", {
     ai: {
         layer: 502,
         ai0() {
+        },
+        ai1() {
             let { tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
@@ -281,7 +289,7 @@ addLayer("502", {
 
             this.click(chooseOneInArray(tb))
         },
-        ai1() {
+        ai2() {
             let { sb, db, tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
@@ -296,8 +304,8 @@ addLayer("502", {
                 this.click(chooseOneInArray(rs))
             }
         },
-        ai2() {
-            let { sb, db, tb } = this.analyzeGrid()
+        ai3() {
+            let { db, tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
@@ -305,15 +313,6 @@ addLayer("502", {
             }
 
             this.click(chooseOneInArray(db))
-        },
-        ai3() {
-            let { sb, db, tb } = this.analyzeGrid()
-            if (tb.length == 0) {
-                player._502.final = true
-                layers[this.layer].normalEndGame()
-                return
-            }
-
         },
         ai4() {
             let { sb, db, tb } = this.analyzeGrid()
@@ -323,24 +322,49 @@ addLayer("502", {
                 return
             }
 
+            if (db.length === 2) {
+                this.click(chooseOneInArray(sb))
+                return
+            }
+
+            let maxInfo = -1
+            let bestCell = null
+
+            for (const id of db) {
+                const xy = this.idtoxy(id)
+                const infoDensity = this.calculateInfoDensity(xy)
+
+                if (infoDensity > maxInfo) {
+                    maxInfo = infoDensity
+                    bestCell = id
+                }
+            }
+
+            this.click(bestCell)
         },
         ai5() {
-            let { sb, db, tb } = this.analyzeGrid()
+            let { tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
                 return
             }
 
+            if (Math.random() < 0.1) this.click(this.find25())
+
+            this.ai4()
         },
         ai6() {
-            let { sb, db, tb } = this.analyzeGrid()
+            let { tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
                 return
             }
+            
+            if (Math.random() < 0.15) this.click(this.find25())
 
+            this.ai4()
         },
         click(id) {
             let xy = this.idtoxy(id)
@@ -358,6 +382,15 @@ addLayer("502", {
         idtoxy(id) {
             return { x: id % 100 - 1, y: ~~(id / 100) - 1 }
         },
+        find25() {
+            let b = player._502.board
+            for (y = 0; y < b.length; y++) {
+                let a = b[y]
+                for (x = 0; x < a.length; x++) {
+                    if (a[x] == 25) return this.xytoid(x, y)
+                }
+            }
+        },
         getValue(xy, array) {
             const { x, y } = xy
             const n = 5
@@ -373,6 +406,33 @@ addLayer("502", {
 
             const v = d[0] * 8 + d[1] * 4 + d[2] * 2 + d[3] * 1
             return v;
+        },
+        calculateInfoDensity(xy) {
+            const { x, y } = xy
+
+            let directionCount = 4
+            if (x == 0 || x == 4) directionCount--
+            if (y == 0 || y == 4) directionCount--
+
+            let reachableCells = 0
+            for (let j = x - 1; j >= 0; j--) {
+                const id = this.xytoid(j, y)
+                if (player[this.layer].grid[id] < 0) reachableCells++
+            }
+            for (let i = y + 1; i < 5; i++) {
+                const id = this.xytoid(x, i)
+                if (player[this.layer].grid[id] < 0) reachableCells++
+            }
+            for (let j = x + 1; j < 5; j++) {
+                const id = this.xytoid(j, y)
+                if (player[this.layer].grid[id] < 0) reachableCells++
+            }
+            for (let i = y - 1; i >= 0; i--) {
+                const id = this.xytoid(x, i)
+                if (player[this.layer].grid[id] < 0) reachableCells++
+            }
+
+            return directionCount * 1.5 + reachableCells
         },
         analyzeGrid() {
             const g = player[this.layer].grid
@@ -461,19 +521,19 @@ addLayer("502", {
                 <th style="border: 1px solid #fff;">AI强度</th>
                 <th>描述</th>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">0</td>
-                <td>最基础的AI,它非常蠢,只会随机选择一个空格子</td>
+                <td>AI关闭</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">1</td>
-                <td>依旧弱不禁风,以2:1的权重加权随机选择潜在格或安全格</td>
+                <td>最基础的AI,它非常蠢,只会随机选择一个空格子</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">2</td>
-                <td>以攻击为主要目的,从不防守,从潜在格中随机选取一个格子</td>
+                <td>依旧弱不禁风,以2:1的权重加权随机选择潜在格或安全格</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">3</td>
-                <td>讲究策略,先从潜在格中随机选取一个格子,在后期逐渐保守</td>
+                <td>以攻击为主要目的,从不防守,从潜在格中随机选取一个格子</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">4</td>
                 <td>使用神秘算法,这里太小写不下</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">5</td>
-                <td>在4级AI的基础上,可以开挂,可以读取盘面<br>10%抹除运算结果直接开出25</td>
+                <td>4级AI的基础上可以开挂,有10%概率抹除运算结果直接开出25</td>
                 </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">6</td>
-                <td>在5级AI的基础上,你无法看到AI开的格的箭头数,除非它是×</td>
+                <td>5级AI的基础上15%抹除且无法看到AI开的格的箭头数,除非是×</td>
                 </tr></table>
                 <h3>得分表</h3><br>
                 <table style="border: 2px solid #fff; border-collapse: collapse; width: 90%;">

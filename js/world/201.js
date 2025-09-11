@@ -6,6 +6,7 @@ addLayer("201", {
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
+        this.calcmul()
         if(player[this.layer].points.gte("10^^2025")&&player._201.trig){
             player._201.trig = false
             completeWorld(this.layer)

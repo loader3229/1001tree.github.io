@@ -214,12 +214,31 @@ var systemComponents = {
 				<td><button class="info" disabled>个性化</button></td>
                 <td><button class="opt" onclick="switchTheme()">主题<br>{{ getThemeName() }}</button></td>
                 <td><button class="opt" onclick="adjustFont()">字体<br>{{ FONT_DISPLAYS[FONT_SETTINGS.indexOf(options.font)] }}</button></td>
+                <td><button class="opt" onclick="
+				    const input = document.createElement('input');
+    				input.type = 'file';
+    				input.accept = 'image/jpeg,image/png';
+    				input.onchange = function(e) {
+    				    const file = e.target.files[0];
+    				    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    				        const reader = new FileReader();
+    				        reader.onload = function(event) {
+    				            options.bgi = event.target.result;
+    				        };
+    				        reader.readAsDataURL(file);
+    				    }
+    				};
+    				input.click();
+				">设置背景图</button></td>
+                <td><button class="opt" onclick="options.bgi=null">清除背景图</button></td>
+                <td><button class="opt" onclick="toggleOpt('notrans');setTransitions()">防换主题卡顿<br>取消渐变动画<br>{{ formatOption('notrans') }}</button></td>
             </tr>
             <tr v-if="options.themeclass">
-				<td><button class="info" disabled>组件显示</button></td>
+				<td><button class="info" disabled>组件</button></td>
+				<td><button class="opt" onclick="toggleOpt('tipshown')">主页面提示<br>{{ formatOption('tipshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('news');reinitializeNews();">新闻显示<br>{{ formatOption('news') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('newsshown');reinitializeNews();">新闻显示<br>{{ formatOption('newsshown') }}</button></td>
             </tr>
 			<tr v-if="options.themeclass">
 			<br>
@@ -227,11 +246,16 @@ var systemComponents = {
 
             <tr v-if="options.tmtclass">
 				<td><button class="info" disabled>显示</button></td>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "单页面" : "优先双页面 窄屏单页面" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "强制单页面" : "优先双页面 窄屏单页面" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hcmode')">世界选择器<br>{{ options.hcmode?"易读模式":"普通模式" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
                 <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
+			</tr>
+            <tr v-if="options.tmtclass">
+				<td></td>
+                <td><button class="opt" onclick="toggleOpt('hideMilestonePopups')">里程碑<br>完成提示<br>{{ options.hideMilestonePopups?"隐藏":"显示" }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('forceTooltips')">Shift+左键<br>锁定提示栏<br>{{ formatOption('forceTooltips') }}</button></td>
 			</tr>
             <tr v-if="options.tmtclass">
 				<td><button class="info" disabled>游戏</button></td>

@@ -4,38 +4,83 @@ let options = {}
 
 function getStartOptions() {
 	return {
-		achivement: false,
-		autosave: true,
-		autopause: false,
-		hcmode: false,
-		msDisplay: "always",
-		font: "",
-		theme: "default",
-		hqTree: false,
-		offlineProd: false,
-		hideChallenges: false,
-		hideWorld: false,
-		showStory: true,
-		forceOneTab: false,
-		oldStyle: false,
-		forceTooltips: true,
-		hideMilestonePopups: false,
-		songshown: true,
-		sloganshown: true,
-		news: true,
-		newsa: false,
-		newsv: false,
-		newsh: false,
-		newsp: true,
-		newsn: true,
 		saveclass: true,
 		themeclass: true,
 		tmtclass: true,
 		newclass: true,
 		pauseclass: false,
-		newsspeed: 150
+		
+		autosave: true,
+		
+		theme: "default",
+		font: "",
+		bgi: null,
+		notrans: false,
+
+		tipshown: true,
+		songshown: true,
+		sloganshown: true,
+		newsshown: true,
+		
+		forceOneTab: false,
+		hcmode: false,
+		hqTree: false,
+		msDisplay: "always",
+		hideChallenges: false,
+		hideMilestonePopups: false,
+		forceTooltips: false,
+
+		hideWorld: false,
+		autopause: false,
+		achivement: false,
+		
+
+		newsa: false,
+		newsv: false,
+		newsh: false,
+		newsp: true,
+		newsn: true,
+		newsspeed: 150,
+		
+		//弃用
+		offlineProd: false,
+		oldStyle: false,
 	}
 }
+
+function setTransitions() {
+	let noTrans = options.notrans
+
+	const styleId = 'no-transitions-style';
+	let styleElement = document.getElementById(styleId);
+	
+	if (noTrans) {
+	  if (!styleElement) {
+		styleElement = document.createElement('style');
+		styleElement.id = styleId;
+		styleElement.textContent = `
+		  * {
+			transition-duration: unset !important;
+			-webkit-transition-duration: unset !important;
+			-moz-transition-duration: unset !important;
+			-o-transition-duration: unset !important;
+		  }
+		  
+		  .v-enter-active,
+		  .v-leave-active,
+		  .v-enter-to,
+		  .v-leave-to {
+			transition: none !important;
+		  }
+		`;
+		document.head.appendChild(styleElement);
+	  }
+	} else {
+	  if (styleElement) {
+		document.head.removeChild(styleElement);
+	  }
+	}
+  }
 
 function getOpt(name) {
 	if (typeof options == 'undefined') return false

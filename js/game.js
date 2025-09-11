@@ -416,11 +416,11 @@ var interval = setInterval(function() {
 		needCanvasUpdate = false;
 	}
 	tmp.scrolled = document.getElementById('treeTab') && document.getElementById('treeTab').scrollTop > 30
-	updateTemp();
-	updateOomps(diff);
+	updateTemp()
+	updateOomps(diff)
 	updateWidth()
 	updateTabFormats()
-	myTicking(diff)
+	updateTickTime(diff)
 	gameLoop(diff)
 	fixNaNs()
 	adjustPopupTime(trueDiff)

@@ -466,9 +466,25 @@ function s256(text) {
 	return CryptoJS.SHA256(text).toString().toUpperCase()
 }
 
-// 核心函数 - 自定义事件驱动
-function myTicking(diff) {
-	if (diff < 0) return;
+function updateTickTime(diff) {
+	player.global.tickTime.unshift(diff);
+	player.global.tickTime = player.global.tickTime.slice(0,40);
+}
+
+function Cal_TPS() {
+    const tickTime = player.global.tickTime;
+    
+    if (tickTime.length < 2) {
+        return "---";
+    }
+    
+    const totalTime = tickTime.reduce((sum, time) => sum + time, 0);
+    
+    const aTT = 1000*totalTime / tickTime.length;
+    
+    const tps = 1000 / aTT;
+    
+    return [format(Math.max(tps, 0),1),format(aTT,0)];
 }
 
 function completeWorld(id) {
