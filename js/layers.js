@@ -27,7 +27,7 @@ addLayer("main", {
 	                    border: 2px solid white;
                         background: #111;
                     ">
-                    游戏类型 | <span class='c1'>???</span> <span class='c2'>增量/放置/点击</span> <span class='c3'>其他游戏</span>
+                    游戏类型 | <span class='c1'>???</span> <span class='c2'>增量</span> <span class='c3'>非增量</span>
                     </div>`],
         "blank",
         "grid",
