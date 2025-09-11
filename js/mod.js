@@ -80,6 +80,7 @@ function addedPlayerData() {
 		},
 		_104: {
 			cnt: 0,
+			losetrig: false
 		},
 		_105: {
 			local: { l: 0, p: { x: 1, y: 1 }, f: 3 },
