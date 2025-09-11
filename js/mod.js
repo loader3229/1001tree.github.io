@@ -3,7 +3,7 @@ let modInfo = {
 	id: "1001tree",
 	pointsName: "世界",
 	modFiles: ["layers.js", "tree.js", "const.js",
-		"world/101.js", "world/102.js", "world/105.js",
+		"world/101.js", "world/102.js", "world/104.js", "world/105.js",
 		"world/201.js", "world/202.js", "world/203.js", "world/204.js",
 		"world/501.js", "world/502.js"],
 	discordName: "1001树游戏群",
@@ -34,6 +34,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame",
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti',
+	'updateGrid', 'numGen',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect',
 	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff',  'randomButton', 'getText',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
@@ -76,6 +77,9 @@ function addedPlayerData() {
 			salt: Date.now(),
 			pause: false,
 			right: 3
+		},
+		_104: {
+			cnt: 0,
 		},
 		_105: {
 			local: { l: 0, p: { x: 1, y: 1 }, f: 3 },

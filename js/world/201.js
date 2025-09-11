@@ -512,25 +512,7 @@ addLayer("201", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style: { "height": "140px", "width": "140px", "min-height": "100px", "border": "4px solid", "border-color": "#999" }
-        },        
-        32: {
-            title() { return `最终之塔` },
-            display() {
-                return `最终暴涨效果+0.0005
-                            数量:${format(getBuyableAmount(this.layer, this.id))}
-                            效果:+${format(this.effect())}
-                            下一个需要(除法):${format(this.cost())}`
-            },
-            cost(x) { return x.tetrate(3).times("e1e10000").add(1) },
-            effect(x) { return x.times(0.0005) },
-            canAfford() { return player._201.hengine.gte(this.cost()) },
-            unlocked() { return hasUpgrade("201",63) },
-            buy() {
-                player._201.hengine = player._201.hengine.div(this.cost())
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
-            },
-            style: { "height": "140px", "width": "140px", "min-height": "100px", "border": "4px solid", "border-color": "#999" }
-        },
+        }, 
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
