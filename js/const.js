@@ -1,6 +1,7 @@
 // 获取游戏名字
 function getGameName(id) {
 	let name = {
+		305: ["Infinite Ascensions", "Ascend!", 'c1'],
 		101: ["10p1sc", "时间墙堆砌,很无聊", 'c2'],
 		102: ["挖矿增量", "真的是挖矿,极速版<br>因为狐狸电脑太渣了", 'c2'],
 		103: ["未完成游戏", "这个游戏目前是棍木", ''],
@@ -17,7 +18,7 @@ function getGameName(id) {
 		302/* 第0100夜 */: ["未完成可测试<br>飞升之前", "不要温和地走进那个良夜", 'p4tx'],
 		303/* 第1001夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p9tx'],
 		304/* 第0101夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p5tx'],
-		305: ["未完成游戏", "这个游戏目前是棍木", ''],
+		305: ["Infinite Ascension", "Ascend to Infinity!", 'c1'],
 
 		401: ["未完成游戏", "这个游戏目前是棍木", ''],
 		402/* 第0110夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p6tx'],
@@ -812,6 +813,16 @@ function getProblemList() {
 			options: ['', '', '', ''], answer: 
 		}, */
 	]
+}
+
+//
+let a={
+	"Ascension":{
+		"5": "Unlock a permanent charger and a buyable for permanent charge.",
+		"33": "Enable maximized ascension and unlock two new permanent chargers.",
+		"50": "Your simulations start with 6 Ascension Levels.",
+		"72": "Once, they tried to escape from the dome...",
+	}
 }
 
 // 困难题目组
