@@ -1,8 +1,6 @@
 addLayer("201", {
     symbol: "+",
     resource: "点数",
-    row: 2,
-    position: 1,
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -515,6 +513,5 @@ addLayer("201", {
         }, 
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-    hotkeys: [
-    ],
+
 });

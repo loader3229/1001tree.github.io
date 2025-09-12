@@ -121,8 +121,7 @@ addLayer("main", {
         }
     },
     layerShown() { return true },
-    hotkeys: [
-    ],
+
 });
 
 addLayer("ach", {
@@ -484,8 +483,6 @@ addLayer("ach", {
 addLayer("", {
     symbol: "",
     resource: "",
-    row: 1,
-    position: 1,
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -504,7 +501,6 @@ addLayer("", {
     milestones: {
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-    hotkeys: [
-    ],
+
 });
 */

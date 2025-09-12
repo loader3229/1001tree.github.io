@@ -1,8 +1,6 @@
 addLayer("202", {
     symbol: "⏳️",
     resource: "点数",
-    row: 2,
-    position: 2,
     color: "hsl(0,50%,50%)",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -1530,6 +1528,5 @@ addLayer("202", {
         }
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-    hotkeys: [
-    ],
+
 });

@@ -1,8 +1,6 @@
 addLayer("502", {
     symbol: "💣",
     resource: "分数",
-    row: 5,
-    position: 2,
     color: "#aaa",
     startData() {
         return {

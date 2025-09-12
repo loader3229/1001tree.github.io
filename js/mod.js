@@ -3,9 +3,13 @@ let modInfo = {
 	id: "1001tree",
 	pointsName: "世界",
 	modFiles: ["layers.js", "tree.js", "const.js",
-		"world/101.js", "world/102.js", "world/104.js", "world/105.js",
-		"world/201.js", "world/202.js", "world/203.js", "world/204.js",
-		"world/501.js", "world/502.js"],
+		"world/101.js", "world/102.js", "world/103.js", "world/104.js", "world/105.js",
+		"world/201.js", "world/202.js", "world/203.js", "world/204.js", "world/205.js",
+		"world/301.js", "world/302.js", "world/303.js", "world/304.js", "world/305.js",
+		"world/401.js", "world/402.js", "world/403.js", "world/404.js", "world/405.js",
+		"world/501.js", "world/502.js", "world/503.js", "world/504.js", "world/505.js",
+		"world/302/_3021.js", "world/302/_3022.js", "world/302/_3023.js", "world/302/_3024.js", "world/302/_3025.js", "world/302/_3026.js",
+	],
 	discordName: "1001树游戏群",
 	discordLink: "https://qm.qq.com/q/ApvcgvPhN8",
 	initialStartPoints: new Decimal(0), // 用于硬重置和新玩家
@@ -31,12 +35,12 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next',
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime',
-	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame",
+	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult',
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti',
-	'updateGrid', 'numGen',
+	'updateGrid', 'numGen', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect',
-	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff',  'randomButton', 'getText',
+	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
 	'getRandomcode', 'getLoseText', 'getWrongPage', 'find25', 'calculateInfoDensity',
 	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "sC1", "sC2", "sC3", "sC4", "sC5",
@@ -141,6 +145,13 @@ function addedPlayerData() {
 				24: 0
 			}
 		},
+		_302: {
+			unlock: [false, false, false, false],
+			1: {
+				charge: _D0,
+				power: _D0,
+			}
+		},
 		_501: {
 			stage: _D0,
 			started: false,
@@ -207,7 +218,7 @@ var displayThings = [
 		if (options.tipshown) return `
 		如果游戏出现问题,请先尝试刷新页面,如果问题可复现<br>
 		请截图错误界面,导出存档并提交给开发组<br>
-		当前游戏运行速度 ${Cal_TPS()[0]}tps / ${Cal_TPS()[1]}ms`
+		当前游戏运行速度 ${Cal_TPS()[0]}tps | ${Cal_TPS()[1]}ms`
 	},
 	function () {
 		try {

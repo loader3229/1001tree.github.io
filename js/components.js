@@ -228,7 +228,7 @@ function loadVue() {
 		template: `
 		<button v-if="(tmp[layer].type !== 'none')" v-bind:class="{ [layer]: true, reset: true, locked: !tmp[layer].canReset, can: tmp[layer].canReset}"
 			v-bind:style="[tmp[layer].canReset ? {'background-color': tmp[layer].color} : {}, tmp[layer].componentStyles['prestige-button']]"
-			v-html="prestigeButtonText(layer)" v-on:click="doReset(layer)">
+			v-html="(data?data:'重置') + prestigeButtonText(layer)" v-on:click="doReset(layer)">
 		</button>
 		`
 

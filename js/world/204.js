@@ -1,8 +1,6 @@
 addLayer("204", {
     symbol: "❓",
     resource: "点数",
-    row: 2,
-    position: 4,
     color: "hsl(70,100%,50%)",
     startData() {
         return {

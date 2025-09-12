@@ -1,8 +1,6 @@
 addLayer("102", {
     symbol: "⛏️",
     resource: "Hash点",
-    row: 1,
-    position: 2,
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -329,6 +327,5 @@ addLayer("102", {
         }
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-    hotkeys: [
-    ],
+
 });

@@ -1,8 +1,6 @@
 addLayer("104", {
     symbol: "⚜️",
     resource: "点数",
-    row: 1,
-    position: 4,
     color: "#aaa",
     startData() {
         return {

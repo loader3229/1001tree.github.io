@@ -1,8 +1,6 @@
 addLayer("101", {
     symbol: "⛓️",
     resource: "点数",
-    row: 1,
-    position: 1,
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -230,7 +228,7 @@ addLayer("101", {
     tabFormat: [
         ["main-display", 3],
         ["display-text", function () {
-            return `(${format(layers[this.layer].getPoint())} → ${format(layers[this.layer].getSortCap())})/秒`
+            return `(+ ${format(layers[this.layer].getPoint())} → ${format(layers[this.layer].getSortCap())})/s`
         }],
         "blank",
         ["display-text", function () {
@@ -561,6 +559,5 @@ addLayer("101", {
         },
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-    hotkeys: [
-    ],
+
 });
