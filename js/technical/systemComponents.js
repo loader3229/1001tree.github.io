@@ -388,9 +388,9 @@ var systemComponents = {
         'z-index': '100000'
     	}">
         	<p :style="{
-    		    opacity: songshown ? 0 : 1
+    		    opacity: songshown ? 0.5 : 1
     		}"
-			>你可在设置调整BGM显示</p>
+			>当前游戏运行速度 {{Cal_TPS()[0]}}tps | {{Cal_TPS()[1]}}ms</p>
 			<br>
         	<audio controls :style="{
 				width: tab ? 'calc(100vw - 50px)' : 'calc(50vw - 50px)'

@@ -287,6 +287,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        103: {
+            name: "绝对的幸运玩家",
+            done() { return player._201.rg <0 },
+            onComplete() { achievementComplete() },
+            tooltip: "在暴涨子小游戏中随机超频效果达到0％以下",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/103.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },

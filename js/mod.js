@@ -218,8 +218,7 @@ var displayThings = [
 	function () {
 		if (options.tipshown) return `
 		如果游戏出现问题,请先尝试刷新页面,如果问题可复现<br>
-		请截图错误界面,导出存档并提交给开发组<br>
-		当前游戏运行速度 ${Cal_TPS()[0]}tps | ${Cal_TPS()[1]}ms`
+		请截图错误界面,导出存档并提交给开发组<br>`
 	},
 	function () {
 		try {

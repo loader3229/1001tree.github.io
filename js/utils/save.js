@@ -213,6 +213,7 @@ function load() {
 	loadVue();
 
 	document.body.style.setProperty("--Font", options.font);
+
 }
 
 function loadOptions() {
