@@ -3,7 +3,7 @@ addLayer("305", {
     tabFormat: {
         Ascension:{content:[["display-text",function(){return `You performed ${String(player[this.layer].simulation)} simulation${player[this.layer].simulation>1?"s":""}.`}],["display-text",function(){return `Your highest ascension level is ${format(player[this.layer].bestAscensions,2)}, providing +${format(layers[this.layer].getBestAscensionEffect(),3)} base energy gain`}],"blank",["clickables","1"],"blank",["display-text",function(){return `Energy:${format(player[this.layer].energy)}`}],"buyables","blank",["bar","c1"]]},
         Charger: {content:[["display-text",function(){return `You have ${format(layers[this.layer].getAvailableCharges(),0)}/${format(getBuyableAmount(this.layer, 21),0)} unspent charge`}],["blank", "50px"],["clickables",[2]],["clickables",[3]],["clickables",[4]],],unlocked(){return player[305].bestAscensions.gte(5)}},
-        Recursion: {content:[["display-text","Recursive simulation is being reworked(5 hours), not yet published"]]},
+        Recursion: {content:[["display-text","Recursive simulation is being reworked(5 hours), not yet published"]],unlocked(){return player[305].bestAscensions.gte(72)}},
         Statistics:{content:[["microtabs", "reward"]],}
     },
     startSimulation() {player[this.layer].simulating=true;player[this.layer].simulation+=1;if(player[this.layer].bestAscensions.gte(50))setBuyableAmount(this.layer, 11, _D6)},
@@ -12,10 +12,10 @@ addLayer("305", {
     getEnergyBase(){let base=_D1;base=base.add(layers[this.layer].getBestAscensionEffect());return base},
     getBestAscensionEffect(){let mult=player[this.layer].bestAscensions.add(1).log(1.43).pow(layers[this.layer].clickables[43].effect());return mult},
     getAvailableCharges(){let c=getBuyableAmount(this.layer, 21);return c.sub(player[305].charge.reduce((prev, curr)=>prev+curr,0))},
-    update(diff) {if(player[this.layer].simulating) {player[this.layer].timeSimulated+=diff;player[this.layer].energy=player[this.layer].energy.add(layers[this.layer].getEnergyGain().mul(diff))}if(player[this.layer].timeSimulated>7) {layers[this.layer].endSimulation()}},
+    update(diff) {if(player.pause[this.layer])return;if(player[this.layer].simulating){player[this.layer].timeSimulated+=diff;player[this.layer].energy=player[this.layer].energy.add(layers[this.layer].getEnergyGain().mul(diff))}if(player[this.layer].timeSimulated>7) {layers[this.layer].endSimulation()}},
     clickables: {
         11: {title(){return player[this.layer].simulating?"Conclude current simulation immediately.":"Start a new simulation."},display(){return player[this.layer].simulating?`Current simulation ends in ${format(7-player[this.layer].timeSimulated)} seconds`:"Timer unactivated"},canClick: true,onClick() {if(player[this.layer].simulating){layers[this.layer].endSimulation()}else {layers[this.layer].startSimulation()}},style(){return {"height":"100px","width":"400px","border-radius":"1%","border":"5px solid", "border-color":"#99cccc"}}},
-        21: {title: "Respec Charge",canClick: true,onClick() {layers[this.layer].endSimulation();player[this.layer].charge=[0,0,0,0,0,0,0,0,0]},style(){return {"height":"70px","width":"390px","border-radius":"1%","border":"5px solid", "border-color":"#113333"}}},
+        21: {title: "Respec Charge",canClick: true,onClick() {layers[this.layer].endSimulation();player[this.layer].charge=[0,0,0,0,0,0,0,0,0]},style(){return {"min-height":"60px","height":"60px","width":"390px","border-radius":"1%","border":"5px solid", "border-color":"#113333"}}},
         31: {
             title() {return `Charger:<br>Indication<br>Charge:${player[this.layer].charge[1]}<br>`},
             display(){return `Increase Energy gain.<br>-[Factor #1:Charge]<br>-[Factor #2:Energy]<br>-Effect: x${format(this.effect(),2)}`},
@@ -38,7 +38,7 @@ addLayer("305", {
                 player[305].charge[2]+=1
             },
             effect(){return new Decimal(0.5).pow(player[305].charge[2])},
-            style(){return {"height":"200px","width":"130px","border-radius":"2%","border":"5px solid", "border-color":"#99cccc", "background-color":(this.canClick()?"#88bbbb":"#336666")}},
+            style(){return {"height":"200px","width":"130px","border-radius":"2%","border":"5px solid", "border-color":"#aaccdd", "background-color":(this.canClick()?"#88bbbb":"#336666")}},
         },
         43: {
             title() {return `Charger:<br>Amplification<br>Charge:${player[this.layer].charge[4]}<br>`},
@@ -49,8 +49,8 @@ addLayer("305", {
             onClick() {
                 player[305].charge[4]+=1
             },
-            effect(){return _D9.mul(player[305].charge[4]).pow(0.6)},
-            style(){return {"height":"200px","width":"130px","border-radius":"2%","border":"5px solid", "border-color":"#99cccc", "background-color":(this.canClick()?"#88bbbb":"#336666")}},
+            effect(){return _D9.mul(player[305].charge[4]).pow(0.6).max(1)},
+            style(){return {"height":"200px","width":"130px","border-radius":"2%","border":"5px solid", "border-color":"#aaddcc", "background-color":(this.canClick()?"#88bbbb":"#336666")}},
         }
     },
     buyables: {
@@ -70,7 +70,7 @@ addLayer("305", {
             },
             effect(x) {return new Decimal(2.5).pow(x)},
         },
-        21: {title: "Gain a charge",display(){return `Requirement: ${format(this.cost(),2)} Energy`},cost(x) {let y=x.add(1);return new Decimal(11).mul(x.pow(2).sub(20).max(1)).pow(y.pow(1.5).add(y).add(1)).pow(new Decimal(1.49).pow(y).sub(4).max(1)).pow(layers[this.layer].clickables[41].effect())},canAfford() {return player[this.layer].energy.gte(this.cost())},buy() {setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))},unlocked() {return player[this.layer].bestAscensions.gte(5)}}
+        21: {title: "Gain a charge",display(){return `Requirement: ${format(this.cost(),2)} Energy`},cost(x) {let y=x.add(1);return new Decimal(11).mul(x.pow(2).sub(23.8).max(1)).pow(y.pow(1.5).add(y).add(1)).pow(new Decimal(1.49).pow(y).sub(4).max(1)).pow(layers[this.layer].clickables[41].effect())},canAfford() {return player[this.layer].energy.gte(this.cost())},buy() {setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))},unlocked() {return player[this.layer].bestAscensions.gte(5)}}
     },
     upgrades: {
     },

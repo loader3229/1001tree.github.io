@@ -820,7 +820,7 @@ let a={
 	"Ascension":{
 		"5": "Unlock a permanent charger and a buyable for permanent charge.",
 		"33": "Enable maximized ascension and unlock two new permanent chargers.",
-		"50": "Your simulations start with 6 Ascension Levels.",
+		"56": "Your simulations start with 6 Ascension Levels.",
 		"72": "Once, they tried to escape from the dome...",
 	}
 }
