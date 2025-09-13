@@ -36,9 +36,9 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next',
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult',
-	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul',
+	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti',
-	'updateGrid', 'numGen', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
+	'updateGrid', 'numGen', 'mergeGrid', 'canMerge', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect',
 	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
@@ -85,13 +85,9 @@ function addedPlayerData() {
 		},
 		_104: {
 			cnt: 0,
-			losetrig: false
-		},
-		_105: {
-			local: { l: 0, p: { x: 1, y: 1 }, f: 3 },
-			manual: ["000", "020", "021"],
-			needupdate: 0,
-			display: "=教程=<br>WASD键移动,当然你现在移动不了<br>F键与选取内容交互",
+			losetrig: true,
+			lastmove: 0,
+			canmove: false,
 		},
 		_201: {
 			gen: _D1,
