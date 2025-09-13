@@ -244,7 +244,7 @@ addLayer("ach", {
         },
         22: {
             name: "我...已经麻木?",
-            done() { return player._203.click.gte(1000) },
+            done() { return player[203].click.gte(1000) },
             onComplete() { achievementComplete() },
             tooltip: "在第10夜为了击破一堵墙而点击1000次",
             style: {
@@ -255,10 +255,10 @@ addLayer("ach", {
         23: {
             name: "复读机",
             done() {
-                return player._204.answer[21] == 40 ||
-                    player._204.answer[22] == 40 ||
-                    player._204.answer[23] == 40 ||
-                    player._204.answer[24] == 40
+                return player[204].answer[21] == 40 ||
+                    player[204].answer[22] == 40 ||
+                    player[204].answer[23] == 40 ||
+                    player[204].answer[24] == 40
             },
             onComplete() { achievementComplete() },
             tooltip: "敷衍的回答所有问题,通过按下Enter键,当然你还不能点太快否则就会误判",
@@ -279,7 +279,7 @@ addLayer("ach", {
         },
         102: {
             name: "幸运玩家...还是倒霉玩家?",
-            done() { return player._502.final },
+            done() { return player[502].final },
             onComplete() { achievementComplete() },
             tooltip: "到最后一刻才点到25",
             style: {
@@ -289,7 +289,7 @@ addLayer("ach", {
         },
         103: {
             name: "绝对的幸运玩家",
-            done() { return player._201.rg <0 },
+            done() { return player[201].rg <0 },
             onComplete() { achievementComplete() },
             tooltip: "在暴涨子小游戏中随机超频效果达到0％以下",
             style: {

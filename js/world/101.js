@@ -17,21 +17,26 @@ addLayer("101", {
             }
         }
 
-        player._101.asc1 = player._101.asc1
+        player[this.layer].asc1 = player[this.layer].asc1
             .add(getEffect(this.layer, 41, _D0).mul(diff))
-        player._101.asc2 = player._101.asc2
+        player[this.layer].asc2 = player[this.layer].asc2
             .add(getEffect(this.layer, 42, _D0).mul(diff))
-        player._101.asc3 = player._101.asc3
+        player[this.layer].asc3 = player[this.layer].asc3
             .add(getEffect(this.layer, 43, _D0).mul(diff))
-        player._101.asc4 = player._101.asc4
+        player[this.layer].asc4 = player[this.layer].asc4
             .add(getEffect(this.layer, 44, _D0).mul(diff))
-        player._101.asc5 = player._101.asc5
+        player[this.layer].asc5 = player[this.layer].asc5
             .add(getEffect(this.layer, 45, _D0).mul(diff))
     },
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
+			asc1: _D0,
+			asc2: _D0,
+			asc3: _D0,
+			asc4: _D0,
+			asc5: _D0,
         }
     },
     gap() {
@@ -89,7 +94,7 @@ addLayer("101", {
         else return _D1
     },
     aC1() {
-        let asc = player._101.asc1
+        let asc = player[this.layer].asc1
         if (hasUpgrade(this.layer, 41)) return asc.add(1)
             .mul(this.aC2())
         else return _D1
@@ -102,7 +107,7 @@ addLayer("101", {
         else return _D1
     },
     aC2() {
-        let asc = player._101.asc2
+        let asc = player[this.layer].asc2
         if (hasUpgrade(this.layer, 42)) return asc.add(1).pow(0.5)
             .mul(this.aC3())
             .mul(getEffect(this.layer, 52, 1))
@@ -118,7 +123,7 @@ addLayer("101", {
         else return _D1
     },
     aC3() {
-        let asc = player._101.asc3
+        let asc = player[this.layer].asc3
         if (hasUpgrade(this.layer, 43)) return asc.add(1).pow(0.25)
             .mul(this.aC4())
             .mul(getEffect(this.layer, 53, 1))
@@ -134,7 +139,7 @@ addLayer("101", {
         else return _D1
     },
     aC4() {
-        let asc = player._101.asc4
+        let asc = player[this.layer].asc4
         if (hasUpgrade(this.layer, 44)) return asc.add(1).pow(0.12)
             .mul(this.aC5())
         else return _D1
@@ -149,7 +154,7 @@ addLayer("101", {
         else return _D1
     },
     aC5() {
-        let asc = player._101.asc5
+        let asc = player[this.layer].asc5
         if (hasUpgrade(this.layer, 45)) return asc.add(1).pow(0.06)
         else return _D1
     },
@@ -228,23 +233,23 @@ addLayer("101", {
     tabFormat: [
         ["main-display", 3],
         ["display-text", function () {
-            return `(+ ${format(layers[this.layer].getPoint())} → ${format(layers[this.layer].getSortCap())})/s`
+            return `(+${format(layers[this.layer].getPoint())} → ${format(layers[this.layer].getSortCap())})/s`
         }],
         "blank",
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 41)) return `你有 ${format(player._101.asc1)} 反软上限,将软上限效果除以 ${format(layers[this.layer].aC1())}`
+            if (hasUpgrade(this.layer, 41)) return `你有 ${format(player[this.layer].asc1)} 反软上限,将软上限效果除以 ${format(layers[this.layer].aC1())}`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 42)) return `你有 ${format(player._101.asc2)} 反反软上限,将反软上限加强为 ${format(layers[this.layer].aC2())} 倍`
+            if (hasUpgrade(this.layer, 42)) return `你有 ${format(player[this.layer].asc2)} 反反软上限,将反软上限加强为 ${format(layers[this.layer].aC2())} 倍`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 43)) return `你有 ${format(player._101.asc3)} 反反反软上限,将反反软上限加强为 ${format(layers[this.layer].aC3())} 倍`
+            if (hasUpgrade(this.layer, 43)) return `你有 ${format(player[this.layer].asc3)} 反反反软上限,将反反软上限加强为 ${format(layers[this.layer].aC3())} 倍`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 44)) return `你有 ${format(player._101.asc4)} 反反反反软上限,将反反反软上限加强为 ${format(layers[this.layer].aC4())} 倍`
+            if (hasUpgrade(this.layer, 44)) return `你有 ${format(player[this.layer].asc4)} 反反反反软上限,将反反反软上限加强为 ${format(layers[this.layer].aC4())} 倍`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 45)) return `你有 ${format(player._101.asc5)} 反反反反反软上限,将反反反反软上限加强为 ${format(layers[this.layer].aC5())} 倍`
+            if (hasUpgrade(this.layer, 45)) return `你有 ${format(player[this.layer].asc5)} 反反反反反软上限,将反反反反软上限加强为 ${format(layers[this.layer].aC5())} 倍`
         }],
         "blank",
         ["display-text", function () {
@@ -464,7 +469,7 @@ addLayer("101", {
             title: "我已经习惯了",
             description: "基于反软上限获得反反软上限(受二重软上限限制)",
             effect() {
-                return player._101.asc1.div(layers[this.layer].C2())
+                return player[this.layer].asc1.div(layers[this.layer].C2())
             },
             effectDisplay() {
                 return `+${format(this.effect())}`
@@ -476,7 +481,7 @@ addLayer("101", {
             title: "这是维度吗?",
             description: "基于反反软上限获得反反反软上限(受二重软上限限制)",
             effect() {
-                return player._101.asc2.div(layers[this.layer].C2())
+                return player[this.layer].asc2.div(layers[this.layer].C2())
             },
             effectDisplay() {
                 return `+${format(this.effect())}`
@@ -488,7 +493,7 @@ addLayer("101", {
             title: "我能猜到下一个",
             description: "基于反反反软上限获得反反反反软上限(受二重软上限限制)",
             effect() {
-                return player._101.asc3.div(layers[this.layer].C2())
+                return player[this.layer].asc3.div(layers[this.layer].C2())
             },
             effectDisplay() {
                 return `+${format(this.effect())}`
@@ -500,7 +505,7 @@ addLayer("101", {
             title: "还没结束吗?",
             description: "基于反反反反软上限获得反反反反反软上限(受二重软上限限制)",
             effect() {
-                return player._101.asc4.div(layers[this.layer].C2())
+                return player[this.layer].asc4.div(layers[this.layer].C2())
             },
             effectDisplay() {
                 return `+${format(this.effect())}`

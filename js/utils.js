@@ -500,23 +500,22 @@ function completeWorld(id) {
 }
 
 function getYFromOrderedPoints(points, x) {
-	// 将输入x转换为Decimal
 	const xDec = _D(x);
 
-	// 检查点数列是否为空
 	if (!points || points.length === 0) {
 		return _D(NaN);
 	}
 
-	// 检查x是否在定义域内
 	const firstX = new Decimal(points[0][0]);
 	const lastX = new Decimal(points[points.length - 1][0]);
 
-	if (xDec.lt(firstX) || xDec.gt(lastX)) {
-		return _D(NaN);
+	if (xDec.lt(firstX)) {
+		return points[0][1];
+	}
+	if (xDec.gt(lastX)) {
+		return points[points.length - 1][1];
 	}
 
-	// 二分查找优化（适用于大数组）
 	let left = 0;
 	let right = points.length - 1;
 
@@ -525,7 +524,6 @@ function getYFromOrderedPoints(points, x) {
 		const midX = new Decimal(points[mid][0]);
 
 		if (xDec.eq(midX)) {
-			// 精确匹配,直接返回对应的y值
 			return new Decimal(points[mid][1]);
 		} else if (xDec.lt(midX)) {
 			right = mid - 1;
@@ -534,13 +532,11 @@ function getYFromOrderedPoints(points, x) {
 		}
 	}
 
-	// 获取区间两端的点
 	const x1 = new Decimal(points[left - 1][0]);
 	const y1 = new Decimal(points[left - 1][1]);
 	const x2 = new Decimal(points[left][0]);
 	const y2 = new Decimal(points[left][1]);
 
-	// 线性插值: y = y1 + (y2 - y1) * (x - x1) / (x2 - x1)
 	return y1.plus(
 		y2.minus(y1)
 			.times(xDec.minus(x1))

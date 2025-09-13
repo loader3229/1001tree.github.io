@@ -38,9 +38,11 @@ addLayer("_3026", {
     milestones: {
     },
     onPrestige(gain) {
-        player._302.unlock[4] = true
-        doReset("_3025")
+        player[302].unlock[4] = true
     },
-    layerShown() { return player._302.unlock[3] },
+    hotkeys: [
+        { key: "4", description: "[302] 4: 飝卆", onPress() { doReset(this.layer) } },
+    ],
+    layerShown() { return player[302].unlock[3] },
 
 });

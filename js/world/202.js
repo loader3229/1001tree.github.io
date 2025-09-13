@@ -8,11 +8,11 @@ addLayer("202", {
 
         let ic = this.getChallenge()
 
-        player._202.dB = player._202.dB.mul(_D(0.35).pow(diff))
-        if (player._202.dB.lte(0.5)) player._202.dB = _D0
+        player[this.layer].dB = player[this.layer].dB.mul(_D(0.35).pow(diff))
+        if (player[this.layer].dB.lte(0.5)) player[this.layer].dB = _D0
 
-        if (player._202.tickt.gte(this.getTickTime())) {
-            player._202.tickt = player._202.tickt.sub(this.getTickTime())
+        if (player[this.layer].tickt.gte(this.getTickTime())) {
+            player[this.layer].tickt = player[this.layer].tickt.sub(this.getTickTime())
 
             let p = this.getPoint()
             let c = _D0
@@ -53,7 +53,7 @@ addLayer("202", {
                 }
 
                 for (let i = 0; i < meffect.length; i++) {
-                    player._202.mul[i] = player._202.mul[i].add(meffect[i])
+                    player[this.layer].mul[i] = player[this.layer].mul[i].add(meffect[i])
                 }
 
                 if (hasUpgrade(this.layer, 3113)) {
@@ -74,8 +74,8 @@ addLayer("202", {
         }
 
         if (ic) {
-            player._202.tickt = player._202.tickt.add(diff)
-            player._202.t = player._202.t.add(diff)
+            player[this.layer].tickt = player[this.layer].tickt.add(diff)
+            player[this.layer].t = player[this.layer].t.add(diff)
         }
     },
     getTickTime() {
@@ -97,7 +97,7 @@ addLayer("202", {
         return s
     },
     keyList() {
-        let seed = player._202.keyseed
+        let seed = player[this.layer].keyseed
 
         const a = 1664525;
         const c = 1013904223;
@@ -118,7 +118,12 @@ addLayer("202", {
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
+			t: _D0,
+			tickt: _D0,
+			keyseed: Date.now(),
+			dB: _D1,
+			mul: [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
         }
     },
     type: "none",
@@ -136,10 +141,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["clickable", 11],
@@ -156,10 +161,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenges", [1, 2, 3]]
@@ -178,10 +183,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenges", [11, 12, 13]]
@@ -196,10 +201,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenge", 21],
@@ -219,10 +224,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenge", 22],
@@ -242,24 +247,24 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["display-text", function () {
                     if (inChallenge(this.layer, 31) && hasUpgrade(this.layer, 12)) return `<div 
                     class="tbox">
-                    <span class="p1">${format(player._202.mul[0])} </span>×
-                    <span class="p2">${format(player._202.mul[1])} </span>×
-                    <span class="p3">${format(player._202.mul[2])} </span>×<br>
-                    <span class="p4">${format(player._202.mul[3])} </span>×
-                    <span class="p5">${format(player._202.mul[4])} </span>×
-                    <span class="p6">${format(player._202.mul[5])} </span>×<br>
-                    <span class="p7">${format(player._202.mul[6])} </span>×
-                    <span class="p8">${format(player._202.mul[7])} </span>×
-                    <span class="p9">${format(player._202.mul[8])} </span>=
+                    <span class="p1">${format(player[this.layer].mul[0])} </span>×
+                    <span class="p2">${format(player[this.layer].mul[1])} </span>×
+                    <span class="p3">${format(player[this.layer].mul[2])} </span>×<br>
+                    <span class="p4">${format(player[this.layer].mul[3])} </span>×
+                    <span class="p5">${format(player[this.layer].mul[4])} </span>×
+                    <span class="p6">${format(player[this.layer].mul[5])} </span>×<br>
+                    <span class="p7">${format(player[this.layer].mul[6])} </span>×
+                    <span class="p8">${format(player[this.layer].mul[7])} </span>×
+                    <span class="p9">${format(player[this.layer].mul[8])} </span>=
                     <br>
                     <span class="pn">ΔP ← <span class="p1">${format(layers[this.layer].getMulPoint())}<sup>${format(layers[this.layer].getMulPower())}</sup></span> × <span class="p1">${format(layers[this.layer].getMulMulti())}</span> (<span class="p1">${formatWhole(divNum(layers[this.layer].getTickTime()))}</span>tps)
                     <br>
@@ -273,10 +278,10 @@ addLayer("202", {
                 "grid",
                 ["upgrades", [312, 313, 314, 315, 311]],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
@@ -300,10 +305,10 @@ addLayer("202", {
                     return `+${formatSmall(layers[this.layer].getPoint())}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenge", 121],
@@ -326,10 +331,10 @@ addLayer("202", {
                     return `+${layers[this.layer].getPoint().toString()}/刻`
                 }],
                 ["display-text", function () {
-                    return `挑战已经持续了 ${format(player._202.t)} 秒`
+                    return `挑战已经持续了 ${format(player[this.layer].t)} 秒`
                 }],
                 ["display-text", function () {
-                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player._202.tickt))}`
+                    if (layers[this.layer].getTickTime().gte(1)) return `距离下一刻 ${formatTime(layers[this.layer].getTickTime().sub(player[this.layer].tickt))}`
                 }],
                 "blank",
                 ["challenge", 122],
@@ -347,7 +352,7 @@ addLayer("202", {
 
         if (ic == 11) p = _D(pow10(-2))
         else if (ic == 12) p = _D(pow2(-9))
-        else if (ic == 21) p = _D(divNum(getEffect(this.layer, 2111, _D(10000)).mul(_D(2).pow(player._202.t))))
+        else if (ic == 21) p = _D(divNum(getEffect(this.layer, 2111, _D(10000)).mul(_D(2).pow(player[this.layer].t))))
         else if (ic == 22) p = _D(pow10(-2).neg())
         else if (ic == 31) p = this.getMulGetPoint()
 
@@ -403,7 +408,7 @@ addLayer("202", {
     getMulPoint() {
         let p = _D1
         for (let i = 0; i < 9; i++) {
-            p = p.mul(player._202.mul[i])
+            p = p.mul(player[this.layer].mul[i])
         }
         return p
     },
@@ -541,14 +546,14 @@ addLayer("202", {
         dB: {
             direction: RIGHT,
             width() {
-                return 40 + player._202.dB.div(25).pow(0.25).mul(25).mul(25).toNumber()
+                return 40 + player[this.layer].dB.div(25).pow(0.25).mul(25).mul(25).toNumber()
             },
             height: 40,
             display() {
-                return player._202.dB.gte(0.5) ? `<span style="color:var(--points)">${formatWhole(player._202.dB)}斤鸭梨</span>` : "🤔"
+                return player[this.layer].dB.gte(0.5) ? `<span style="color:var(--points)">${formatWhole(player[this.layer].dB)}斤鸭梨</span>` : "🤔"
             },
             progress() {
-                return player._202.dB.mul(7).pow(1.25).div(7).div(20)
+                return player[this.layer].dB.mul(7).pow(1.25).div(7).div(20)
             },
             unlocked() { return inChallenge(this.layer, 121) && hasUpgrade(this.layer, 12) }
         }
@@ -564,8 +569,8 @@ addLayer("202", {
 			    </span>`
             },
             effect() {
-                if (layers[this.layer].getChallenge() == 111) e = player._202.t.add(1).pow(-0.5)
-                else e = player._202.t.add(1).pow(0.5)
+                if (layers[this.layer].getChallenge() == 111) e = player[this.layer].t.add(1).pow(-0.5)
+                else e = player[this.layer].t.add(1).pow(0.5)
 
                 return e.pow(getChallengeEffect(this.layer, 111, 1))
             },
@@ -589,7 +594,7 @@ addLayer("202", {
 			    </span>`
             },
             effect() {
-                return player[this.layer].points.add(1).log10().add(1)
+                return decimalMax(player[this.layer].points,0).add(1).log10().add(1)
             },
             unlocked() { return hasChallenge(this.layer, 22) }
         },
@@ -604,7 +609,7 @@ addLayer("202", {
                 需要: 10秒挑战内时间`
             },
             canAfford() {
-                return player._202.t.gte(10)
+                return player[this.layer].t.gte(10)
             },
             effect() {
                 return _D(30)
@@ -1172,7 +1177,7 @@ addLayer("202", {
                 player[this.layer].points = player[this.layer].points.sub(100)
             },
             effect() {
-                return player._202.dB
+                return player[this.layer].dB
             },
             unlocked() { return inChallenge(this.layer, 121) && hasUpgrade(this.layer, 12) }
         },
@@ -1483,7 +1488,7 @@ addLayer("202", {
             onClick() {
                 playsound("s1")
 
-                player._202.dB = player._202.dB.add(1)
+                player[this.layer].dB = player[this.layer].dB.add(1)
             },
             onHold() {
                 this.onClick()
@@ -1517,10 +1522,10 @@ addLayer("202", {
     },
     resetGame() {
         player[this.layer].points = _D0
-        player._202.t = _D0
-        player._202.tickt = _D0
-        player._202.keyseed = Date.now()
-        player._202.mul = [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
+        player[this.layer].t = _D0
+        player[this.layer].tickt = _D0
+        player[this.layer].keyseed = Date.now()
+        player[this.layer].mul = [_D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1, _D1]
         for (let i = 1; i < 4; i++) {
             for (let j = 1; j < 4; j++) {
                 setGridData(this.layer, i * 100 + j, _D0)

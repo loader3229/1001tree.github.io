@@ -7,21 +7,23 @@ addLayer("_3021", {
 
         player[this.layer].points = player[this.layer].points.add(this.pointsGain()[0].mul(diff))
 
-        player._302[1].power = player._302[1].power.add(getEffect(this.layer, 13, _D0).mul(diff))
+        player[302][1].power = player[302][1].power.add(getEffect(this.layer, 13, _D0).mul(diff))
 
-        let c = player._302[1].charge.mul(_D(0.5).pow(diff))
-        player._302[1].charge = c.lte(0.01) ? _D0 : c
+        let c = player[302][1].charge.mul(_D(0.5).pow(diff))
+        player[302][1].charge = c.lte(0.001) ? _D0 : c
     },
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
         }
     },
     pointsGain() {
-        let g = player._302[1].charge
+        let g = player[302][1].charge
 
         if (hasUpgrade("_3022", 14)) g = g.sub(player[this.layer].points.sub(player[this.layer].points.mul(_D(0.95))))
+
+        g = g.mul(getMilestoneEffect("_3023", 1, _D1))
 
         let o = player[this.layer].points.eq(0) ? _D0 : g.div(player[this.layer].points)
 
@@ -35,7 +37,8 @@ addLayer("_3021", {
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 13)) return `你有<h3 class="p4pt"> ${format(player._302[1].power)} </h3>拖谜力量,它们现在是没用的东西`
+            if (hasUpgrade(this.layer, 13)) return `你有<h3 class="p4pt"> ${format(player[302][1].power)} </h3>拖谜力量,它们现在是没用的东西<br>
+            (+${format(getEffect(this.layer, 13, _D0))}/s)`
         }],
         "blank",
         "clickables",
@@ -55,10 +58,10 @@ addLayer("_3021", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return decimalMax(player._302[1].charge.pow(1 / 2).sub(1), 0)
+                return decimalMax(player[302][1].charge.pow(1 / 2).sub(1), 0)
             },
             cost: _D(60),
-            unlocked() { return hasUpgrade("_3022", 22) },
+            unlocked() { return hasUpgrade("_3022", 22) || hasUpgrade(this.layer, this.id) },
         },
         13: {
             title: "飞升的点数",
@@ -67,39 +70,40 @@ addLayer("_3021", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return layers._3021.clickables[11].limit().sub(player._302[1].charge).pow(0.5)
+                return layers._3021.clickables[11].limit().sub(player[302][1].charge).pow(1/3)
             },
             cost: _D(90),
-            unlocked() { return hasUpgrade("_3022", 22) },
+            unlocked() { return hasUpgrade("_3022", 22) || hasUpgrade(this.layer, this.id) },
         },
         14: {
-            title: "飞升的逆风而上",
-            description: "基于风力修复三无产品",
+            title: "飞升的顺风而上",
+            description: "基于风力加强三无产品",
             effectDisplay() {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return getEffect("_3022", 23,_D0).add(1).log(10).pow(0.5)
+                return getEffect("_3022", 23, _D0).add(1).log(10).pow(0.5).div(2).add(1)
             },
             cost: _D(135),
-            unlocked() { return hasUpgrade("_3022", 22) },
+            unlocked() { return hasUpgrade("_3022", 22) || hasUpgrade(this.layer, this.id) },
         },
         15: {
             title: "飞升的前五阶",
             description: "将飙卂的价格大幅降低",
-            cost: _D(300),
-            unlocked() { return hasUpgrade("_3022", 22) },
+            cost: _D(200),
+            unlocked() { return hasUpgrade("_3022", 22) || hasUpgrade(this.layer, this.id) },
         },
     },
     clickables: {
         11: {
-            title() { return `拖谜充能 <h3>${format(player._302[1].charge)}</h3> / <h3>${format(this.limit())}</h3><br>充能力量 <h3>${format(this.charge())}</h3>` },
+            title() { return `拖谜充能 <h3>${format(player[302][1].charge)}</h3> / <h3>${format(this.limit())}</h3><br>充能力量 <h3>${format(this.charge())}</h3> | 自动力量 <h3>${format(getEffect("_3022", 13, _D0))}</h3>` },
             canClick() {
                 return !hasUpgrade("_3022", 21)
             },
             onClick() {
-                player._302[1].charge = decimalMin(player._302[1].charge.add(this.charge()), this.limit())
+                player[302][1].charge = decimalMin(player[302][1].charge.add(this.charge()), this.limit())
             },
+            onHold() { this.onClick() },
             charge() {
                 let c = _D1
 
@@ -123,7 +127,7 @@ addLayer("_3021", {
                 return hasUpgrade(this.layer, 11)
             },
             progress() {
-                let result = player._302[1].charge / this.limit()
+                let result = player[302][1].charge / this.limit()
                 return decimalBetween(result, 0, 1)
             },
             width: "500px",
@@ -160,9 +164,10 @@ addLayer("_3021", {
     },
     doReset(resettingLayer) {
         if (["_3022", "_3023", "_3024", "_3025", "_3026"].includes(resettingLayer)) {
-            layerDataReset(this.layer, ["upgrades"])
-            player._302[1].charge = _D0
+            layerDataReset(this.layer, resettingLayer == "_3022" ? ["upgrades"] : null)
+            player[302][1].charge = _D0
         }
     },
     layerShown() { return true },
+    branches: ["_3022"],
 });

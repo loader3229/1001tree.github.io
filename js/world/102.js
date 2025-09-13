@@ -4,13 +4,13 @@ addLayer("102", {
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
-        if (player._102.pause) return
+        if (player[this.layer].pause) return
 
-        player._102.tickt = player._102.tickt.add(diff)
-        player._102.cold = decimalMax(player._102.cold.sub(diff), _D0)
+        player[this.layer].tickt = player[this.layer].tickt.add(diff)
+        player[this.layer].cold = decimalMax(player[this.layer].cold.sub(diff), _D0)
 
-        if (player._102.tickt.gte(this.getTickTime())) {
-            player._102.tickt = player._102.tickt.sub(this.getTickTime())
+        if (player[this.layer].tickt.gte(this.getTickTime())) {
+            player[this.layer].tickt = player[this.layer].tickt.sub(this.getTickTime())
 
             if (hasUpgrade(this.layer, 13)) {
                 this.nextHash((buyableEffect(this.layer, 12) - 0))
@@ -21,21 +21,29 @@ addLayer("102", {
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
+			tickt: _D0,
+			now: 0,
+			rnd: Math.random(),
+			level: 0,
+			cold: _D0,
+			salt: Date.now(),
+			pause: false,
+			right: 3
         }
     },
     type: "none",
     tabFormat: [
         "main-display",
         ["display-text", function () {
-            return `你挖到了 ${player._102.level} 狐币,挖到 500 个以完成世界`
+            return `你挖到了 ${player[this.layer].level} 狐币,挖到 500 个以完成世界`
         }],
         "blank",
         ["display-text", function () {
             if (!hasMilestone(this.layer, 11)) return `<div 
             class="tbox">
-            当前检验 ${player._102.now}<br>
-            <span class="nmpt">${s256(`${player._102.now}${player._102.salt}`)}</span><br>
+            当前检验 ${player[this.layer].now}<br>
+            <span class="nmpt">${s256(`${player[this.layer].now}${player[this.layer].salt}`)}</span><br>
             <br>
             目标内容<br>
             <span class="nmpt">${layers[this.layer].getTarget()}</span>
@@ -55,14 +63,14 @@ addLayer("102", {
         return s
     },
     getTarget() {
-        return s256(`${player._102.right.toString()}${player._102.salt}`)
+        return s256(`${player[this.layer].right.toString()}${player[this.layer].salt}`)
     },
     nextHash(num) {
         if (hasMilestone(this.layer, 11)) {
             while (num > 0) {
-                let target = player._102.right - player._102.now
+                let target = player[this.layer].right - player[this.layer].now
                 if (target > num) {
-                    player._102.now += player._102.now;
+                    player[this.layer].now += player[this.layer].now;
                     num = 0
                 } else {
                     num -= target
@@ -77,8 +85,8 @@ addLayer("102", {
             }
         } else {
             for (let i = 0; i < num; i++) {
-                player._102.now++
-                if (this.checkHash(s256(`${player._102.now}${player._102.salt}`), this.getTarget())) {
+                player[this.layer].now++
+                if (this.checkHash(s256(`${player[this.layer].now}${player[this.layer].salt}`), this.getTarget())) {
                     this.next()
                     return
                 }
@@ -89,11 +97,11 @@ addLayer("102", {
         }
     },
     next() {
-        player._102.now = 0
-        player._102.level++
-        player._102.salt = Date.now()
-        player._102.rnd = Math.random()
-        player._102.right = Math.floor(getYFromOrderedPoints([
+        player[this.layer].now = 0
+        player[this.layer].level++
+        player[this.layer].salt = Date.now()
+        player[this.layer].rnd = Math.random()
+        player[this.layer].right = Math.floor(getYFromOrderedPoints([
             [0, 6],
             [7, 30],
             [10, 100],
@@ -113,7 +121,7 @@ addLayer("102", {
             [400, 9000],
             [500, 10000],
             [1.79e308, 10000],
-        ], player._102.level) * player._102.rnd + 1)
+        ], player[this.layer].level) * player[this.layer].rnd + 1)
     },
     checkHash(a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -161,34 +169,34 @@ addLayer("102", {
         1: {
             requirementDescription() { return `10狐币` },
             effectDescription() { return `你有一点钱,增加批量计算力量10%` },
-            done() { return player._102.level >= 10 },
+            done() { return player[this.layer].level >= 10 },
             effect() { return _D(0.1) }
         },
         2: {
             requirementDescription() { return `30狐币` },
             effectDescription() { return `你有一些钱,增加批量计算力量50%` },
-            done() { return player._102.level >= 30 },
+            done() { return player[this.layer].level >= 30 },
             effect() { return _D(0.5) },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         3: {
             requirementDescription() { return `100狐币` },
             effectDescription() { return `你有很多钱,增加批量计算力量100%` },
-            done() { return player._102.level >= 100 },
+            done() { return player[this.layer].level >= 100 },
             effect() { return _D1 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         4: {
             requirementDescription() { return `300狐币` },
             effectDescription() { return `你有最多钱,增加批量计算力量200%` },
-            done() { return player._102.level >= 300 },
+            done() { return player[this.layer].level >= 300 },
             effect() { return _D2 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         5: {
             requirementDescription() { return `500狐币` },
             effectDescription() { return `完成世界 获得一个梦力` },
-            done() { return player._102.level >= 500 },
+            done() { return player[this.layer].level >= 500 },
             onComplete() {
                 completeWorld(this.layer)
             },
@@ -197,22 +205,22 @@ addLayer("102", {
         6: {
             requirementDescription() { return `1000狐币` },
             effectDescription() { return `前方似乎一片荆棘,但没关系,有我在这` },
-            done() { return player._102.level >= 1000 },
+            done() { return player[this.layer].level >= 1000 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         7: {
             requirementDescription() { return `1500狐币` },
             effectDescription() { return `无关紧要的加成,大幅降低批量计算价格` },
-            done() { return player._102.level >= 1500 },
+            done() { return player[this.layer].level >= 1500 },
             effect() { return 0.8 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         8: {
             requirementDescription() { return `2000狐币` },
             effectDescription() { return `批量计算最终力量基于狐币加成 效果:+${formatPersent(this.effect())}` },
-            done() { return player._102.level >= 2000 },
+            done() { return player[this.layer].level >= 2000 },
             effect() {
-                let e = player._102.level / 2000
+                let e = player[this.layer].level / 2000
                 if (e > 10) e = (e / 10) ** 0.9 * 10
                 if (e > 50) e = (e / 100) ** 0.8 * 50
                 if (e > 250) e = (e / 1000) ** 0.7 * 250
@@ -224,20 +232,20 @@ addLayer("102", {
         9: {
             requirementDescription() { return `3000狐币` },
             effectDescription() { return `Hash点获取基于狐币加成 效果:+${formatPersent(this.effect())}` },
-            done() { return player._102.level >= 3000 },
-            effect() { return (player._102.level - 2500) / 500 },
+            done() { return player[this.layer].level >= 3000 },
+            effect() { return (player[this.layer].level - 2500) / 500 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         10: {
             requirementDescription() { return `4000狐币` },
             effectDescription() { return `每次判定失败后有0.05%概率直接获得狐币` },
-            done() { return player._102.level >= 4000 },
+            done() { return player[this.layer].level >= 4000 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         11: {
             requirementDescription() { return `6000狐币` },
             effectDescription() { return `不再需要Hash判定,Hash匹配不再生产Hash点` },
-            done() { return player._102.level >= 6000 },
+            done() { return player[this.layer].level >= 6000 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         12: {
@@ -246,7 +254,7 @@ addLayer("102", {
             onComplete() {
                 player.main.points = player.main.points.add(1)
             },
-            done() { return player._102.level >= 114514 },
+            done() { return player[this.layer].level >= 114514 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
     },
@@ -296,12 +304,12 @@ addLayer("102", {
     clickables: {
         11: {
             title: "计算Hash",
-            display() { return `计算下一个数的Hash${this.canClick() ? "" : `<br>冷却 ${formatTime(player._102.cold)}`}` },
+            display() { return `计算下一个数的Hash${this.canClick() ? "" : `<br>冷却 ${formatTime(player[this.layer].cold)}`}` },
             canClick() {
-                return player._102.cold.lte(0)
+                return player[this.layer].cold.lte(0)
             },
             onClick() {
-                player._102.cold = getEffect(this.layer, 12, getEffect(this.layer, 11, _D5))
+                player[this.layer].cold = getEffect(this.layer, 12, getEffect(this.layer, 11, _D5))
                 layers[this.layer].nextHash(1)
             },
             style: {
@@ -315,7 +323,7 @@ addLayer("102", {
                 return true
             },
             onClick() {
-                player._102.pause = !player._102.pause
+                player[this.layer].pause = !player[this.layer].pause
             },
             style: {
                 minHeight: "90px",

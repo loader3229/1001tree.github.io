@@ -5,7 +5,7 @@ addLayer("_3022", {
     update(diff) {
         if (player.pause[302]) return
 
-        player._302[1].charge = decimalMin(player._302[1].charge.add(getEffect(this.layer, 13, _D0).mul(diff)), layers._3021.clickables[11].limit())
+        player[302][1].charge = decimalMin(player[302][1].charge.add(getEffect(this.layer, 13, _D0).mul(diff)), layers._3021.clickables[11].limit())
     },
     startData() {
         return {
@@ -56,7 +56,7 @@ addLayer("_3022", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return decimalMax(getEffect(this.layer, 11, _D0).pow(1 / 2).sub(1), 0)
+                return decimalMax(getEffect(this.layer, 11, _D0).add(1).pow(1 / 2).sub(1), 0)
             },
             cost: _D5,
         },
@@ -73,6 +73,7 @@ addLayer("_3022", {
             },
             effect() {
                 return layers._3021.clickables[11].charge().mul(this.mult())
+                    .add(getMilestoneEffect("_3023", 2, _D0))
             },
             cost: _D10,
         },
@@ -98,14 +99,17 @@ addLayer("_3022", {
         21: {
             title: "六根清净",
             description: "说真的,你需要舍弃这些身外之物,不再能手动填充拖谜池",
-            cost() { return player[this.layer].points },
+            cost() {
+                return player[this.layer].points
+                    .mul(getMilestoneEffect("_3023", 3, _D1))
+            },
             unlocked() { return hasUpgrade(this.layer, 11) && hasUpgrade(this.layer, 12) && hasUpgrade(this.layer, 13) && hasUpgrade(this.layer, 14) && hasUpgrade(this.layer, 15) && hasUpgrade(this.layer, 15) },
         },
         22: {
             title: "七擒孟获",
             description: "解锁一些新的拖谜升级",
-            cost: _D(50),
-            unlocked() { return hasUpgrade(this.layer, 21) },
+            cost: _D(40),
+            unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer,this.id) },
         },
         23: {
             title: "八巴托斯",
@@ -114,10 +118,10 @@ addLayer("_3022", {
                 return `${format(this.effect())}`
             },
             effect() {
-                return player._302[1].power
+                return player[302][1].power
             },
-            cost: _D(100),
-            unlocked() { return hasUpgrade(this.layer, 21) },
+            cost: _D(80),
+            unlocked() { return hasUpgrade(this.layer, 21)|| hasUpgrade(this.layer,this.id) },
         },
         24: {
             title: "九经沙场",
@@ -129,13 +133,13 @@ addLayer("_3022", {
                 return getEffect("_3022", 23, _D1).pow(1 / 10)
             },
             cost: _D(135),
-            unlocked() { return hasUpgrade(this.layer, 21) },
+            unlocked() { return hasUpgrade(this.layer, 21)|| hasUpgrade(this.layer,this.id) },
         },
         25: {
             title: "十在抱歉",
             description: "这个升级的效果仍未制作,但如果你不买这个,你就无法解锁下一行升级,在你以后解锁之后",
             cost: _D(200),
-            unlocked() { return hasUpgrade(this.layer, 21) },
+            unlocked() { return hasUpgrade(this.layer, 21)|| hasUpgrade(this.layer,this.id) },
         },
     },
     milestones: {
@@ -144,15 +148,21 @@ addLayer("_3022", {
         return getEffect(this.layer, 14, _D0)
     },
     onPrestige(gain) {
-        player._302.unlock[0] = true
-        doReset("_3021")
+        player[302].unlock[0] = true
     },
     doReset(resettingLayer) {
         if (["_3023", "_3024", "_3025", "_3026"].includes(resettingLayer)) {
             layerDataReset(this.layer)
-            doReset("_3021")
+            player[302][1].power = _D0
+
+            if (resettingLayer == "_3023" && hasMilestone("_3023",4)) {
+                player[this.layer].upgrades.push(24)
+            }
         }
     },
+    hotkeys: [
+        { key: "1", description: "[302] 1: 飘十", onPress() { doReset(this.layer) } },
+    ],
     layerShown() { return true },
-
+    branches: ["_3023"],
 });

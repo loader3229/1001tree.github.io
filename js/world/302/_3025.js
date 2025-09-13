@@ -38,15 +38,16 @@ addLayer("_3025", {
     milestones: {
     },
     onPrestige(gain) {
-        player._302.unlock[3] = true
-        doReset("_3024")
+        player[302].unlock[3] = true
     },
     doReset(resettingLayer) {
         if (["_3026"].includes(resettingLayer)) {
             layerDataReset(this.layer)
-            doReset("_3024")
         }
     },
-    layerShown() { return player._302.unlock[2] },
+    hotkeys: [
+        { key: "5", description: "[302] 5: 飜卅", onPress() { doReset(this.layer) } },
+    ],
+    layerShown() { return player[302].unlock[2] },
 
 });

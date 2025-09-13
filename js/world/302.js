@@ -11,7 +11,12 @@ addLayer("302", {
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
+			unlock: [false, false, false, false],
+			1: {
+				charge: _D0,
+				power: _D0,
+			}
         }
     },
     type: "normal",
@@ -26,21 +31,21 @@ addLayer("302", {
             return `你有<h2 class="p4pt"> ${format(player._3022.points)} </h2>拗谝`
         }],
         ["display-text", function () {
-            if (player._302.unlock[0]) return `你有<h2 class="p4pt"> ${format(player._3023.points)} </h2>拘谞`
+            if (player[302].unlock[0]) return `你有<h2 class="p4pt"> ${format(player._3023.points)} </h2>拘谞`
         }],
         ["display-text", function () {
-            if (player._302.unlock[1]) return `你有<h2 class="p4pt"> ${format(player._3024.points)} </h2>拙谟`
+            if (player[302].unlock[1]) return `你有<h2 class="p4pt"> ${format(player._3024.points)} </h2>拙谟`
         }],
         ["display-text", function () {
-            if (player._302.unlock[2]) return `你有<h2 class="p4pt"> ${format(player._3025.points)} </h2>拚谠`
+            if (player[302].unlock[2]) return `你有<h2 class="p4pt"> ${format(player._3025.points)} </h2>拚谠`
         }],
         ["display-text", function () {
-            if (player._302.unlock[3]) return `你有<h2 class="p4pt"> ${format(player._3026.points)} </h2>招谡`
+            if (player[302].unlock[3]) return `你有<h2 class="p4pt"> ${format(player._3026.points)} </h2>招谡`
         }],
         ["blank", "20px"],
         ["tree", [
             ['_3021', '_3022', '_3023'],
-            ['_3024', '_3025', '_3026'],
+            ['_3026', '_3025', '_3024'],
         ]],
         ["row", [
             ["layer-proxy", ["_3022", [['prestige-button', "飘十"]]]],
@@ -53,7 +58,9 @@ addLayer("302", {
             ['prestige-button', "飞升"],
         ]]
     ],
+    hotkeys: [
+        { key: "6", description: "[302] 6: 飞升", onPress() { doReset(this.layer) } },
+    ],
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-
     leftTab: true
 });
