@@ -572,6 +572,23 @@ function chooseOneInArray(array, seed) {
 	else return array[Math.floor(Math.random() * array.length)]
 }
 
+function chooseWeightInArray(array) {
+    let totalWeight = 0;
+    for (const [item, weight] of array) {
+        totalWeight += weight;
+    }
+    
+    const random = Math.random() * totalWeight;
+    let currentWeight = 0;
+    
+    for (const [item, weight] of array) {
+        currentWeight += weight;
+        if (random <= currentWeight) {
+            return item;
+        }
+    }
+}
+
 function playsound(id) {
 	let audio = document.getElementById(id)
 	audio.currentTime = 0
