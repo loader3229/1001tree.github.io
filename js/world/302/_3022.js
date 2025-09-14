@@ -26,17 +26,17 @@ addLayer("_3022", {
     baseAmount() { return player._3021.points },
     baseResource: "拖谜",
     tabFormat: [
-                ["display-text", function () {
-                    let g = layers[this.layer].pointsGain()
-                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拗谝<br>
+        ["display-text", function () {
+            let g = layers[this.layer].pointsGain()
+            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拗谝<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
-                }],
-                "blank",
-                ['prestige-button', "飘十"],
-                'resource-display',
-                "blank",
-                "upgrades"
-            ],
+        }],
+        "blank",
+        ['prestige-button', "飘十"],
+        'resource-display',
+        "blank",
+        "upgrades"
+    ],
     upgrades: {
         11: {
             title: "一托咪酯",
@@ -109,7 +109,7 @@ addLayer("_3022", {
         22: {
             title: "七擒孟获",
             description: "解锁一些新的拖谜升级",
-            cost: _D(40),
+            cost: _D(30),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         23: {
@@ -122,7 +122,7 @@ addLayer("_3022", {
                 return player[302][1].power
                     .mul(getEffect(this.layer, 33, _D1))
             },
-            cost: _D(80),
+            cost: _D(60),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         24: {
@@ -134,13 +134,13 @@ addLayer("_3022", {
             effect() {
                 return getEffect("_3022", 23, _D0).add(1).pow(1 / 10)
             },
-            cost: _D(120),
+            cost: _D(90),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         25: {
             title: "十在抱歉",
             description: "这个升级的效果仍未制作,但如果你不买这个,你就无法解锁下一行升级,在你以后解锁之后",
-            cost: _D(200),
+            cost: _D(100),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         31: {
@@ -160,7 +160,7 @@ addLayer("_3022", {
             effect() {
                 return _D(0.75)
             },
-            cost: _D(100),
+            cost: _D(50),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
         33: {
@@ -172,7 +172,7 @@ addLayer("_3022", {
             effect() {
                 return decimalMax(player[302][1].power.add(1).log(10).pow(1 / 2), 1)
             },
-            cost: _D(300),
+            cost: _D(200),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
         34: {
@@ -184,13 +184,13 @@ addLayer("_3022", {
             effect() {
                 return _D(0.01)
             },
-            cost: _D(500),
+            cost: _D(600),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
         35: {
-            title: "五彩缤纷",
-            description: "解锁<span class='c1'>五彩能量</span>加点",
-            cost: _D(800),
+            title: "五彩缤纷<br>[飙卂不重置]",
+            description: "解锁拘谞层的<span class='c1'>五彩能量</span>页面",
+            cost: _D(1500),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
     },
@@ -202,12 +202,15 @@ addLayer("_3022", {
     },
     doReset(resettingLayer) {
         if (["_3023", "_3024", "_3025", "_3026"].includes(resettingLayer)) {
+            let rpu = hasUpgrade("_3022", 35)
+
             layerDataReset(this.layer)
             player[302][1].power = _D0
 
             if (resettingLayer == "_3023") {
                 if (hasMilestone("_3023", 4)) player[this.layer].upgrades.push(24)
                 if (hasChallenge("_3023", 11)) player[this.layer].upgrades.push(13)
+                if (rpu) player[this.layer].upgrades.push(35)
             }
         }
     },

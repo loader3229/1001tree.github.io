@@ -21,7 +21,7 @@ addLayer("_3023", {
     type: "static",
     requires() {
         return (hasUpgrade("_3021", 15) ? _D(200) : _DInf)
-            .mul(hasMilestone(this.layer, 5) ? _D3 : _D1)
+            .mul(hasMilestone(this.layer, 5) ? _D2 : _D1)
     },
     exponent: _D(1),
     base: _D(1.1),
@@ -34,6 +34,9 @@ addLayer("_3023", {
                     let g = layers[this.layer].pointsGain()
                     return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拘谞<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
+                }],
+                ["display-text", function () {
+                    if (hasMilestone(this.layer, 6)) return `你有<h3 class="p4pt"> ${format(player[302][3].power)} </h3><span class='c1'>五彩能量</span>`
                 }],
                 "blank",
                 ['prestige-button', "飙卂"],
@@ -57,19 +60,21 @@ addLayer("_3023", {
         五彩能量: {
             content: [
                 ["display-text", function () {
-                    if (hasMilestone(this.layer, 6)) return `你有<h3 class="p4pt"> ${format(player[302][3].power)} </h3><span class='c1'>五彩能量</span>)`
+                    if (hasMilestone(this.layer, 6)) return `你有<h3 class="p4pt"> ${format(player[302][3].power)} </h3><span class='c1'>五彩能量</span>`
                 }],
+                "blank",
+                "clickables"
             ],
-            unlocked() { return hasMilestone("_3023", 6) }
+            unlocked() { return hasUpgrade("_3022", 35) }
         }
     },
     challenges: {
         11: {
             name: "全自动化",
             challengeDescription: "直接获得三无产品,四无忌惮和六根清净,五效升级无效,进入和退出时重置拖谜层和拗谝层",
-            goalDescription: "500拗谝",
+            goalDescription: "500拖谜",
             rewardDescription: "三无产品效果×2,且飙卂时不重置三无产品",
-            canComplete() { return player["_3022"].points.gte(500) },
+            canComplete() { return player["_3021"].points.gte(500) },
             rewardEffect() { return _D2 },
             onEnter() {
                 player["_3022"].upgrades.push(13, 14, 21)
@@ -124,12 +129,13 @@ addLayer("_3023", {
         },
         6: {
             requirementDescription() { return `6 拘谞 | 有了,加一些新东西` },
-            effectDescription() { return `解锁<span class="c1">五彩能量</span><br>它很好看,就这样` },
+            effectDescription() { return `解锁<span class="c1">五彩能量</span><br>它很好看,飙卂后你会获得等量<span class="c1">五彩能量</span>` },
             done() { return player[this.layer].points.gte(6) },
         },
     },
     onPrestige(gain) {
         player[302].unlock[1] = true
+        player[302][3].power = player[302][3].power.add(gain)
     },
     doReset(resettingLayer) {
         if (["_3024", "_3025", "_3026"].includes(resettingLayer)) {

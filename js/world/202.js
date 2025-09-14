@@ -602,7 +602,7 @@ addLayer("202", {
             fullDisplay() {
                 return `
 				<span><h3>${"不削能玩?"}</h3></span><br>
-				<span>${"将工作3概率常数项改为30"}</span><br>
+				<span>${"将工作3概率常数项改为10"}</span><br>
                 <span>
                 效果: /${format(this.effect())}
 			    </span><br>
@@ -612,7 +612,7 @@ addLayer("202", {
                 return player[this.layer].t.gte(10)
             },
             effect() {
-                return _D(30)
+                return _D(10)
             },
             unlocked() { return inChallenge(this.layer, 21) && hasUpgrade(this.layer, 12) }
         },
