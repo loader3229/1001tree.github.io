@@ -12,11 +12,15 @@ addLayer("302", {
         return {
             unlocked: true,
             points: _D0,
+            fool: false,
 			unlock: [false, false, false, false],
 			1: {
 				charge: _D0,
 				power: _D0,
-			}
+			},
+            3: {
+                power: _D0
+            }
         }
     },
     type: "normal",

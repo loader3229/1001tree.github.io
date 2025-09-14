@@ -400,6 +400,9 @@ var systemComponents = {
         	    <source src="/song/background.mp3" type="audio/mpeg">
         	    您的浏览器不支持 audio 元素.
         	</audio>
+			<audio id="cc">
+        		<source src="/song/ChallengeComplete.ogg" type="audio/ogg">
+    		</audio>
 			<audio id="s1">
         		<source src="/song/sound1.wav" type="audio/wav">
     		</audio>

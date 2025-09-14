@@ -15,12 +15,13 @@ addLayer("_3024", {
         let g = tmp[this.layer].resetGain.times(tmp[this.layer].passiveGeneration)
 
         let o = player[this.layer].points.eq(0) ? _D0 : g.div(player[this.layer].points)
-        
+
         return [g, o]
     },
     type: "normal",
-    requires: _D10,
-    exponent: _D(0.5),
+    requires() { return player[302].fool ? _DInf : _D1 },
+    exponent: _D1,
+    directMult() { return player[302].fool ? _D1 : divNum(_DInf) },
     baseAmount() { return player._3023.points },
     baseResource: "拘谞",
     tabFormat: [
@@ -30,7 +31,7 @@ addLayer("_3024", {
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
         }],
         "blank",
-        ['prestige-button',"飛卄"],
+        ['prestige-button', "飛卄"],
         'resource-display'
     ],
     upgrades: {
@@ -41,7 +42,7 @@ addLayer("_3024", {
         player[302].unlock[2] = true
     },
     doReset(resettingLayer) {
-        if ([ "_3025", "_3026"].includes(resettingLayer)) {
+        if (["_3025", "_3026"].includes(resettingLayer)) {
             layerDataReset(this.layer)
         }
     },
@@ -49,5 +50,5 @@ addLayer("_3024", {
         { key: "3", description: "[302] : 飛卄", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[1] },
-
+    branches: ["_3025"],
 });

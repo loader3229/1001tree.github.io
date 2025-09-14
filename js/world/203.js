@@ -273,6 +273,9 @@ addLayer("203", {
             },
             onExit() {
                 layers[this.layer].clickwallReset()
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         12: {
@@ -286,6 +289,9 @@ addLayer("203", {
             },
             onExit() {
                 layers[this.layer].clickwallReset()
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         21: {
@@ -299,6 +305,9 @@ addLayer("203", {
             },
             onExit() {
                 layers[this.layer].clickwallReset()
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         22: {
@@ -312,6 +321,9 @@ addLayer("203", {
             },
             onExit() {
                 layers[this.layer].clickwallReset()
+            },
+            onComplete() {
+                playsound("cc")
             }
         }
     },

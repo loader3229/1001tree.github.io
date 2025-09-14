@@ -1300,6 +1300,9 @@ addLayer("202", {
             },
             onExit() {
                 layers[this.layer].resetGame()
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         12: {
@@ -1318,6 +1321,9 @@ addLayer("202", {
             },
             unlocked() {
                 return hasChallenge(this.layer, 11)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         21: {
@@ -1338,6 +1344,9 @@ addLayer("202", {
             },
             unlocked() {
                 return hasChallenge(this.layer, 12)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         22: {
@@ -1356,6 +1365,9 @@ addLayer("202", {
             },
             unlocked() {
                 return hasChallenge(this.layer, 21)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         31: {
@@ -1377,6 +1389,9 @@ addLayer("202", {
             },
             onComplete() {
                 completeWorld(this.layer)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         111: {
@@ -1401,6 +1416,9 @@ addLayer("202", {
             rewardEffect() {
                 if (hasChallenge(this.layer, 112)) return _D(1.01)
                 else return _D(0.8)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         112: {
@@ -1419,6 +1437,9 @@ addLayer("202", {
             },
             unlocked() {
                 return hasChallenge(this.layer, 111)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         121: {
@@ -1445,6 +1466,9 @@ addLayer("202", {
             },
             unlocked() {
                 return hasChallenge(this.layer, 112)
+            },
+            onComplete() {
+                playsound("cc")
             }
         },
         122: {
@@ -1470,7 +1494,10 @@ addLayer("202", {
             unlocked() {
                 return hasChallenge(this.layer, 121)
             },
-            target: 115277425
+            target: 115277425,
+            onComplete() {
+                playsound("cc")
+            }
         },
     },
     clickables: {

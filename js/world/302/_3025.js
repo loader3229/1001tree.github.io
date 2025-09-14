@@ -49,5 +49,5 @@ addLayer("_3025", {
         { key: "5", description: "[302] 5: 飜卅", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[2] },
-
+    branches: ["_3026"],
 });

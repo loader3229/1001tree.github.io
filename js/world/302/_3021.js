@@ -21,7 +21,10 @@ addLayer("_3021", {
     pointsGain() {
         let g = player[302][1].charge
 
-        if (hasUpgrade("_3022", 14)) g = g.sub(player[this.layer].points.sub(player[this.layer].points.mul(_D(0.95))))
+        if (hasUpgrade("_3022", 14)) g = g
+            .sub(player[this.layer].points
+                .sub(player[this.layer].points
+                    .mul(_D(0.95).add(getEffect("_3022", 34, _D0)))))
 
         g = g.mul(getMilestoneEffect("_3023", 1, _D1))
 
@@ -47,7 +50,7 @@ addLayer("_3021", {
     ],
     upgrades: {
         11: {
-            title: "飞升的第一步",
+            title: "飞升的第一步[不重置]",
             description: "解锁拖谜池",
             cost: _D0,
         },
@@ -70,7 +73,7 @@ addLayer("_3021", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return layers._3021.clickables[11].limit().sub(player[302][1].charge).pow(1/3)
+                return layers._3021.clickables[11].limit().sub(player[302][1].charge).pow(1 / 2).div(3)
             },
             cost: _D(90),
             unlocked() { return hasUpgrade("_3022", 22) || hasUpgrade(this.layer, this.id) },
@@ -166,6 +169,7 @@ addLayer("_3021", {
         if (["_3022", "_3023", "_3024", "_3025", "_3026"].includes(resettingLayer)) {
             layerDataReset(this.layer, resettingLayer == "_3022" ? ["upgrades"] : null)
             player[302][1].charge = _D0
+            player[this.layer].upgrades.push(11)
         }
     },
     layerShown() { return true },

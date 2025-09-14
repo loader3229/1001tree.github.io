@@ -267,6 +267,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        24: {
+            name: "被愚弄的后果",
+            done() { return player[302].fool },
+            onComplete() { achievementComplete() },
+            tooltip: "进行无收益飛卄",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/24.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         101: {
             name: "愚人节玩笑",
             done() { return !player._501.lose && player._501.complete },
