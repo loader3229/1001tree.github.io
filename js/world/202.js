@@ -1057,7 +1057,7 @@ addLayer("202", {
             title: "电流",
             description: "点数获取提升蛮多",
             effect() {
-                return _D(5)
+                return _D5
             },
             effectDisplay() {
                 return `×${format(this.effect())}`

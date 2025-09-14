@@ -8,7 +8,7 @@ let modInfo = {
 		"world/301.js", "world/302.js", "world/303.js", "world/304.js", "world/305.js",
 		"world/401.js", "world/402.js", "world/403.js", "world/404.js", "world/405.js",
 		"world/501.js", "world/502.js", "world/503.js", "world/504.js", "world/505.js",
-		"world/302/_3021.js", "world/302/_3022.js", "world/302/_3023.js", "world/302/_3024.js", "world/302/_3025.js", "world/302/_3026.js",
+		"world/302/_3021.js", "world/302/_3022.js", "world/302/_3023.js", "world/302/_3024.js",
 	],
 	discordName: "1001树游戏群",
 	discordLink: "https://qm.qq.com/q/ApvcgvPhN8",
@@ -18,14 +18,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.32,
+	num: 0.4,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.32 | 2025/9/13</h3><br>
-	更新了8个游戏<br><br>
+	<h3>v0.4 | 2025/9/15</h3><br>
+	更新了10个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 

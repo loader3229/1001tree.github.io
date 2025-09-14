@@ -170,7 +170,7 @@ var systemComponents = {
 		<br><br>
         游玩时间: {{ formatTime(player.timePlayed) }}<br><br>
         <h3>热键</h3><br>
-		<ct>25个游戏刚好对应25个键,但还有一个键我们不知道选谁,感觉去掉谁都不好,所以没选热键,你信吗</ct>
+		<ct>25个游戏刚好对应25个键,但还有一个键我们不知道选谁,感觉去掉谁都不好,所以没选热键,你信吗<br>反正我不信,你信的话看一下下面,不信也看一下下面</ct>
         <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
 		
 		`

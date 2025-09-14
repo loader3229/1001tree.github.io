@@ -1,11 +1,10 @@
 addLayer("_3022", {
-    symbol: "拗谝",
-    resource: "拗谝",
+    symbol: "拙谟",
+    resource: "拙谟",
     color: "radial-gradient(hsl(140,15%,50%), hsl(210,5%,50%))",
     update(diff) {
         if (player.pause[302]) return
 
-        player[302][1].charge = decimalMin(player[302][1].charge.add(getEffect(this.layer, 13, _D0).mul(diff)), layers._3021.clickables[11].limit())
     },
     startData() {
         return {
@@ -24,15 +23,16 @@ addLayer("_3022", {
     requires: _D10,
     exponent() { return getEffect(this.layer, 32, _D(0.5)) },
     baseAmount() { return player._3021.points },
-    baseResource: "拖谜",
+    gainMult() { return layers._3024.effect() },
+    baseResource: "拘谞",
     tabFormat: [
         ["display-text", function () {
             let g = layers[this.layer].pointsGain()
-            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拗谝<br>
+            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拙谟<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
         }],
         "blank",
-        ['prestige-button', "飘十"],
+        ['prestige-button', "飛卄"],
         'resource-display',
         "blank",
         "upgrades"
@@ -40,18 +40,22 @@ addLayer("_3022", {
     upgrades: {
         11: {
             title: "一托咪酯",
-            description: "拖谜池的容量基于拗谝更大",
+            description: "拘谞池的容量基于拙谟更大(软上限在1000)",
             effectDisplay() {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return decimalMax(player[this.layer].points.add(1).pow(0.8).sub(1), 0)
+                let e = decimalMax(player[this.layer].points.add(1).pow(0.8).sub(1), 0)
+
+                if (e.gte(1000)) e = e.div(1000).pow(1 / 2).mul(1000)
+
+                return e
             },
             cost: _D1,
         },
         12: {
             title: "两情相悦",
-            description: "拖谜池的充能效率基于依托咪酯略微增加",
+            description: "拘谞池的充能效率基于依托咪酯略微增加",
             effectDisplay() {
                 return `+${format(this.effect())}`
             },
@@ -62,7 +66,7 @@ addLayer("_3022", {
         },
         13: {
             title: "三无产品",
-            description() { return `每秒自动为拖谜池充能,速度为效率的${formatPersent(this.mult(), 0)}` },
+            description() { return `每秒自动为拘谞池充能,速度为效率的${formatPersent(this.mult(), 0)}` },
             effectDisplay() {
                 return `${format(this.effect())}`
             },
@@ -70,7 +74,6 @@ addLayer("_3022", {
                 return _D(0.1)
                     .mul(getEffect(this.layer, 15, 1))
                     .mul(getEffect("_3021", 14, 1))
-                    .mul(getChallengeEffect("_3023", 11, 1))
             },
             effect() {
                 return layers._3021.clickables[11].charge().mul(this.mult())
@@ -80,54 +83,60 @@ addLayer("_3022", {
         },
         14: {
             title: "四无忌惮",
-            description: "出现神秘力量每秒吞噬你5%的拖谜,但代价是你自动获得飘十时获得的拗谝的20%",
+            description() { return `出现神秘力量每秒吞噬你${formatPersent(hasUpgrade(this.layer, 34) ? 0.03 : 0.05,0)}的拘谞,但代价是你自动获得飛卄时获得的拙谟的${formatPersent(this.effect(),0)}` },
             effect() {
-                return _D(0.2)
+                return getEffect("_3021", 23, _D(0.2))
             },
-            cost: _D(25),
+            cost() { return hasUpgrade("_3023", 13) ? _D4 : _D(25) },
         },
         15: {
             title: "五效升级",
-            description: "三无产品效果更强居然整整五倍",
+            description: "[三无产品]效果更强居然整整五倍",
             effectDisplay() {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return inChallenge("_3023", 11) ? _D1 : _D5
+                return inChallenge("_3023", 11) && !inChallenge("_3023", 21) ? _D1 : _D5
+                    .pow(inChallenge("_3023", 21) ? _D(-1) : _D1)
             },
-            cost: _D(50),
+            cost() { return hasUpgrade("_3023", 23) ? _D5 : _D(50) },
         },
         21: {
             title: "六根清净",
-            description: "说真的,你需要舍弃这些身外之物,不再能手动填充拖谜池",
+            description: "说真的,你需要舍弃这些身外之物,不再能手动填充拘谞池",
             cost() {
                 return player[this.layer].points
                     .mul(getMilestoneEffect("_3023", 3, _D1))
+                    .mul(getEffect("_3021", 24, _D1))
             },
             unlocked() { return hasUpgrade(this.layer, 11) && hasUpgrade(this.layer, 12) && hasUpgrade(this.layer, 13) && hasUpgrade(this.layer, 14) && hasUpgrade(this.layer, 15) && hasUpgrade(this.layer, 15) || hasUpgrade(this.layer, this.id) },
         },
         22: {
             title: "七擒孟获",
-            description: "解锁一些新的拖谜升级",
+            description: "解锁一些新的拘谞升级",
             cost: _D(30),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         23: {
             title: "八巴托斯",
-            description: "基于拖谜力量加成此升级效果",
+            description: "基于拘谞力量加成此升级效果(软上限在10000)",
             effectDisplay() {
                 return `${format(this.effect())}`
             },
             effect() {
-                return player[302][1].power
+                let e = player[302][1].power
                     .mul(getEffect(this.layer, 33, _D1))
+
+                if (e.gte(10000)) e = e.div(10000).pow(1 / 3).mul(10000)
+
+                return e
             },
             cost: _D(60),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
         },
         24: {
             title: "九经沙场",
-            description: "拖谜池的容量基于风力更大",
+            description: "拘谞池的容量基于风力更大",
             effectDisplay() {
                 return `×${format(this.effect())}`
             },
@@ -149,11 +158,11 @@ addLayer("_3022", {
             cost() {
                 return _D0
             },
-            unlocked() { return hasUpgrade(this.layer, 21) && hasUpgrade(this.layer, 22) && hasUpgrade(this.layer, 23) && hasUpgrade(this.layer, 24) && hasUpgrade(this.layer, 25) && hasUpgrade(this.layer, 25) || hasUpgrade(this.layer, this.id) },
+            unlocked() { return hasMilestone("_3023", 5) && hasUpgrade(this.layer, 21) && hasUpgrade(this.layer, 22) && hasUpgrade(this.layer, 23) && hasUpgrade(this.layer, 24) && hasUpgrade(this.layer, 25) && hasUpgrade(this.layer, 25) || hasUpgrade(this.layer, this.id) },
         },
         32: {
             title: "两不相欠",
-            description: "降低飘十的价格",
+            description: "降低飛卄的价格",
             effectDisplay() {
                 return `^0.5 → ^0.75`
             },
@@ -165,11 +174,12 @@ addLayer("_3022", {
         },
         33: {
             title: "三缄其口",
-            description: "基于拖谜力量略微提升风力",
+            description: "基于拘谞力量略微提升风力",
             effectDisplay() {
                 return `×${format(this.effect())}`
             },
             effect() {
+                if (hasChallenge("_3023", 22)) return decimalMax(player[302][1].power.add(1).pow(1 / 3), 1)
                 return decimalMax(player[302][1].power.add(1).log(10).pow(1 / 2), 1)
             },
             cost: _D(200),
@@ -177,24 +187,25 @@ addLayer("_3022", {
         },
         34: {
             title: "四目棍母",
-            description: "四无忌惮吞噬的拖谜减少1%",
+            description: "[四无忌惮]吞噬的拘谞减少2%",
             effectDisplay() {
-                return `-${formatPersent(this.effect())}`
+                return `-${formatPersent(this.effect(),0)}`
             },
             effect() {
-                return _D(0.01)
+                return _D(0.02)
             },
             cost: _D(600),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
         35: {
-            title: "五彩缤纷<br>[飙卂不重置]",
-            description: "解锁拘谞层的<span class='c1'>五彩能量</span>页面",
+            title: "五彩缤纷<br>[不重置]",
+            description: "解锁拚谠层的<span class='c1'>五彩能量</span>页面",
             cost: _D(1500),
             unlocked() { return hasUpgrade(this.layer, 31) || hasUpgrade(this.layer, this.id) },
         },
     },
     passiveGeneration() {
+        if (player.pause[302]) return _D0
         return getEffect(this.layer, 14, _D0)
     },
     onPrestige(gain) {
@@ -210,12 +221,13 @@ addLayer("_3022", {
             if (resettingLayer == "_3023") {
                 if (hasMilestone("_3023", 4)) player[this.layer].upgrades.push(24)
                 if (hasChallenge("_3023", 11)) player[this.layer].upgrades.push(13)
-                if (rpu) player[this.layer].upgrades.push(35)
             }
+
+            if (rpu) player[this.layer].upgrades.push(35)
         }
     },
     hotkeys: [
-        { key: "1", description: "[302] 1: 飘十", onPress() { doReset(this.layer) } },
+        { key: "1", description: "[302] 1: 飛卄", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return true },
     branches: ["_3023"],

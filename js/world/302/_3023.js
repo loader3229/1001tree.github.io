@@ -1,6 +1,6 @@
 addLayer("_3023", {
-    symbol: "拘谞",
-    resource: "拘谞",
+    symbol: "拚谠",
+    resource: "拚谠",
     color: "radial-gradient(hsl(140,30%,50%), hsl(210,15%,50%))",
     update(diff) {
         if (player.pause[302]) return
@@ -21,25 +21,27 @@ addLayer("_3023", {
     type: "static",
     requires() {
         return (hasUpgrade("_3021", 15) ? _D(200) : _DInf)
-            .mul(hasMilestone(this.layer, 5) ? _D2 : _D1)
+            .mul(hasMilestone(this.layer, 5) ?
+                getEffect(this.layer, 12, _D2)
+                : _D1)
     },
     exponent: _D(1),
     base: _D(1.1),
     baseAmount() { return player._3022.points },
-    baseResource: "拗谝",
+    baseResource: "拙谟",
     tabFormat: {
         里程碑: {
             content: [
                 ["display-text", function () {
                     let g = layers[this.layer].pointsGain()
-                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拘谞<br>
+                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拚谠<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
                 }],
                 ["display-text", function () {
-                    if (hasMilestone(this.layer, 6)) return `你有<h3 class="p4pt"> ${format(player[302][3].power)} </h3><span class='c1'>五彩能量</span>`
+                    if (hasMilestone(this.layer, 6)) return `你有 <h3 class="c1">${format(player[302][3].power)}</h3> <span class='c1'>五彩能量</span>`
                 }],
                 "blank",
-                ['prestige-button', "飙卂"],
+                ['prestige-button', "飜卅"],
                 'resource-display',
                 'milestones'
             ]
@@ -48,9 +50,9 @@ addLayer("_3023", {
             content: [
                 ["display-text", function () {
                     let g = layers[this.layer].pointsGain()
-                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拘谞<br>
+                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拚谠<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})<br>
-                    拘谞挑战不会被重置`
+                    拚谠挑战不会被重置`
                 }],
                 'blank',
                 'challenges',
@@ -60,10 +62,11 @@ addLayer("_3023", {
         五彩能量: {
             content: [
                 ["display-text", function () {
-                    if (hasMilestone(this.layer, 6)) return `你有<h3 class="p4pt"> ${format(player[302][3].power)} </h3><span class='c1'>五彩能量</span>`
+                    if (hasMilestone(this.layer, 6)) return `你有 <h2 class="c1">${format(player[302][3].power)}</h2> <span class='c1'>五彩能量</span>`
                 }],
                 "blank",
-                "clickables"
+                "clickables",
+                "upgrades"
             ],
             unlocked() { return hasUpgrade("_3022", 35) }
         }
@@ -71,85 +74,262 @@ addLayer("_3023", {
     challenges: {
         11: {
             name: "全自动化",
-            challengeDescription: "直接获得三无产品,四无忌惮和六根清净,五效升级无效,进入和退出时重置拖谜层和拗谝层",
-            goalDescription: "500拖谜",
-            rewardDescription: "三无产品效果×2,且飙卂时不重置三无产品",
-            canComplete() { return player["_3021"].points.gte(500) },
-            rewardEffect() { return _D2 },
+            challengeDescription: "直接获得[三无产品],[四无忌惮]和[六根清净],[五效升级]无效,进入和退出时重置拘谞层和拙谟层",
+            goalDescription: "100拘谞",
+            rewardDescription: "飜卅时不重置三无产品",
+            canComplete() { return player["_3021"].points.gte(100) },
             onEnter() {
                 player["_3022"].upgrades.push(13, 14, 21)
-            },
-            onExit() {
+                player[302][1].level = _D0
+                player[302][1].exp = _D0
             },
             onComplete() {
                 playsound("cc")
             }
+        },
+        12: {
+            name: "懦弱之人",
+            challengeDescription: "禁用拘谞力量,拘谞的上限为249,进入和退出时重置拘谞层和拙谟层",
+            goalDescription: "300拙谟",
+            rewardDescription: "解锁一些拘谞升级",
+            canComplete() { return player["_3022"].points.gte(300) },
+            onEnter() {
+                player[302][1].level = _D0
+                player[302][1].exp = _D0
+            },
+            onComplete() {
+                playsound("cc")
+            },
+            unlocked() { return hasChallenge(this.layer, 11) }
+        },
+        21: {
+            name: "群众叛徒",
+            challengeDescription: "直接获得[五效升级],[五效升级]的效果逆转,[容量利用]的效果降低为3%,进入和退出时重置拘谞层和拙谟层",
+            goalDescription: "300拙谟",
+            rewardDescription: "飜卅时直接获得[飞升的前五阶]",
+            canComplete() { return player["_3022"].points.gte(300) },
+            onEnter() {
+                player["_3022"].upgrades.push(15)
+                player[302][1].level = _D0
+                player[302][1].exp = _D0
+            },
+            onComplete() {
+                playsound("cc")
+            },
+            unlocked() { return hasChallenge(this.layer, 12) }
+        },
+        22: {
+            name: "一起上吧",
+            challengeDescription: "同时进行前三个挑战,且[五效升级]实际效果基于群众叛徒(这里面真有一个奖励关,叛徒!)",
+            goalDescription: "购买[三缄其口]",
+            rewardDescription: "完成世界<br>可获取最大拙谟,优化[三缄其口]的公式",
+            canComplete() { return hasUpgrade("_3022", 33) },
+            onEnter() {
+                player["_3022"].upgrades.push(13, 14, 15, 21)
+                player[302][1].level = _D0
+                player[302][1].exp = _D0
+            },
+            onComplete() {
+                playsound("cc")
+                if (!player.world[302]) completeWorld(302)
+            },
+            countsAs: [11, 12, 21],
+            unlocked() { return hasChallenge(this.layer, 21) }
+        },
+        31: {
+            name: "<span class='c1'>五彩祭礼</span>",
+            challengeDescription: "进入时会清空你当前的<span class='c1'>五彩能量</span>,且重置拘谞层和拙谟层",
+            goalDescription: "1<span class='c1'>五彩能量</span>",
+            rewardDescription: "拘谞升级在飜卅时不重置<br>解锁<span class='c1'>五彩献祭</span>",
+            canComplete() { return player[302][3].power.gte(1) },
+            onEnter() {
+                player[302][3].power = _D0
+                player[302][1].level = _D0
+                player[302][1].exp = _D0
+            },
+            onComplete() {
+                playsound("cc")
+            },
+            unlocked() { return hasChallenge(this.layer, 22) }
         }
     },
     clickables: {
         11: {
             title() { return "<span class='c1'>五彩献祭</span>" },
-            display() { return "把你的<span class='c1'>五彩能量</span>转化为拙谟" },
+            display() { return "把你的<span class='c1'>五彩能量</span>转化为招谡" },
             canClick() { return player[302][3].power.gt(0) },
             onClick() {
-                player._3024.points = player[302][3].power
+                player._3024.points = player._3024.points.add(player[302][3].power)
                 player[302][3].power = _D0
             },
-            unlocked() { return true }
+            unlocked() { return hasChallenge(this.layer, 31) }
         },
+    },
+    upgrades: {
+        11: {
+            title: "<span class='c1'>五彩力量</span>",
+            description: "<span class='c1'>五彩能量</span>加成拘谞力量获取",
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            effect() {
+                return player[302][3].power.add(1)
+            },
+            cost: _D2,
+            unlocked() { return hasMilestone(this.layer, 8) }
+        },
+        12: {
+            title: "<span class='c1'>价格回档</span>",
+            description: "清除[升级十二是]的负面效果",
+            effect() {
+                return _D1
+            },
+            cost: _D2,
+            unlocked() { return hasMilestone(this.layer, 8) }
+        },
+        13: {
+            title: "<span class='c1'>肆无忌惮</span>",
+            description: "[四无忌惮]的价格变为 4 拙谟",
+            effect() {
+                return _D1
+            },
+            cost: _D2,
+            unlocked() { return hasMilestone(this.layer, 8) }
+        },
+        14: {
+            title: "<span class='c1'>拘谞之力</span>",
+            description: "基于<span class='c1'>五彩能量</span>和[飞升的点数]获得拘谞力量",
+            effectDisplay() {
+                return `+${format(this.effect())}`
+            },
+            effect() {
+                return decimalMax(upgradeEffect("_3021", 13).pow(1 / 2)
+                    .mul(decimalMax(player[302][3].power.pow(0.25), 1)), 0)
+            },
+            cost: _D2,
+            unlocked() { return hasMilestone(this.layer, 8) }
+        },
+        21: {
+            title: "<span class='c1'>拘谞推进</span>",
+            description: "拘谞加成自身基础获取",
+            effectDisplay() {
+                return `+${format(this.effect())}`
+            },
+            effect() {
+                return decimalMax(player._3021.points.pow(1 / 3).sub(1), 0)
+            },
+            cost: _D3,
+            unlocked() { return hasUpgrade(this.layer, this.id - 10) || hasUpgrade(this.layer, this.id) },
+        },
+        22: {
+            title: "<span class='c1'>虹色闪电</span>",
+            description: "[隔代亲]的效果基于<span class='c1'>五彩能量</span>和拘谞的较大者",
+            effect() {
+                return decimalMax(player[this.layer].points, player[302][3].power)
+            },
+            cost: _D3,
+            unlocked() { return hasUpgrade(this.layer, this.id - 10) || hasUpgrade(this.layer, this.id) },
+        },
+        23: {
+            title: "<span class='c1'>有效升级</span>",
+            description: "[五效升级]的价格变为 5 拙谟",
+            cost: _D3,
+            unlocked() { return hasUpgrade(this.layer, this.id - 10) || hasUpgrade(this.layer, this.id) },
+        },
+        24: {
+            title: "<span class='c1'>效果推进</span>",
+            description: "改善[<span class='c1'>拘谞之力</span>]的公式",
+            effect() {
+                return decimalMax(player[this.layer].points, player[302][3].power)
+            },
+            cost: _D3,
+            unlocked() { return hasUpgrade(this.layer, this.id - 10) || hasUpgrade(this.layer, this.id) },
+        }
     },
     milestones: {
         1: {
-            requirementDescription() { return `1 拘谞 | 隔代亲` },
-            effectDescription() { return `这是你的第一个拘谞,也就是说你距离拜谢更进一步!基于拘谞获得更多拖谜<br>效果: ×${format(this.effect())}` },
+            requirementDescription() { return `1 拚谠 | 隔代亲` },
+            effectDescription() { return `这是你的第一个拚谠,也就是说你距离拜谢更进一步!基于拚谠获得更多拘谞<br>效果: ×${format(this.effect())}` },
             done() { return player[this.layer].points.gte(1) },
-            effect() { return player[this.layer].points.add(1).pow(1 / 3) }
+            effect() { return getEffect(this.layer, 22, player[this.layer].points).add(1).pow(1 / 3) }
         },
         2: {
-            requirementDescription() { return `2 拘谞 | 容量利用` },
-            effectDescription() { return `你都已经20了,是时候收集小道具了,三无产品充能效率最终增加拖谜池容量的5%<br>效果: +${format(this.effect())}` },
+            requirementDescription() { return `2 拚谠 | 容量利用` },
+            effectDescription() { return `你都已经20了,是时候收集小道具了,[三无产品]充能效率最终增加拘谞池容量的5%<br>效果: +${format(this.effect())} (硬上限在100)` },
             done() { return player[this.layer].points.gte(2) },
-            effect() { return layers._3021.clickables[11].limit().mul(0.05) }
+            effect() {
+                let e = layers._3021.clickables[11].limit().mul(
+                    inChallenge(this.layer, 21) ? 0.03 : 0.05
+                )
+
+                if (e.gte(100)) e = _D(100)
+
+                return e
+            }
         },
         3: {
-            requirementDescription() { return `3 拘谞 | 唬人的家伙` },
-            effectDescription() { return `我们无论遇到什么困难,都不要怕,六根清净的价格基于拘谞降低<br>效果: ×${formatPersent(this.effect())}` },
+            requirementDescription() { return `3 拚谠 | 唬人的家伙` },
+            effectDescription() { return `我们无论遇到什么困难,都不要怕,[六根清净]的价格基于拚谠降低<br>效果: ×${formatPersent(this.effect())}` },
             done() { return player[this.layer].points.gte(3) },
-            effect() { return _D(0.9).pow(player[this.layer].points.add(1).pow(0.5)).add(0.05) }
+            effect() { return _D(0.85).pow(player[this.layer].points.pow(0.5)) }
         },
         4: {
-            requirementDescription() { return `4 拘谞 | 乾犭瓜离光` },
-            effectDescription() { return `九经沙场在飙卂时不会重置<br>但是,正如你看到的,神人作者没有保留它的必须升级,所以它暂时没有效果!` },
+            requirementDescription() { return `4 拚谠 | 乾犭瓜离光` },
+            effectDescription() { return `[九经沙场]在飜卅时不会重置<br>但是,正如你看到的,神人作者没有保留它的必须升级,所以它暂时没有效果!` },
             done() { return player[this.layer].points.gte(4) },
         },
         5: {
-            requirementDescription() { return `5 拘谞 | 找不到升级十二` },
-            effectDescription() { return `解锁一系列新的拗谝升级<br>为了强迫你购买这些升级,飙卂价格被提升` },
+            requirementDescription() { return `5 拚谠 | 升级十二是` },
+            effectDescription() { return `解锁一系列新的拙谟升级<br>为了强迫你购买这些升级,飜卅价格被提升` },
             done() { return player[this.layer].points.gte(5) },
         },
         6: {
-            requirementDescription() { return `6 拘谞 | 有了,加一些新东西` },
-            effectDescription() { return `解锁<span class="c1">五彩能量</span><br>它很好看,飙卂后你会获得等量<span class="c1">五彩能量</span>` },
+            requirementDescription() { return `6 拚谠 | 加一些新东西` },
+            effectDescription() { return `解锁<span class="c1">五彩能量</span><br>它很好看,飜卅后你会获得等量<span class="c1">五彩能量</span>` },
             done() { return player[this.layer].points.gte(6) },
+        },
+        7: {
+            requirementDescription() { return `7 <span class="c1">五彩能量</span> | <span class="c1">七彩虹</span>` },
+            effectDescription() { return `<span class="c1">五彩能量升级和此里程碑永不重置</span>` },
+            done() { return player[302][3].power.gte(10) },
+        },
+        8: {
+            requirementDescription() { return `8 拚谠 | 彩虹的力量` },
+            effectDescription() { return `解锁<span class="c1">五彩能量</span>升级<br>你会喜欢它们的` },
+            done() { return player[this.layer].points.gte(8) },
         },
     },
     onPrestige(gain) {
+        gain = _D(gain)
+
         player[302].unlock[1] = true
-        player[302][3].power = player[302][3].power.add(gain)
+        player[302][1].level = _D0
+        player[302][1].exp = _D0
+
+        player[302][3].power = player[302][3].power.add(
+            gain
+        )
     },
     doReset(resettingLayer) {
         if (["_3024", "_3025", "_3026"].includes(resettingLayer)) {
+            let ch = hasMilestone(this.layer, 7)
+
             if (resettingLayer == "_3024") {
                 player[302].fool = true
-                layerDataReset(this.layer, ["challenges","milestones"])
+                layerDataReset(this.layer, ["challenges", "milestones", ...(hasMilestone(this.layer, 7) ? ["upgrades"] : [])])
             } else {
-                layerDataReset(this.layer, ["challenges"])
+                layerDataReset(this.layer, ["challenges", ...(hasMilestone(this.layer, 7) ? ["upgrades"] : [])])
             }
+
+            if (ch) {
+                player[this.layer].milestones.push(7, 8)
+            }
+
         }
     },
-    canBuyMax() { return false },
+    canBuyMax() { return hasChallenge(this.layer, 22) },
     hotkeys: [
-        { key: "2", description: "[302] 2: 飙卂", onPress() { doReset(this.layer) } },
+        { key: "2", description: "[302] 2: 飜卅", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[0] },
     branches: ["_3024"],

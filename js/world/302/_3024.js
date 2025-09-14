@@ -1,6 +1,6 @@
 addLayer("_3024", {
-    symbol: "拙谟",
-    resource: "拙谟",
+    symbol: "招谡",
+    resource: "招谡",
     color: "radial-gradient(hsl(140,45%,50%), hsl(210,30%,50%))",
     update(diff) {
         if (player.pause[302]) return
@@ -23,21 +23,22 @@ addLayer("_3024", {
     exponent: _D1,
     directMult() { return player[302].fool ? _D1 : divNum(_DInf) },
     baseAmount() { return player._3023.points },
-    baseResource: "拘谞",
+    baseResource: "拚谠",
     tabFormat: [
         ["display-text", function () {
             let g = layers[this.layer].pointsGain()
-            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拙谟<br>
+            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>招谡,加成拙谟获取×${format(layers[this.layer].effect())}<br>
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
         }],
         "blank",
-        ['prestige-button', "飛卄"],
-        'resource-display'
+        ['prestige-button', "飝卆"],
+        'resource-display',
+        ["display-text", function () {
+            let g = layers[this.layer].pointsGain()
+            return `这个层级什么都没有,因为我懒了,而且我不想再给你们加重置墙了(真的是不想吗?)`
+        }],
     ],
-    upgrades: {
-    },
-    milestones: {
-    },
+    effect() { return player[this.layer].points.add(1).pow(1 / 4) },
     onPrestige(gain) {
         player[302].unlock[2] = true
     },
@@ -47,7 +48,7 @@ addLayer("_3024", {
         }
     },
     hotkeys: [
-        { key: "3", description: "[302] : 飛卄", onPress() { doReset(this.layer) } },
+        { key: "3", description: "[302] 3: 飝卆", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[1] },
     branches: ["_3025"],

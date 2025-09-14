@@ -271,7 +271,7 @@ addLayer("ach", {
             name: "被愚弄的后果",
             done() { return player[302].fool },
             onComplete() { achievementComplete() },
-            tooltip: "进行无收益飛卄",
+            tooltip: "进行无收益飝卆",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/24.jpg)",
             },
