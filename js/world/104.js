@@ -35,7 +35,7 @@ addLayer("104", {
                     return `你所获得的最高点数是 <h2 class = 'nmpt'>${formatWhole(player['104'].ig ? Decimal.pow(2, player['104'].points.div(2)) : player['104'].points)}</h2>, 到达1024完成世界!`
                 }],
                 ["display-text", function () {
-                    return `W,A,S,D移动方块, L快速重开`
+                    return `W,A,S,D移动方块, L放弃游戏`
                 }],
                 ["display-text", function () {
                     return (player['104'].trig) ? `蓝色的规则可随时启用或关闭, 红色的规则只能在游戏开始之前调整!` : `完成世界来解锁其他规则!`
@@ -87,36 +87,36 @@ addLayer("104", {
                 layers['104'].numGen()
             }
         }
-        if (player['104'].ch){
-            let r = chooseWeightInArray[[1,400],[0,96]]
-            if(r) layers['104'].switchGrid()
+        if (player['104'].ch) {
+            let r = chooseWeightInArray[[1, 400], [0, 96]]
+            if (r) layers['104'].switchGrid()
         }
         player['104'].lastmove = fx
     },
-    switchGrid(){
-        if(!player['104'].ch) return
+    switchGrid() {
+        if (!player['104'].ch) return
     },
     canMerge(fx) {
         for (i in player['104'].grid) {
             let x = Math.floor(i / 100)
             let y = Math.floor(i % 100)
-            if (fx == 1){
+            if (fx == 1) {
                 x--
-                if(player['104'].bl) x--
+                if (player['104'].bl) x--
             }
-            if (fx == 2){
+            if (fx == 2) {
                 x++
-                if(player['104'].bl) x++
+                if (player['104'].bl) x++
             }
-            if (fx == 3){
+            if (fx == 3) {
                 y--
-                if(player['104'].bl) y--
+                if (player['104'].bl) y--
             }
-            if (fx == 4){
+            if (fx == 4) {
                 y++
-                if(player['104'].bl) y++
+                if (player['104'].bl) y++
             }
-            if (x <= 0 || y <= 0 || x >= (5+player['104'].t5+player['104'].t6) || y >= (5+player['104'].t5+player['104'].t6)) continue
+            if (x <= 0 || y <= 0 || x >= (5 + player['104'].t5 + player['104'].t6) || y >= (5 + player['104'].t5 + player['104'].t6)) continue
             let z = x * 100 + y
             t1 = player['104'].grid[z]
             t2 = player['104'].grid[i]
@@ -148,7 +148,7 @@ addLayer("104", {
         let a = []
         for (i in player[this.layer].grid) {
             if (player[this.layer].grid[i].eq(0)) {
-                if (((i % 100) < (5+player['104'].t5+player['104'].t6)) && (Math.floor(i / 100) < (5+player['104'].t5+player['104'].t6))) a.push(i)
+                if (((i % 100) < (5 + player['104'].t5 + player['104'].t6)) && (Math.floor(i / 100) < (5 + player['104'].t5 + player['104'].t6))) a.push(i)
             }
         }
         let r = chooseOneInArray(a)
@@ -224,23 +224,23 @@ addLayer("104", {
                 let i = a[k]
                 let x = Math.floor(i / 100)
                 let y = Math.floor(i % 100)
-                if (fx == 1){
+                if (fx == 1) {
                     x--
-                    if(player['104'].bl) x--
+                    if (player['104'].bl) x--
                 }
-                if (fx == 2){
+                if (fx == 2) {
                     x++
-                    if(player['104'].bl) x++
+                    if (player['104'].bl) x++
                 }
-                if (fx == 3){
+                if (fx == 3) {
                     y--
-                    if(player['104'].bl) y--
+                    if (player['104'].bl) y--
                 }
-                if (fx == 4){
+                if (fx == 4) {
                     y++
-                    if(player['104'].bl) y++
+                    if (player['104'].bl) y++
                 }
-                 if (x <= 0 || y <= 0 || x >= (5+player['104'].t5+player['104'].t6) || y >= (5+player['104'].t5+player['104'].t6)) continue
+                if (x <= 0 || y <= 0 || x >= (5 + player['104'].t5 + player['104'].t6) || y >= (5 + player['104'].t5 + player['104'].t6)) continue
                 let z = x * 100 + y
                 t = player['104'].grid[z]
                 t1 = player['104'].grid[i]
@@ -300,27 +300,27 @@ addLayer("104", {
             let i = a[k]
             let x = Math.floor(i / 100)
             let y = Math.floor(i % 100)
-            if (fx == 1){
+            if (fx == 1) {
                 x--
-                if(player['104'].bl) x--
+                if (player['104'].bl) x--
             }
-            if (fx == 2){
+            if (fx == 2) {
                 x++
-                if(player['104'].bl) x++
+                if (player['104'].bl) x++
             }
-            if (fx == 3){
+            if (fx == 3) {
                 y--
-                if(player['104'].bl) y--
+                if (player['104'].bl) y--
             }
-            if (fx == 4){
+            if (fx == 4) {
                 y++
-                if(player['104'].bl) y++
+                if (player['104'].bl) y++
             }
-             if (x <= 0 || y <= 0 || x >= (5+player['104'].t5+player['104'].t6) || y >= (5+player['104'].t5+player['104'].t6)) continue
+            if (x <= 0 || y <= 0 || x >= (5 + player['104'].t5 + player['104'].t6) || y >= (5 + player['104'].t5 + player['104'].t6)) continue
             let z = x * 100 + y
             t = player['104'].grid[z]
             t1 = player['104'].grid[i]
-            if(t1.eq(-9) || t.eq(-9)) continue
+            if (t1.eq(-9) || t.eq(-9)) continue
             if (t.eq(-7) && t1.eq(-7)) {
                 player['104'].canmove = true
                 for (j = 1; j <= 4; j++) {
@@ -359,13 +359,14 @@ addLayer("104", {
                 player['104'].maxx = player['104'].maxx.max(player['104'].grid[z])
                 player['104'].points = player['104'].maxx
             }
+            player['104'].cnt=4
         }
     },
     udClear() {
         if (!player['104'].ud) return
         minn = _D("1e310")
         for (i in player['104'].grid) {
-            if ((Math.floor(i/100) > (4+player['104'].t5+player['104'].t6)) || ((i%100) > (4+player['104'].t5+player['104'].t6))) continue
+            if ((Math.floor(i / 100) > (4 + player['104'].t5 + player['104'].t6)) || ((i % 100) > (4 + player['104'].t5 + player['104'].t6))) continue
             console.log(i)
             if (player['104'].grid[i].gt(0)) minn = minn.min(player['104'].grid[i]).max(0)
         }
@@ -419,7 +420,7 @@ addLayer("104", {
             style: { height: "120px", width: "120px", minHeight: "120px" }
         },
         31: {
-            title() { return `RESTART` },
+            title() { return `START` },
             display: "开始一盘新游戏",
             onClick() {
                 for (i in player['104'].grid) {
@@ -431,8 +432,8 @@ addLayer("104", {
                 player['104'].cnt = 0
                 layers['104'].numGen()
                 layers['104'].numGen()
-                if(player['104'].ob5){
-                    if(player['104'].grid[101].eq(0)) player['104'].cnt++
+                if (player['104'].ob5) {
+                    if (player['104'].grid[101].eq(0)) player['104'].cnt++
                     player['104'].grid[101] = _D(-9)
                 }
             },
@@ -493,24 +494,6 @@ addLayer("104", {
             },
             unlocked() { return player['104'].trig },
             canClick() { return player['104'].trig },
-        },
-        35: {
-            title() { return `T+` },
-            display: "棋盘规格+1",
-            onClick() {
-                player['104'].t5 = !player['104'].t5
-            },
-            style: {
-                height: "100px", width: "100px", minHeight: "100px", marginTop: "15px", border: "4px solid", borderColor: "#e00000ff", "background-color"() {
-                    if (player['104'].t5) return "#e00000ff"
-                    return "#e0000033"
-                }, "color"() {
-                    if (player['104'].t5) return "rgb(0,0,0)"
-                    return "#e00000ff"
-                }
-            },
-            unlocked() { return player['104'].trig },
-            canClick() { return player['104'].losetrig },
         },
         41: {
             title() { return `IG` },
@@ -639,24 +622,6 @@ addLayer("104", {
             canClick() { return player['104'].trig },
         },
         53: {
-            title() { return `T+` },
-            display: "棋盘规格+1",
-            onClick() {
-                player['104'].t6 = !player['104'].t6
-            },
-            style: {
-                height: "100px", width: "100px", minHeight: "100px", marginTop: "15px", border: "4px solid", borderColor: "#e00000ff", "background-color"() {
-                    if (player['104'].t6) return "#e00000ff"
-                    return "#e0000033"
-                }, "color"() {
-                    if (player['104'].t6) return "rgb(0,0,0)"
-                    return "#e00000ff"
-                }
-            },
-            unlocked() { return player['104'].trig },
-            canClick() { return player['104'].losetrig },
-        },
-        54: {
             title() { return `CH` },
             display: "每次移动有4%概率打乱盘面",
             onClick() {
@@ -674,6 +639,42 @@ addLayer("104", {
             unlocked() { return player['104'].trig },
             canClick() { return player['104'].trig },
         },
+        54: {
+            title() { return `T+` },
+            display: "棋盘规格+1",
+            onClick() {
+                player['104'].t6 = !player['104'].t6
+            },
+            style: {
+                height: "100px", width: "100px", minHeight: "100px", marginTop: "15px", border: "4px solid", borderColor: "#e00000ff", "background-color"() {
+                    if (player['104'].t6) return "#e00000ff"
+                    return "#e0000033"
+                }, "color"() {
+                    if (player['104'].t6) return "rgb(0,0,0)"
+                    return "#e00000ff"
+                }
+            },
+            unlocked() { return player['104'].trig },
+            canClick() { return player['104'].losetrig },
+        },
+        55: {
+            title() { return `T+` },
+            display: "棋盘规格+1",
+            onClick() {
+                player['104'].t5 = !player['104'].t5
+            },
+            style: {
+                height: "100px", width: "100px", minHeight: "100px", marginTop: "15px", border: "4px solid", borderColor: "#e00000ff", "background-color"() {
+                    if (player['104'].t5) return "#e00000ff"
+                    return "#e0000033"
+                }, "color"() {
+                    if (player['104'].t5) return "rgb(0,0,0)"
+                    return "#e00000ff"
+                }
+            },
+            unlocked() { return player['104'].trig },
+            canClick() { return player['104'].losetrig },
+        },
     },
     grid: {
         rows: 6,
@@ -682,7 +683,7 @@ addLayer("104", {
             return _D0
         },
         getUnlocked(id) {
-            if((Math.floor(id/100) >= (5+player['104'].t5+player['104'].t6)) || ((id%100) >= (5+player['104'].t5+player['104'].t6))) return false
+            if ((Math.floor(id / 100) >= (5 + player['104'].t5 + player['104'].t6)) || ((id % 100) >= (5 + player['104'].t5 + player['104'].t6))) return false
             return true
         },
         getCanClick(data, id) {
@@ -723,6 +724,7 @@ addLayer("104", {
             style.fontSize = "20px"
             if (data.lt(128)) style.boxShadow = "4px 0px 0px " + style.backgroundColor + "75"
             style.margin = "2px"
+            style.transitionDuration = "0s"
 
             return style
         },

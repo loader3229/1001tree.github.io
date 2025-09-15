@@ -66,7 +66,6 @@ addLayer("302", {
             effectDescription() { return `获得1额外梦力,这个真的值得吗?` },
             done() { return player[this.layer].points.gte(1) },
             onComplete() { player.main.points = player.main.points.add(1) },
-            effect() { return }
         }
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
