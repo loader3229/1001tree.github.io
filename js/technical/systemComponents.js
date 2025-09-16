@@ -384,7 +384,7 @@ var systemComponents = {
 		template: `<div :style="{
         position: 'fixed',
         left: '20px',
-        bottom: songshown ? '20px' : '-170px',
+        bottom: songshown ? '20px' : '-202px',
         'z-index': '100000'
     	}">
         	<p :style="{

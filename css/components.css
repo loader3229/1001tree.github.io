@@ -530,11 +530,13 @@ div.tbox {
 }
 
 .pc {
+	height: 180px;
 	margin: 0;
 	padding: 10px;
 	background: #ffffff44;
 	border-radius: 10px;
 	box-shadow: 0 0 20px #00000088;
+	line-height: 20px;
 }
 
 .ppl {
