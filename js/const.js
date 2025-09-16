@@ -6,7 +6,7 @@ function getGameName(id) {
 		103: ["未完成游戏", "这个游戏目前是棍木", ''],
 		104: ["二〇四八", "以及它的变种们", 'c3'],
 		105: ["未完成游戏", "这个游戏目前是棍木", ''],
-		
+
 		201: ["暴涨子", "增长永无止境", 'c2'],
 		202/* 第0001夜 */: ["概率统治世界", "尝试和作者勾心斗角<br>你也有概率统治世界", 'p1tx'],
 		203/* 第0010夜 */: ["点击墙", "点击墙的点击墙", 'p2tx'],
@@ -875,8 +875,8 @@ function getProblemList() {
 }
 
 //
-let a={
-	"Ascension":{
+let a = {
+	"Ascension": {
 		"5": "Unlock a permanent charger and a buyable for permanent charge.",
 		"33": "Enable maximized ascension and unlock two new permanent chargers.",
 		"56": "Your simulations start with 6 Ascension Levels.",

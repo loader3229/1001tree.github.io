@@ -1389,10 +1389,8 @@ addLayer("202", {
             },
             onComplete() {
                 completeWorld(this.layer)
-            },
-            onComplete() {
                 playsound("cc")
-            }
+            },
         },
         111: {
             name: "万事开头易,而中途难矣",

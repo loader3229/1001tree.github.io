@@ -9,9 +9,9 @@ function getStartOptions() {
 		tmtclass: true,
 		newclass: true,
 		pauseclass: false,
-		
+
 		autosave: true,
-		
+
 		theme: "default",
 		font: "",
 		bgi: null,
@@ -21,7 +21,7 @@ function getStartOptions() {
 		songshown: true,
 		sloganshown: true,
 		newsshown: true,
-		
+
 		forceOneTab: false,
 		hcmode: false,
 		hqTree: false,
@@ -33,7 +33,6 @@ function getStartOptions() {
 		hideWorld: false,
 		autopause: false,
 		achivement: false,
-		
 
 		newsa: false,
 		newsv: false,
@@ -41,7 +40,12 @@ function getStartOptions() {
 		newsp: true,
 		newsn: true,
 		newsspeed: 150,
-		
+
+		songid: 0,
+		songautoplay: false,
+		songvolume: 0.5,
+		songmode: 0,
+
 		//弃用
 		offlineProd: false,
 		oldStyle: false,
@@ -53,12 +57,12 @@ function setTransitions() {
 
 	const styleId = 'no-transitions-style';
 	let styleElement = document.getElementById(styleId);
-	
+
 	if (noTrans) {
-	  if (!styleElement) {
-		styleElement = document.createElement('style');
-		styleElement.id = styleId;
-		styleElement.textContent = `
+		if (!styleElement) {
+			styleElement = document.createElement('style');
+			styleElement.id = styleId;
+			styleElement.textContent = `
 		  * {
 			transition-duration: unset !important;
 			-webkit-transition-duration: unset !important;
@@ -73,14 +77,14 @@ function setTransitions() {
 			transition: none !important;
 		  }
 		`;
-		document.head.appendChild(styleElement);
-	  }
+			document.head.appendChild(styleElement);
+		}
 	} else {
-	  if (styleElement) {
-		document.head.removeChild(styleElement);
-	  }
+		if (styleElement) {
+			document.head.removeChild(styleElement);
+		}
 	}
-  }
+}
 
 function getOpt(name) {
 	if (typeof options == 'undefined') return false

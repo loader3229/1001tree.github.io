@@ -214,6 +214,9 @@ function load() {
 
 	document.body.style.setProperty("--Font", options.font);
 
+	window.musicPlayer.setVolume(options.songvolume)
+	window.musicPlayer.setMode(options.songmode)
+	window.musicPlayer.playSong(options.songid, !options.songautoplay)
 }
 
 function loadOptions() {

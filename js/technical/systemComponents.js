@@ -129,14 +129,12 @@ var systemComponents = {
 			乾狐离光<br>
 			userincre<br>
 			banana3864<br>
+			曦<br>
         </span>
         <span>
             <br>
-            文案 夏鸣<br>
-        </span>
-        <span>
-            <br>
-            测试 奇硅箱 寿司 ＾＿＾ 枫梦<br>
+            测试<br>
+			奇硅箱 寿司 ＾＿＾ 枫梦 Chara404<br>
         </span>
         <span>
             <br>
@@ -146,8 +144,7 @@ var systemComponents = {
         <ct>
             游玩 {{player.global.name}}
 		</ct>
-		<br>
-		<br>
+		<br><br>
 		您希望我们称呼您为什么?
 		<br>
 		<input type="text"
@@ -162,7 +159,9 @@ var systemComponents = {
         The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda and FlamemasterNXF
         <br>
         The Prestige Tree made by Jacorb and Aarex
-		<br><br><br>
+		<br><br>
+		部分素材(包括背景音乐,音效,图片)来源于网络,如有侵权,请联系开发组删除
+		<br><br>
 		<div class="link" onclick="showTab('changelog-tab')">更新日志</div><br>
         <span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
         <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">模组树服务器</a><br>
@@ -229,7 +228,7 @@ var systemComponents = {
     				    }
     				};
     				input.click();
-				">设置背景图</button></td>
+				">设置背景图<br>可能造成卡顿</button></td>
                 <td><button class="opt" onclick="options.bgi=null">清除背景图</button></td>
                 <td><button class="opt" onclick="toggleOpt('notrans');setTransitions()">防换主题卡顿<br>取消渐变动画<br>{{ formatOption('notrans') }}</button></td>
             </tr>
@@ -237,6 +236,7 @@ var systemComponents = {
 				<td><button class="info" disabled>组件</button></td>
 				<td><button class="opt" onclick="toggleOpt('tipshown')">主页面提示<br>{{ formatOption('tipshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('songshown')">BGM显示<br>{{ formatOption('songshown') }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('songautoplay')">BGM自动播放<br>{{ formatOption('songautoplay') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('sloganshown')">标语显示<br>{{ formatOption('sloganshown') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsshown');reinitializeNews();">新闻显示<br>{{ formatOption('newsshown') }}</button></td>
             </tr>
@@ -384,7 +384,7 @@ var systemComponents = {
 		template: `<div :style="{
         position: 'fixed',
         left: '20px',
-        bottom: songshown ? '20px' : '-65px',
+        bottom: songshown ? '20px' : '-170px',
         'z-index': '100000'
     	}">
         	<p :style="{
@@ -392,14 +392,71 @@ var systemComponents = {
     		}"
 			>当前游戏运行速度 {{Cal_TPS()[0]}}tps | {{Cal_TPS()[1]}}ms</p>
 			<br>
-        	<audio controls :style="{
-				width: tab ? 'calc(100vw - 50px)' : 'calc(50vw - 50px)'
-			}"
-        	controlsList="nodownload noplaybackrate"
-        	loop>
-        	    <source src="/song/background.mp3" type="audio/mpeg">
-        	    您的浏览器不支持 audio 元素.
-        	</audio>
+
+        <div class="pc" :style="{width: tab ? 'calc(100vw - 70px)' : 'calc(50vw - 70px)'}">
+            <div class="song-info">
+                正在播放: [{{currentIndex+1}}] {{ currentSong.name }}<br>
+                播放进度: <span>{{ formatTime(currentTime) }}</span> / <span>{{ formatTime(duration) }}</span><br>
+				{{ getBar(currentTime,duration) }}
+            </div>
+            
+            <audio 
+                ref="audioPlayer"
+				class="ppl"
+                :src="currentSong.src" 
+                nocontrols
+                @ended="endSong"
+                @pause="isPlaying = false"
+                @play="isPlaying = true"
+                @timeupdate="updateProgress"
+                @loadedmetadata="updateDuration">
+            </audio>
+			
+            <div class="pcc">
+            	<button class="pb" @click="setTime(-15)">-15s</button>
+                <button class="pb" @click="togglePlay">{{ isPlaying ? '暂停' : '播放' }}</button>
+            	<button class="pb" @click="setTime(15)">+15s</button>
+            </div>
+			
+            <div class="pcc">
+                <button class="pb" @click="changeSong(0,false)">上一首</button>
+                <button class="pb" @click="changeSong(1,false)">下一首</button>
+                <button class="pb" @click="toggleMode">切换模式 {{ ["顺序","随机","循环"][changeMode] }}</button>
+            </div>
+			
+            <div class="pcd">
+				音量
+                <input
+				type="range"
+				min="0"
+				max="1"
+				step="0.01"
+				v-model="volume"
+				style="width:80%">
+                <span>{{ Math.round(volume * 100) }}%</span>
+            </div>
+			
+        	<div v-if="showPlayWarning" class="bs">
+        	    <div class="tips" @click="dismissWarning">
+        	        <h1>:)</h1><br>
+					<h3>省流:点一下下面的按钮或者这个框就行了</h3><br><br>
+
+					检测到您打开了自动播放BGM功能<br>
+					通常来说,浏览器会要求用户先与页面交互才能自动播放音频<br>
+					您正好碰到了这种情况!我们暂时无法为您播放音乐<br>
+					这不是一个错误或bug,您可以点击下面的按钮继续游戏<br>
+					在点击按钮后,音乐应该会开始播放<br><br>
+
+					如果您想避免这样的情况,请不要使用浏览器刷新<br>
+					而是使用设置页面的"保存并刷新"按钮<br>
+					<br>
+        	        <button class="pb" @click="dismissWarning">
+        	            好的
+        	        </button>
+        	    </div>
+        	</div>
+        </div>
+
 			<audio id="cc">
         		<source src="/song/ChallengeComplete.ogg" type="audio/ogg">
     		</audio>
@@ -412,7 +469,196 @@ var systemComponents = {
 			<audio id="g1">
         		<source src="/song/song1.mp3" type="audio/mpeg">
     		</audio>
-    	</div>`
+    	</div>`,
+		data() {
+			return {
+				currentIndex: 0,
+				changeMode: 0,
+				isPlaying: false,
+				volume: 0.5,
+				currentTime: 0,
+				duration: 0,
+				showPlayWarning: false,
+				warning: true,
+				songs: [
+					{ name: 'Porter Robinson - dullscythe', src: '/song/background1.mp3' },
+					{ name: 'Adrian Talens - 10#30 P.M. (chill lo-fi mix)', src: '/song/background2.mp3' },
+					{ name: 'ZenithLights、Zane Lucian - Forget', src: '/song/background3.mp3' },
+					{ name: 'Asurah - Still Falling', src: '/song/background4.mp3' },
+					{ name: 'CYPARISS - HEARTS', src: '/song/background5.mp3' },
+					{ name: 'Emptiness - Mice On Venus (extra nostalgic)', src: '/song/background6.mp3' },
+					{ name: 'Firaga、Aika - Flowering Night (from #Touhou 9# Phantasmagoria of Flower View#)(Hi-Tech Full On Edit)', src: '/song/background7.mp3' },
+					{ name: 'かめりあ - Light it up', src: '/song/background8.mp3' },
+					{ name: "aethoro - Arielle's Wish", src: '/song/background9.mp3' },
+					{ name: 'Geoxor - Zenith', src: '/song/background10.mp3' },
+					{ name: 'Laur - Grace', src: '/song/background11.mp3' },
+					{ name: 'Azure Lag、萨斯Sarziar - Virus R', src: '/song/background12.mp3' },
+					{ name: 'Powerful_K - 濒日遗地', src: '/song/background13.mp3' },
+					{ name: 'shameless.、Viznode - windflower', src: '/song/background14.mp3' },
+					{ name: 'Various Artists、Elliot Hsu - Chamber of Shackles', src: '/song/background15.mp3' },
+				]
+			};
+		},
+		watch: {
+			volume(newVolume) {
+				window.musicPlayer.setVolume(newVolume)
+			}
+		},
+		computed: {
+			currentSong() {
+				return this.songs[this.currentIndex] || {};
+			}
+		},
+		methods: {
+			playSong(index, noplay) {
+				if (index >= 0 && index < this.songs.length) {
+					this.currentIndex = index;
+					this.$refs.audioPlayer.load();
+					options.songid = this.currentIndex
+					if (!noplay) {
+						this.$nextTick(() => {
+							if (this.warning) {
+								this.warning = false;
+								this.playCheck()
+							}
+							else this.$refs.audioPlayer.play()
+						});
+					}
+				}
+			},
+			playCheck() {
+				this.$refs.audioPlayer.play()
+					.then(() => {
+						this.isPlaying = true;
+						this.showPlayWarning = false;
+					})
+					.catch(error => {
+						this.isPlaying = false;
+						this.showPlayWarning = true;
+					});
+			},
+			dismissWarning() {
+				this.showPlayWarning = false;
+				this.playCheck();
+			},
+			changeSong(index, noplay) {
+				let mode = this.changeMode
+				if (mode == 1 /* 随机 */) {
+					this.playRandom(noplay)
+				} else {
+					if (index) {
+						this.playNext(noplay)
+					} else {
+						this.playPrev(noplay)
+					}
+				}
+			},
+			endSong() {
+				let mode = this.changeMode
+				if (mode == 0) {
+					this.playNext(false)
+				} else if (mode == 1) {
+					this.playRandom(false)
+				} else if (mode == 2) {
+					this.playRepeat(false)
+				}
+
+			},
+			toggleMode() {
+				this.changeMode = (this.changeMode + 1) % 3
+				options.songmode = this.changeMode
+			},
+			setMode(mode) {
+				this.changeMode = mode
+				options.songmode = this.changeMode
+			},
+			playNext(noplay) {
+				const nextIndex = (this.currentIndex + 1) % this.songs.length;
+				this.playSong(nextIndex, noplay);
+			},
+			playPrev(noplay) {
+				const prevIndex = (this.currentIndex - 1 + this.songs.length) % this.songs.length;
+				this.playSong(prevIndex, noplay);
+			},
+			playRandom(noplay) {
+				let newIndex;
+				do {
+					newIndex = Math.floor(Math.random() * this.songs.length);
+				} while (newIndex === this.currentIndex && this.songs.length > 1);
+				this.playSong(newIndex, noplay);
+			},
+			playRepeat(noplay) {
+				this.playSong(this.currentIndex, noplay);
+			},
+			setVolume(volume) {
+				if (this.$refs.audioPlayer) {
+					this.volume = volume;
+					this.$refs.audioPlayer.volume = volume;
+					options.songvolume = volume;
+				}
+			},
+			togglePlay() {
+				if (this.$refs.audioPlayer) {
+					if (this.isPlaying) {
+						this.$refs.audioPlayer.pause();
+					} else {
+						this.$refs.audioPlayer.play();
+					}
+				}
+			},
+			setTime(time) {
+				if (this.$refs.audioPlayer) {
+					this.$refs.audioPlayer.currentTime = Math.max(this.$refs.audioPlayer.currentTime + time, 0);
+					this.$refs.audioPlayer.play();
+					this.isPlaying = true;
+				}
+			},
+			getBar(current, total) {
+				if (current > total) {
+					current = total;
+				}
+				
+				const progress = current / total;
+				
+				const filledLength = Math.round(progress * 40);
+				
+				const filled = '!'.repeat(filledLength);
+				const empty = '.'.repeat(40 - filledLength);
+				
+				return `<${filled}${empty}>`;
+			},
+			updateProgress() {
+				if (this.$refs.audioPlayer) {
+					this.currentTime = this.$refs.audioPlayer.currentTime;
+				}
+			},
+			updateDuration() {
+				if (this.$refs.audioPlayer) {
+					this.duration = this.$refs.audioPlayer.duration;
+				}
+			},
+			formatTime(seconds) {
+				if (isNaN(seconds)) return '0:00';
+
+				const minutes = Math.floor(seconds / 60);
+				const secs = Math.floor(seconds % 60);
+				return `${minutes}:${secs.toString().padStart(2, '0')}`;
+			},
+		},
+		mounted() {
+			if (this.$refs.audioPlayer) {
+				this.$refs.audioPlayer.volume = this.volume;
+			}
+			this.$refs.audioPlayer.load();
+			window.musicPlayer = {
+				playSong: this.playSong.bind(this),
+				setVolume: this.setVolume.bind(this),
+				setMode: this.setMode.bind(this),
+			};
+		},
+		beforeDestroy() {
+			window.musicPlayer = null;
+		}
 	},
 
 	'ct': {
