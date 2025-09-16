@@ -7,6 +7,8 @@ addLayer("104", {
             unlocked: true,
             points: _D0,
             maxx: _D0,
+            score: _D0,
+            merge: _D0,
             trig: false,
             losetrig: true,
             canmove: true,
@@ -34,6 +36,10 @@ addLayer("104", {
                 ["display-text", function () {
                     return `你所获得的最高点数是 <h2 class = 'nmpt'>${formatWhole(player['104'].ig ? Decimal.pow(2, player['104'].points.div(2)) : player['104'].points)}</h2>, 到达1024完成世界!`
                 }],
+                ["display-text", function () {
+                    return `你本局的分数是 <h2 class = 'nmpt'>${formatWhole(player['104'].score)}</h2>, 你进行了<h2 class = 'nmpt'>${formatWhole(player['104'].merge)}</h2> 次合成`
+                }],
+                "blank"
                 ["display-text", function () {
                     return `W,A,S,D移动方块, L放弃游戏`
                 }],
@@ -88,13 +94,32 @@ addLayer("104", {
             }
         }
         if (player['104'].ch) {
-            let r = chooseWeightInArray[[1, 400], [0, 96]]
-            if (r) layers['104'].switchGrid()
+            let r = chooseWeightInArray([[1,4],[0,96]])
+            if(r) layers['104'].switchGrid()
         }
         player['104'].lastmove = fx
     },
     switchGrid() {
         if (!player['104'].ch) return
+        let a = []
+        let b = []
+        for(i in player['104'].grid){
+            if ((Math.floor(i / 100) < (5 + player['104'].t5 + player['104'].t6)) && ((i % 100) < (5 + player['104'].t5 + player['104'].t6))){
+                a.push(player['104'].grid[i])
+                b.push(i)
+            }
+        }
+        for(k = 0; k<b.length; k++){
+            let i = b[k]
+            r =  chooseOneInArray(a)
+            for(j = 0; j<a.length; j++){
+                if(a[j].eq(r)){
+                    a.splice(j,1)
+                    break
+                }
+            }
+            player['104'].grid[i] = r
+        }
     },
     canMerge(fx) {
         for (i in player['104'].grid) {
@@ -140,7 +165,7 @@ addLayer("104", {
             } else {
                 layers['104'].udClear()
             }
-        } else if (player['104'].cnt == (Math.pow(4 + player['104'].t5, 2))) {
+        } else if (player['104'].cnt == (Math.pow(4 + player['104'].t5 + player['104'].t6, 2))) {
             return
         } else if (!player['104'].canmove) {
             return
@@ -177,6 +202,7 @@ addLayer("104", {
         for (i in player[this.layer].grid) {
             if (player[this.layer].grid[i].lt(p) && player[this.layer].grid[i].gt(0)) {
                 player[this.layer].grid[i] = _D0
+                player['104'].cnt--
             }
         }
     },
@@ -245,16 +271,14 @@ addLayer("104", {
                 t = player['104'].grid[z]
                 t1 = player['104'].grid[i]
                 if (t.eq(0) && t1.eq(0)) {
-                    player['104'].canmove = true
                     continue
                 }
                 if (t.neq(0)) {
                     continue
-                } else {
-                    player['104'].canmove = true
-                    player['104'].grid[z] = t1
-                    player['104'].grid[i] = _D0
                 }
+                player['104'].canmove = true
+                player['104'].grid[z] = t1
+                player['104'].grid[i] = _D0
             }
     },
     mergeGrid(fx) {
@@ -357,9 +381,10 @@ addLayer("104", {
                 player['104'].grid[i] = _D0
                 if (t.neq(0)) player['104'].cnt--
                 player['104'].maxx = player['104'].maxx.max(player['104'].grid[z])
-                player['104'].points = player['104'].maxx
+                player['104'].points = player['104'].points.max(player['104'].points)
+                player['104'].merge = player['104'].merge.add(1)
+                player['104'].score = player['104'].score.add(t.times(2).times(player['104'].merge.times(0.05).add(1).pow(1.2)))
             }
-            player['104'].cnt=4
         }
     },
     udClear() {
@@ -367,11 +392,10 @@ addLayer("104", {
         minn = _D("1e310")
         for (i in player['104'].grid) {
             if ((Math.floor(i / 100) > (4 + player['104'].t5 + player['104'].t6)) || ((i % 100) > (4 + player['104'].t5 + player['104'].t6))) continue
-            console.log(i)
             if (player['104'].grid[i].gt(0)) minn = minn.min(player['104'].grid[i]).max(0)
         }
+        console.log(minn)
         for (i in player['104'].grid) {
-            console.log(i)
             if (player['104'].grid[i].eq(minn) || (player['104'].grid[i].lt(0) && player['104'].grid[i].neq(-9))) {
                 player['104'].grid[i] = _D0
                 player['104'].cnt--
@@ -430,6 +454,8 @@ addLayer("104", {
                 player['104'].losetrig = false
                 player['104'].canmove = true
                 player['104'].cnt = 0
+                player['104'].merge = _D0
+                player['104'].score = _D0
                 layers['104'].numGen()
                 layers['104'].numGen()
                 if (player['104'].ob5) {

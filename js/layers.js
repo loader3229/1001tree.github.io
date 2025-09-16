@@ -307,6 +307,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        104: {
+            name: "真正的游戏大师",
+            done() { return (player[104].maxx.gte(2048)) && (player[104].ob3 && player[104].db && player[104].ob1 && player[104].bl) && (!(player[104].ud || player[104].t5 || player[104].t6))},
+            onComplete() { achievementComplete() },
+            tooltip: "在2048小游戏中, 开启DB, OB1, OB3, BL同时禁用UD和T+合成2048",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/104.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },
