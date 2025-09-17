@@ -26,7 +26,8 @@ addLayer("302", {
         }
     },
     type: "normal",
-    requires: _D2,
+    requires: _D10,
+    base: _D1,
     baseAmount() { return player._3024.points },
     baseResource: "招谡",
     tabFormat: [

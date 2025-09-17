@@ -11,13 +11,6 @@ addLayer("_3024", {
             points: _D0
         }
     },
-    pointsGain() {
-        let g = tmp[this.layer].resetGain.times(tmp[this.layer].passiveGeneration)
-
-        let o = player[this.layer].points.eq(0) ? _D0 : g.div(player[this.layer].points)
-
-        return [g, o]
-    },
     type: "normal",
     requires() { return player[302].fool ? _DInf : _D1 },
     exponent: _D1,
@@ -26,9 +19,7 @@ addLayer("_3024", {
     baseResource: "拚谠",
     tabFormat: [
         ["display-text", function () {
-            let g = layers[this.layer].pointsGain()
-            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>招谡,加成拙谟获取×${format(layers[this.layer].effect())}<br>
-            (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
+            return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>招谡,加成拙谟获取×${format(layers[this.layer].effect())}`
         }],
         "blank",
         ['prestige-button', "飝卆"],

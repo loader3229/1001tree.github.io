@@ -22,7 +22,7 @@ addLayer("404", {
                             return `
                             ${d404.e ? "游戏结束喵<br>" : ""}
                             70万分完成世界<br><br>
-                            最高分数<br><h1 class="p8pt">${formatWhole(d404.mp)}</h1><br><br>
+                            最高分数<br><h1 class="p8pt">${formatWhole(player[404].points)}</h1><br><br>
                             你的分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br><br>
                             ACC<br><h2 class="p8pt">${formatPersent(calAcc())}</h2><br><br>
                             最大连击<br><h2 class="p8pt">${formatWhole(d404.mc)}</h2><br><br>`
@@ -31,11 +31,11 @@ addLayer("404", {
                         ["display-text", function () {
                             return `流速 ${player[this.layer].speed}`
                         }],
-                        ["slider",["speed",5,20]],
+                        ["slider", ["speed", 5, 20]],
                         ["display-text", function () {
                             return `延迟 ${player[this.layer].offset}`
                         }],
-                        ["slider",["offset",-300,300]],
+                        ["slider", ["offset", -300, 300]],
                         "blank",
                         "blank",
                         ["clickable", 11],
@@ -214,6 +214,7 @@ function endGame() {
     d404.e = true
     d404.s = false
     d404.mp = Math.max(d404.p, d404.mp)
+    player[404].points = Math.max(d404.mp, player[404].points)
 
     if (d404.mp > 700000 && player.world[404]) completeWorld(404)
 }
@@ -352,7 +353,7 @@ function g404() {
         var c404 = document.getElementById('c404')
         var t404 = c404.getContext('2d')
     } catch { return }
-    
+
     let t = Date.now() - d404.t
     d404.t = Date.now()
 

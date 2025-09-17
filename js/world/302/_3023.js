@@ -11,13 +11,6 @@ addLayer("_3023", {
             points: _D0
         }
     },
-    pointsGain() {
-        let g = tmp[this.layer].resetGain.times(tmp[this.layer].passiveGeneration)
-
-        let o = player[this.layer].points.eq(0) ? _D0 : g.div(player[this.layer].points)
-
-        return [g, o]
-    },
     type: "static",
     requires() {
         return (hasUpgrade("_3021", 15) ? _D(200) : _DInf)
@@ -33,9 +26,7 @@ addLayer("_3023", {
         里程碑: {
             content: [
                 ["display-text", function () {
-                    let g = layers[this.layer].pointsGain()
-                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拚谠<br>
-            (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(2) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
+                    return `你有<h2 class="p4pt"> ${format(player[this.layer].points)} </h2>拚谠`
                 }],
                 ["display-text", function () {
                     if (hasMilestone(this.layer, 6)) return `你有 <h3 class="c1">${format(player[302][3].power)}</h3> <span class='c1'>五彩能量</span>`

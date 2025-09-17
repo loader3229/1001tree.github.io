@@ -87,7 +87,7 @@ addLayer("_3022", {
             effect() {
                 return getEffect("_3021", 23, _D(0.2))
             },
-            cost() { return hasUpgrade("_3023", 13) ? _D4 : _D(25) },
+            cost() { return hasUpgrade("_3023", 13) ? _D4 : _D(16) },
         },
         15: {
             title: "五效升级",
@@ -99,7 +99,7 @@ addLayer("_3022", {
                 return inChallenge("_3023", 11) && !inChallenge("_3023", 21) ? _D1 : _D5
                     .pow(inChallenge("_3023", 21) ? _D(-1) : _D1)
             },
-            cost() { return hasUpgrade("_3023", 23) ? _D5 : _D(50) },
+            cost() { return hasUpgrade("_3023", 23) ? _D5 : _D(40) },
         },
         21: {
             title: "六根清净",
