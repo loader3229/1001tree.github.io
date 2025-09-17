@@ -457,6 +457,9 @@ var systemComponents = {
         	</div>
         </div>
 
+			<audio id="ts">
+				<source src="/song/track.ogg" type="audio/ogg">
+			</audio>
 			<audio id="cc">
         		<source src="/song/ChallengeComplete.ogg" type="audio/ogg">
     		</audio>
@@ -620,12 +623,12 @@ var systemComponents = {
 				
 				const progress = current / total;
 				
-				const filledLength = Math.round(progress * 40);
+				const filledLength = Math.round(progress * 50);
 				
-				const filled = '!'.repeat(filledLength);
-				const empty = '.'.repeat(40 - filledLength);
+				const filled = '|'.repeat(filledLength);
+				const empty = '_'.repeat(50 - filledLength);
 				
-				return `<${filled}${empty}>`;
+				return `[${filled}${empty}]`;
 			},
 			updateProgress() {
 				if (this.$refs.audioPlayer) {

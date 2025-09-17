@@ -589,6 +589,12 @@ function playsound(id) {
 	audio.play()
 }
 
+function stopsound(id) {
+	let audio = document.getElementById(id)
+	audio.currentTime = 0
+	audio.pause()
+}
+
 function decimalMax(...values) {
 	if (values.length === 0) {
 		return _D0;

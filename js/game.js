@@ -1,5 +1,6 @@
 var player;
 var needCanvasUpdate = true;
+var chart;
 
 
 // Don't change this
@@ -434,11 +435,7 @@ setInterval(() => {
 }, 10000)
 
 setInterval(() => {
-	try {
-		if(getGridData('main', 404)) g404()
-	} catch {
-
-	}
+	try { if (getGridData('main', 404)) g404() } catch { }
 }, 10)
 
 setInterval(function () { needCanvasUpdate = true }, 500)
