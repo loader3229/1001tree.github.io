@@ -1,4 +1,4 @@
-addLayer("_3022", {
+addLayer("3022", {
     symbol: "拙谟",
     resource: "拙谟",
     color: "radial-gradient(hsl(140,15%,50%), hsl(210,5%,50%))",
@@ -22,8 +22,8 @@ addLayer("_3022", {
     type: "normal",
     requires: _D10,
     exponent() { return getEffect(this.layer, 32, _D(0.5)) },
-    baseAmount() { return player._3021.points },
-    gainMult() { return layers._3024.effect() },
+    baseAmount() { return player[3021].points },
+    gainMult() { return layers[3024].effect() },
     baseResource: "拘谞",
     tabFormat: [
         ["display-text", function () {
@@ -73,11 +73,11 @@ addLayer("_3022", {
             mult() {
                 return _D(0.1)
                     .mul(getEffect(this.layer, 15, 1))
-                    .mul(getEffect("_3021", 14, 1))
+                    .mul(getEffect("3021", 14, 1))
             },
             effect() {
-                return layers._3021.clickables[11].charge().mul(this.mult())
-                    .add(getMilestoneEffect("_3023", 2, _D0))
+                return layers[3021].clickables[11].charge().mul(this.mult())
+                    .add(getMilestoneEffect("3023", 2, _D0))
             },
             cost: _D10,
         },
@@ -85,9 +85,9 @@ addLayer("_3022", {
             title: "四无忌惮",
             description() { return `出现神秘力量每秒吞噬你${formatPersent(hasUpgrade(this.layer, 34) ? 0.03 : 0.05,0)}的拘谞,但代价是你自动获得飛卄时获得的拙谟的${formatPersent(this.effect(),0)}` },
             effect() {
-                return getEffect("_3021", 23, _D(0.2))
+                return getEffect("3021", 23, _D(0.2))
             },
-            cost() { return hasUpgrade("_3023", 13) ? _D4 : _D(16) },
+            cost() { return hasUpgrade("3023", 13) ? _D4 : _D(16) },
         },
         15: {
             title: "五效升级",
@@ -96,18 +96,18 @@ addLayer("_3022", {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return inChallenge("_3023", 11) && !inChallenge("_3023", 21) ? _D1 : _D5
-                    .pow(inChallenge("_3023", 21) ? _D(-1) : _D1)
+                return inChallenge("3023", 11) && !inChallenge("3023", 21) ? _D1 : _D5
+                    .pow(inChallenge("3023", 21) ? _D(-1) : _D1)
             },
-            cost() { return hasUpgrade("_3023", 23) ? _D5 : _D(40) },
+            cost() { return hasUpgrade("3023", 23) ? _D5 : _D(40) },
         },
         21: {
             title: "六根清净",
             description: "说真的,你需要舍弃这些身外之物,不再能手动填充拘谞池",
             cost() {
                 return player[this.layer].points
-                    .mul(getMilestoneEffect("_3023", 3, _D1))
-                    .mul(getEffect("_3021", 24, _D1))
+                    .mul(getMilestoneEffect("3023", 3, _D1))
+                    .mul(getEffect("3021", 24, _D1))
             },
             unlocked() { return hasUpgrade(this.layer, 11) && hasUpgrade(this.layer, 12) && hasUpgrade(this.layer, 13) && hasUpgrade(this.layer, 14) && hasUpgrade(this.layer, 15) && hasUpgrade(this.layer, 15) || hasUpgrade(this.layer, this.id) },
         },
@@ -141,7 +141,7 @@ addLayer("_3022", {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return getEffect("_3022", 23, _D0).add(1).pow(1 / 10)
+                return getEffect("3022", 23, _D0).add(1).pow(1 / 10)
             },
             cost: _D(90),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
@@ -158,7 +158,7 @@ addLayer("_3022", {
             cost() {
                 return _D0
             },
-            unlocked() { return hasMilestone("_3023", 5) && hasUpgrade(this.layer, 21) && hasUpgrade(this.layer, 22) && hasUpgrade(this.layer, 23) && hasUpgrade(this.layer, 24) && hasUpgrade(this.layer, 25) && hasUpgrade(this.layer, 25) || hasUpgrade(this.layer, this.id) },
+            unlocked() { return hasMilestone("3023", 5) && hasUpgrade(this.layer, 21) && hasUpgrade(this.layer, 22) && hasUpgrade(this.layer, 23) && hasUpgrade(this.layer, 24) && hasUpgrade(this.layer, 25) && hasUpgrade(this.layer, 25) || hasUpgrade(this.layer, this.id) },
         },
         32: {
             title: "两不相欠",
@@ -179,7 +179,7 @@ addLayer("_3022", {
                 return `×${format(this.effect())}`
             },
             effect() {
-                if (hasChallenge("_3023", 22)) return decimalMax(player[302][1].power.add(1).pow(1 / 3), 1)
+                if (hasChallenge("3023", 22)) return decimalMax(player[302][1].power.add(1).pow(1 / 3), 1)
                 return decimalMax(player[302][1].power.add(1).log(10).pow(1 / 2), 1)
             },
             cost: _D(200),
@@ -212,15 +212,15 @@ addLayer("_3022", {
         player[302].unlock[0] = true
     },
     doReset(resettingLayer) {
-        if (["_3023", "_3024", "_3025", "_3026"].includes(resettingLayer)) {
-            let rpu = hasUpgrade("_3022", 35)
+        if (["3023", "3024", "3025", "3026"].includes(resettingLayer)) {
+            let rpu = hasUpgrade("3022", 35)
 
             layerDataReset(this.layer)
             player[302][1].power = _D0
 
-            if (resettingLayer == "_3023") {
-                if (hasMilestone("_3023", 4)) player[this.layer].upgrades.push(24)
-                if (hasChallenge("_3023", 11)) player[this.layer].upgrades.push(13)
+            if (resettingLayer == "3023") {
+                if (hasMilestone("3023", 4)) player[this.layer].upgrades.push(24)
+                if (hasChallenge("3023", 11)) player[this.layer].upgrades.push(13)
             }
 
             if (rpu) player[this.layer].upgrades.push(35)
@@ -230,5 +230,5 @@ addLayer("_3022", {
         { key: "1", description: "[302] 1: 飛卄", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return true },
-    branches: ["_3023"],
+    branches: ["3023"],
 });

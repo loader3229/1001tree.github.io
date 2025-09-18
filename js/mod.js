@@ -8,7 +8,7 @@ let modInfo = {
 		"world/301.js", "world/302.js", "world/303.js", "world/304.js", "world/305.js",
 		"world/401.js", "world/402.js", "world/403.js", "world/404.js", "world/405.js",
 		"world/501.js", "world/502.js", "world/503.js", "world/504.js", "world/505.js",
-		"world/302/_3021.js", "world/302/_3022.js", "world/302/_3023.js", "world/302/_3024.js",
+		"world/302/3021.js", "world/302/3022.js", "world/302/3023.js", "world/302/3024.js",
 	],
 	discordName: "1001树游戏群",
 	discordLink: "https://qm.qq.com/q/ApvcgvPhN8",

@@ -28,29 +28,29 @@ addLayer("302", {
     type: "normal",
     requires: _D10,
     base: _D1,
-    baseAmount() { return player._3024.points },
+    baseAmount() { return player[3024].points },
     baseResource: "招谡",
     tabFormat: [
         ["display-text", function () {
-            return `你有<h2 class="p4pt"> ${format(player._3021.points)} </h2>拘谞`
+            return `你有<h2 class="p4pt"> ${format(player[3021].points)} </h2>拘谞`
         }],
         ["display-text", function () {
-            return `你有<h2 class="p4pt"> ${format(player._3022.points)} </h2>拙谟`
+            return `你有<h2 class="p4pt"> ${format(player[3022].points)} </h2>拙谟`
         }],
         ["display-text", function () {
-            if (player[302].unlock[0]) return `你有<h2 class="p4pt"> ${format(player._3023.points)} </h2>拚谠`
+            if (player[302].unlock[0]) return `你有<h2 class="p4pt"> ${format(player[3023].points)} </h2>拚谠`
         }],
         ["display-text", function () {
-            if (player[302].unlock[1]) return `你有<h2 class="p4pt"> ${format(player._3024.points)} </h2>招谡`
+            if (player[302].unlock[1]) return `你有<h2 class="p4pt"> ${format(player[3024].points)} </h2>招谡`
         }],
         ["blank", "20px"],
         ["tree", [
-            ['_3021', '_3022', '_3023', '_3024'],
+            ['3021', '3022', '3023', '3024'],
         ]],
         ["row", [
-            ["layer-proxy", ["_3022", [['prestige-button', "飛卄"]]]],
-            ["layer-proxy", ["_3023", [['prestige-button', "飜卅"]]]],
-            ["layer-proxy", ["_3024", [['prestige-button', "飝卆"]]]],
+            ["layer-proxy", ["3022", [['prestige-button', "飛卄"]]]],
+            ["layer-proxy", ["3023", [['prestige-button', "飜卅"]]]],
+            ["layer-proxy", ["3024", [['prestige-button', "飝卆"]]]],
         ]],
         ["row", [
             ['prestige-button', "飞升"],

@@ -1,4 +1,4 @@
-addLayer("_3023", {
+addLayer("3023", {
     symbol: "拚谠",
     resource: "拚谠",
     color: "radial-gradient(hsl(140,30%,50%), hsl(210,15%,50%))",
@@ -13,14 +13,14 @@ addLayer("_3023", {
     },
     type: "static",
     requires() {
-        return (hasUpgrade("_3021", 15) ? _D(200) : _DInf)
+        return (hasUpgrade("3021", 15) ? _D(200) : _DInf)
             .mul(hasMilestone(this.layer, 5) ?
                 getEffect(this.layer, 12, _D2)
                 : _D1)
     },
     exponent: _D(1),
     base: _D(1.1),
-    baseAmount() { return player._3022.points },
+    baseAmount() { return player[3022].points },
     baseResource: "拙谟",
     tabFormat: {
         里程碑: {
@@ -59,7 +59,7 @@ addLayer("_3023", {
                 "clickables",
                 "upgrades"
             ],
-            unlocked() { return hasUpgrade("_3022", 35) }
+            unlocked() { return hasUpgrade("3022", 35) }
         }
     },
     challenges: {
@@ -68,9 +68,9 @@ addLayer("_3023", {
             challengeDescription: "直接获得[三无产品],[四无忌惮]和[六根清净],[五效升级]无效,进入和退出时重置拘谞层和拙谟层",
             goalDescription: "100拘谞",
             rewardDescription: "飜卅时不重置三无产品",
-            canComplete() { return player["_3021"].points.gte(100) },
+            canComplete() { return player["3021"].points.gte(100) },
             onEnter() {
-                player["_3022"].upgrades.push(13, 14, 21)
+                player["3022"].upgrades.push(13, 14, 21)
                 player[302][1].level = _D0
                 player[302][1].exp = _D0
             },
@@ -83,7 +83,7 @@ addLayer("_3023", {
             challengeDescription: "禁用拘谞力量,拘谞的上限为249,进入和退出时重置拘谞层和拙谟层",
             goalDescription: "300拙谟",
             rewardDescription: "解锁一些拘谞升级",
-            canComplete() { return player["_3022"].points.gte(300) },
+            canComplete() { return player["3022"].points.gte(300) },
             onEnter() {
                 player[302][1].level = _D0
                 player[302][1].exp = _D0
@@ -98,9 +98,9 @@ addLayer("_3023", {
             challengeDescription: "直接获得[五效升级],[五效升级]的效果逆转,[容量利用]的效果降低为3%,进入和退出时重置拘谞层和拙谟层",
             goalDescription: "300拙谟",
             rewardDescription: "飜卅时直接获得[飞升的前五阶]",
-            canComplete() { return player["_3022"].points.gte(300) },
+            canComplete() { return player["3022"].points.gte(300) },
             onEnter() {
-                player["_3022"].upgrades.push(15)
+                player["3022"].upgrades.push(15)
                 player[302][1].level = _D0
                 player[302][1].exp = _D0
             },
@@ -114,9 +114,9 @@ addLayer("_3023", {
             challengeDescription: "同时进行前三个挑战,且[五效升级]实际效果基于群众叛徒(这里面真有一个奖励关,叛徒!)",
             goalDescription: "购买[三缄其口]",
             rewardDescription: "完成世界<br>可获取最大拙谟,优化[三缄其口]的公式",
-            canComplete() { return hasUpgrade("_3022", 33) },
+            canComplete() { return hasUpgrade("3022", 33) },
             onEnter() {
-                player["_3022"].upgrades.push(13, 14, 15, 21)
+                player["3022"].upgrades.push(13, 14, 15, 21)
                 player[302][1].level = _D0
                 player[302][1].exp = _D0
             },
@@ -150,7 +150,7 @@ addLayer("_3023", {
             display() { return "把你的<span class='c1'>五彩能量</span>转化为招谡" },
             canClick() { return player[302][3].power.gt(0) },
             onClick() {
-                player._3024.points = player._3024.points.add(player[302][3].power)
+                player[3024].points = player[3024].points.add(player[302][3].power)
                 player[302][3].power = _D0
             },
             unlocked() { return hasChallenge(this.layer, 31) }
@@ -194,7 +194,7 @@ addLayer("_3023", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return decimalMax(upgradeEffect("_3021", 13).pow(1 / 2)
+                return decimalMax(upgradeEffect("3021", 13).pow(1 / 2)
                     .mul(decimalMax(player[302][3].power.pow(0.25), 1)), 0)
             },
             cost: _D2,
@@ -207,7 +207,7 @@ addLayer("_3023", {
                 return `+${format(this.effect())}`
             },
             effect() {
-                return decimalMax(player._3021.points.pow(1 / 3).sub(1), 0)
+                return decimalMax(player[3021].points.pow(1 / 3).sub(1), 0)
             },
             cost: _D3,
             unlocked() { return hasUpgrade(this.layer, this.id - 10) || hasUpgrade(this.layer, this.id) },
@@ -249,7 +249,7 @@ addLayer("_3023", {
             effectDescription() { return `你都已经20了,是时候收集小道具了,[三无产品]充能效率最终增加拘谞池容量的5%<br>效果: +${format(this.effect())} (硬上限在100)` },
             done() { return player[this.layer].points.gte(2) },
             effect() {
-                let e = layers._3021.clickables[11].limit().mul(
+                let e = layers[3021].clickables[11].limit().mul(
                     inChallenge(this.layer, 21) ? 0.03 : 0.05
                 )
 
@@ -302,10 +302,10 @@ addLayer("_3023", {
         )
     },
     doReset(resettingLayer) {
-        if (["_3024", "_3025", "_3026"].includes(resettingLayer)) {
+        if (["3024", "3025", "3026"].includes(resettingLayer)) {
             let ch = hasMilestone(this.layer, 7)
 
-            if (resettingLayer == "_3024") {
+            if (resettingLayer == "3024") {
                 player[302].fool = true
                 layerDataReset(this.layer, ["challenges", "milestones", ...(hasMilestone(this.layer, 7) ? ["upgrades"] : [])])
             } else {
@@ -323,5 +323,5 @@ addLayer("_3023", {
         { key: "2", description: "[302] 2: 飜卅", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[0] },
-    branches: ["_3024"],
+    branches: ["3024"],
 });

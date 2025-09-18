@@ -1,4 +1,4 @@
-addLayer("_3024", {
+addLayer("3024", {
     symbol: "招谡",
     resource: "招谡",
     color: "radial-gradient(hsl(140,45%,50%), hsl(210,30%,50%))",
@@ -15,7 +15,7 @@ addLayer("_3024", {
     requires() { return player[302].fool ? _DInf : _D1 },
     exponent: _D1,
     directMult() { return player[302].fool ? _D1 : divNum(_DInf) },
-    baseAmount() { return player._3023.points },
+    baseAmount() { return player[3023].points },
     baseResource: "拚谠",
     tabFormat: [
         ["display-text", function () {
@@ -34,7 +34,7 @@ addLayer("_3024", {
         player[302].unlock[2] = true
     },
     doReset(resettingLayer) {
-        if (["_3025", "_3026"].includes(resettingLayer)) {
+        if (["3025", "3026"].includes(resettingLayer)) {
             layerDataReset(this.layer)
         }
     },
@@ -42,5 +42,5 @@ addLayer("_3024", {
         { key: "3", description: "[302] 3: 飝卆", onPress() { doReset(this.layer) } },
     ],
     layerShown() { return player[302].unlock[1] },
-    branches: ["_3025"],
+    branches: ["3025"],
 });
