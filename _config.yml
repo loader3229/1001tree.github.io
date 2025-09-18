@@ -1,0 +1,18 @@
+include:
+  - resources
+  
+headers:
+  - files:
+      - "resources/**/*.mp3"
+      - "resources/**/*.wav"
+      - "resources/**/*.ogg"
+      - "resources/**/*.gif"
+      - "resources/**/*.jpg"
+      - "resources/**/*.jpeg"
+      - "resources/**/*.png"
+      - "resources/**/*.woff2"
+      - "resources/**/*.otf"
+      - "resources/**/*.ttf"
+      - "resources/**/*.ico"
+    values:
+      Cache-Control: "public, max-age=15552000"

@@ -218,7 +218,7 @@ function load() {
 	window.musicPlayer.setMode(options.songmode)
 	window.musicPlayer.playSong(options.songid, !options.songautoplay)
 
-	fetch('./resources/chart.json')
+	fetch('./resources/chart/chart.json')
 		.then(response => response.json())
 		.then(data => {
 			chart = data

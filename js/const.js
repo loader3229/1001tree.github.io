@@ -206,8 +206,7 @@ function getNewsList() {
 			// 特殊新闻
 			' <a href="https://xfqtphx.netlify.app/" target="_blank">值得每一个英雄尊重的网站</a>',
 			' <a href="https://photokit.com/colors/eyedropper" target="_blank">也许你在某一夜会用到的工具</a>',
-			' <img src="resources/bx.gif" width="40px"/>',
-			' <img src="resources/ksm.gif" width="60px"/>',
+			' <img src="resources/pic/bx.gif" width="40px"/>',
 			' <span class="c1">超级新闻已启动,请支付会员费</span>',
 			`玩家自定义新闻,不代表开发者立场|${player.global.mynews}`,
 			`我不想写新闻了,你自己写:<input
@@ -472,7 +471,7 @@ function getSloganList() {
 		randomString(20),
 		() => { return () => false },
 		`<button onclick="playsound('g1')">Nothing can beat your 1001tree</button>`,
-		'<img src="resources/bx.gif" />',
+		'<img src="resources/pic/bx.gif" />',
 		`This is a <span style="background: linear-gradient(in hsl longer hue 90deg,
             hsl(-30, 100%, 50%),
             hsl(330, 100%, 50%));
@@ -626,10 +625,10 @@ function getHint() {
 function getProblemList() {
 	return [
 		{
-			problem: '已知三角形ABC内接于圆O, AB=AC, ∠BAC=42°, D是圆上一点, 若BD是圆O直径, 连接CD, 求∠DBC大小? <br> <img src="../pic/prob1.jpg" width="250px"/>',
+			problem: '已知三角形ABC内接于圆O, AB=AC, ∠BAC=42°, D是圆上一点, 若BD是圆O直径, 连接CD, 求∠DBC大小? <br> <img src="../resources/pic/prob1.jpg" width="250px"/>',
 			options: ['48°', '42°', '52°', '38°'], answer: 21
 		}, {
-			problem: '你执白方,这道题是一个n步杀,请问杀着是什么 <br><img src="../pic/prob2.jpg" width="250px"/>',
+			problem: '你执白方,这道题是一个n步杀,请问杀着是什么 <br><img src="../resources/pic/prob2.jpg" width="250px"/>',
 			options: ['Qf2+', 'Qg2#', 'f1=Q#', 'Qxh1#'], answer: 22
 		}, {
 			problem: '谁是这个游戏的第一个开发者?',
@@ -919,10 +918,10 @@ let a = {
 function getHardProblemList() {
 	return [
 		{
-			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是?<br><img src="../pic/prob3.jpg" width="250px"/>',
+			problem: '已知抛物线的解析式为 y=(1/2)x^2-(3/2)x. A(3,0). P为抛物线上一点, 横坐标为-2, D在OA上, DF⊥OA, 交PA于点C, CF=CD, 点E在第二象限, 连接EC, EC⊥CD, 连接ED, 过E作ED的垂线, 交过F且平行于AC的直线于点G, 连接DG交AC于点M, 过点A作x轴的垂线, 交EC的延长线于点B, 交DG的延长线于点R, CM=(√2/3)RB, 连接RE并延长交抛物线于N, RA=RN, 点T在三角形ADM内, 连接AT,CT, ∠ATC=135°, DH⊥AT, 交AT的延长线于点H, HT=2DH,点T的坐标是?<br><img src="../resources/pic/prob3.jpg" width="250px"/>',
 			options: ['(31/17,5/17)', '((10√17)/17,√17)', '(5/31,5/17)', '(√17/10,5/31)'], answer: 21 // A=21 B=22 C=23 D=24
 		}, {
-			problem: '<img src="../pic/prob4.jpg" width="250px"/>',
+			problem: '<img src="../resources/pic/prob4.jpg" width="250px"/>',
 			options: ['20021001', '20200110', '20020101', '20201001'], answer: 22
 		}, {
 			problem: '在TMT中,若想修改玩家所处的页面,可以使用哪个参数?',

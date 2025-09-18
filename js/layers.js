@@ -175,7 +175,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p1pt">完成1世界</span>' : `完成${formatWhole(player.points)}/1世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/11.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/11.jpg)",
             },
         },
         12: {
@@ -184,7 +184,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p2pt">完成5世界</span>' : `完成${formatWhole(player.points)}/5世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/12.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/12.jpg)",
             },
         },
         13: {
@@ -193,7 +193,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p4pt">完成10世界</span>' : `完成${formatWhole(player.points)}/10世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/13.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/13.jpg)",
             },
         },
         14: {
@@ -202,7 +202,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p6pt">完成15世界</span>' : `完成${formatWhole(player.points)}/15世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/14.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/14.jpg)",
             },
         },
         15: {
@@ -211,7 +211,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p8pt">完成20世界</span>' : `完成${formatWhole(player.points)}/20世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/15.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/15.jpg)",
             },
         },
         16: {
@@ -220,7 +220,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '<span class="p9pt">完成25世界</span>' : `完成${formatWhole(player.points)}/25世界` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/16.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/16.jpg)",
             },
         },
         17: {
@@ -229,7 +229,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip() { return this.done() ? '在结束(?)后选择继续游戏' : `现在谈这个为时尚早` },
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/17.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/17.jpg)",
             },
         },
         21: {
@@ -238,7 +238,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "在第1夜获得震撼人心的1e4444点数",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/21.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/21.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -248,7 +248,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "在第10夜为了击破一堵墙而点击1000次",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/22.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/22.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -263,7 +263,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "敷衍的回答所有问题,通过按下Enter键,当然你还不能点太快否则就会误判",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/23.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/23.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -273,7 +273,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "进行无收益飝卆",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/24.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/24.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -283,7 +283,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "理论上最难完成的成就<br>但也最容易完成<br>一命通关愚人节小游戏",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/101.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/101.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -293,7 +293,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "到最后一刻才点到25",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/102.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/102.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -303,7 +303,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "在暴涨子小游戏中随机超频效果达到0％以下",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/103.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/103.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -313,7 +313,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "在2048小游戏中, 开启DB, OB1, OB3, BL同时禁用UD和T+合成2048",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/104.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/104.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -323,7 +323,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "打开高质量的树.质量越高,引力越大,就能吸走更多成就!",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/201.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/201.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -333,7 +333,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "尝试修改游戏速率,但失败了",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/202.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/202.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -343,7 +343,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "访问未使用的愚人节失败方法",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/203.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/203.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -353,7 +353,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "导入存档",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/204.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/204.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -363,7 +363,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "点击硬重置按钮但不硬重置",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/205.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/205.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -373,7 +373,7 @@ addLayer("ach", {
             onComplete() { achievementComplete() },
             tooltip: "将名字设置为开发者之一",
             style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(achpic/206.jpg)",
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/206.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },

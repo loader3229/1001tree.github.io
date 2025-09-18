@@ -63,7 +63,7 @@ addLayer("302", {
     ],
     milestones: {
         1: {
-            requirementDescription() { return `<img src="resources/bx.gif" width="40px"/>` },
+            requirementDescription() { return `<img src="resources/pic/bx.gif" width="40px"/>` },
             effectDescription() { return `获得1额外梦力,这个真的值得吗?` },
             done() { return player[this.layer].points.gte(1) },
             onComplete() { player.main.points = player.main.points.add(1) },

@@ -74,9 +74,9 @@ addLayer("502", {
             let { x, y } = this.idtoxy(id)
 
             if (player._502.aiopen[y][x] && player._502.ai == 6) {
-                backgroundImage = `url(pic/502_ai.png)`
+                backgroundImage = `url(resources/pic/502_ai.png)`
             } else if (data >= 0) {
-                backgroundImage = `url(pic/502_${data}.png)`
+                backgroundImage = `url(resources/pic/502_${data}.png)`
             }
             else {
                 backgroundImage = "unset"

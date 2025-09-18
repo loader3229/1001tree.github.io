@@ -458,19 +458,19 @@ var systemComponents = {
         </div>
 
 			<audio id="ts">
-				<source src="/song/track.ogg" type="audio/ogg">
+				<source src="/resources/song/track.ogg" type="audio/ogg">
 			</audio>
 			<audio id="cc">
-        		<source src="/song/ChallengeComplete.ogg" type="audio/ogg">
+        		<source src="/resources/song/ChallengeComplete.ogg" type="audio/ogg">
     		</audio>
 			<audio id="s1">
-        		<source src="/song/sound1.wav" type="audio/wav">
+        		<source src="/resources/song/sound1.wav" type="audio/wav">
     		</audio>
 			<audio id="s2">
-        		<source src="/song/sound2.wav" type="audio/wav">
+        		<source src="/resources/song/sound2.wav" type="audio/wav">
     		</audio>
 			<audio id="g1">
-        		<source src="/song/song1.mp3" type="audio/mpeg">
+        		<source src="/resources/song/song1.mp3" type="audio/mpeg">
     		</audio>
     	</div>`,
 		data() {
@@ -484,25 +484,25 @@ var systemComponents = {
 				showPlayWarning: false,
 				warning: true,
 				songs: [
-					{ name: 'Porter Robinson - dullscythe', src: '/song/background1.mp3' },
-					{ name: 'Adrian Talens - 10#30 P.M. (chill lo-fi mix)', src: '/song/background2.mp3' },
-					{ name: 'ZenithLights、Zane Lucian - Forget', src: '/song/background3.mp3' },
-					{ name: 'Asurah - Still Falling', src: '/song/background4.mp3' },
-					{ name: 'CYPARISS - HEARTS', src: '/song/background5.mp3' },
-					{ name: 'Emptiness - Mice On Venus (extra nostalgic)', src: '/song/background6.mp3' },
-					{ name: 'Firaga、Aika - Flowering Night (from #Touhou 9# Phantasmagoria of Flower View#)(Hi-Tech Full On Edit)', src: '/song/background7.mp3' },
-					{ name: 'かめりあ - Light it up', src: '/song/background8.mp3' },
-					{ name: "aethoro - Arielle's Wish", src: '/song/background9.mp3' },
-					{ name: 'Geoxor - Zenith', src: '/song/background10.mp3' },
-					{ name: 'Laur - Grace', src: '/song/background11.mp3' },
-					{ name: 'Azure Lag、萨斯Sarziar - Virus R', src: '/song/background12.mp3' },
-					{ name: 'Powerful_K - 濒日遗地', src: '/song/background13.mp3' },
-					{ name: 'shameless.、Viznode - windflower', src: '/song/background14.mp3' },
-					{ name: 'Various Artists、Elliot Hsu - Chamber of Shackles', src: '/song/background15.mp3' },
-					{ name: 'Raimukun、Cansol、Various Artists - 量子力学のためのピアノ協奏曲', src: '/song/background16.mp3' },
-					{ name: 'Puru - Trap Crow', src: '/song/background17.mp3' },
-					{ name: "Massive New Krew、YUC'e - UN1TE feat.YUC'e", src: '/song/background18.mp3' },
-					{ name: 'RiraN、Choi JinYong - Find You', src: '/song/background19.mp3' },
+					{ name: 'Porter Robinson - dullscythe', src: '/resources/song/background1.mp3' },
+					{ name: 'Adrian Talens - 10#30 P.M. (chill lo-fi mix)', src: '/resources/song/background2.mp3' },
+					{ name: 'ZenithLights、Zane Lucian - Forget', src: '/resources/song/background3.mp3' },
+					{ name: 'Asurah - Still Falling', src: '/resources/song/background4.mp3' },
+					{ name: 'CYPARISS - HEARTS', src: '/resources/song/background5.mp3' },
+					{ name: 'Emptiness - Mice On Venus (extra nostalgic)', src: '/resources/song/background6.mp3' },
+					{ name: 'Firaga、Aika - Flowering Night (from #Touhou 9# Phantasmagoria of Flower View#)(Hi-Tech Full On Edit)', src: '/resources/song/background7.mp3' },
+					{ name: 'かめりあ - Light it up', src: '/resources/song/background8.mp3' },
+					{ name: "aethoro - Arielle's Wish", src: '/resources/song/background9.mp3' },
+					{ name: 'Geoxor - Zenith', src: '/resources/song/background10.mp3' },
+					{ name: 'Laur - Grace', src: '/resources/song/background11.mp3' },
+					{ name: 'Azure Lag、萨斯Sarziar - Virus R', src: '/resources/song/background12.mp3' },
+					{ name: 'Powerful_K - 濒日遗地', src: '/resources/song/background13.mp3' },
+					{ name: 'shameless.、Viznode - windflower', src: '/resources/song/background14.mp3' },
+					{ name: 'Various Artists、Elliot Hsu - Chamber of Shackles', src: '/resources/song/background15.mp3' },
+					{ name: 'Raimukun、Cansol、Various Artists - 量子力学のためのピアノ協奏曲', src: '/resources/song/background16.mp3' },
+					{ name: 'Puru - Trap Crow', src: '/resources/song/background17.mp3' },
+					{ name: "Massive New Krew、YUC'e - UN1TE feat.YUC'e", src: '/resources/song/background18.mp3' },
+					{ name: 'RiraN、Choi JinYong - Find You', src: '/resources/song/background19.mp3' },
 				]
 			};
 		},

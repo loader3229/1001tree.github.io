@@ -1,41 +1,41 @@
 @font-face {
 	font-family: Angus;
-	src: url('../font/angus.otf');
+	src: url('../resources/font/angus.otf');
 	unicode-range: U+0000-007F;
 }
 
 @font-face {
 	font-family: Stepmono;
-	src: url('../font/Steps-Mono.otf');
+	src: url('../resources/font/Steps-Mono.otf');
 	unicode-range: U+0000-007F;
 }
 
 @font-face {
 	font-family: Unica;
-	src: url('../font/unica-one.ttf');
+	src: url('../resources/font/unica-one.ttf');
 	unicode-range: U+0000-007F;
 }
 
 @font-face {
 	font-family: Sligoil;
-	src: url('../font/Sligoil-Micro.otf');
+	src: url('../resources/font/Sligoil-Micro.otf');
 	unicode-range: U+0000-007F;
 }
 
 @font-face {
 	font-family: Mathd;
-	src: url('../font/MATHD.ttf');
+	src: url('../resources/font/MATHD.ttf');
 	unicode-range: U+0000-007F;
 }
 
 @font-face {
 	font-family: MiSans;
-	src: url('../font/MiSans.woff2');
+	src: url('../resources/font/MiSans.woff2');
 }
 
 @font-face {
 	font-family: DJGSHT;
-	src: url('../font/等距更纱黑体.woff2');
+	src: url('../resources/font/等距更纱黑体.woff2');
 }
 
 /* Global things */
@@ -66,7 +66,7 @@ input {
 }
 
 .achlocked {
-	background-image: linear-gradient(to bottom, #FF000040, #00FFFF40),url(../achpic/0.jpg)  !important;
+	background-image: linear-gradient(to bottom, #FF000040, #00FFFF40),url(../resources/achpic/0.jpg)  !important;
 	color: #00000000 !important;
 	text-shadow: unset !important;
 	cursor: not-allowed;
