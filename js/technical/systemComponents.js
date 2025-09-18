@@ -499,6 +499,10 @@ var systemComponents = {
 					{ name: 'Powerful_K - 濒日遗地', src: '/song/background13.mp3' },
 					{ name: 'shameless.、Viznode - windflower', src: '/song/background14.mp3' },
 					{ name: 'Various Artists、Elliot Hsu - Chamber of Shackles', src: '/song/background15.mp3' },
+					{ name: 'Raimukun、Cansol、Various Artists - 量子力学のためのピアノ協奏曲', src: '/song/background16.mp3' },
+					{ name: 'Puru - Trap Crow', src: '/song/background17.mp3' },
+					{ name: "Massive New Krew、YUC'e - UN1TE feat.YUC'e", src: '/song/background18.mp3' },
+					{ name: 'RiraN、Choi JinYong - Find You', src: '/song/background19.mp3' },
 				]
 			};
 		},
@@ -620,14 +624,14 @@ var systemComponents = {
 				if (current > total) {
 					current = total;
 				}
-				
+
 				const progress = current / total;
-				
+
 				const filledLength = Math.round(progress * 50);
-				
+
 				const filled = '|'.repeat(filledLength);
 				const empty = '_'.repeat(50 - filledLength);
-				
+
 				return `[${filled}${empty}]`;
 			},
 			updateProgress() {
