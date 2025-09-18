@@ -8,6 +8,7 @@ addLayer("404", {
             points: _D0,
             speed: 10,
             offset: 0,
+            judge: 0,
         }
     },
     type: "none",
@@ -20,23 +21,26 @@ addLayer("404", {
                     [
                         ["display-text", function () {
                             return `
-                            ${d404.e ? "游戏结束喵<br>" : ""}
+                            ${d404.e ? "游戏结束喵<br>" : ""}<br>
                             70万分完成世界<br><br>
                             最高分数<br><h1 class="p8pt">${formatWhole(player[404].points)}</h1><br><br>
-                            你的分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br><br>
+                            你的分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
+                            准度 ${format(calApc())}<br>
+                            绝赞 ${format(calMax())}<br>
+                            连击 ${format(calCom())}<br>
+                            <br>
                             ACC<br><h2 class="p8pt">${formatPersent(calAcc())}</h2><br><br>
-                            最大连击<br><h2 class="p8pt">${formatWhole(d404.mc)}</h2><br><br>`
+                            最大连击<br><h2 class="p8pt">${formatWhole(d404.mc)}</h2><br><br>
+                            平均偏移<br><h2 class="p8pt">${format(calDel(), 1)}ms</h2><br><br>`
                         }],
-                        "blank",
                         ["display-text", function () {
                             return `流速 ${player[this.layer].speed}`
                         }],
-                        ["slider", ["speed", 5, 20]],
+                        ["slider", ["speed", 3, 25]],
                         ["display-text", function () {
                             return `延迟 ${player[this.layer].offset}`
                         }],
                         ["slider", ["offset", -300, 300]],
-                        "blank",
                         "blank",
                         ["clickable", 11],
                         ["clickable", 12],
@@ -51,15 +55,19 @@ addLayer("404", {
                     [
                         ["display-text", function () {
                             return `
-                            ${getText(0)}(${formatPersent(w[0])})<br><h2 class="p8pt">${formatWhole(d404.j[0])}</h2><br><br>
-                            ${getText(1)}(${formatPersent(w[1])})<br><h2 class="p8pt">${formatWhole(d404.j[1])}</h2><br><br>
-                            ${getText(2)}(${formatPersent(w[2])})<br><h2 class="p8pt">${formatWhole(d404.j[2])}</h2><br><br>
-                            ${getText(3)}(${formatPersent(w[3])})<br><h2 class="p8pt">${formatWhole(d404.j[3])}</h2><br><br>
-                            ${getText(4)}(${formatPersent(w[4])})<br><h2 class="p8pt">${formatWhole(d404.j[4])}</h2><br><br>
-                            ${getText(5)}(${formatPersent(w[5])})<br><h2 class="p8pt">${formatWhole(d404.j[5])}</h2>`
+                            ${getText(0)}(${formatPersent(w404[0])})<br><h2 class="p8pt">${formatWhole(d404.j[0])}</h2><br><br>
+                            ${getText(1)}(${formatPersent(w404[1])})<br><h2 class="p8pt">${formatWhole(d404.j[1])}</h2><br><br>
+                            ${getText(2)}(${formatPersent(w404[2])})<br><h2 class="p8pt">${formatWhole(d404.j[2])}</h2><br><br>
+                            ${getText(3)}(${formatPersent(w404[3])})<br><h2 class="p8pt">${formatWhole(d404.j[3])}</h2><br><br>
+                            ${getText(4)}(${formatPersent(w404[4])})<br><h2 class="p8pt">${formatWhole(d404.j[4])}</h2><br><br>
+                            ${getText(5)}(${formatPersent(w404[5])})<br><h2 class="p8pt">${formatWhole(d404.j[5])}</h2><br><br>
+                            FAST<br><h2 class="p8pt">${formatWhole(d404.j[6])}</h2><br>
+                            SLOW<br><h2 class="p8pt">${formatWhole(d404.j[7])}</h2>`
                         }],
                         "blank",
-                        ["clickable", 13],
+                        ["clickable", 21],
+                        ["clickable", 22],
+                        ["clickable", 23],
                     ]
                 ],
             ]
@@ -75,20 +83,40 @@ addLayer("404", {
                 d404.s = true
                 d404.st = Date.now()
                 startChart()
-                setTimeout(() => { playsound("ts") }, 3000)
+                to404 = setTimeout(() => { playsound("ts") }, 3000)
                 document.getElementById("ts").addEventListener('ended', endGame, { once: true });
             },
             canClick() { return true },
             style() {
                 return {
                     width: "200px",
-                    minHeight: "60px",
-                    height: "60px",
+                    minHeight: "75px",
+                    height: "75px",
                     backgroundColor: "#DDD"
                 }
             }
         },
         12: {
+            title: "结束游戏",
+            display: "如果游戏结束歌还在播放,请点我",
+            onClick() {
+                d404.u = false
+                d404.s = false
+                stopsound("ts")
+                startChart()
+                document.getElementById("ts").removeEventListener('ended', endGame, { once: true });
+            },
+            canClick() { return true },
+            style() {
+                return {
+                    width: "200px",
+                    minHeight: "75px",
+                    height: "75px",
+                    backgroundColor: "#DDD"
+                }
+            }
+        },
+        21: {
             title: "初始设置",
             display: "重置流速和延迟",
             onClick() {
@@ -105,16 +133,47 @@ addLayer("404", {
                 }
             }
         },
-        13: {
-            title: "结束游戏",
-            display: "",
-            onClick() {
-                d404.s = false
-                stopsound("ts")
-                startChart()
-                document.getElementById("ts").removeEventListener('ended', endGame, { once: true });
+        22: {
+            title: "判定",
+            display() {
+                if (player[this.layer].judge == 0) return "普判<br>常规判定"
+                else if (player[this.layer].judge == 1) return "宽判<br>将无法获得FOX,且BAD判定范围更大"
+                else if (player[this.layer].judge == 2) return "严判<br>去除FoX,但判定更严格"
+                else if (player[this.layer].judge == 3) return "糊判<br>打到就是FOX"
+                return "你把判定改炸了,朋友"
             },
-            canClick() { return true },
+            onClick() {
+                if (player[this.layer].judge == 1) {
+                    player[this.layer].judge = 2
+                    return
+                }
+                else if (player[this.layer].judge == 2) {
+                    player[this.layer].judge = 3
+                    return
+                }
+                else if (player[this.layer].judge == 3) {
+                    player[this.layer].judge = 0
+                    return
+                }
+                player[this.layer].judge = 1
+            },
+            canClick() { return !d404.s },
+            style() {
+                return {
+                    width: "200px",
+                    minHeight: "60px",
+                    height: "60px",
+                    backgroundColor: "#DDD"
+                }
+            }
+        },
+        23: {
+            title: "AUTO",
+            display: "不计分,不可关闭<br>除非结束游戏",
+            onClick() {
+                d404.u = true
+            },
+            canClick() { return !d404.u },
             style() {
                 return {
                     width: "200px",
@@ -150,11 +209,14 @@ addLayer("404", {
     ],
 });
 
-var i404 = null
+let to404
+let i404 = null
 
 let crt = {}
 
 const d404 = {
+    u: false,
+    jt: 0,
     e: false,
     s: false,
     t: Date.now(),
@@ -175,6 +237,11 @@ const d404 = {
         0,
         0,
         0,
+        0,
+        0
+    ],
+    d: [
+        0, 0
     ],
     c: 0,
     mc: 0,
@@ -192,7 +259,7 @@ const note = {
 }
 
 const tn = 2877
-const w = [
+const w404 = [
     1,
     0.99,
     0.6,
@@ -201,22 +268,54 @@ const w = [
     0,
 ]
 
-const jt = [
-    50,
-    135,
-    200,
-    250,
-    300,
-    -250
+const jt404 = [
+    [
+        70,
+        135,
+        200,
+        250,
+        300,
+        -250,
+        1
+    ],
+    [
+        -1,
+        200,
+        300,
+        400,
+        600,
+        -400,
+        0.75
+    ],
+    [
+        50,
+        -1,
+        100,
+        150,
+        200,
+        -150,
+        1.1
+    ],
+    [
+        300,
+        -1,
+        -1,
+        -1,
+        -1,
+        -300,
+        0.1
+    ]
 ]
 
 function endGame() {
     d404.e = true
     d404.s = false
-    d404.mp = Math.max(d404.p, d404.mp)
-    player[404].points = Math.max(d404.mp, player[404].points)
-
-    if (d404.mp > 700000 && player.world[404]) completeWorld(404)
+    if (!d404.u) {
+        d404.mp = Math.max(d404.p, d404.mp)
+        player[404].points = Math.max(d404.mp, player[404].points)
+        if (d404.mp > 700000 && player.world[404]) completeWorld(404)
+    }
+    d404.u = false
 }
 
 function calAcc() {
@@ -225,7 +324,7 @@ function calAcc() {
     let wc = 0
     for (let i = 0; i < 6; i++) {
         nc += j[i]
-        wc += j[i] * w[i];
+        wc += j[i] * w404[i];
     }
     if (nc == 0) {
         return 0
@@ -233,17 +332,26 @@ function calAcc() {
     return wc / nc
 }
 
+function calDel() {
+    if (d404.d[0] == 0) return 0
+    return d404.d[1] / d404.d[0]
+}
+
 function calApc() {
     const j = d404.j
     let wc = 0
     for (let i = 0; i < 6; i++) {
-        wc += j[i] * w[i];
+        wc += j[i] * w404[i];
     }
-    return wc / tn
+    return wc / tn * 800000
 }
 
 function calMax() {
-    return d404.j[0] / tn
+    return d404.j[0] / tn * 200000
+}
+
+function calCom() {
+    return d404.mc / tn * 100000
 }
 
 function combo(add) {
@@ -256,7 +364,7 @@ function combo(add) {
 }
 
 function addj(i) {
-    d404.p = calApc() * 800000 + d404.mc / tn * 100000 + calMax() * 200000
+    d404.p = d404.u ? -1100000 : (calApc() + calMax() + calCom()) * jt404[player[404].judge][6]
     d404.j[i]++
 
     d404.m.i = i
@@ -289,13 +397,15 @@ function getText(i) {
 }
 
 function startChart() {
-    for (let i = 0; i < 4; i++) {
+    for (i in note) {
         note[i] = []
         d404.a[i] = 0
     }
-    for (let i = 0; i < 6; i++) {
+    for (i in d404.j) {
         d404.j[i] = 0
     }
+    d404.d[0] = 0
+    d404.d[1] = 0
     d404.p = 0
     d404.m.i = -1
     crt = [...chart]
@@ -314,9 +424,12 @@ function getTime() {
 
 function clickTrack(t) {
     d404.a[t] = 1
+    let jt = jt404[player[404].judge]
 
     if (note[t].length == 0) return
     let dt = note[t][0].t - d404.tt
+    let fs = dt > 0
+    let dl = dt
     dt = Math.abs(dt)
 
     if (dt < jt[0]) {
@@ -330,11 +443,13 @@ function clickTrack(t) {
         combo(true)
     }
     else if (dt < jt[2]) {
+        calfs(fs)
         addj(2)
         note[t].shift()
         combo(true)
     }
     else if (dt < jt[3]) {
+        calfs(fs)
         addj(3)
         note[t].shift()
         combo(true)
@@ -345,7 +460,12 @@ function clickTrack(t) {
         combo(false)
     }
     else return
+    d404.d[0]++
+    d404.d[1] += dl
 
+    function calfs(a) {
+        a ? d404.j[6]++ : d404.j[7]++
+    }
 }
 
 function g404() {
@@ -357,11 +477,11 @@ function g404() {
     let t = Date.now() - d404.t
     d404.t = Date.now()
 
-    if (t > 500 && d404.s) { alert("异常:刻间隔过长,已自动结束游戏"); clickClickable(404, 12); }
+    if (t > 500 && d404.s) { d404.s = false; clickClickable(404, 12); alert("异常:刻间隔过长,已自动结束游戏"); }
 
     const g1 = t404.createLinearGradient(0, 0, 0, 780)
-    g1.addColorStop(0, '#FFFFFF00')
-    g1.addColorStop(0.3, '#FFFFFFCC')
+    g1.addColorStop(0, '#FFFFFF22')
+    g1.addColorStop(0.7, '#FFFFFFBB')
     g1.addColorStop(1, '#FFF')
 
     const g2 = t404.createLinearGradient(0, 0, 0, 780)
@@ -422,7 +542,6 @@ function g404() {
 
     t404.strokeStyle = g2
     t404.lineCap = "butt"
-
     for (let i = 0; i < 4; i++) {
         d404.a[i] = Math.max(0, d404.a[i] - t / 333)
 
@@ -432,50 +551,54 @@ function g404() {
         t404.lineWidth = l
         t404.beginPath()
         t404.moveTo(120 + i * 160, 0)
-        t404.lineTo(120 + i * 160, 780)
+        t404.lineTo(120 + i * 160, 777)
         t404.stroke()
     }
 
-    if (!d404.s) return
+    if (d404.s) {
+        const speed = player[404].speed / 10
+        const gap = Math.max(500, 780 / speed + 50)
+        const offset = 309 + player[404].offset / 1
 
-    const speed = player[404].speed / 10
-    const gap = 780 / speed + 50
-    const offset = 309 + player[404].offset / 1
+        d404.tt = getTime() + offset
+        let time = d404.tt
 
-    d404.tt = getTime() + offset
-    let time = d404.tt
+        while (crt.length == 0 ? false : crt[0].t < time + gap) {
+            note[crt[0].c].push(crt[0])
+            crt.shift()
+        }
 
-    while (crt.length == 0 ? false : crt[0].t < time + gap) {
+        t404.fillStyle = '#D8D8D8'
+        for (let i = 0; i < 4; i++) {
+            if (note[i].length == 0) continue
+            for (let j = 0; j < note[i].length; j++) {
+                t404.fillRect(64 + i * 160, 745 - (note[i][j].t - time) * speed, 112, 35);
+            }
+        }
 
-        note[crt[0].c].push(crt[0])
-        crt.shift()
-    }
-
-    t404.fillStyle = '#D8D8D8'
-    for (let i = 0; i < 4; i++) {
-        if (note[i].length == 0) continue
-        for (let j = 0; j < note[i].length; j++) {
-            t404.fillRect(64 + i * 160, 745 - (note[i][j].t - time) * speed, 112, 35);
+        for (let i = 0; i < 4; i++) {
+            if (note[i].length == 0) continue
+            if (d404.u) {
+                if (note[i][0].t - time < 4) {
+                    clickTrack(i)
+                }
+            }
+            if (note[i][0].t - time < jt404[player[404].judge][5]) {
+                note[i].shift()
+                addj(5)
+                combo(false)
+            }
         }
     }
 
-    for (let i = 0; i < 4; i++) {
-        if (note[i].length == 0) continue
-        if (note[i][0].t - time < jt[5]) {
-            note[i].shift()
-            addj(5)
-            combo(false)
-        }
-    }
-
-    t404.font = "80px Angus"
-    t404.fillStyle = "#AFF"
-    t404.fillText(d404.c, 360, 430)
+    t404.font = "64px Angus"
+    t404.fillStyle = `hsl(${(Date.now()/100)%360},50%,70%)`
+    t404.fillText(d404.u ? "AUTO" : d404.c, 360, 320)
 
     t404.font = "100px Angus"
     t404.fillStyle = getRGB(d404.m.i, d404.m.t)
     t404.textAlign = "center"
-    t404.fillText(getText(d404.m.i), 360, 350)
+    t404.fillText(getText(d404.m.i), 360, 400)
     d404.m.t = Math.max(0, d404.m.t - t / 750)
 
 }
