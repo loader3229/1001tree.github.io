@@ -46,6 +46,7 @@
 <body onload="load()" onmousemove="updateMouse(event)">
 	<div id="app">
 		<song :songshown="getOpt('songshown')" :tab="player.tab == 'none' || getOpt('forceOneTab')"></song>
+		<tracksong></tracksong>
 
 		<canvas id="treeCanvas" class="canvas" v-if="!(tmp.gameEnded && !player.keepGoing)"></canvas>
 

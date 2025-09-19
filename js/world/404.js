@@ -9,6 +9,7 @@ addLayer("404", {
             speed: 10,
             offset: 0,
             judge: 0,
+            songid: 0,
         }
     },
     type: "none",
@@ -22,7 +23,8 @@ addLayer("404", {
                         ["display-text", function () {
                             return `
                             ${d404.e ? "游戏结束喵<br>" : ""}<br>
-                            70万分完成世界<br><br>
+                            在下面选曲<br>
+                            得到70万分完成世界<br><br>
                             最高分数<br><h1 class="p8pt">${formatWhole(player[404].points)}</h1><br><br>
                             你的分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
                             准度 ${format(calApc())}<br>
@@ -47,8 +49,22 @@ addLayer("404", {
                     ]
                 ],
                 [
-                    "raw-html",
-                    '<canvas id="c404" width="720" height="810" style="background-color: #000;"></canvas>'
+                    "column",
+                    [
+                        [
+                            "raw-html",
+                            '<canvas id="c404" width="720" height="780" style="background-color: #000;"></canvas>'
+                        ],
+                        [
+                            "raw-html",
+                            '<div style="width:900px;height:0;"></div>'
+                        ],
+                        ["display-text", function () {
+                            return `
+                            歌曲 <span class="p8pt">${meta.singer} - ${meta.name}</span><br>
+                            谱师 <span class="p8pt">${meta.charter}</span>`
+                        }],
+                    ]
                 ],
                 [
                     "column",
@@ -78,13 +94,10 @@ addLayer("404", {
             title: "开始游戏",
             display: "退出该页面会导致游戏中止<br>推荐暂停其他游戏以获得流畅体验",
             onClick() {
-                stopsound("ts")
                 d404.e = false
                 d404.s = true
                 d404.st = Date.now()
-                startChart()
-                to404 = setTimeout(() => { playsound("ts") }, 3000)
-                document.getElementById("ts").addEventListener('ended', endGame, { once: true });
+                resetChart(true)
             },
             canClick() { return true },
             style() {
@@ -102,9 +115,7 @@ addLayer("404", {
             onClick() {
                 d404.u = false
                 d404.s = false
-                stopsound("ts")
-                startChart()
-                document.getElementById("ts").removeEventListener('ended', endGame, { once: true });
+                resetChart(false)
             },
             canClick() { return true },
             style() {
@@ -212,7 +223,8 @@ addLayer("404", {
 let to404
 let i404 = null
 
-let crt = {}
+let crt = []
+let meta = { name: "曲名", singer: "曲师", charter: "谱师", count: 1, delay: 0 }
 
 const d404 = {
     u: false,
@@ -258,7 +270,6 @@ const note = {
     3: []
 }
 
-const tn = 2877
 const w404 = [
     1,
     0.99,
@@ -294,7 +305,7 @@ const jt404 = [
         150,
         200,
         -150,
-        1.1
+        1.25
     ],
     [
         300,
@@ -313,7 +324,7 @@ function endGame() {
     if (!d404.u) {
         d404.mp = Math.max(d404.p, d404.mp)
         player[404].points = Math.max(d404.mp, player[404].points)
-        if (d404.mp > 700000 && player.world[404]) completeWorld(404)
+        if (d404.mp > 700000 && !player.world[404]) completeWorld(404)
     }
     d404.u = false
 }
@@ -343,15 +354,15 @@ function calApc() {
     for (let i = 0; i < 6; i++) {
         wc += j[i] * w404[i];
     }
-    return wc / tn * 800000
+    return wc / meta.count * 800000
 }
 
 function calMax() {
-    return d404.j[0] / tn * 200000
+    return d404.j[0] / meta.count * 200000
 }
 
 function calCom() {
-    return d404.mc / tn * 100000
+    return d404.mc / meta.count * 100000
 }
 
 function combo(add) {
@@ -396,7 +407,10 @@ function getText(i) {
     ][i]
 }
 
-function startChart() {
+function resetChart(sop) {
+    crt = []
+    meta = { name: "曲名", singer: "曲师", charter: "谱师", count: 1, delay: 0 }
+    window.trackPlayer.setSong(player[404].songid, false)
     for (i in note) {
         note[i] = []
         d404.a[i] = 0
@@ -408,16 +422,23 @@ function startChart() {
     d404.d[1] = 0
     d404.p = 0
     d404.m.i = -1
-    crt = [...chart]
     d404.c = 0
     d404.mc = 0
+    if (sop) {
+        fetch(`./resources/chart/track${player[404].songid}.json`)
+            .then(response => response.json())
+            .then(data => {
+                crt = [...data.note]
+                meta = data.meta
+                to404 = setTimeout(() => { window.trackPlayer.setSong(player[404].songid, true) }, 3000)
+            });
+    }
 }
 
 function getTime() {
-    var tsong = document.getElementById("ts")
-    let t = tsong.currentTime * 1000
-    if (t == 0) {
-        return -3000 + d404.t - d404.st
+    let t = window.trackPlayer.getTime() * 1000
+    if (!t) {
+        return Math.min(-3000 + d404.t - d404.st, 0)
     } else return t
 
 }
@@ -479,42 +500,42 @@ function g404() {
 
     if (t > 500 && d404.s) { d404.s = false; clickClickable(404, 12); alert("异常:刻间隔过长,已自动结束游戏"); }
 
-    const g1 = t404.createLinearGradient(0, 0, 0, 780)
+    let w = 720
+    let h = 780
+
+    const g1 = t404.createLinearGradient(0, 0, 0, h - 30)
     g1.addColorStop(0, '#FFFFFF22')
     g1.addColorStop(0.7, '#FFFFFFBB')
     g1.addColorStop(1, '#FFF')
 
-    const g2 = t404.createLinearGradient(0, 0, 0, 780)
+    const g2 = t404.createLinearGradient(0, 0, 0, h - 30)
     g2.addColorStop(0, '#FFFFFF00')
     g2.addColorStop(0.8, '#FFFFFF33')
     g2.addColorStop(1, '#FFFFFF66')
-
-    const w = 720
-    const h = 810
 
     t404.clearRect(0, 0, w, h)
 
     t404.font = "80px Angus"
     t404.fillStyle = '#FFFFFF33'
     t404.textAlign = "center";
-    t404.fillText("Z", 120, 750)
-    t404.fillText("X", 280, 750)
-    t404.fillText(".", 440, 750)
-    t404.fillText("/", 600, 750)
+    t404.fillText("Z", 120, h - 60)
+    t404.fillText("X", 280, h - 60)
+    t404.fillText(".", 440, h - 60)
+    t404.fillText("/", 600, h - 60)
 
     t404.lineWidth = 6
     t404.strokeStyle = '#FFFFFF66'
     t404.lineCap = "butt"
 
     t404.beginPath()
-    t404.moveTo(60, 780)
-    t404.lineTo(180, 780)
-    t404.moveTo(220, 780)
-    t404.lineTo(340, 780)
-    t404.moveTo(380, 780)
-    t404.lineTo(500, 780)
-    t404.moveTo(540, 780)
-    t404.lineTo(660, 780)
+    t404.moveTo(60, h - 30)
+    t404.lineTo(180, h - 30)
+    t404.moveTo(220, h - 30)
+    t404.lineTo(340, h - 30)
+    t404.moveTo(380, h - 30)
+    t404.lineTo(500, h - 30)
+    t404.moveTo(540, h - 30)
+    t404.lineTo(660, h - 30)
     t404.stroke()
 
     t404.lineWidth = 8
@@ -523,21 +544,21 @@ function g404() {
 
     t404.beginPath()
     t404.moveTo(60, 0)
-    t404.lineTo(60, 780)
+    t404.lineTo(60, h - 30)
     t404.moveTo(180, 0)
-    t404.lineTo(180, 780)
+    t404.lineTo(180, h - 30)
     t404.moveTo(220, 0)
-    t404.lineTo(220, 780)
+    t404.lineTo(220, h - 30)
     t404.moveTo(340, 0)
-    t404.lineTo(340, 780)
+    t404.lineTo(340, h - 30)
     t404.moveTo(380, 0)
-    t404.lineTo(380, 780)
+    t404.lineTo(380, h - 30)
     t404.moveTo(500, 0)
-    t404.lineTo(500, 780)
+    t404.lineTo(500, h - 30)
     t404.moveTo(540, 0)
-    t404.lineTo(540, 780)
+    t404.lineTo(540, h - 30)
     t404.moveTo(660, 0)
-    t404.lineTo(660, 780)
+    t404.lineTo(660, h - 30)
     t404.stroke()
 
     t404.strokeStyle = g2
@@ -551,14 +572,14 @@ function g404() {
         t404.lineWidth = l
         t404.beginPath()
         t404.moveTo(120 + i * 160, 0)
-        t404.lineTo(120 + i * 160, 777)
+        t404.lineTo(120 + i * 160, h - 33)
         t404.stroke()
     }
 
     if (d404.s) {
         const speed = player[404].speed / 10
-        const gap = Math.max(500, 780 / speed + 50)
-        const offset = 309 + player[404].offset / 1
+        const gap = Math.max(500, (h - 30) / speed + 50)
+        const offset = meta.delay + player[404].offset / 1
 
         d404.tt = getTime() + offset
         let time = d404.tt
@@ -572,7 +593,7 @@ function g404() {
         for (let i = 0; i < 4; i++) {
             if (note[i].length == 0) continue
             for (let j = 0; j < note[i].length; j++) {
-                t404.fillRect(64 + i * 160, 745 - (note[i][j].t - time) * speed, 112, 35);
+                t404.fillRect(64 + i * 160, (h - 65) - (note[i][j].t - time) * speed, 112, 35);
             }
         }
 
@@ -592,7 +613,7 @@ function g404() {
     }
 
     t404.font = "64px Angus"
-    t404.fillStyle = `hsl(${(Date.now()/100)%360},50%,70%)`
+    t404.fillStyle = `hsl(${(Date.now() / 100) % 360},50%,70%)`
     t404.fillText(d404.u ? "AUTO" : d404.c, 360, 320)
 
     t404.font = "100px Angus"

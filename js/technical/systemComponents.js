@@ -387,10 +387,7 @@ var systemComponents = {
         bottom: songshown ? '20px' : '-202px',
         'z-index': '100000'
     	}">
-        	<p :style="{
-    		    opacity: songshown ? 0.5 : 1
-    		}"
-			>当前游戏运行速度 {{Cal_TPS()[0]}}tps | {{Cal_TPS()[1]}}ms</p>
+			<p v-if="songshown">你可以在设置主题样式-组件-BGM显示隐藏此栏</p>
 			<br>
 
         <div class="pc" :style="{width: tab ? 'calc(100vw - 70px)' : 'calc(50vw - 70px)'}">
@@ -456,10 +453,6 @@ var systemComponents = {
         	    </div>
         	</div>
         </div>
-
-			<audio id="ts">
-				<source src="/resources/song/track.ogg" type="audio/ogg">
-			</audio>
 			<audio id="cc">
         		<source src="/resources/song/ChallengeComplete.ogg" type="audio/ogg">
     		</audio>
@@ -518,19 +511,17 @@ var systemComponents = {
 		},
 		methods: {
 			playSong(index, noplay) {
-				if (index >= 0 && index < this.songs.length) {
-					this.currentIndex = index;
-					this.$refs.audioPlayer.load();
-					options.songid = this.currentIndex
-					if (!noplay) {
-						this.$nextTick(() => {
-							if (this.warning) {
-								this.warning = false;
-								this.playCheck()
-							}
-							else this.$refs.audioPlayer.play()
-						});
-					}
+				this.currentIndex = index;
+				this.$refs.audioPlayer.load();
+				options.songid = this.currentIndex
+				if (!noplay) {
+					this.$nextTick(() => {
+						if (this.warning) {
+							this.warning = false;
+							this.playCheck()
+						}
+						else this.$refs.audioPlayer.play()
+					});
 				}
 			},
 			playCheck() {
@@ -667,6 +658,92 @@ var systemComponents = {
 			window.musicPlayer = null;
 		}
 	},
+
+	'tracksong': {
+		template: `<div :style="{
+        position: 'fixed',
+        left: '-114514px',
+        bottom: '-191981px'
+    }">
+        <audio 
+            ref="trackPlayer"
+            :src="currentSong.src" 
+            nocontrols
+            @pause="isPlaying = false"
+            @play="isPlaying = true"
+            @ended="onSongEnded"> <!-- 添加 ended 事件监听 -->
+        </audio>
+    </div>`,
+		data() {
+			return {
+				currentIndex: 0,
+				isPlaying: false,
+				volume: 0.5,
+				songs: [
+					{ src: '/resources/song/track0.ogg' },
+					{ src: '/resources/song/track1.ogg' },
+					{ src: '/resources/song/track2.ogg' },
+					{ src: '/resources/song/track3.ogg' },
+					{ src: '/resources/song/track4.ogg' },
+				]
+			};
+		},
+		computed: {
+			currentSong() {
+				return this.songs[this.currentIndex] || {};
+			}
+		},
+		methods: {
+			setSong(index, sop) {
+				if (sop) {
+					this.currentIndex = index;
+					this.$refs.trackPlayer.load();
+					options.songid = this.currentIndex
+					this.$nextTick(() => {
+						this.$refs.trackPlayer.currentTime = 0;
+						this.$refs.trackPlayer.play()
+					});
+				} else {
+					if (this.$refs.trackPlayer) {
+						this.$refs.trackPlayer.currentTime = 0;
+						this.$refs.trackPlayer.pause();
+					}
+				}
+			},
+			getProgress() {
+				if (this.$refs.trackPlayer) {
+					return this.$refs.trackPlayer.currentTime / this.$refs.trackPlayer.duration;
+				}
+				return 0
+			},
+			getTime() {
+				if (this.$refs.trackPlayer) {
+					return this.$refs.trackPlayer.currentTime;
+				}
+				return null
+			},
+			onSongEnded() {
+				if (typeof endGame === 'function') {
+					endGame();
+				}
+			}
+		},
+		mounted() {
+			if (this.$refs.trackPlayer) {
+				this.$refs.trackPlayer.volume = this.volume;
+			}
+			this.$refs.trackPlayer.load();
+			window.trackPlayer = {
+				setSong: this.setSong.bind(this),
+				getProgress: this.getProgress.bind(this),
+				getTime: this.getTime.bind(this),
+			};
+		},
+		beforeDestroy() {
+			window.trackPlayer = null;
+		}
+	},
+
 
 	'ct': {
 		template: `

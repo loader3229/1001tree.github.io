@@ -134,6 +134,10 @@ var displayThings = [
 		请截图错误界面,导出存档并提交给开发组<br>`
 	},
 	function () {
+		if (options.tipshown) return `
+		当前游戏运行速度 ${Cal_TPS()[0]}tps | ${Cal_TPS()[1]}ms`
+	},
+	function () {
 		try {
 			if (Object.values(player.pause).some(Boolean)) return "当前有游戏暂停运算,你可在设置查阅"
 		}
