@@ -1,0 +1,39 @@
+/*.mp3
+  Cache-Control: public, max-age=15552000
+
+/*.wav
+  Cache-Control: public, max-age=15552000
+
+/*.ogg
+  Cache-Control: public, max-age=15552000
+
+/*.gif
+  Cache-Control: public, max-age=15552000
+
+/*.jpg
+  Cache-Control: public, max-age=15552000
+
+/*.jpeg
+  Cache-Control: public, max-age=15552000
+
+/*.png
+  Cache-Control: public, max-age=15552000
+
+/*.woff2
+  Cache-Control: public, max-age=15552000
+
+/*.otf
+  Cache-Control: public, max-age=15552000
+
+/*.ttf
+  Cache-Control: public, max-age=15552000
+
+  
+/*.css
+  Cache-Control: public, max-age=3600
+  
+/*.js
+  Cache-Control: public, max-age=3600
+  
+/*.html
+  Cache-Control: public, max-age=0
