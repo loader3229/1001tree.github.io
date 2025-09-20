@@ -9,7 +9,7 @@ addLayer("404", {
             speed: 10,
             offset: 0,
             judge: 0,
-            songid: 0,
+            songid: 1,
         }
     },
     type: "none",
@@ -25,11 +25,12 @@ addLayer("404", {
                             ${d404.e ? "游戏结束喵<br>" : ""}<br>
                             在下面选曲<br>
                             得到70万分完成世界<br><br>
-                            最高分数<br><h1 class="p8pt">${formatWhole(player[404].points)}</h1><br><br>
-                            你的分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
+                            最高分数<br><h1 class="p8pt">${formatWhole(player[this.layer].points)}</h1><br><br>
+                            本曲分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
                             准度 ${format(calApc())}<br>
                             绝赞 ${format(calMax())}<br>
                             连击 ${format(calCom())}<br>
+                            判定 ×${format(jt404[d404.jt][6],2)}<br>
                             <br>
                             ACC<br><h2 class="p8pt">${formatPersent(calAcc())}</h2><br><br>
                             最大连击<br><h2 class="p8pt">${formatWhole(d404.mc)}</h2><br><br>
@@ -87,7 +88,14 @@ addLayer("404", {
                     ]
                 ],
             ]
-        ]
+        ],
+        ["blank", "50px"],
+        ["display-text", function () {
+            return `<h1>选曲</h1> 难度 DST&lt;PLT&lt;STR&lt;GLX`
+        }],
+        "blank",
+        ["clickables", [10]],
+        ["blank", "50px"],
     ],
     clickables: {
         11: {
@@ -147,10 +155,10 @@ addLayer("404", {
         22: {
             title: "判定",
             display() {
-                if (player[this.layer].judge == 0) return "普判<br>常规判定"
-                else if (player[this.layer].judge == 1) return "宽判<br>将无法获得FOX,且BAD判定范围更大"
-                else if (player[this.layer].judge == 2) return "严判<br>去除FoX,但判定更严格"
-                else if (player[this.layer].judge == 3) return "糊判<br>打到就是FOX"
+                if (player[this.layer].judge == 0) return "普判(×1.00)<br>常规判定"
+                else if (player[this.layer].judge == 1) return "宽判(×0.75)<br>将无法获得FOX,且BAD判定范围更大"
+                else if (player[this.layer].judge == 2) return "严判(×1.25)<br>去除FoX,但判定更严格"
+                else if (player[this.layer].judge == 3) return "糊判(×0.10)<br>打到就是FOX"
                 return "你把判定改炸了,朋友"
             },
             onClick() {
@@ -194,6 +202,106 @@ addLayer("404", {
                 }
             }
         },
+        101: {
+            title: "STR JACK<br>やっぱりみゃー姉なんばーわん",
+            display: "長江里加",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        102: {
+            title: "STR J~A~C~K<br>unforeseen dream scenarios that glorify the beauty of a vacuum cleaner",
+            display: "Rory in early 20s、Shizuma Lietova",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "10px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        103: {
+            title: "DST 0.704545<br>dropdead",
+            display: "Frums",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        104: {
+            title: "PLT GOOD SLEEPER<br>groove 33edo",
+            display: "Deister Orchestra",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        105: {
+            title: "GLX SUPERJJJJACK<br>None Shall Live",
+            display: "Thomas Bergersen",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
@@ -225,12 +333,13 @@ let i404 = null
 
 let crt = []
 let meta = { name: "曲名", singer: "曲师", charter: "谱师", count: 1, delay: 0 }
+let effect = { s: 1, n: [] }
 
 const d404 = {
     u: false,
-    jt: 0,
     e: false,
     s: false,
+    jt: 0,
     t: Date.now(),
     st: Date.now(),
     tt: 0,
@@ -365,18 +474,15 @@ function calCom() {
     return d404.mc / meta.count * 100000
 }
 
-function combo(add) {
-    if (add) {
+function addj(i) {
+    d404.j[i]++
+    if (i < 4) {
         d404.c++
         d404.mc = Math.max(d404.c, d404.mc)
     } else {
         d404.c = 0
     }
-}
-
-function addj(i) {
     d404.p = d404.u ? -1100000 : (calApc() + calMax() + calCom()) * jt404[player[404].judge][6]
-    d404.j[i]++
 
     d404.m.i = i
     d404.m.t = 1
@@ -418,18 +524,21 @@ function resetChart(sop) {
     for (i in d404.j) {
         d404.j[i] = 0
     }
+    effect = { s: 1, n: [] }
     d404.d[0] = 0
     d404.d[1] = 0
     d404.p = 0
     d404.m.i = -1
     d404.c = 0
     d404.mc = 0
+    d404.jt = player[404].judge
     if (sop) {
         fetch(`./resources/chart/track${player[404].songid}.json`)
             .then(response => response.json())
             .then(data => {
                 crt = [...data.note]
                 meta = data.meta
+                effect = typeof data.effect == 'undefined' ? { s: 1, n: [] } : { s: 1, n: [...data.effect] }
                 to404 = setTimeout(() => { window.trackPlayer.setSong(player[404].songid, true) }, 3000)
             });
     }
@@ -456,29 +565,24 @@ function clickTrack(t) {
     if (dt < jt[0]) {
         addj(0)
         note[t].shift()
-        combo(true)
     }
     else if (dt < jt[1]) {
         addj(1)
         note[t].shift()
-        combo(true)
     }
     else if (dt < jt[2]) {
         calfs(fs)
         addj(2)
         note[t].shift()
-        combo(true)
     }
     else if (dt < jt[3]) {
         calfs(fs)
         addj(3)
         note[t].shift()
-        combo(true)
     }
     else if (dt < jt[4]) {
         addj(4)
         note[t].shift()
-        combo(false)
     }
     else return
     d404.d[0]++
@@ -577,12 +681,20 @@ function g404() {
     }
 
     if (d404.s) {
-        const speed = player[404].speed / 10
-        const gap = Math.max(500, (h - 30) / speed + 50)
         const offset = meta.delay + player[404].offset / 1
 
         d404.tt = getTime() + offset
         let time = d404.tt
+
+        if (effect.n.length != 0) {
+            if (effect.n[0].t - time < 4) {
+                effect.s = effect.n[0].s
+                effect.n.shift()
+            }
+        }
+
+        const speed = effect.s * player[404].speed / 10
+        const gap = Math.max(500, (h - 30) / speed + 50)
 
         while (crt.length == 0 ? false : crt[0].t < time + gap) {
             note[crt[0].c].push(crt[0])
@@ -604,10 +716,13 @@ function g404() {
                     clickTrack(i)
                 }
             }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (note[i].length == 0) continue
             if (note[i][0].t - time < jt404[player[404].judge][5]) {
                 note[i].shift()
                 addj(5)
-                combo(false)
             }
         }
     }
@@ -616,10 +731,15 @@ function g404() {
     t404.fillStyle = `hsl(${(Date.now() / 100) % 360},50%,70%)`
     t404.fillText(d404.u ? "AUTO" : d404.c, 360, 320)
 
+    t404.fillStyle = `#666`
+    t404.fillRect(200, 330, 320, 6)
+    t404.fillStyle = `#EEE`
+    t404.fillRect(200, 330, window.trackPlayer.getProgress() * 320, 6)
+
     t404.font = "100px Angus"
     t404.fillStyle = getRGB(d404.m.i, d404.m.t)
     t404.textAlign = "center"
-    t404.fillText(getText(d404.m.i), 360, 400)
+    t404.fillText(getText(d404.m.i), 360, 420)
     d404.m.t = Math.max(0, d404.m.t - t / 750)
 
 }
