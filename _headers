@@ -13,9 +13,6 @@
 /*.jpg
   Cache-Control: public, max-age=15552000
 
-/*.jpeg
-  Cache-Control: public, max-age=15552000
-
 /*.png
   Cache-Control: public, max-age=15552000
 
@@ -30,10 +27,10 @@
 
   
 /*.css
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=0
   
 /*.js
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=0
   
 /*.html
   Cache-Control: public, max-age=0

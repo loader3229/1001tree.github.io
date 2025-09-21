@@ -1,9 +1,7 @@
 addLayer("main", {
-    name: "时之狭间",
+    name: "梦界",
     symbol: "🌏️",
     resource: "梦力",
-    row: 0,
-    position: 0,
     color: "#9b43f4",
     update(diff) {
     },
@@ -128,8 +126,6 @@ addLayer("ach", {
     name: "成就",
     symbol: "🏆",
     resource: "成就",
-    row: 0,
-    position: 2,
     color: "#f2d87b",
     startData() {
         return {

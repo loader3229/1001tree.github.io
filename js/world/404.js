@@ -9,7 +9,7 @@ addLayer("404", {
             speed: 10,
             offset: 0,
             judge: 0,
-            songid: 1,
+            songid: 0,
         }
     },
     type: "none",
@@ -23,7 +23,7 @@ addLayer("404", {
                         ["display-text", function () {
                             return `
                             ${d404.e ? "游戏结束喵<br>" : ""}<br>
-                            在下面选曲<br>
+                            请使用单页面游玩<br>
                             得到70万分完成世界<br><br>
                             最高分数<br><h1 class="p8pt">${formatWhole(player[this.layer].points)}</h1><br><br>
                             本曲分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
@@ -334,6 +334,7 @@ let i404 = null
 let crt = []
 let meta = { name: "曲名", singer: "曲师", charter: "谱师", count: 1, delay: 0 }
 let effect = { s: 1, n: [] }
+let loeff = []
 
 const d404 = {
     u: false,

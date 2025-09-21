@@ -597,3 +597,46 @@ div.tbox {
 	text-align: center;
 	width: 500px;
 }
+
+.zhangli {
+	animation: 2.4s ease-in-out alternate infinite zhangli;
+}
+
+@keyframes zhangli {
+	0% {
+		transform: rotate(0deg) translateX(50px) scale(1, 1)
+	}
+
+	49.9999999% {
+		transform: rotate(180deg) translateX(50px) scale(-1, -1)
+	}
+
+	50% {
+		transform: rotate(-180deg) translateX(50px) scale(-1, -1)
+	}
+
+	100% {
+		transform: rotate(-360deg) translateX(50px) scale(1, 1)
+	}
+}
+
+@keyframes size {
+	0% {
+		font-size: 32px;
+	}
+	100% {
+		font-size: 24px;
+	}
+}
+
+.b1 {
+	background: linear-gradient(in hsl 60deg,
+			hsl(260, 100%, 50%),
+			hsl(300, 100%, 50%),
+			hsl(260, 100%, 50%));
+	background-size: 200% auto;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	animation: rainbow 4s linear infinite;
+}

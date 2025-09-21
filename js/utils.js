@@ -465,24 +465,25 @@ function s256(text) {
 }
 
 function updateTickTime(diff) {
+	if (diff > 5) return
 	player.global.tickTime.unshift(diff);
-	player.global.tickTime = player.global.tickTime.slice(0,40);
+	player.global.tickTime = player.global.tickTime.slice(0, 40);
 }
 
 function Cal_TPS() {
-    const tickTime = player.global.tickTime;
-    
-    if (tickTime.length < 2) {
-        return "---";
-    }
-    
-    const totalTime = tickTime.reduce((sum, time) => sum + time, 0);
-    
-    const aTT = 1000*totalTime / tickTime.length;
-    
-    const tps = 1000 / aTT;
-    
-    return [format(Math.max(tps, 0),1),format(aTT,0)];
+	const tickTime = player.global.tickTime;
+
+	if (tickTime.length < 2) {
+		return "---";
+	}
+
+	const totalTime = tickTime.reduce((sum, time) => sum + time, 0);
+
+	const aTT = 1000 * totalTime / tickTime.length;
+
+	const tps = 1000 / aTT;
+
+	return [format(Math.max(tps, 0), 1), format(aTT, 0)];
 }
 
 function completeWorld(id) {
@@ -567,20 +568,20 @@ function chooseOneInArray(array, seed) {
 }
 
 function chooseWeightInArray(array) {
-    let totalWeight = 0;
-    for (const [item, weight] of array) {
-        totalWeight += weight;
-    }
-    
-    const random = Math.random() * totalWeight;
-    let currentWeight = 0;
-    
-    for (const [item, weight] of array) {
-        currentWeight += weight;
-        if (random <= currentWeight) {
-            return item;
-        }
-    }
+	let totalWeight = 0;
+	for (const [item, weight] of array) {
+		totalWeight += weight;
+	}
+
+	const random = Math.random() * totalWeight;
+	let currentWeight = 0;
+
+	for (const [item, weight] of array) {
+		currentWeight += weight;
+		if (random <= currentWeight) {
+			return item;
+		}
+	}
 }
 
 function playsound(id) {
@@ -629,6 +630,6 @@ function decimalMin(...values) {
 	return min;
 }
 
-function decimalBetween(value,min,max) {
-	return decimalMin(decimalMax(value,min),max)
+function decimalBetween(value, min, max) {
+	return decimalMin(decimalMax(value, min), max)
 }

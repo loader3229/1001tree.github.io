@@ -252,7 +252,7 @@ addLayer("501", {
     resetgrid(force) {
         s = player._501.stage
         if (player._501.timeleft.mod(10).lte(0) || force) {
-            if(s.neq(20))player._501.cnt = 0
+            if (s.neq(20)) player._501.cnt = 0
             for (i in player[this.layer].grid) {
                 if (s.neq(20)) player[this.layer].grid[i] = Math.floor(Math.random() * ((s.eq(5) || s.eq(12) || s.eq(15)) ? 3 : 2)) + 1;
                 else if (player[this.layer].grid[i] != 0) player[this.layer].grid[i] = Math.floor(Math.random() * ((s.eq(5) || s.eq(12) || s.eq(15)) ? 3 : 2)) + 1;
@@ -294,7 +294,7 @@ addLayer("501", {
                         player._501.lose = true
                     }
                 }
-                if (player._501.cnt > 0 &&  player._501.stage.neq(19)) {
+                if (player._501.cnt > 0 && player._501.stage.neq(19)) {
                     player._501.started = false
                     player.subtabs[this.layer].mainTabs = "AprilFools"
                     if (player._501.stage.eq(7)) player._501.trig[6] = true
@@ -356,7 +356,10 @@ addLayer("501", {
             title() { return `开发者跳关用` },
             display: "",
             onClick() {
-                if (player._501.stage.eq(13)) player._501.trig[9] = true
+                if (player._501.stage.eq(13)) {
+                    player._501.trig[9] = true
+                    player._501.started = false
+                }
                 if (player._501.stage.eq(14)) player._501.trig[10] = true
             },
             style: { "height": "80px", "width": "80px", "min-height": "80px" },
@@ -412,18 +415,23 @@ addLayer("501", {
             s = player._501.stage
             if (data == 2 && (s.eq(1) || s.eq(9) || s.eq(11) || s.eq(15) || s.eq(16) || s.eq(5))) {
                 player._501.trig[1] = true
+                player._501.started = false
             }
             if (data == 1 && (s.eq(2) || s.eq(3) || s.eq(4) || s.eq(15) || s.eq(16) || s.eq(5))) {
                 player._501.trig[1] = true
+                player._501.started = false
             }
             if (data == 3 && (s.eq(5) || s.eq(12))) {
                 player._501.trig[3] = true
+                player._501.started = false
             }
             if (s.eq(6) || s.eq(8) || s.eq(10) || s.eq(13) || s.eq(17) || s.eq(19)) {
                 player._501.trig[4] = true
+                player._501.started = false
             }
             if (player._501.gnum[Math.floor(id / 100 - 1)][Math.floor(id % 10 - 1)] == 0 && s.eq(20)) {
                 player._501.trig[4] = true
+                player._501.started = false
             }
             player._501.cnt--
             player[this.layer].grid[id] = 0;

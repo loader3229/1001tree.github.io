@@ -2,7 +2,7 @@ let modInfo = {
 	name: "一千零一树",
 	id: "1001tree",
 	pointsName: "世界",
-	modFiles: ["layers.js", "tree.js", "const.js",
+	modFiles: ["layers.js", "tree.js", "book.js", "const.js",
 		"world/101.js", "world/102.js", "world/103.js", "world/104.js", "world/105.js",
 		"world/201.js", "world/202.js", "world/203.js", "world/204.js", "world/205.js",
 		"world/301.js", "world/302.js", "world/303.js", "world/304.js", "world/305.js",
