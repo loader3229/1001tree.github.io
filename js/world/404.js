@@ -10,6 +10,7 @@ addLayer("404", {
             offset: 0,
             judge: 0,
             songid: 0,
+            life: 1000,
         }
     },
     type: "none",
@@ -27,10 +28,11 @@ addLayer("404", {
                             得到70万分完成世界<br><br>
                             最高分数<br><h1 class="p8pt">${formatWhole(player[this.layer].points)}</h1><br><br>
                             本曲分数<br><h1 class="p8pt">${formatWhole(d404.p)}</h1><br>
-                            准度 ${format(calApc())}<br>
-                            绝赞 ${format(calMax())}<br>
-                            连击 ${format(calCom())}<br>
-                            判定 ×${format(jt404[d404.jt][6],2)}<br>
+                            准度 ${formatWhole(calApc())}<br>
+                            绝赞 ${formatWhole(calMax())}<br>
+                            连击 ${formatWhole(calCom())}<br>
+                            判定 ×${format(jt404[d404.jt][6], 2)}<br>
+                            满分 ${formatWhole(1100000 * jt404[d404.jt][6])}<br>
                             <br>
                             ACC<br><h2 class="p8pt">${formatPersent(calAcc())}</h2><br><br>
                             最大连击<br><h2 class="p8pt">${formatWhole(d404.mc)}</h2><br><br>
@@ -72,6 +74,7 @@ addLayer("404", {
                     [
                         ["display-text", function () {
                             return `
+                            LIFE<br><h1 class="p8pt">${formatWhole(player[this.layer].life)}</h1><br><br>
                             ${getText(0)}(${formatPersent(w404[0])})<br><h2 class="p8pt">${formatWhole(d404.j[0])}</h2><br><br>
                             ${getText(1)}(${formatPersent(w404[1])})<br><h2 class="p8pt">${formatWhole(d404.j[1])}</h2><br><br>
                             ${getText(2)}(${formatPersent(w404[2])})<br><h2 class="p8pt">${formatWhole(d404.j[2])}</h2><br><br>
@@ -302,6 +305,26 @@ addLayer("404", {
                 }
             }
         },
+        106: {
+            title: "PLT+ BBLLET<br>Crush Everyone",
+            display: "The Quick Brown Fox",
+            onClick() {
+                player[this.layer].songid = this.id - 101
+            },
+            canClick() { return !d404.s },
+            style() {
+                let c = player[this.layer].songid == this.id - 101
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: c ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
     hotkeys: [
@@ -316,12 +339,12 @@ addLayer("404", {
             unlocked() { return getGridData('main', this.layer) }
         },
         {
-            key: ".",
+            key: "n",
             onPress() { clickTrack(2) },
             unlocked() { return getGridData('main', this.layer) }
         },
         {
-            key: "/",
+            key: "m",
             onPress() { clickTrack(3) },
             unlocked() { return getGridData('main', this.layer) }
         },
@@ -370,7 +393,9 @@ const d404 = {
     m: {
         i: 0,
         t: 0
-    }
+    },
+    ap: true,
+    fc: true
 }
 
 const note = {
@@ -477,13 +502,32 @@ function calCom() {
 
 function addj(i) {
     d404.j[i]++
+    if (i > 1) d404.ap = false
     if (i < 4) {
         d404.c++
         d404.mc = Math.max(d404.c, d404.mc)
     } else {
         d404.c = 0
+        d404.fc = false
     }
-    d404.p = d404.u ? -1100000 : (calApc() + calMax() + calCom()) * jt404[player[404].judge][6]
+    d404.p = d404.u ? -(1100000 * jt404[d404.jt][6]) : (calApc() + calMax() + calCom()) * jt404[player[404].judge][6]
+
+    let b
+    if (i == 0) {
+        b = 3
+    } else if (i == 1) {
+        b = 1
+    } else if (i == 2) {
+        b = -3
+    } else if (i == 3) {
+        b = -5
+    } else if (i == 4) {
+        b = -15
+    } else {
+        b = -25
+    }
+
+    player[404].life = Math.min(1000, player[404].life + b)
 
     d404.m.i = i
     d404.m.t = 1
@@ -533,6 +577,9 @@ function resetChart(sop) {
     d404.c = 0
     d404.mc = 0
     d404.jt = player[404].judge
+    d404.ap = true
+    d404.fc = true
+    player[404].life = 1000
     if (sop) {
         fetch(`./resources/chart/track${player[404].songid}.json`)
             .then(response => response.json())
@@ -604,6 +651,10 @@ function g404() {
     d404.t = Date.now()
 
     if (t > 500 && d404.s) { d404.s = false; clickClickable(404, 12); alert("异常:刻间隔过长,已自动结束游戏"); }
+    if (player[404].life < 0) {
+        window.trackPlayer.setSong(player[404].songid, false)
+        endGame()
+    }
 
     let w = 720
     let h = 780
@@ -625,8 +676,8 @@ function g404() {
     t404.textAlign = "center";
     t404.fillText("Z", 120, h - 60)
     t404.fillText("X", 280, h - 60)
-    t404.fillText(".", 440, h - 60)
-    t404.fillText("/", 600, h - 60)
+    t404.fillText("N", 440, h - 60)
+    t404.fillText("M", 600, h - 60)
 
     t404.lineWidth = 6
     t404.strokeStyle = '#FFFFFF66'
@@ -682,6 +733,8 @@ function g404() {
     }
 
     if (d404.s) {
+        player[404].life = Math.min(1000, player[404].life + t / 400)
+
         const offset = meta.delay + player[404].offset / 1
 
         d404.tt = getTime() + offset
@@ -733,14 +786,26 @@ function g404() {
     t404.fillText(d404.u ? "AUTO" : d404.c, 360, 320)
 
     t404.fillStyle = `#666`
-    t404.fillRect(200, 330, 320, 6)
+    t404.fillRect(200, 330, 320, 7)
+    t404.fillRect(200, 344, 320, 7)
+    t404.fillStyle = `#444`
+    t404.fillRect(200, 337, 320, 7)
     t404.fillStyle = `#EEE`
-    t404.fillRect(200, 330, window.trackPlayer.getProgress() * 320, 6)
+    t404.fillRect(200, 330, window.trackPlayer.getProgress() * 320, 7)
+    if (d404.p>0) {
+        t404.fillStyle = d404.ap ? `#F80` : (d404.fc ? "#99F" : "#CCC")
+        t404.fillRect(200, 337, (d404.p / (1100000 * jt404[d404.jt][6])) * 320, 7)
+    }else {
+        t404.fillStyle = "#F99"
+        t404.fillRect(200, 337, (-d404.p / (1100000 * jt404[d404.jt][6])) * 320, 7)
+    }
+    t404.fillStyle = `#F44`
+    t404.fillRect(200, 344, (Math.max(player[404].life, 0) / 1000) * 320, 7)
 
     t404.font = "100px Angus"
     t404.fillStyle = getRGB(d404.m.i, d404.m.t)
     t404.textAlign = "center"
-    t404.fillText(getText(d404.m.i), 360, 420)
+    t404.fillText(getText(d404.m.i), 360, 430)
     d404.m.t = Math.max(0, d404.m.t - t / 750)
 
 }

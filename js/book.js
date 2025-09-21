@@ -15,7 +15,7 @@ addLayer("book", {
             content: [
                 ["display-text",
                     `
-                    <h1 class="c1">一千零一树</h1><br>
+                    <h1 class="c1">一千零一树</h1><br><br>
                     由 <h2>一千零一树开发组</h2> 开发<br>
                     什么你问 <h2>开发组</h2> 都有谁?<br>
                     自己去 <h2>看</h2><br>
