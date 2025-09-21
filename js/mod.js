@@ -119,7 +119,7 @@ var displayNews = [
 		background-color: rgba(255,255,255,0.2);
 		margin: 5px auto;
 		border: solid 3px rgba(0,0,0,0.5);
-		min-height:24px;
+		min-height:60px;
 		"><span style="opacity: ${news.opacity};">${news.text}</span></div>
 		`
 		else return "<br>"

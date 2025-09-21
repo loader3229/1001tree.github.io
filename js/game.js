@@ -435,7 +435,7 @@ setInterval(() => {
 }, 10000)
 
 setInterval(() => {
-	try { if (getGridData('main', 404)) g404() } catch(err) { console.debug(err) }
+	try { if (getGridData('main', 404)) g404() } catch { }
 }, 8)
 
 setInterval(function () { needCanvasUpdate = true }, 500)

@@ -56,7 +56,9 @@ addLayer("book", {
                     而且...<br>
                     <span style="color:#88888810;font-size:10px;">我们被困在里面了...他们一直在看着我们,救...救救我们!<br></span>
                     我在游戏里放了一些有趣的内容(和无趣的内容)<br>
-                    欢迎你来探索,${player.global.name}
+                    欢迎你来探索,${player.global.name}<br>
+                    <br>
+                    哦淦,我做的字体好丑还有bug<br>
                     `}
                 ]
             ]
@@ -68,7 +70,7 @@ addLayer("book", {
                         return `
                     你好我是<h1 class="b2">userincre</h1><br>
                     要不是我不会css做<br>
-                    <div class="zhangli" style="height:135px"><h1 class="b1">张力来!</h1></div>
+                    <div class="zhangli" style="height:135px"><h1 class="b1">!来力张</h1></div>
                     我早就给你来两个了<br><br>
                     我是1001树的第二个开发, (可能)做了几个小游戏<br><br>
                     而且...<br>

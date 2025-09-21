@@ -5,9 +5,9 @@ addLayer("3021", {
     update(diff) {
         if (player.pause[302]) return
 
-        player[this.layer].points = player[this.layer].points.add(this.pointsGain()[0].mul(diff))
+        player[this.layer].points = decimalMax(player[this.layer].points.add(this.pointsGain()[0].mul(diff)),0)
 
-        if (inChallenge("3023", 12)) player[this.layer].points = decimalMin(player[this.layer].points, 249)
+        if (inChallenge("3023", 12)) player[this.layer].points = decimalMin(player[this.layer].points, _D(249).add(inChallenge("3023", 22) ? getEffect("3023", 25) : 0))
 
         let p = getEffect(this.layer, 13, _D0)
             .add(getEffect("3023", 14, _D0))
@@ -16,7 +16,7 @@ addLayer("3021", {
 
         let c = getEffect("3022", 13, _D0).mul(diff)
         player[302][1].charge = decimalMin(player[302][1].charge.add(c), layers[3021].clickables[11].limit())
-        player[302][1].exp = player[302][1].exp.add(c)
+        if (hasUpgrade(this.layer, 21)) player[302][1].exp = player[302][1].exp.add(c)
 
         let d = player[302][1].charge.mul(_D(0.5).pow(diff))
         player[302][1].charge = d.lte(0.001) ? _D0 : d
@@ -40,12 +40,12 @@ addLayer("3021", {
     pointsGain() {
         let g = player[302][1].charge
 
-        if (hasUpgrade("3022", 14)) g = g
+        g = g.add(getEffect("3023", 21, _D0))
+
+        if (hasUpgrade("3022", 14) && !hasUpgrade("3023",32)) g = g
             .sub(player[this.layer].points
                 .sub(player[this.layer].points
-                    .mul(_D(0.95))))
-            .add(getEffect("3022", 34, _D0))
-            .add(getEffect("3023", 21, _D0))
+                    .mul(_D(0.95).add(getEffect("3022", 34, _D0)))))
 
         g = g.mul(getMilestoneEffect("3023", 1, _D1))
 
@@ -61,7 +61,7 @@ addLayer("3021", {
             (${g[0].lte(0) ? `${format(g[0])}/s` : (g[1].lte(1) ? `+${format(g[0])}/s` : `×${format(g[1])}/s`)})`
         }],
         ["display-text", function () {
-            if (hasUpgrade(this.layer, 13) || hasUpgrade("3023", 14)) return `你有<h3 class="p4pt"> ${format(player[302][1].power)} </h3>拘谞力量,它们使得你的拖咪获取×1.00<br>
+            if (hasUpgrade(this.layer, 13) || hasUpgrade("3023", 14)) return `你有 <h3 class="p4pt">${format(player[302][1].power)}</h3> 拘谞力量,它们带来了 <h3 class="p4pt">${format(getEffect("3022", 23, _D0))}</h3> 风力<br>
             (+${format(getEffect(this.layer, 13, _D0).add(getEffect("3023", 14, _D0)))}/s)`
         }],
         "blank",
@@ -108,9 +108,9 @@ addLayer("3021", {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return getEffect("3022", 23, _D0).add(1).log(10).pow(0.5).div(2).add(1)
+                return getEffect("3022", 23, _D0).add(1).log(10).pow(0.65).div(2).add(1)
             },
-            cost: _D(135),
+            cost: _D(120),
             unlocked() { return hasUpgrade("3022", 22) || hasUpgrade(this.layer, this.id) },
         },
         15: {
@@ -234,7 +234,7 @@ addLayer("3021", {
             },
             onHold() { this.onClick() },
             effect() {
-                if(hasUpgrade(this.layer,22))return _D1.add(player[302][1].level.div(200/3))
+                if (hasUpgrade(this.layer, 22)) return _D1.add(_D(1.01).pow(player[302][1].level))
                 return _D1.add(player[302][1].level.div(100))
             },
             limit() {
@@ -280,20 +280,20 @@ addLayer("3021", {
         },
     },
     doReset(resettingLayer) {
-        if (["3022", "3023", "3024", "3025", "3026"].includes(resettingLayer)) {
+        if (["3022", "3023", "3024"].includes(resettingLayer)) {
             let dy = hasUpgrade(this.layer, 11)
             let de = hasUpgrade(this.layer, 21)
 
-            layerDataReset(this.layer, (resettingLayer == "3022" || (resettingLayer == "3023"&& hasChallenge("3023",31))) ? ["upgrades"] : null)
+            layerDataReset(this.layer, (resettingLayer == "3022" || (resettingLayer == "3023" && hasChallenge("3023", 31))) ? ["upgrades"] : null)
 
             if (resettingLayer == "3023") {
-                if (hasChallenge("3023", 21)) player[this.layer].upgrades.push(15)
+                if (hasChallenge("3023", 21) && !player[this.layer].upgrades.includes(15)) player[this.layer].upgrades.push(15)
             }
 
             player[302][1].charge = _D0
 
-            if (dy) player[this.layer].upgrades.push(11)
-            if (de) player[this.layer].upgrades.push(21)
+            if (dy && !player[this.layer].upgrades.includes(11)) player[this.layer].upgrades.push(11)
+            if (de && !player[this.layer].upgrades.includes(21)) player[this.layer].upgrades.push(21)
         }
     },
     layerShown() { return true },

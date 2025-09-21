@@ -4,7 +4,6 @@ addLayer("3022", {
     color: "radial-gradient(hsl(140,15%,50%), hsl(210,5%,50%))",
     update(diff) {
         if (player.pause[302]) return
-
     },
     startData() {
         return {
@@ -77,7 +76,8 @@ addLayer("3022", {
             },
             effect() {
                 return layers[3021].clickables[11].charge().mul(this.mult())
-                    .add(getMilestoneEffect("3023", 2, _D0))
+                    .add(getMilestoneEffect("3023", 2, 0))
+                    .add(getEffect("3023", 34, 0))
             },
             cost: _D10,
         },
@@ -97,7 +97,7 @@ addLayer("3022", {
             },
             effect() {
                 return inChallenge("3023", 11) && !inChallenge("3023", 21) ? _D1 : _D5
-                    .pow(inChallenge("3023", 21) ? _D(-1) : _D1)
+                    .pow(inChallenge("3023", 21) && !hasUpgrade("3023",15) ? _D(-1) : _D1)
             },
             cost() { return hasUpgrade("3023", 23) ? _D5 : _D(40) },
         },
@@ -141,7 +141,7 @@ addLayer("3022", {
                 return `×${format(this.effect())}`
             },
             effect() {
-                return getEffect("3022", 23, _D0).add(1).pow(1 / 10)
+                return getEffect("3022", 23, _D0).add(1).pow(1 / 8)
             },
             cost: _D(90),
             unlocked() { return hasUpgrade(this.layer, 21) || hasUpgrade(this.layer, this.id) },
@@ -212,18 +212,18 @@ addLayer("3022", {
         player[302].unlock[0] = true
     },
     doReset(resettingLayer) {
-        if (["3023", "3024", "3025", "3026"].includes(resettingLayer)) {
+        if (["3023", "3024"].includes(resettingLayer)) {
             let rpu = hasUpgrade("3022", 35)
 
-            layerDataReset(this.layer)
+            layerDataReset(this.layer,hasUpgrade("3023",32)?["upgrades"]:[])
             player[302][1].power = _D0
 
             if (resettingLayer == "3023") {
-                if (hasMilestone("3023", 4)) player[this.layer].upgrades.push(24)
-                if (hasChallenge("3023", 11)) player[this.layer].upgrades.push(13)
+                if (hasMilestone("3023", 4) && !player[this.layer].upgrades.includes(24)) player[this.layer].upgrades.push(24)
+                if (hasChallenge("3023", 11) && !player[this.layer].upgrades.includes(13)) player[this.layer].upgrades.push(13)
             }
 
-            if (rpu) player[this.layer].upgrades.push(35)
+            if (rpu && !player[this.layer].upgrades.includes(35)) player[this.layer].upgrades.push(35)
         }
     },
     hotkeys: [

@@ -129,12 +129,12 @@ var systemComponents = {
 			乾狐离光<br>
 			userincre<br>
 			banana3864<br>
-			曦<br>
+			Chara404<br>
         </span>
         <span>
             <br>
             测试<br>
-			奇硅箱 寿司 ＾＿＾ 枫梦 Chara404 风中一尘<br>
+			奇硅箱 寿司 ＾＿＾ 枫梦 风中一尘<br>
         </span>
         <span>
             <br>
@@ -496,6 +496,10 @@ var systemComponents = {
 					{ name: 'Puru - Trap Crow', src: '/resources/song/background17.mp3' },
 					{ name: "Massive New Krew、YUC'e - UN1TE feat.YUC'e", src: '/resources/song/background18.mp3' },
 					{ name: 'RiraN、Choi JinYong - Find You', src: '/resources/song/background19.mp3' },
+					{ name: 'Cansol - Broken Conviction', src: '/resources/song/background20.mp3' },
+					{ name: 'kuatari、William Spradlin - Little Seed, Arrival (Ederak)', src: '/resources/song/background21.mp3' },
+					{ name: 'Plum - Rainbow Chaser (2021 Remake)', src: '/resources/song/background22.mp3' },
+					{ name: 'Crywolf - DATURA (paroxysm)', src: '/resources/song/background23.mp3' },
 				]
 			};
 		},
