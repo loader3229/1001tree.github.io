@@ -640,3 +640,15 @@ div.tbox {
 	-webkit-background-clip: text;
 	animation: rainbow 4s linear infinite;
 }
+.b2 {
+	background: linear-gradient(in hsl 60deg,
+			hsl(45, 100%, 50%),
+			hsl(210, 100%, 50%),
+			hsl(300, 100%, 50%),
+			hsl(100, 100%, 50%));
+	background-size: 200% auto;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	animation: rainbow 12s linear infinite;
+}
