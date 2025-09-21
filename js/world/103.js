@@ -200,7 +200,7 @@ addLayer("103", {
                     player['103'].points = player['103'].points.times(10)
                     player['103'].cboost[0] *= 1.2
                 }
-                if(player['103'].bid == 4){
+                if(player['103'].cid == 4){
                     player['103'].cboost[1] = player['103'].cboost[1].add(1).min(5)
                 }
                 player['103'].bmode = false
