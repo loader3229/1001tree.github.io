@@ -179,6 +179,7 @@ addLayer("103", {
                 if(player['103'].bid == 6){
                     player['103'].res[2][1] += 5
                 }
+                player['103'].bmode = false
             },
             unlocked() { return player['103'].bmode },
             canClick() { return player['103'].bmode },
