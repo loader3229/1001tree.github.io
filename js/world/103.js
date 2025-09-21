@@ -5,9 +5,11 @@ addLayer("103", {
     update(diff) {
         if (player.pause[this.layer]) return
         player['103'].cd -= diff
-        player['103'].points = player['103'].points.add(layers['103'].pGen().times(diff))
+        if(!player['103'].bmode) player['103'].points = player['103'].points.add(layers['103'].pGen().times(diff))
         if(player['103'].points.gte(player['103'].req)){
             player['103'].bmode = true
+            player['103'].req = player['103'].req.times(25)
+            layers['103'].getBoost()
         }
     },
     startData() {
@@ -22,6 +24,12 @@ addLayer("103", {
             req: _D(100),
             bmode: false,
             rtext: "",
+            atext: "",
+            aid: 0,
+            aboost:[_D0,_D0,_D1,_D0],
+            btext: "",
+            bid: 0,
+            bboost:[_D0,_D0,0,_D1]
         }
     },
     type: "none",
@@ -41,19 +49,23 @@ addLayer("103", {
                     return `本次抽中`+((player['103'].r % 2 == 1) ? `<b style="color: #05bd05ff">(${formatWhole(player['103'].r)})</b>` : `<b style="color: #bd0505ff">(${formatWhole(player['103'].r)})</b>`)+`,` +player['103'].rtext
                 }],
                 "blank",
-                ["bar",1]
+                ["bar",1],
+                "blank",
+                ["clickables", [2]],
             ]
         }
     },
     pGen(){
         g = player['103'].basegen
+        g = g.times(player['103'].aboost[2])
+        g = g.times(player['103'].bboost[3])
         return g.max(0)
     },
     machineRoll(){
         let r = chooseWeightInArray(player['103'].res)
         player['103'].r = r
         if(r==1){
-            player['103'].rtext = `获得<b style="color: #05bd05ff">${format(player['103'].points.times(0.07).max(1))}</b>点数!`
+            player['103'].rtext = `获得<b style="color: #05bd05ff">${format(player['103'].points.times(player['103'].aboost[0].add(0.07)).max(1))}</b>点数!`
             player['103'].points = player['103'].points.add(player['103'].points.times(0.07).max(1))
         }
         if(r==2){
@@ -61,11 +73,11 @@ addLayer("103", {
             player['103'].points = player['103'].points.times(0.89)
         }
         if(r==3){
-            player['103'].rtext = `点数生产<b style="color: #05bd05ff">+${format(player['103'].basegen.times(0.03).max(1))}</b>/s!`
+            player['103'].rtext = `点数生产<b style="color: #05bd05ff">+${format(player['103'].basegen.times(player['103'].aboost[1].add(0.03)).max(1))}</b>/s!`
             player['103'].basegen = player['103'].basegen.add(player['103'].basegen.times(0.03).max(1))
         }
         if(r==4){
-            player['103'].rtext = `点数生产<b style="color: #bd0505ff">-${format(player['103'].basegen.times(0.03).max(0))}</b>/s!`
+            player['103'].rtext = `点数生产<b style="color: #bd0505ff">-${format(player['103'].basegen.times(player['103'].aboost[3].add(0.03)).max(0))}</b>/s!`
             player['103'].basegen = player['103'].basegen.times(0.97)
         }
         if(r==5){
@@ -83,6 +95,16 @@ addLayer("103", {
             player['103'].basegen = player['103'].basegen.times(0.5)
         }
     },
+    getBoost(){
+        let a = getBoostCard()[0]
+        let b = getBoostCard()[1]
+        let r = chooseOneInArray([1,2,3,4])
+        player['103'].atext = a[r]
+        player['103'].aid = r
+        r = chooseOneInArray([1,2,3,4])
+        player['103'].btext = b[r]
+        player['103'].bid = r
+    },
     upgrades: {
     },
     milestones: {
@@ -92,7 +114,8 @@ addLayer("103", {
             title() { return `拉动拉杆` },
             display() { return player['103'].cd <= 0 ? `` : `还需冷却${format(player['103'].cd)}s` },
             onClick() {
-                if(player['103'].r == 6) player['103'].cd = 10
+                if(chooseWeightInArray([[0,Math.max(100-player['103'].bboost[2],0)],[1,player['103'].bboost[2]]])) player['103'].cd = 0.02
+                else if(player['103'].r == 6) player['103'].cd = 10
                 else if(player['103'].r == 5) player['103'].cd = 2.5
                 else player['103'].cd = 5
                 layers['103'].machineRoll()
@@ -101,6 +124,52 @@ addLayer("103", {
             unlocked() { return true },
             canClick() { return player['103'].cd<=0 },
         },  
+        21: {
+            title() { return `[α]` },
+            display() { return player['103'].atext },
+            onClick() {
+                if(player['103'].aid == 1){
+                    player['103'].aboost[0] = player['103'].aboost[0].add(0.03)
+                }
+                if(player['103'].aid == 2){
+                    player['103'].aboost[1] = player['103'].aboost[1].add(0.01)
+                }
+                if(player['103'].aid == 3){
+                    player['103'].aboost[2] = player['103'].aboost[2].times(4)
+                }
+                if(player['103'].aid == 4){
+                    player['103'].points = player['103'].points.times(10)
+                    player['103'].aboost[3] = player['103'].aboost[3].add(0.03)
+                }
+                player['103'].bmode = false
+            },
+            unlocked() { return player['103'].bmode },
+            canClick() { return player['103'].bmode },
+            style:{"color":"#6cca00ff","text-shadow":"2px 2px 5px #6cca00","border-color":"#6cca00","box-shadow":"0px 0px 10px #6cca00","border":"6px solid","background-color":"#6cca0025"}
+        }, 
+        22: {
+            title() { return `[β]` },
+            display() { return player['103'].btext },
+            onClick() {
+                if(player['103'].bid == 1){
+                    player['103'].res[4][1] += 2.5
+                }
+                if(player['103'].bid == 2){
+                    player['103'].res[6][1] += 2.5
+                }
+                if(player['103'].bid == 3){
+                    player['103'].bboost[2] += 5
+                }
+                if(player['103'].bid == 4){
+                    if(chooseWeightInArray[[0,50],[1,50]]) player['103'].bboost[3] = player['103'].bboost[3].times(4)
+                    else player['103'].bboost[3] = player['103'].bboost[3].times(0.2)
+                }
+                player['103'].bmode = false
+            },
+            unlocked() { return player['103'].bmode },
+            canClick() { return player['103'].bmode },
+            style:{"color":"#00c3ffff","text-shadow":"2px 2px 5px #00c3ff","border-color":"#00c3ff","box-shadow":"0px 0px 10px #00c3ff","border":"6px solid","background-color":"#00c3ff25"}
+        }, 
     },
     bars: {
         1: {
@@ -109,6 +178,7 @@ addLayer("103", {
             width: 200,
             height: 50,
             progress() { return player['103'].points.div(player['103'].req).min(1) },
+            textStyle:{"color":"#FE0000"}
         },
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
