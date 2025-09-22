@@ -34,10 +34,10 @@ addLayer("104", {
         Normal: {
             content: [
                 ["display-text", function () {
-                    return `你所获得的最高点数是 <h2 class = 'nmpt'>${formatWhole(player['104'].ig ? Decimal.pow(2, player['104'].points.div(2)) : player['104'].points)}</h2>, 到达1024完成世界!`
+                    return `你所获得的最高点数是 <h2 class = 'nmpt'>${formatWhole(player['104'].ig ? Decimal.pow(2, player['104'].maxx.div(2)) : player['104'].maxx)}</h2>, 到达1024完成世界!`
                 }],
                 ["display-text", function () {
-                    return `你本局的分数是 <h2 class = 'nmpt'>${formatWhole(player['104'].score)}</h2>, 你进行了<h2 class = 'nmpt'>${formatWhole(player['104'].merge)}</h2> 次合成`
+                    return `你本局的分数是 <h2 class = 'nmpt'>${formatWhole(player['104'].score)}</h2>,你进行了 <h2 class = 'nmpt'>${formatWhole(player['104'].merge)}</h2> 次合成`
                 }],
                 "blank"
                 ["display-text", function () {
@@ -75,7 +75,7 @@ addLayer("104", {
         { key: "l", description: "", onPress() { player['104'].losetrig = true } },
     ],
     update(diff) {
-        if (player['104'].points.gte(1024) && (!player['104'].trig)) {
+        if (player['104'].maxx.gte(1024) && (!player['104'].trig)) {
             completeWorld('104')
             player['104'].trig = true
         }
@@ -381,7 +381,6 @@ addLayer("104", {
                 player['104'].grid[i] = _D0
                 if (t.neq(0)) player['104'].cnt--
                 player['104'].maxx = player['104'].maxx.max(player['104'].grid[z])
-                player['104'].points = player['104'].points.max(player['104'].points)
                 player['104'].merge = player['104'].merge.add(1)
                 player['104'].score = player['104'].score.add(t.times(2).times(player['104'].merge.times(0.05).add(1).pow(1.2)))
             }

@@ -246,7 +246,7 @@ addLayer("404", {
             }
         },
         103: {
-            title: "DST 0.704545<br>dropdead",
+            title: "DST 0.704545<br>dropdead[光敏性癫痫预警]",
             display: "Frums",
             onClick() {
                 player[this.layer].songid = this.id - 101
@@ -356,7 +356,7 @@ let i404 = null
 
 let crt = []
 let meta = { name: "曲名", singer: "曲师", charter: "谱师", count: 1, delay: 0 }
-let effect = { s: 1, n: [] }
+let effect = { s: 1, d: 0, n: [] }
 let loeff = []
 
 const d404 = {
@@ -569,7 +569,8 @@ function resetChart(sop) {
     for (i in d404.j) {
         d404.j[i] = 0
     }
-    effect = { s: 1, n: [] }
+    effect = { s: 1, d: 0, n: [] }
+    loeff = []
     d404.d[0] = 0
     d404.d[1] = 0
     d404.p = 0
@@ -586,7 +587,8 @@ function resetChart(sop) {
             .then(data => {
                 crt = [...data.note]
                 meta = data.meta
-                effect = typeof data.effect == 'undefined' ? { s: 1, n: [] } : { s: 1, n: [...data.effect] }
+                effect = typeof data.effect == 'undefined' ? { s: 1,d:0, n: [] } : { s: 1,d:0, n: [...data.effect] }
+                loeff = []
                 to404 = setTimeout(() => { window.trackPlayer.setSong(player[404].songid, true) }, 3000)
             });
     }
@@ -739,11 +741,51 @@ function g404() {
 
         d404.tt = getTime() + offset
         let time = d404.tt
+        let show = time + effect.d
+
+
+        if (loeff.length != 0) {
+            let del = []
+
+            for (i in loeff) {
+                if (typeof loeff[i].s != 'undefined') {
+                    effect.s = loeff[i].s +
+                        (loeff[i].es - loeff[i].s) *
+                        (time - loeff[i].t) /
+                        (loeff[i].et - loeff[i].t)
+                }
+                if (typeof loeff[i].d != 'undefined') {
+                    effect.d = loeff[i].d +
+                        (loeff[i].ed - loeff[i].d) *
+                        (time - loeff[i].t) /
+                        (loeff[i].et - loeff[i].t)
+                }
+                if (loeff[i].et - time < 4) {
+                    if (loeff[i].es) effect.s = loeff[i].es
+                    if (loeff[i].ed) effect.d = loeff[i].ed
+                    del.push(i)
+                }
+            }
+
+            if (del.length != 0) {
+                del.sort((a, b) => b - a).forEach(i => {
+                    if (i >= 0 && i < loeff.length) {
+                        loeff.splice(i, 1);
+                    }
+                })
+            }
+        }
 
         if (effect.n.length != 0) {
             if (effect.n[0].t - time < 4) {
-                effect.s = effect.n[0].s
-                effect.n.shift()
+                if (typeof effect.n[0].et != 'undefined') {
+                    loeff.push(effect.n[0])
+                    effect.n.shift()
+                } else {
+                    if (typeof effect.n[0].s != 'undefined') effect.s = effect.n[0].s
+                    if (typeof effect.n[0].d != 'undefined') effect.d = effect.n[0].d
+                    effect.n.shift()
+                }
             }
         }
 
@@ -759,7 +801,7 @@ function g404() {
         for (let i = 0; i < 4; i++) {
             if (note[i].length == 0) continue
             for (let j = 0; j < note[i].length; j++) {
-                t404.fillRect(64 + i * 160, (h - 65) - (note[i][j].t - time) * speed, 112, 35);
+                t404.fillRect(64 + i * 160, (h - 65) - (note[i][j].t - show) * speed, 112, 35);
             }
         }
 
@@ -792,10 +834,10 @@ function g404() {
     t404.fillRect(200, 337, 320, 7)
     t404.fillStyle = `#EEE`
     t404.fillRect(200, 330, window.trackPlayer.getProgress() * 320, 7)
-    if (d404.p>0) {
+    if (d404.p > 0) {
         t404.fillStyle = d404.ap ? `#F80` : (d404.fc ? "#99F" : "#CCC")
         t404.fillRect(200, 337, (d404.p / (1100000 * jt404[d404.jt][6])) * 320, 7)
-    }else {
+    } else {
         t404.fillStyle = "#F99"
         t404.fillRect(200, 337, (-d404.p / (1100000 * jt404[d404.jt][6])) * 320, 7)
     }

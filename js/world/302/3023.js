@@ -305,6 +305,12 @@ addLayer("3023", {
             cost: _D(400),
             unlocked() { return hasUpgrade(this.layer, 35) },
         },
+        42: {
+            title: "<span class='c1'>拜谢宇宙</span>",
+            description: "你已抵达终局",
+            cost: _D(631981714),
+            unlocked() { return hasUpgrade(this.layer, 35) },
+        },
     },
     milestones: {
         1: {
