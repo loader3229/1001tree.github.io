@@ -246,14 +246,15 @@ var systemComponents = {
 
             <tr v-if="options.tmtclass">
 				<td><button class="info" disabled>显示</button></td>
+                <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}<br>文本描述不支<br>持特殊计数法</button></td>
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "强制单页面" : "优先双页面 窄屏单页面" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hcmode')">世界选择器<br>{{ options.hcmode?"易读模式":"普通模式" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
                 <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
 			</tr>
             <tr v-if="options.tmtclass">
 				<td></td>
+                <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideMilestonePopups')">里程碑<br>完成提示<br>{{ options.hideMilestonePopups?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('forceTooltips')">Shift+左键<br>锁定提示栏<br>{{ formatOption('forceTooltips') }}</button></td>
 			</tr>

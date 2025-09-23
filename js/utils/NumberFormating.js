@@ -40,26 +40,43 @@ function sumValues(x) {
     return x.reduce((a, b) => Decimal.add(a, b))
 }
 
-function format(decimal, precision = 2, small) {
+function nm_format(decimal, precision = 2, small, informat = false) {
+    let oc = options.count
+    if (oc == 6) return null
+
     small = small || modInfo.allowSmall
     decimal = new Decimal(decimal)
     if (isNaN(decimal.sign) || isNaN(decimal.layer) || isNaN(decimal.mag)) {
         player.hasNaN = true;
         return "NaN"
     }
-    if (decimal.sign < 0) return "-" + format(decimal.neg(), precision, small)
+    if (decimal.sign < 0) return "-" + nm_format(decimal.neg(), precision, small, informat)
     if (decimal.mag == Number.POSITIVE_INFINITY) return "Infinity"
-    if (decimal.gte("eeee1000")) {
-        var slog = decimal.slog()
-        if (slog.gte(1e6)) return "F" + format(slog.floor())
-        else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
+
+    if (informat || [0, 3, 5].includes(oc)) {
+        if (decimal.gte("eeee1000")) {
+            var slog = decimal.slog()
+            if (slog.gte(1e6)) return "F" + format(slog.floor(), informat = true)
+            else return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0)
+        }
+        else if (decimal.gte("1e1000000")) return exponentialFormat(decimal, 0, false)
+        else if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0)
+        else if (decimal.gte(1e9)) return exponentialFormat(decimal, precision)
+        else if (decimal.gte(1e3)) return commaFormat(decimal, 0)
+        else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
+        else if (decimal.eq(0)) return (0).toFixed(precision)
+    } else if ([1, 2].includes(oc)) {
+        let root = { 1: 2, 2: 10 }[oc]
+
+        if (decimal.eq(0)) return (0).toFixed(precision)
+
+        let power = decimal.log(root)
+        if (power.gte(1000)) return `${root}^${nm_format(power, 0, small, true)}`
+        else if (power.gte(0)) return `${root}^${nm_format(power, 3, small, true)}`
+        else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
+    } else if (oc == 4) {
+        return "🦊"
     }
-    else if (decimal.gte("1e1000000")) return exponentialFormat(decimal, 0, false)
-    else if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0)
-    else if (decimal.gte(1e9)) return exponentialFormat(decimal, precision)
-    else if (decimal.gte(1e3)) return commaFormat(decimal, 0)
-    else if (decimal.gte(0.0001) || !small) return regularFormat(decimal, precision)
-    else if (decimal.eq(0)) return (0).toFixed(precision)
 
     decimal = invertOOM(decimal)
     let val = ""
@@ -68,8 +85,85 @@ function format(decimal, precision = 2, small) {
         return val.replace(/([^(?:e|F)]*)$/, '-$1')
     }
     else
-        return format(decimal, precision) + "⁻¹"
+        return format(decimal, precision, null, true) + "⁻¹"
+}
 
+const fc = [
+    "null", "undefined", "NaN", "Infinity", "-Infinity", "true", "false", "Object", "Array", "String", "Number", "Boolean", "Symbol", "BigInt", "Function", "Date", "RegExp", "Error", "EvalError", "RangeError", "ReferenceError", "SyntaxError", "TypeError", "URIError", "Map", "Set", "WeakMap", "WeakSet", "Promise", "Proxy", "Reflect", "JSON", "Math", "Intl", "ArrayBuffer", "DataView", "Int8Array", "Uint8Array", "Uint8ClampedArray", "Int16Array", "Uint16Array", "Int32Array", "Uint32Array", "Float32Array", "Float64Array", "BigInt64Array", "BigUint64Array", "Arguments", "Generator", "GeneratorFunction", "AsyncFunction", "globalThis", "this", "{}", "[]", "\"\"", "''", "``", "//", "1n", "1", "function() {}", "class {}", "Document", "Window", "Navigator", "Location", "History", "Console", "Event", "Image", "Option", "FormData", "URL", "URLSearchParams", "Blob", "File", "FileReader", "Audio", "Video", "CanvasRenderingContext2D", "WebSocket", "XMLHttpRequest", "MutationObserver", "IntersectionObserver", "Process", "Buffer", "Module", "Exports", "Require", "SetTimeout", "SetInterval", "SetImmediate", "__dirname", "__filename"
+]
+function format(decimal, precision = 2, small, informat = false) {
+    let oc = options.count
+    if (oc == 0 || informat) return nm_format(decimal, precision, small, true)
+
+    const origin = nm_format(decimal, precision, small, false)
+
+    let result = origin
+
+    if ([1, 2].includes(oc)) {
+        // no trans
+    } else if ([3, 5].includes(oc)) {
+        result = transNum(result, getFormatFun(oc), precision)
+    } else if ([6].includes(oc)) {
+        result = chooseOneInArray(fc, random(Math.floor(Date.now() / 1000 + 0.25 * Math.random())))
+        function random(x) {
+            function hash(seed) {
+                let h = seed;
+                h = ((h >> 16) ^ h) * 0x45d9f3b;
+                h = ((h >> 16) ^ h) * 0x45d9f3b;
+                h = (h >> 16) ^ h;
+                return h;
+            }
+            const hashed = hash(x);
+            const randomValue = Math.abs(hashed) / Math.pow(2, 31);
+            return Math.floor(randomValue * 10001);
+        }
+    }
+
+    return result
+}
+
+function getFormatFun(id) {
+    return {
+        3: function (num, precision) {
+            return nm_format(num.sin(), 3, false, true)
+        },
+        5: function (num, precision) {
+            return "|".repeat(num.toString().length)
+        }
+    }[id]
+}
+
+function isNumber(obj) {
+    if (obj[0] === ".") return false;
+    return obj == +obj;
+}
+
+function transNum(input, tFunc, precision) {
+    const numberRegex = /([0-9\.]+)/g;
+
+    let result = '';
+    let lastIndex = 0;
+    let match;
+
+    input = input.replace(/,/g, "")
+
+    while ((match = numberRegex.exec(input)) !== null) {
+        const numberStr = match[0];
+        const startIndex = match.index;
+
+        if (isNumber(numberStr)) {
+            result += input.slice(lastIndex, startIndex);
+
+            const number = _D(numberStr);
+            const transformed = tFunc(number, precision);
+            result += transformed.toString();
+
+            lastIndex = startIndex + numberStr.length;
+        }
+    }
+    result += input.slice(lastIndex);
+
+    return result;
 }
 
 function formatWhole(decimal) {
@@ -89,7 +183,7 @@ function formatTime(s) {
 }
 
 function formatPersent(n, d) {
-    return `${format(_D(n).mul(100), d)}%`
+    return `${format(_D(n).mul(100), d, false, true)}%`
 }
 
 function toPlaces(x, precision, maxAccepted) {

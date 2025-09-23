@@ -230,6 +230,7 @@ function getNewsList() {
 			"阅",
 			"厉=100",
 			"天哪这简直就是我",
+			"老寄狐狸,智宰乾离",
 			"三个彩六是不是r18",
 			"forget is for get",
 			"white offers draw",
@@ -871,8 +872,8 @@ function getProblemList() {
 			problem: '一个后加一个车的价值是多少分?',
 			options: ['11', '12', '13', '14'], answer: 24
 		}, {
-			problem: '4=',
-			options: ['4!<sup>1</sup>', '4!<sup>2</sup>', '4!<sup>3</sup>', '4!<sup>4</sup>'], answer: 23
+			problem: '(4 === 展开(?)) <=> true?',
+			options: ['4!<sup>(1)</sup>', '4!<sup>(2)</sup>', '4!<sup>(3)</sup>', '4!<sup>(4)</sup>'], answer: 24
 		}, {
 			problem: '抛k(k是大于等于10的自然数)个硬币,第n个硬币是正面的概率是1/2n,一共抛出奇数个正面向上的概率和抛出偶数个的概率是否相等?',
 			options: ['k为奇数时相等,反之不然', 'k为偶数时相等,反之不然', '永远相等', '永远不相等'], answer: 23

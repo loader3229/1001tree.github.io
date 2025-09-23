@@ -22,6 +22,7 @@ function getStartOptions() {
 		sloganshown: true,
 		newsshown: true,
 
+		count: false,
 		forceOneTab: false,
 		hcmode: false,
 		hqTree: false,
@@ -128,18 +129,26 @@ function adjustMSDisp() {
 	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % MS_SETTINGS.length];
 }
 
-const FONT_DISPLAYS = ["默认", "Sligoil", "Angus", "Step mono", "Unica One", "Mathd","狐狸", "Misans 中文字体大请耐心等待", "等距更纱黑体 中文字体大请耐心等待"];
+const FONT_DISPLAYS = ["默认", "Sligoil", "Angus", "Step mono", "Unica One", "Mathd", "狐狸", "Misans 中文字体大请耐心等待", "等距更纱黑体 中文字体大请耐心等待"];
 
-const FONT_SETTINGS = ["", "Sligoil", "Angus", "Stepmono", "Unica", "Mathd","fox", "Misans", "DJGSHT"];
+const FONT_SETTINGS = ["", "Sligoil", "Angus", "Stepmono", "Unica", "Mathd", "fox", "Misans", "DJGSHT"];
 
 function adjustFont() {
 	options.font = FONT_SETTINGS[(FONT_SETTINGS.indexOf(options.font) + 1) % FONT_SETTINGS.length];
 	document.body.style.setProperty("--Font", options.font);
 }
 
-const NEWSSPEED_DISPLAYS = ["普通", "快", "更快", "很快", "瞬间", "很慢", "更慢", "慢"];
+const COUNT_DISPLAYS = ["默认", "2的幂", "10的幂", "SaveMySin", "狐狸", "丨目计数法", "wtf"];
 
-const NEWSSPEED_SETTINGS = [150, 120, 90, 50, 0, 500, 300, 200];
+const COUNT_SETTINGS = [0, 1, 2, 3, 4, 5, 6];
+
+function adjustCount() {
+	options.count = COUNT_SETTINGS[(COUNT_SETTINGS.indexOf(options.count) + 1) % COUNT_SETTINGS.length];
+}
+
+const NEWSSPEED_DISPLAYS = ["普通", "快", "很快", "瞬间", "很慢", "慢"];
+
+const NEWSSPEED_SETTINGS = [150, 100, 50, 0, 500, 250];
 
 function adjustSpeed() {
 	options.newsspeed = NEWSSPEED_SETTINGS[(NEWSSPEED_SETTINGS.indexOf(options.newsspeed) + 1) % NEWSSPEED_SETTINGS.length];
