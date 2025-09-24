@@ -684,25 +684,19 @@ var systemComponents = {
 				currentIndex: 0,
 				isPlaying: false,
 				volume: 0.5,
-				songs: [
-					{ src: '/resources/song/track0.ogg' },
-					{ src: '/resources/song/track1.ogg' },
-					{ src: '/resources/song/track2.ogg' },
-					{ src: '/resources/song/track3.ogg' },
-					{ src: '/resources/song/track4.ogg' },
-					{ src: '/resources/song/track5.ogg' },
-					{ src: '/resources/song/track6.ogg' },
-					{ src: '/resources/song/track7.ogg' },
-					{ src: '/resources/song/track8.ogg' },
-					{ src: '/resources/song/track9.ogg' },
-					{ src: '/resources/song/track10.ogg' },
-					{ src: '/resources/song/track11.ogg' },
-					{ src: '/resources/song/track12.ogg' },
-					{ src: '/resources/song/track13.ogg' },
-					{ src: '/resources/song/track14.ogg' },
-					{ src: '/resources/song/track15.ogg' },
-					{ src: '/resources/song/track16.ogg' },
-				]
+				songs: {
+					101: { src: '/resources/song/track101.ogg' },
+					102: { src: '/resources/song/track102.ogg' },
+					103: { src: '/resources/song/track103.ogg' },
+
+					201: { src: '/resources/song/track201.ogg' },
+					202: { src: '/resources/song/track202.ogg' },
+
+					301: { src: '/resources/song/track301.ogg' },
+					302: { src: '/resources/song/track302.ogg' },
+					
+					401: { src: '/resources/song/track401.ogg' },
+				}
 			};
 		},
 		computed: {

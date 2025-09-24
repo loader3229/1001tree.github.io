@@ -9,7 +9,7 @@ addLayer("404", {
             speed: 10,
             offset: 0,
             judge: 0,
-            songid: 0,
+            songid: 101,
             life: 1000,
         }
     },
@@ -94,10 +94,28 @@ addLayer("404", {
         ],
         ["blank", "50px"],
         ["display-text", function () {
-            return `<h1>选曲</h1> 难度 DST&lt;PLT&lt;STR&lt;GLX`
+            return `<h1>选曲</h1>`
         }],
         "blank",
+        ["display-text", function () {
+            return `<h2>DST</h2>`
+        }],
         ["clickables", [10]],
+        "blank",
+        ["display-text", function () {
+            return `<h2>PLT</h2>`
+        }],
+        ["clickables", [20]],
+        "blank",
+        ["display-text", function () {
+            return `<h2>STR</h2>`
+        }],
+        ["clickables", [30]],
+        "blank",
+        ["display-text", function () {
+            return `<h2>GLX</h2>`
+        }],
+        ["clickables", [40]],
         ["blank", "50px"],
     ],
     clickables: {
@@ -205,20 +223,20 @@ addLayer("404", {
                 }
             }
         },
+        //dst
         101: {
-            title: "STR JACK<br>やっぱりみゃー姉なんばーわん",
-            display: "長江里加",
+            title: "DST- Introduction<br>ᐇ",
+            display: "W/",
             onClick() {
-                player[this.layer].songid = this.id - 101
+                player[this.layer].songid = this.id
             },
             canClick() { return !d404.s },
             style() {
-                let c = player[this.layer].songid == this.id - 101
                 return {
                     width: "640px",
                     minHeight: "80px",
                     height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
                     display: "inline-block",
                     fontSize: "14px",
                     clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
@@ -226,99 +244,141 @@ addLayer("404", {
             }
         },
         102: {
-            title: "STR J~A~C~K<br>unforeseen dream scenarios that glorify the beauty of a vacuum cleaner",
-            display: "Rory in early 20s、Shizuma Lietova",
+            title: "DST+ wh~aooltz<br>Waltz in 21edo",
+            display: "Deister Orchestra",
             onClick() {
-                player[this.layer].songid = this.id - 101
+                player[this.layer].songid = this.id
             },
             canClick() { return !d404.s },
             style() {
-                let c = player[this.layer].songid == this.id - 101
+
                 return {
                     width: "640px",
                     minHeight: "80px",
                     height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        103: {
+            title: "DST? 0.704545<br>dropdead[光敏性癫痫预警]",
+            display: "Frums",
+            onClick() {
+                player[this.layer].songid = this.id
+            },
+            canClick() { return !d404.s },
+            style() {
+
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        //plt
+        201: {
+            title: "PLT GOOD SLEEPER<br>groove 33edo",
+            display: "Deister Orchestra",
+            onClick() {
+                player[this.layer].songid = this.id
+            },
+            canClick() { return !d404.s },
+            style() {
+
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        202: {
+            title: "PLT+ BBLLET<br>Crush Everyone",
+            display: "The Quick Brown Fox",
+            onClick() {
+                player[this.layer].songid = this.id
+            },
+            canClick() { return !d404.s },
+            style() {
+
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        //str
+        301: {
+            title: "STR JACK<br>やっぱりみゃー姉なんばーわん",
+            display: "長江里加",
+            onClick() {
+                player[this.layer].songid = this.id
+            },
+            canClick() { return !d404.s },
+            style() {
+
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
+                    display: "inline-block",
+                    fontSize: "14px",
+                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
+                }
+            }
+        },
+        302: {
+            title: "STR J~A~C~K<br>unforeseen dream scenarios that glorify the beauty of a vacuum cleaner",
+            display: "Rory in early 20s、Shizuma Lietova",
+            onClick() {
+                player[this.layer].songid = this.id
+            },
+            canClick() { return !d404.s },
+            style() {
+                return {
+                    width: "640px",
+                    minHeight: "80px",
+                    height: "80px",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
                     display: "inline-block",
                     fontSize: "10px",
                     clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
                 }
             }
         },
-        103: {
-            title: "DST 0.704545<br>dropdead[光敏性癫痫预警]",
-            display: "Frums",
-            onClick() {
-                player[this.layer].songid = this.id - 101
-            },
-            canClick() { return !d404.s },
-            style() {
-                let c = player[this.layer].songid == this.id - 101
-                return {
-                    width: "640px",
-                    minHeight: "80px",
-                    height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
-                    display: "inline-block",
-                    fontSize: "14px",
-                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
-                }
-            }
-        },
-        104: {
-            title: "PLT GOOD SLEEPER<br>groove 33edo",
-            display: "Deister Orchestra",
-            onClick() {
-                player[this.layer].songid = this.id - 101
-            },
-            canClick() { return !d404.s },
-            style() {
-                let c = player[this.layer].songid == this.id - 101
-                return {
-                    width: "640px",
-                    minHeight: "80px",
-                    height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
-                    display: "inline-block",
-                    fontSize: "14px",
-                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
-                }
-            }
-        },
-        105: {
+        //glx
+        401: {
             title: "GLX SUPERJJJJACK<br>None Shall Live",
             display: "Thomas Bergersen",
             onClick() {
-                player[this.layer].songid = this.id - 101
+                player[this.layer].songid = this.id
             },
             canClick() { return !d404.s },
             style() {
-                let c = player[this.layer].songid == this.id - 101
+
                 return {
                     width: "640px",
                     minHeight: "80px",
                     height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
-                    display: "inline-block",
-                    fontSize: "14px",
-                    clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
-                }
-            }
-        },
-        106: {
-            title: "PLT+ BBLLET<br>Crush Everyone",
-            display: "The Quick Brown Fox",
-            onClick() {
-                player[this.layer].songid = this.id - 101
-            },
-            canClick() { return !d404.s },
-            style() {
-                let c = player[this.layer].songid == this.id - 101
-                return {
-                    width: "640px",
-                    minHeight: "80px",
-                    height: "80px",
-                    backgroundColor: c ? "#EEE" : "#888",
+                    backgroundColor: player[this.layer].songid == this.id ? "#EEE" : "#888",
                     display: "inline-block",
                     fontSize: "14px",
                     clipPath: "polygon(0% 50%,6% 100%,94% 100%,100% 50%,94% 0%,6% 0%)"
@@ -587,7 +647,7 @@ function resetChart(sop) {
             .then(data => {
                 crt = [...data.note]
                 meta = data.meta
-                effect = typeof data.effect == 'undefined' ? { s: 1,d:0, n: [] } : { s: 1,d:0, n: [...data.effect] }
+                effect = typeof data.effect == 'undefined' ? { s: 1, d: 0, n: [] } : { s: 1, d: 0, n: [...data.effect] }
                 loeff = []
                 to404 = setTimeout(() => { window.trackPlayer.setSong(player[404].songid, true) }, 3000)
             });
@@ -735,8 +795,6 @@ function g404() {
     }
 
     if (d404.s) {
-        player[404].life = Math.min(1000, player[404].life + t / 400)
-
         const offset = meta.delay + player[404].offset / 1
 
         d404.tt = getTime() + offset
@@ -791,7 +849,7 @@ function g404() {
 
         const speed = effect.s * player[404].speed / 10
         const gap = Math.max(500, (h - 30) / speed + 50)
-
+        
         while (crt.length == 0 ? false : crt[0].t < time + gap) {
             note[crt[0].c].push(crt[0])
             crt.shift()
@@ -803,18 +861,12 @@ function g404() {
             for (let j = 0; j < note[i].length; j++) {
                 t404.fillRect(64 + i * 160, (h - 65) - (note[i][j].t - show) * speed, 112, 35);
             }
-        }
-
-        for (let i = 0; i < 4; i++) {
             if (note[i].length == 0) continue
             if (d404.u) {
                 if (note[i][0].t - time < 4) {
                     clickTrack(i)
                 }
             }
-        }
-
-        for (let i = 0; i < 4; i++) {
             if (note[i].length == 0) continue
             if (note[i][0].t - time < jt404[player[404].judge][5]) {
                 note[i].shift()

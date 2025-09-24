@@ -18,14 +18,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.44,
+	num: 0.48,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.44 | 2025/9/17</h3><br>
-	更新了11个游戏<br><br>
+	<h3>v0.48 | 2025/9/17</h3><br>
+	更新了12个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
 	1001tree team 成立!<br><br>`
 
