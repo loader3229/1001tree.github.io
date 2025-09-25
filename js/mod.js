@@ -34,7 +34,7 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 // 如果在Layer内添加了新函数,请在此处添加它们
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next',
-	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime',
+	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll',
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement','getBoost',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen',
