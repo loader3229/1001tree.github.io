@@ -134,140 +134,182 @@ addLayer("304", {
             style:{"width":"200px"}
         },
         21: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].ch++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         31: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].ch--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].ch > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         22: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].mt++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         32: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].mt--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].mt > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         23: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].en++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         33: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].en--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].en > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         24: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].hp++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         34: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].hp--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].hp > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         25: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].pc++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         35: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].pc--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].pc > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         26: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].pe++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         36: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].pe--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].xt > 1 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         27: {
-            display() { return `+` },
+            title() { return `+` },
             onClick() {
                 player['304'].tot--
                 player['304'].xt++
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1  && player['304'].tot > 0 },
             style:{"width":"50px","height":"50px","min-height":"50px"}
         },
         37: {
-            display() { return `-` },
+            title() { return `-` },
             onClick() {
                 player['304'].tot++
                 player['304'].xt--
+            },
+            onHold() {
+                this.onClick()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 && player['304'].xt > 1 },

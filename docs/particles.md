@@ -1,63 +1,69 @@
-# Particles
+粒子是自由漂浮的元素，可以移动并具有多种不同的行为。它们还可以与鼠标交互。
 
-Particles are free-floating elements that can move and have many different behaviors. They can also interact with the mouse.
+要创建粒子，请使用 makeParticles(particle, amount)。其中 particle 是一个用于定义粒子的对象，其属性如下所述。此外还有 makeShinies，它使用不同的默认值，并在随机位置创建静止的粒子。末尾还列出了一些其他有用的内容。
 
-To make particles, use `makeParticles(particle, amount)`. `particle` is a particle-defining object, with features as explained below. There is also `makeShinies`, which uses different defaults and creates stationary particles at a random location. There are also a few other useful things listed at the end.
-
-```js
-
+JS
 const myParticle {
     image:"options_wheel.png",
     spread: 20,
     gravity: 2,
     time: 3,
-    speed() { // Randomize speed a bit
+    speed() { // 稍微随机化速度
         return (Math.random() + 1.2) * 8 
     },
     etc...
 }
-```
+属性可以是函数或常量。这些属性会在每个粒子创建时被调用，并带有一个 id 参数，该参数根据当前生成的粒子在 amount 中的序号分配。所有这些属性都是可选的，并有默认值。
 
-Features can be functions or constant. These features will be called when each particle is made, with an `id` argument, which is assigned based on which of the `amount` particles being spawned this is. **All of these are optional**, with a default value.
+所有距离单位均为像素，角度单位为度，0度表示向上，顺时针方向增加。
 
-All distances are in pixels and angles are in degrees, with 0 being up and going clockwise.
+time：粒子持续的时间（单位：秒）。默认值为3。
 
-- time: The amount of time, in seconds, that the particle will last. Default is 3.
-- fadeOutTime: The amount of seconds that fading out at the end should take (part of the total lifetime). Default is 1.
-- fadeInTime: The amount of seconds that fading in should take (part of the total lifetime). Default is 0.
+fadeOutTime：粒子在结束时淡出所需的时间（占总生命周期的部分）。默认值为1。
 
-- image: The image the particle should display. `""` will display no image. Default is a generic particle.
-- text: Displays text on the particle. Can use basic HTML.
-- style: Lets you apply other CSS styling to the particle.
-- width, height: The dimensions of the particle. Default is 35 and 35.
-- color: Sets the color of the image to this color.
+fadeInTime：粒子淡入所需的时间（占总生命周期的部分）。默认值为0。
 
-- angle: The angle that the particle should face. Default is 0.
-- dir: The initial angle that the particles should move in, before spread is factored in. Default is whatever angle is.
-- spread: If there are several particles, they will be spread out by this many degrees, centered on dir. Default is 30.
+image：粒子应显示的图像。"" 表示不显示图像。默认值为通用粒子图像。
 
-- rotation: The amount that the (visual) angle of the particle should change by. Default is 0.
-- speed: The starting speed of the particle. Default is 15.
-- gravity: The amount the particle should accelerate downwards. Default is 0.
+text：在粒子上显示文本。可以使用基本的HTML。
 
-- x, y: The starting coordinates of the particle. Default is at the mouse position.
-- offset: How far from the start each particle should appear. Default is 10.
-- xVel, yVel: Set initially based on other properties, then used to update movement.
+style：允许您向粒子应用其他CSS样式。
 
-- layer: When changing tabs, if leaving the `layer` tab, this particle will be erased.
-- You can add other features to particles, but you must impliment their effects yourself.
+width, height：粒子的尺寸。默认值为35和35。
 
-Function features: These stay as functions and are for more advanced things. They are optional.
+color：将图像的颜色设置为该颜色。
 
-- update(): Called each tick. Lets you do more advanced visual and movement behaviors by changing other properties.
-- onClick(), onMouseOver(), onMouseLeave(): Called when the particle is interacted with.
+angle：粒子应朝向的角度。默认值为0。
 
+dir：粒子移动的初始角度（在考虑扩散之前）。默认值为 angle 的值。
 
-Other useful things that are not features of the particle object:
+spread：如果有多个粒子，它们将以 dir 为中心，扩散指定的度数。默认值为30。
 
-- setDir(particle, dir), setSpeed(particle, speed): Set the speed/direction on a particle.
-- clearParticles(check): Function to delete particles. With no check, it deletes all particles. Check is a function that takes a particle, and returns true if that particle should be deleted.
-- You can use Vue.delete(particles, this.id) to make a particle delete itself.
-- mouseX and mouseY are variables that track the mouse position.
-- sin(x), cos(x), tan(x): functions that do these operations, with x in degrees. (Instead of radians).
-- asin(x), acos(x), atan(x): functions that do these operations, with the returned value in degrees. (instead of radians).
+rotation：粒子（视觉）角度变化的量。默认值为0。
+
+speed：粒子的初始速度。默认值为15。
+
+gravity：粒子向下加速的量。默认值为0。
+
+x, y：粒子的起始坐标。默认值为鼠标位置。
+
+offset：每个粒子应距离起始点多远出现。默认值为10。
+
+xVel, yVel：初始值根据其他属性设置，随后用于更新运动。
+
+layer：切换标签页时，如果离开 layer 标签页，该粒子将被清除。
+
+您可以向粒子添加其他属性，但必须自行实现其效果。
+
+函数属性：这些属性保持为函数形式，用于更高级的功能。它们是可选的。
+
+update()：每帧调用一次。允许您通过更改其他属性来实现更高级的视觉和运动行为。
+onClick(), onMouseOver(), onMouseLeave()：当粒子被交互时调用。
+其他有用的内容（不属于粒子对象的属性）：
+
+setDir(particle, dir), setSpeed(particle, speed)：设置粒子的速度/方向。
+clearParticles(check)：用于删除粒子的函数。如果不提供 check 参数，则删除所有粒子。check 是一个函数，接受一个粒子作为参数，如果该粒子应被删除则返回 true。
+您可以使用 Vue.delete(particles, this.id) 让粒子自行删除。
+mouseX 和 mouseY 是跟踪鼠标位置的变量。
+sin(x), cos(x), tan(x)：这些函数执行相应的运算，x 以度为单位（而非弧度）。
+asin(x), acos(x), atan(x)：这些函数执行相应的运算，返回值以度为单位（而非弧度）。

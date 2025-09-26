@@ -43,7 +43,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect',
 	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText', 'genClear',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff',
 	'getRandomcode', 'getLoseText', 'getWrongPage', 'find25', 'calculateInfoDensity',
-	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "sC1", "sC2", "sC3", "sC4", "sC5",
+	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "ai7", "ai8", "ai9", "sC1", "sC2", "sC3", "sC4", "sC5",
 	"aC1", "aC2", "aC3", "aC4", "aC5", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10",
 	"startSimulation", "endSimulation",
 ]

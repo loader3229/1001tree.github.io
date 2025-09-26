@@ -23,6 +23,7 @@ addLayer("502", {
         ],
         "gridcompact",
         ["clickable", 13],
+        "blank",
     ],
     normalEndGame() {
         let _p = player._502
@@ -54,16 +55,18 @@ addLayer("502", {
 
             setGridData(this.layer, id, d)
 
+            let aim = player._502.ai == 9 ? 10 : player._502.ai
+
             if (d == 16) {
-                player[this.layer].points = player[this.layer].points.add(_D(25).mul(4 + player._502.ai).div(5))
+                player[this.layer].points = player[this.layer].points.add(_D(30).add(_D2.mul(aim)))
                 layers[this.layer].normalEndGame()
                 return
             }
 
             if (a == 0) {
-                player[this.layer].points = player[this.layer].points.add(2 + player._502.ai)
+                player[this.layer].points = player[this.layer].points.add(_D(3).add(_D(0.2).mul(aim)))
             } else {
-                player[this.layer].points = decimalMax(player[this.layer].points.sub(_D(a).mul(10 - player._502.ai).div(5)), 0)
+                player[this.layer].points = decimalMax(player[this.layer].points.sub(_D(1.5).sub(_D(0.1).mul(aim)).mul(a)), 0)
             }
 
             layers[this.layer].ai[`ai${player._502.ai}`]()
@@ -73,7 +76,7 @@ addLayer("502", {
 
             let { x, y } = this.idtoxy(id)
 
-            if (player._502.aiopen[y][x] && player._502.ai == 6) {
+            if (player._502.aiopen[y][x] && player._502.ai == 9) {
                 backgroundImage = `url(resources/pic/502_ai.png)`
             } else if (data >= 0) {
                 backgroundImage = `url(resources/pic/502_${data}.png)`
@@ -103,7 +106,12 @@ addLayer("502", {
             }
         },
         getArrow(n) {
-            return n.toString(2).split('').reduce((sum, digit) => sum + parseInt(digit, 2), 0);
+            let c = 0;
+            while (n) {
+                c++;
+                n &= n - 1;
+            }
+            return c;
         },
         getValue(xy, array) {
             const { x, y } = xy;
@@ -233,10 +241,10 @@ addLayer("502", {
                 return !player._502.inGame
             },
             onClick() {
-                player._502.ai = (player._502.ai + 1) % 7
+                player._502.ai = (player._502.ai + 1) % 10
             },
             progress() {
-                let result = player._502.ai / 6
+                let result = player._502.ai / 9
                 return decimalBetween(result, 0, 1)
             },
             width: "600px",
@@ -276,6 +284,18 @@ addLayer("502", {
     ai: {
         layer: 502,
         ai0() {
+            let { sb, tb } = this.analyzeGrid()
+            if (tb.length == 0) {
+                player._502.final = true
+                layers[this.layer].normalEndGame()
+                return
+            }
+
+            if (sb.length != 0) {
+                this.click(chooseOneInArray(sb))
+                return
+            }
+            this.click(chooseOneInArray(tb))
         },
         ai1() {
             let { tb } = this.analyzeGrid()
@@ -297,20 +317,29 @@ addLayer("502", {
 
             if (sb.length == 0) {
                 this.click(chooseOneInArray(db))
+            } else if (db.length == 0) {
+                this.click(chooseOneInArray(sb))
             } else {
-                let rs = chooseOneInArray([sb, db, db])
+                let rs = chooseWeightInArray([[sb, 1], [db, 1]])
                 this.click(chooseOneInArray(rs))
             }
         },
         ai3() {
-            let { db, tb } = this.analyzeGrid()
+            let { sb, db, tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
                 return
             }
 
-            this.click(chooseOneInArray(db))
+            if (sb.length == 0) {
+                this.click(chooseOneInArray(db))
+            } else if (db.length == 0) {
+                this.click(chooseOneInArray(sb))
+            } else {
+                let rs = chooseWeightInArray([[sb, 1], [db, 2]])
+                this.click(chooseOneInArray(rs))
+            }
         },
         ai4() {
             let { sb, db, tb } = this.analyzeGrid()
@@ -320,8 +349,39 @@ addLayer("502", {
                 return
             }
 
-            if (db.length === 2) {
+            if (sb.length == 0) {
+                this.click(chooseOneInArray(db))
+            } else if (db.length == 0) {
                 this.click(chooseOneInArray(sb))
+            } else {
+                let rs = chooseWeightInArray([[sb, 1], [db, 3]])
+                this.click(chooseOneInArray(rs))
+            }
+        },
+        ai5() {
+            let { db, tb } = this.analyzeGrid()
+            if (tb.length == 0) {
+                player._502.final = true
+                layers[this.layer].normalEndGame()
+                return
+            }
+
+            if (db.length == 0) {
+                this.click(chooseOneInArray.tb)
+                return
+            }
+            this.click(chooseOneInArray(db))
+        },
+        ai6() {
+            let { db, tb } = this.analyzeGrid()
+            if (tb.length == 0) {
+                player._502.final = true
+                layers[this.layer].normalEndGame()
+                return
+            }
+
+            if (db.length == 0) {
+                this.click(chooseOneInArray.tb)
                 return
             }
 
@@ -330,7 +390,7 @@ addLayer("502", {
 
             for (const id of db) {
                 const xy = this.idtoxy(id)
-                const infoDensity = this.calculateInfoDensity(xy)
+                const infoDensity = this.calculateInfoDensity(xy, 2, 1)
 
                 if (infoDensity > maxInfo) {
                     maxInfo = infoDensity
@@ -340,29 +400,104 @@ addLayer("502", {
 
             this.click(bestCell)
         },
-        ai5() {
-            let { tb } = this.analyzeGrid()
+        ai7() {
+            let { db, tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
                 return
             }
 
-            if (Math.random() < 0.1) this.click(this.find25())
+            if (Math.random() < 0.05) {
+                this.click(this.find25())
+                return
+            }
 
-            this.ai4()
+            if (db.length == 0) {
+                this.click(chooseOneInArray.tb)
+                return
+            }
+
+            let maxInfo = -1
+            let bestCell = null
+
+            for (const id of db) {
+                const xy = this.idtoxy(id)
+                const infoDensity = this.calculateInfoDensity(xy, 3, 1)
+
+                if (infoDensity > maxInfo) {
+                    maxInfo = infoDensity
+                    bestCell = id
+                }
+            }
+
+            this.click(bestCell)
         },
-        ai6() {
-            let { tb } = this.analyzeGrid()
+        ai8() {
+            let { db, tb } = this.analyzeGrid()
             if (tb.length == 0) {
                 player._502.final = true
                 layers[this.layer].normalEndGame()
                 return
             }
-            
-            if (Math.random() < 0.15) this.click(this.find25())
 
-            this.ai4()
+            if (Math.random() < 0.1) {
+                this.click(this.find25())
+                return
+            }
+
+            if (db.length == 0) {
+                this.click(chooseOneInArray.tb)
+                return
+            }
+
+            let maxInfo = -1
+            let bestCell = null
+
+            for (const id of db) {
+                const xy = this.idtoxy(id)
+                const infoDensity = this.calculateInfoDensity(xy, 5, 1)
+
+                if (infoDensity > maxInfo) {
+                    maxInfo = infoDensity
+                    bestCell = id
+                }
+            }
+
+            this.click(bestCell)
+        },
+        ai9() {
+            let { db, tb } = this.analyzeGrid()
+            if (tb.length == 0) {
+                player._502.final = true
+                layers[this.layer].normalEndGame()
+                return
+            }
+
+            if (Math.random() < 0.15) {
+                this.click(this.find25())
+                return
+            }
+
+            if (db.length == 0) {
+                this.click(chooseOneInArray.tb)
+                return
+            }
+
+            let maxInfo = -1
+            let bestCell = null
+
+            for (const id of db) {
+                const xy = this.idtoxy(id)
+                const infoDensity = this.calculateInfoDensity(xy, 1, 0)
+
+                if (infoDensity > maxInfo) {
+                    maxInfo = infoDensity
+                    bestCell = id
+                }
+            }
+
+            this.click(bestCell)
         },
         click(id) {
             let xy = this.idtoxy(id)
@@ -405,7 +540,7 @@ addLayer("502", {
             const v = d[0] * 8 + d[1] * 4 + d[2] * 2 + d[3] * 1
             return v;
         },
-        calculateInfoDensity(xy) {
+        calculateInfoDensity(xy, w1 = 2, w2 = 1) {
             const { x, y } = xy
 
             let directionCount = 4
@@ -430,7 +565,7 @@ addLayer("502", {
                 if (player[this.layer].grid[id] < 0) reachableCells++
             }
 
-            return directionCount * 1.5 + reachableCells
+            return directionCount * w1 + reachableCells * w2
         },
         analyzeGrid() {
             const g = player[this.layer].grid
@@ -496,7 +631,6 @@ addLayer("502", {
                 isSafe ? sb.push(id) : db.push(id)
             }
 
-            console.log(db)
             return { sb, db, tb };
         }
     },
@@ -510,39 +644,92 @@ addLayer("502", {
                 你和AI轮流开格子,开格之后,如果开到25则胜利<br>
                 否则,格子上会显示四个方向(是一整行一整列而不是相邻的)的数中<br>
                 是否存在比该格更大的数字,×的意思是没有,你需要通过这些信息找到25<br>
+                也就是说,你的目标是踩到炸弹(同志们,我踩着地雷了!)<br><br>
+
                 <h3>得分规则</h3><br>
                 当你开格时,开到25或×的时候会加分,否则你会基于格子上的箭头数扣分<br>
-                根据AI难度存在一个评分系数,难度越高,得分越高,扣分越少<br>
+                根据AI难度存在一个评分系数,难度越高,得分越高,扣分越少<br><br>
+
                 <h3>AI描述</h3><br>
                 <table style="border: 2px solid #fff; border-collapse: collapse; width: 90%;">
                 <tr style="border: 1px solid #fff;">
-                <th style="border: 1px solid #fff;">AI强度</th>
+                <th style="border: 1px solid #fff;">AI</th>
+                <th style="border: 1px solid #fff;">ELO*</th>
                 <th>描述</th>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">0</td>
-                <td>AI关闭</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">1</td>
-                <td>最基础的AI,它非常蠢,只会随机选择一个空格子</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">2</td>
-                <td>依旧弱不禁风,以2:1的权重加权随机选择潜在格或安全格</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">3</td>
-                <td>以攻击为主要目的,从不防守,从潜在格中随机选取一个格子</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">4</td>
-                <td>使用神秘算法,这里太小写不下</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">5</td>
-                <td>4级AI的基础上可以开挂,有10%概率抹除运算结果直接开出25</td>
-                </tr><tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">6</td>
-                <td>5级AI的基础上15%抹除且无法看到AI开的格的箭头数,除非是×</td>
+                </tr><tr style="border: 1px solid #fff;">
+                <td>0</td>
+                <td style="border: 1px solid #fff;">545</td>
+                <td>送人头,随机选择一个不可能是25的格子,除非没得选</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>1</td>
+                <td style="border: 1px solid #fff;">1102</td>
+                <td>基础AI,它非常蠢,只会随机选择一个格子</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>2</td>
+                <td style="border: 1px solid #fff;">1205</td>
+                <td>先从安全格和危险格中选择一种,再随机选择格子</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>3</td>
+                <td style="border: 1px solid #fff;">1346</td>
+                <td>和2级AI一样,但危险格的权重是2</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>4</td>
+                <td style="border: 1px solid #fff;">1410</td>
+                <td>和2级AI一样,但危险格的权重是3</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>5</td>
+                <td style="border: 1px solid #fff;">1560</td>
+                <td>从危险格中随机选择一个格子</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>6</td>
+                <td style="border: 1px solid #fff;">1619</td>
+                <td>和5级AI一样,但对格子加权计算,潜在信息越多权越大</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>7</td>
+                <td style="border: 1px solid #fff;">1860</td>
+                <td>基于6级AI优化权重,且5%作弊直接点击25</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>8</td>
+                <td style="border: 1px solid #fff;">2057</td>
+                <td>基于7级AI进一步优化权重,且10%作弊直接点击25</td>
+                </tr>
+                
+                <tr style="border: 1px solid #fff;">
+                <td>9</td>
+                <td style="border: 1px solid #fff;">2369</td>
+                <td>基于8级AI优化权重至最优,且15%作弊直接点击25,且你无法得知它开的格的状态(除非它是×)</td>
                 </tr></table>
+                *ELO通过40000000场AI比赛模拟得出,ELO相当于AI的强度,越高越强<br><br>
+
                 <h3>得分表</h3><br>
                 <table style="border: 2px solid #fff; border-collapse: collapse; width: 90%;">
                     <tr style="border: 1px solid #fff;"><th style="border: 1px solid #fff;">AI强度</th><th>开到×加分</th><th>每箭头扣分</th><th>开到25加分</th></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">0</td><td>2</td><td>2</td><td>20</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">1</td><td>3</td><td>1.8</td><td>25</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">2</td><td>4</td><td>1.6</td><td>30</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">3</td><td>5</td><td>1.4</td><td>35</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">4</td><td>6</td><td>1.2</td><td>40</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">5</td><td>7</td><td>1</td><td>45</td></tr>
-                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">6</td><td>8</td><td>0.8</td><td>50</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">0</td><td>3.0</td><td>1.5</td><td>30</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">1</td><td>3.2</td><td>1.4</td><td>32</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">2</td><td>3.4</td><td>1.3</td><td>34</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">3</td><td>3.6</td><td>1.2</td><td>36</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">4</td><td>3.8</td><td>1.1</td><td>38</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">5</td><td>4.0</td><td>1.0</td><td>40</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">6</td><td>4.2</td><td>0.9</td><td>42</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">7</td><td>4.4</td><td>0.8</td><td>44</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">8</td><td>4.6</td><td>0.7</td><td>46</td></tr>
+                    <tr style="border: 1px solid #fff;"><td style="border: 1px solid #fff;">9</td><td>5.0</td><td>0.5</td><td>50</td></tr>
                 </table>` },
         },
     },
