@@ -633,3 +633,11 @@ function decimalMin(...values) {
 function decimalBetween(value, min, max) {
 	return decimalMin(decimalMax(value, min), max)
 }
+
+function checkWarning(id) {
+	return player[id].warning
+}
+
+function closeWarning(id) {
+	player[id].warning = false
+}

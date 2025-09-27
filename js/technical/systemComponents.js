@@ -133,12 +133,13 @@ var systemComponents = {
         </span>
         <span>
             <br>
-            测试<br>
-			奇硅箱 寿司 ＾＿＾ 枫梦 风中一尘<br>
+            文案<br>
+			夏鸣 乾狐离光<br>
         </span>
         <span>
             <br>
-            模组树汉化 乾狐离光<br>
+            测试<br>
+			奇硅箱 寿司 ＾＿＾ 枫梦 风中一尘<br>
         </span>
         <br>
         <ct>
@@ -156,6 +157,7 @@ var systemComponents = {
 			"></input>
 		<br>
         <br>
+		本游戏基于模组树汉化制作<br>
         The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda and FlamemasterNXF
         <br>
         The Prestige Tree made by Jacorb and Aarex

@@ -129,7 +129,7 @@ function adjustMSDisp() {
 	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % MS_SETTINGS.length];
 }
 
-const FONT_DISPLAYS = ["默认", "Sligoil", "Angus", "Step mono", "Unica One", "Mathd", "狐狸", "Misans 中文字体大请耐心等待", "等距更纱黑体 中文字体大请耐心等待"];
+const FONT_DISPLAYS = ["默认", "Sligoil", "Angus", "Step mono", "Unica One", "Mathd", "FoxSize", "Misans 中文字体大请耐心等待", "等距更纱黑体 中文字体大请耐心等待"];
 
 const FONT_SETTINGS = ["", "Sligoil", "Angus", "Stepmono", "Unica", "Mathd", "fox", "Misans", "DJGSHT"];
 
