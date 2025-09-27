@@ -14,6 +14,7 @@ addLayer("304", {
             en: 10,
             hp: 10,
             pc: 10,
+            dayleft:50,
             tot: 30,
             xt: 10,
             pe: 10,
@@ -21,6 +22,8 @@ addLayer("304", {
             year: 2026,
             hlist: [0,0,0,0],
             hchoose: 0,
+            optlist: ["","","","",""],
+            optid: [0,0,0,0,0,0],
         }
     },
     type: "none",
@@ -36,6 +39,7 @@ addLayer("304", {
                 }],
                 "blank",
                 ["clickables", [1]], 
+                ["clickables", [4]],
                 "blank",
                 "blank",
                 [
@@ -43,7 +47,7 @@ addLayer("304", {
                         ["clickable", [21]],
                         "blank",
                         ["display-text", function () {
-                                return `语文天赋:${player['304'].ch-10}`
+                                if(player['304'].mode==1) return `语文天赋:${player['304'].ch-10}`
                         }],
                         "blank",
                         ["clickable", [31]],
@@ -53,7 +57,7 @@ addLayer("304", {
                         ["clickable", [22]],
                         "blank",
                         ["display-text", function () {
-                                return `数学天赋:${player['304'].mt-10}`
+                                if(player['304'].mode==1) return `数学天赋:${player['304'].mt-10}`
                         }],
                         "blank",
                         ["clickable", [32]],
@@ -63,7 +67,7 @@ addLayer("304", {
                         ["clickable", [23]],
                         "blank",
                         ["display-text", function () {
-                                return `英语天赋:${player['304'].en-10}`
+                                if(player['304'].mode==1) return `英语天赋:${player['304'].en-10}`
                         }],
                         "blank",
                         ["clickable", [33]],
@@ -73,7 +77,7 @@ addLayer("304", {
                         ["clickable", [24]],
                         "blank",
                         ["display-text", function () {
-                                return `史政天赋:${player['304'].hp-10}`
+                                if(player['304'].mode==1) return `史政天赋:${player['304'].hp-10}`
                         }],
                         "blank",
                         ["clickable", [34]],
@@ -83,7 +87,7 @@ addLayer("304", {
                         ["clickable", [25]],
                         "blank",
                         ["display-text", function () {
-                                return `物化天赋:${player['304'].pc-10}`
+                                if(player['304'].mode==1) return `物化天赋:${player['304'].pc-10}`
                         }],
                         "blank",
                         ["clickable", [35]],
@@ -93,7 +97,7 @@ addLayer("304", {
                         ["clickable", [26]],
                         "blank",
                         ["display-text", function () {
-                                return `体育天赋:${player['304'].pe-10}`
+                                if(player['304'].mode==1) return `体育天赋:${player['304'].pe-10}`
                         }],
                         "blank",
                         ["clickable", [36]],
@@ -103,11 +107,13 @@ addLayer("304", {
                         ["clickable", [27]],
                         "blank",
                         ["display-text", function () {
-                                return `心态值:${player['304'].xt}`
+                               if(player['304'].mode==1)  return `心态值:${player['304'].xt}`
                         }],
                         "blank",
                         ["clickable", [37]],
                     ]
+                ], [
+
                 ]
             ],
         }
@@ -116,6 +122,43 @@ addLayer("304", {
         if(player['304'].mode == 1){
             return `当前可用天赋点:${player['304'].tot}<br>注意心态小于等于0立刻死亡!`
         }
+        if(player['304'].mode == 2){
+            return `距离中考还有${player['304'].dayleft}天,注意学习将会损失一定心态值!
+            <br>当前数值:<b style="color: #8c2702ff">${format(player['304'].ch-10,1)}</b>|<b style="color: #00aaffff">${format(player['304'].mt-10,1)}</b>|<b style="color: #d49f00df">${format(player['304'].en-10,1)}</b>|<b style="color: #d400a6df">${format(player['304'].hp-10,1)}</b>|<b style="color: #00b5e7df">${format(player['304'].pc-10,1)}</b>|<b style="color: #96ff5edf">${format(player['304'].pe-10,1)}</b>|<b style="color: #ff0000df">${format(player['304'].xt,1)}</b>`
+        }
+    },
+    getZKopt(){
+        let a = getZKOption()
+        let r1
+        for(i=1;i<=4;i++){
+            r1=chooseOneInArray([1,2,3])
+            player['304'].optlist[i]=chooseOneInArray(a[r1-1])
+            player['304'].optid[i]=r1
+        }
+    },
+    executeBoost(x){
+        let id = player['304'].optid[x]
+        if(id==1){
+            player['304'].ch += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==2){
+            player['304'].mt += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==3){
+            player['304'].en += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==4){
+            player['304'].hp += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==5){
+            player['304'].pc += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==6){
+            player['304'].pe += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        player['304'].dayleft--
+        player['304'].xt-=chooseOneInArray([0.5,0.8,1.3,1.5,2])
+        layers['304'].getZKopt()
     },
     upgrades: {
     },
@@ -319,10 +362,20 @@ addLayer("304", {
             display() { return `确认开始` },
             onClick() {
                 player['304'].mode = 2
+                layers['304'].getZKopt()
             },
             unlocked() { return player['304'].mode == 1 },
             canClick() { return player['304'].mode == 1 },
             style:{"width":"200px","height":"50px","min-height":"50px"}
-        }
+        },
+        41: {
+            title() { return player['304'].optlist[1] },
+            onClick() {
+                layers['304'].executeBoost(1)
+            },
+            unlocked() { return player['304'].mode == 2 },
+            canClick() { return player['304'].mode == 2 },
+            style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color":"hsl(170,100%,50%)","border":"4px solid"}
+        },
     }
 });
