@@ -22,7 +22,7 @@ function getStartOptions() {
 		sloganshown: true,
 		newsshown: true,
 
-		count: false,
+		count: 0,
 		forceOneTab: false,
 		hcmode: false,
 		hqTree: false,

@@ -44,11 +44,25 @@ addLayer("book", {
                 ]
             ]
         },
-        乾狐离光: {
+        愚蠢的页面: {
             content: [
-                ["display-text",
-                    function () {
-                        return `
+                ["display-text","这里什么也没有"]
+            ]
+        },
+        作者: {
+            content: [
+                ["microtabs", "author"],
+                ["display-text","<br>"]
+            ]
+        }
+    },
+    microtabs: {
+        author: {
+            乾狐离光: {
+                content: [
+                    ["display-text",
+                        function () {
+                            return `
                     你好呀 我是<h1 class="b1">乾狐离光</h1><br>
                     在读之前和我一起说<br>
                     <div class="zhangli" style="height:135px"><h1 class="b1">张力来!</h1></div>
@@ -86,14 +100,17 @@ addLayer("book", {
                     他不是神,只是一个普通人,甚至不是人...<br>
                     从此,我再也没梦见他<br>
                     `}
-                ]
-            ]
-        },
-        userincre: {
-            content: [
-                ["display-text",
-                    function () {
-                        return `
+                    ]
+                ],
+                style: {
+                    width: "720px"
+                }
+            },
+            userincre: {
+                content: [
+                    ["display-text",
+                        function () {
+                            return `
                     你好我是<h1 class="b2">userincre</h1><br>
                     要不是我不会css做<br>
                     <div class="zhangli" style="height:135px"><h1 class="b1">!来力张</h1></div>
@@ -118,8 +135,12 @@ addLayer("book", {
                     <br><br><br><br><br>
                     月考太他妈难了
                     `}
-                ]
-            ]
+                    ]
+                ],
+                style: {
+                    width: "720px"
+                }
+            },
         },
     },
     tooltip: "",

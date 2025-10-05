@@ -11,32 +11,32 @@ addLayer("102", {
 
         if (player[this.layer].tickt.gte(this.getTickTime())) {
             player[this.layer].tickt = player[this.layer].tickt.sub(this.getTickTime())
-
             if (hasUpgrade(this.layer, 13)) {
                 this.nextHash((buyableEffect(this.layer, 12) - 0))
             }
-
         }
+
+        if (hasMilestone(this.layer, 12) && layers[this.layer].buyables[12].canAfford()) layers[this.layer].buyables[12].buy()
     },
     startData() {
         return {
             unlocked: true,
             points: _D0,
-			tickt: _D0,
-			now: 0,
-			rnd: Math.random(),
-			level: 0,
-			cold: _D0,
-			salt: Date.now(),
-			pause: false,
-			right: 3
+            tickt: _D0,
+            now: 0,
+            rnd: Math.random(),
+            level: 0,
+            cold: _D0,
+            salt: Date.now(),
+            pause: false,
+            right: 3
         }
     },
     type: "none",
     tabFormat: [
         "main-display",
         ["display-text", function () {
-            return `你挖到了 ${player[this.layer].level} 狐币,挖到 500 个以完成世界`
+            return `你挖到了 ${player[this.layer].level} 狐币,挖到 500 个以完成世界 ${player[this.layer].pause ? "[目前在暂停状态]" : ""}`
         }],
         "blank",
         ["display-text", function () {
@@ -70,17 +70,13 @@ addLayer("102", {
             while (num > 0) {
                 let target = player[this.layer].right - player[this.layer].now
                 if (target > num) {
-                    player[this.layer].now += player[this.layer].now;
+                    player[this.layer].now += num;
                     num = 0
                 } else {
                     num -= target
                     this.next()
                     player[this.layer].points = player[this.layer].points.add(_D(64).mul(getMilestoneEffect(this.layer, 9, 1)))
                     continue
-                }
-                if (Math.random() < 0.0005) {
-                    this.next()
-                    player[this.layer].points = player[this.layer].points.add(_D(64).mul(getMilestoneEffect(this.layer, 9, 1)))
                 }
             }
         } else {
@@ -90,10 +86,11 @@ addLayer("102", {
                     this.next()
                     return
                 }
-                if (hasMilestone(this.layer, 10) && Math.random() < 0.0005) {
-                    this.next()
-                }
             }
+        }
+        if (Math.random() < 0.0005) {
+            this.next()
+            player[this.layer].points = player[this.layer].points.add(_D(64).mul(getMilestoneEffect(this.layer, 9, 1)))
         }
     },
     next() {
@@ -238,7 +235,7 @@ addLayer("102", {
         },
         10: {
             requirementDescription() { return `4000狐币` },
-            effectDescription() { return `每次判定失败后有0.05%概率直接获得狐币` },
+            effectDescription() { return `每次判定后有0.05%概率获得额外的狐币` },
             done() { return player[this.layer].level >= 4000 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
@@ -249,6 +246,12 @@ addLayer("102", {
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         12: {
+            requirementDescription() { return `10000狐币` },
+            effectDescription() { return `自动购买批量计算` },
+            done() { return player[this.layer].level >= 10000 },
+            unlocked() { return hasMilestone(this.layer, this.id - 1) },
+        },
+        13: {
             requirementDescription() { return `114514狐币` },
             effectDescription() { return `获得1个额外梦力` },
             onComplete() {

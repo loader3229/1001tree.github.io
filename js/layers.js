@@ -365,7 +365,11 @@ addLayer("ach", {
         },
         206: {
             name: "冒名顶替者",
-            done() { return player.global.name == "乾狐离光" || player.global.name == "userincre" || player.global.name == "banana3864" },
+            done() { return player.global.name == "乾狐离光" 
+                || player.global.name == "userincre" 
+                || player.global.name == "banana3864"
+                || player.global.name == "Chara404"
+                || player.global.name == "loader3229" },
             onComplete() { achievementComplete() },
             tooltip: "将名字设置为开发者之一",
             style: {

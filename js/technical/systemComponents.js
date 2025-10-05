@@ -130,17 +130,23 @@ var systemComponents = {
 			userincre<br>
 			banana3864<br>
 			Chara404<br>
+			loader3229<br>
         </span>
         <span>
             <br>
             文案<br>
-			夏鸣 乾狐离光<br>
+			夏鸣 乾狐<br>
         </span>
         <span>
             <br>
             测试<br>
-			奇硅箱 寿司 ＾＿＾ 枫梦 风中一尘<br>
+			奇硅箱 寿司 ＾＿＾ 枫梦 风中一尘 NiGht_Zx2H<br>
         </span>
+		<span>
+			<br>
+			吉祥物<br>
+			超绝无敌螺旋升天美少女Super窝窝钉！<br>
+		</span>
         <br>
         <ct>
             游玩 {{player.global.name}}
