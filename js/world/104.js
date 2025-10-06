@@ -68,11 +68,11 @@ addLayer("104", {
         }
     },
     hotkeys: [
-        { key: "w", description: "", onPress() { layers['104'].doMovement(1) } },
-        { key: "a", description: "", onPress() { layers['104'].doMovement(3) } },
-        { key: "s", description: "", onPress() { layers['104'].doMovement(2) } },
-        { key: "d", description: "", onPress() { layers['104'].doMovement(4) } },
-        { key: "l", description: "", onPress() { player['104'].losetrig = true } },
+        { key: "w", description: "[104] W: ↑", onPress() { layers['104'].doMovement(1) } },
+        { key: "a", description: "[104] A: ←", onPress() { layers['104'].doMovement(3) } },
+        { key: "s", description: "[104] S: ↓", onPress() { layers['104'].doMovement(2) } },
+        { key: "d", description: "[104] D: →", onPress() { layers['104'].doMovement(4) } },
+        { key: "l", description: "[104] L: 放弃游戏", onPress() { player['104'].losetrig = true } },
     ],
     update(diff) {
         if (player['104'].maxx.gte(1024) && (!player['104'].trig)) {

@@ -1,7 +1,7 @@
 addLayer("404", {
     symbol: "🌙",
     resource: "Dut",
-    color: "hsl(250,100%,50%)",
+    color: "hsl(280,100%,50%)",
     startData() {
         return {
             unlocked: true,

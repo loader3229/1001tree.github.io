@@ -1,7 +1,7 @@
 addLayer("403", {
     symbol: "",
     resource: "",
-    color: "#aaa",
+    color: "hsl(250,100%,50%)",
     update(diff) {
         if (player.pause[this.layer]) return
     },
