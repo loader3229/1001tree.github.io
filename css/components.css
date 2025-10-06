@@ -757,3 +757,7 @@ div.tbox {
 		transform: translate(3px, 4px) rotate(1deg);
 	}
 }
+
+.card1 {
+	color: #888;
+}

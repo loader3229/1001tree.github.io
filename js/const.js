@@ -1267,8 +1267,8 @@ const memory = {
 	100: "",
 }
 
-function getZKOption(){
-	return[
+function getZKOption() {
+	return [
 		[
 			'古诗词背诵[C]',
 			'学习阅读理解技巧[C]',
@@ -1293,8 +1293,10 @@ function getZKOption(){
 	]
 }
 
-function votecontent(){
+function getCard() {
 	return {
-		0: ["愚蠢的提案","这个提案没有任何效果"]
+		1: [
+			{ name: "垃圾", content: "这是一张没用的垃圾" }
+		]
 	}
 }
