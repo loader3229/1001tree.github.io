@@ -1,7 +1,7 @@
 addLayer("401", {
     symbol: "M",
     resource: "里程碑",
-    color: "#793784",
+    color: "#b66fc3",
     requires(){
 		if(player[this.layer].points.gte(12))return player[this.layer].points.pow(player[this.layer].points.div(2));
 		if(player[this.layer].points.gte(6))return player[this.layer].points.pow(player[this.layer].points.div(3));
@@ -22,12 +22,12 @@ addLayer("401", {
     type: "static",
     tabFormat: {
              Milestones: {content:[
-                   "main-display","prestige-button","resource-display",
+                   "main-display",["prestige-button","点击"],"resource-display",
 				"milestones"
 
             ] },
              Prestige: {content:[
-                   "main-display","prestige-button","resource-display",
+                   "main-display",["prestige-button","点击"],"resource-display",
 ["clickable",11],
 ["display-text",function(){return "你有"+format(player[401].points2)+"转生点数"}],
 ["row",[["upgrade",11],["upgrade",12],["upgrade",13],["upgrade",14]]]
@@ -123,6 +123,9 @@ unlocked(){return player[this.layer].points.gte(10)}
 				player[this.layer].points2 = player[this.layer].points2.add(layers[this.layer].prestigeGain());
 				player[this.layer].points1 = new Decimal(0);
 			},
+			onHold(){
+				this.onClick();
+			}
 		},
 	},
     milestones: [
