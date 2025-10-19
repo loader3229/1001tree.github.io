@@ -1,4 +1,4 @@
-let MILESTONES = [
+let MILESTONES401 = [
 	{
 		requirementDescription: "第1个里程碑",
 		unlocked() { return player[this.layer].best.gte(0) },
@@ -427,7 +427,7 @@ let MILESTONES = [
 		unlocked() { return player[this.layer].best.gte(45) },
 		done() { return player[this.layer].points.gte(46) }, // Used to determine when to give the milestone
 		effectDescription: function () {
-			let ret = "距离完成世界，获得1梦力剩余4个里程碑";
+			let ret = "你获得了一个里程碑,但这里没有什么加成可以给你了";
 			return ret;
 		},
 	},
@@ -436,7 +436,7 @@ let MILESTONES = [
 		unlocked() { return player[this.layer].best.gte(46) },
 		done() { return player[this.layer].points.gte(47) }, // Used to determine when to give the milestone
 		effectDescription: function () {
-			let ret = "距离完成世界，获得1梦力剩余3个里程碑";
+			let ret = "你获得了一个里程碑,进展仍在继续,你需要更进一步";
 			return ret;
 		},
 	},
@@ -445,7 +445,7 @@ let MILESTONES = [
 		unlocked() { return player[this.layer].best.gte(47) },
 		done() { return player[this.layer].points.gte(48) }, // Used to determine when to give the milestone
 		effectDescription: function () {
-			let ret = "距离完成世界，获得1梦力剩余2个里程碑";
+			let ret = "你获得了一个里程碑,前面的路并不漫长";
 			return ret;
 		},
 	},
@@ -454,7 +454,7 @@ let MILESTONES = [
 		unlocked() { return player[this.layer].best.gte(48) },
 		done() { return player[this.layer].points.gte(49) }, // Used to determine when to give the milestone
 		effectDescription: function () {
-			let ret = "距离完成世界，获得1梦力剩余1个里程碑";
+			let ret = "你获得了一个里程碑,而你看到了终点";
 			return ret;
 		},
 	},	{
@@ -505,8 +505,8 @@ let st = function () {
 	}
 	return {};
 }
-for (let milestoneId in MILESTONES) {
-	MILESTONES[milestoneId].style = st;
+for (let milestoneId in MILESTONES401) {
+	MILESTONES401[milestoneId].style = st;
 }
 
 
@@ -902,7 +902,7 @@ addLayer("401", {
 			}
 		},
 	},
-	milestones: MILESTONES,
+	milestones: MILESTONES401,
 	milestone1Effect() {
 		let ret = _D(0.1);
 		if (player[this.layer].buyables[21].gte(1)) ret = _D(1);

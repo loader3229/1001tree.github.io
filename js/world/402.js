@@ -1,5 +1,5 @@
 addLayer("402", {
-    symbol: "🗳️",
+    symbol: "🌼",
     resource: "",
     color: "hsl(200,100%,50%)",
     update(diff) {
@@ -13,30 +13,34 @@ addLayer("402", {
     },
     type: "none",
     tabFormat: {
-        抽卡: {
+        探索: {
             content: [
-
+            ]
+        },
+        背包: {
+            content: [
+            ]
+        },
+        合成: {
+            content: [
+            ]
+        },
+        天赋: {
+            content: [
+            ]
+        },
+        成就: {
+            content: [
             ]
         },
         图鉴: {
             content: [
-                ["display-text","<span class=''>垃圾</span>"]
-                ["layer-proxy", [4021, ["grid"]]],
-                // ["layer-proxy", [4022, ["grid"]]],
-                // ["layer-proxy", [4023, ["grid"]]],
-                // ["layer-proxy", [4024, ["grid"]]],
-                // ["layer-proxy", [4025, ["grid"]]],
-                // ["layer-proxy", [4026, ["grid"]]],
-                // ["layer-proxy", [4027, ["grid"]]],
             ]
         },
-    },
-    upgrades: {
     },
     milestones: {
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
-
 });
 
 addLayer("4021", {
@@ -50,7 +54,7 @@ addLayer("4021", {
         rows(){
             return 1
         },
-        cols: 5,
+        cols: 10,
         getStartData(id) {
             return 0
         },
