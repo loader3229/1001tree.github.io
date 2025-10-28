@@ -311,6 +311,7 @@ let MILESTONES401 = [
 		done() { return player[this.layer].points.gte(33) }, // Used to determine when to give the milestone
 		effectDescription: function () {
 			let ret = "第21个里程碑的效果变为原来的1.28次方";
+			if(player[this.layer].buyables[21].gte(33))ret = "第21个里程碑的效果变为原来的1.6次方";
 			return ret;
 		},
 	},
@@ -329,6 +330,7 @@ let MILESTONES401 = [
 		done() { return player[this.layer].points.gte(35) }, // Used to determine when to give the milestone
 		effectDescription: function () {
 			let ret = "解锁新的升级";
+			if(player[this.layer].buyables[21].gte(35))ret += "，且这些升级更好。";
 			return ret;
 		},
 	},
@@ -338,6 +340,7 @@ let MILESTONES401 = [
 		done() { return player[this.layer].points.gte(36) }, // Used to determine when to give the milestone
 		effectDescription: function () {
 			let ret = "第21个里程碑的效果变为原来的1.25次方";
+			if(player[this.layer].buyables[21].gte(36))ret = "第21个里程碑的效果变为原来的1.6次方";
 			return ret;
 		},
 	},
@@ -347,6 +350,7 @@ let MILESTONES401 = [
 		done() { return player[this.layer].points.gte(37) }, // Used to determine when to give the milestone
 		effectDescription: function () {
 			let ret = "第21个里程碑的效果变为原来的1.25次方";
+			if(player[this.layer].buyables[21].gte(37))ret = "第21个里程碑的效果变为原来的1.5625次方";
 			return ret;
 		},
 	},
@@ -466,6 +470,35 @@ let MILESTONES401 = [
 			return ret;
 		},
 	},
+	{
+		requirementDescription: "第51个里程碑",
+		unlocked() { return player[this.layer].best.gte(50) },
+		done() { return player[this.layer].points.gte(51) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "升级SP-4更好";
+			return ret;
+		},
+	},
+	{
+		requirementDescription: "第52个里程碑",
+		unlocked() { return player[this.layer].best.gte(51) },
+		done() { return player[this.layer].points.gte(52) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "转生加成更便宜";
+			return ret;
+		},
+	},
+	{
+		requirementDescription: "第53个里程碑",
+		unlocked() { return player[this.layer].best.gte(52) },
+		done() { return player[this.layer].points.gte(53) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "转生力量获取更好";
+			return ret;
+		},
+	},
+
+
 
 
 
@@ -525,13 +558,14 @@ addLayer("401", {
 	baseResource: "点数", // Name of resource prestige is based on
 	baseAmount() { return player[this.layer].points1 }, // Get the current amount of baseResource
 	base() {
-		if (player[this.layer].points.gte(50)) return _D(10);
+		if (player[this.layer].points.gte(52)) return _D(1.77);
+		if (player[this.layer].points.gte(50)) return _D(1.61);
 		if (player[this.layer].points.gte(44)) return _D(1.6);
 		if (player[this.layer].points.gte(41)) return _D(1.55);
 		return _D(1.5);
 	},
 	exponent() {
-		if (player[this.layer].points.gte(50)) return _D(10);
+		if (player[this.layer].points.gte(53)) return _D(10);
 		if (player[this.layer].points.gte(48)) return _D(1.94);
 		if (player[this.layer].points.gte(45)) return _D(1.93);
 		if (player[this.layer].points.gte(42)) return _D(1.92);
@@ -615,6 +649,7 @@ addLayer("401", {
 				if (player[this.layer].points.gte(11)) base += 1;
 				if (player[this.layer].buyables[21].gte(11)) base += 0.2025;
 				if (player[this.layer].points.gte(38)) base += 0.3924729863572161;
+				if (player[this.layer].buyables[21].gte(38)) base += 0.3127342263731775;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points2.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -632,6 +667,7 @@ addLayer("401", {
 				if (player[this.layer].points.gte(12)) base += 0.4;
 				if (player[this.layer].buyables[21].gte(12)) base += 0.05;
 				if (player[this.layer].points.gte(39)) base += 0.09358881;
+				if (player[this.layer].buyables[21].gte(39)) base += 0.07174575;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points2.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -703,7 +739,10 @@ addLayer("401", {
 		24: {
 			title: "P-8",
 			cost: new Decimal(1e65),
-			description: "超级转生点数获取变为原来的3倍",
+			description() { 
+				if (player[this.layer].buyables[21].gte(35))return "超级转生点数获取变为原来的10倍"
+				return "超级转生点数获取变为原来的3倍"
+			},
 			currencyDisplayName: "转生点数",
 			currencyInternalName: "points2",
 			currencyLayer: 401,
@@ -755,6 +794,7 @@ addLayer("401", {
 			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
 				let base = 1.5;
 				if (player[this.layer].points.gte(43)) base += 1;
+				if (player[this.layer].buyables[21].gte(35)) base += 1;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -770,6 +810,7 @@ addLayer("401", {
 			unlocked() { return player[this.layer].points.gte(45) },
 			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
 				let base = 1.5;
+				if (player[this.layer].points.gte(51)) base += 0.1;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -790,7 +831,7 @@ addLayer("401", {
 			cost() {
 				let a = player[this.layer].buyables[this.id];
 				a = Decimal.pow(1.05, a);
-				return new Decimal(player[this.layer].buyables[21].gte(24)?1e19:1e20).pow(a);
+				return new Decimal(player[this.layer].points.gte(52)?1e18:player[this.layer].buyables[21].gte(25)?1e19:1e20).pow(a);
 			},
 			canAfford() {
 				return player[this.layer].points2.gte(tmp[this.layer].buyables[this.id].cost)
@@ -846,7 +887,7 @@ addLayer("401", {
 			},
 			cost() {
 				let a = player[this.layer].buyables[this.id];
-				a = Decimal.pow(a.gte(32)?10:1.05, a);
+				a = Decimal.pow(player[this.layer].buyables[this.id].gte(39)?10:1.05, a);
 				return new Decimal(1e100).pow(a);
 			},
 			canAfford() {
@@ -941,6 +982,7 @@ addLayer("401", {
 			if(player[this.layer].points.gte(34)) c += 0.002;
 			if(player[this.layer].buyables[21].gte(4)) c += 0.002;
 			if(player[this.layer].buyables[21].gte(32)) c += 0.002;
+			if(player[this.layer].buyables[21].gte(34)) c += 0.002;
 			return player[this.layer].points.pow(c).div(player[this.layer].buyables[21].gte(31)?1.9:player[this.layer].buyables[21].gte(26)?1.92:2);
 		}
 		return player[this.layer].points.sub(2).pow(0.5).add(2).div(2);
@@ -964,8 +1006,11 @@ addLayer("401", {
 		let ret = player[this.layer].points;
 		if (player[this.layer].buyables[21].gte(21)) ret = ret.pow(1.25);
 		if (player[this.layer].points.gte(33)) ret = ret.pow(1.28);
+		if (player[this.layer].buyables[21].gte(33)) ret = ret.pow(1.25);
 		if (player[this.layer].points.gte(36)) ret = ret.pow(1.25);
+		if (player[this.layer].buyables[21].gte(36)) ret = ret.pow(1.28);
 		if (player[this.layer].points.gte(37)) ret = ret.pow(1.25);
+		if (player[this.layer].buyables[21].gte(37)) ret = ret.pow(1.25);
 		return ret;
 	},
 
@@ -984,7 +1029,7 @@ addLayer("401", {
 	},
 	prestigeGain2() {
 		let ret = Decimal.pow(10, player[this.layer].points2.max(1).log10().pow(player[this.layer].buyables[21].gte(20)?0.51:0.5)).sub(1).div(10000);
-		if (hasUpgrade(this.layer, 24)) ret = ret.mul(3);
+		if (hasUpgrade(this.layer, 24)) ret = ret.mul(player[this.layer].buyables[21].gte(35)?10:3);
 		if (player[this.layer].points.gte(28)) ret = ret.mul(player[this.layer].buyables[21].gte(28)?10:3);
 		if (player[this.layer].points.gte(29)) ret = ret.mul(player[this.layer].buyables[21].gte(29)?10:3);
 		if (player[this.layer].points.gte(21)) ret = ret.mul(tmp[this.layer].milestone21Effect);
@@ -995,6 +1040,7 @@ addLayer("401", {
 	prestigePowerGain() {
 		let ret = Decimal.pow(10, player[this.layer].points2.max(1e10).log10().div(2).sub(1).sqrt()).sub(100);
 		if (player[this.layer].buyables[21].gte(15)) ret = Decimal.pow(10, player[this.layer].points2.add(1).log10().div(1.8).sqrt()).sub(1);
+		if (player[this.layer].points.gte(53)) ret = Decimal.pow(10, player[this.layer].points2.add(1).log10().div(1.4).sqrt()).sub(1);
 		if (hasUpgrade(this.layer, 33)) ret = ret.mul(upgradeEffect(this.layer, 33));
 		return ret;
 	},
