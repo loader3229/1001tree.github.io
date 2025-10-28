@@ -887,7 +887,7 @@ addLayer("401", {
 			},
 			cost() {
 				let a = player[this.layer].buyables[this.id];
-				a = Decimal.pow(player[this.layer].buyables[this.id].gte(39)?10:1.05, a);
+				a = Decimal.pow(a.gte(39)?10:1.05, a);
 				return new Decimal(1e100).pow(a);
 			},
 			canAfford() {
