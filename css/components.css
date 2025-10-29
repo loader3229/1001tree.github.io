@@ -656,6 +656,18 @@ div.tbox {
 	animation: rainbow 12s linear infinite;
 }
 
+.st5 {
+	background: linear-gradient(in hsl 60deg,
+			hsl(241, 100%, 50%),
+			hsl(212, 100%, 50%),
+			hsl(241, 100%, 50%));
+	background-size: 200% auto;
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+	animation: rainbow 3s linear infinite;
+}
+
 .holyfoul {
 	color: #B72D0E;
 	text-shadow: 0 0 5px white,
