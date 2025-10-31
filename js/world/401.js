@@ -378,6 +378,7 @@ let MILESTONES401 = [
 		done() { return player[this.layer].points.gte(40) }, // Used to determine when to give the milestone
 		effectDescription: function () {
 			let ret = "解锁新购买项。";
+			if(player[this.layer].buyables[21].gte(40))ret += "该购买项更便宜。";
 			return ret;
 		},
 	},
@@ -497,6 +498,26 @@ let MILESTONES401 = [
 			return ret;
 		},
 	},
+	{
+		requirementDescription: "第54个里程碑",
+		unlocked() { return player[this.layer].best.gte(53) },
+		done() { return player[this.layer].points.gte(54) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "第4个里程碑的效果更好。";
+			return ret;
+		},
+	},
+	{
+		requirementDescription: "第55个里程碑",
+		unlocked() { return player[this.layer].best.gte(54) },
+		done() { return player[this.layer].points.gte(55) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "解锁？？？";
+			return ret;
+		},
+	},
+
+
 
 
 
@@ -565,7 +586,8 @@ addLayer("401", {
 		return _D(1.5);
 	},
 	exponent() {
-		if (player[this.layer].points.gte(53)) return _D(10);
+		if (player[this.layer].points.gte(55)) return _D(10);
+		if (player[this.layer].points.gte(53)) return _D(1.945);
 		if (player[this.layer].points.gte(48)) return _D(1.94);
 		if (player[this.layer].points.gte(45)) return _D(1.93);
 		if (player[this.layer].points.gte(42)) return _D(1.92);
@@ -760,6 +782,7 @@ addLayer("401", {
 			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
 				let base = 100;
 				if (player[this.layer].points.gte(41)) base += 80;
+				if (player[this.layer].buyables[21].gte(41)) base += 76;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -778,6 +801,7 @@ addLayer("401", {
 				if (player[this.layer].points.gte(27)) base += 3;
 				if (player[this.layer].points.gte(42)) base += 3;
 				if (player[this.layer].buyables[21].gte(27)) base += 3;
+				if (player[this.layer].buyables[21].gte(42)) base += 4;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -795,6 +819,7 @@ addLayer("401", {
 				let base = 1.5;
 				if (player[this.layer].points.gte(43)) base += 1;
 				if (player[this.layer].buyables[21].gte(35)) base += 1;
+				if (player[this.layer].buyables[21].gte(43)) base += 0.5;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -811,6 +836,7 @@ addLayer("401", {
 			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
 				let base = 1.5;
 				if (player[this.layer].points.gte(51)) base += 0.1;
+				if (player[this.layer].buyables[21].gte(51)) base += 0.4;
 				let ret = Decimal.pow(base, Decimal.log10(player[this.layer].points3.add(1)).pow(0.9).add(1))
 				return ret;
 			},
@@ -860,7 +886,7 @@ addLayer("401", {
 			cost() {
 				let a = player[this.layer].buyables[this.id];
 				a = Decimal.pow(1.05, a);
-				return new Decimal(1e10).pow(a);
+				return new Decimal(player[this.layer].buyables[21].gte(40)?1e9:1e10).pow(a);
 			},
 			canAfford() {
 				return player[this.layer].points3.gte(tmp[this.layer].buyables[this.id].cost)
@@ -887,7 +913,7 @@ addLayer("401", {
 			},
 			cost() {
 				let a = player[this.layer].buyables[this.id];
-				a = Decimal.pow(a.gte(39)?10:1.05, a);
+				a = Decimal.pow(a.gte(42)?10:1.05, a);
 				return new Decimal(1e100).pow(a);
 			},
 			canAfford() {
@@ -983,6 +1009,7 @@ addLayer("401", {
 			if(player[this.layer].buyables[21].gte(4)) c += 0.002;
 			if(player[this.layer].buyables[21].gte(32)) c += 0.002;
 			if(player[this.layer].buyables[21].gte(34)) c += 0.002;
+			if(player[this.layer].points.gte(54)) c += 0.004;
 			return player[this.layer].points.pow(c).div(player[this.layer].buyables[21].gte(31)?1.9:player[this.layer].buyables[21].gte(26)?1.92:2);
 		}
 		return player[this.layer].points.sub(2).pow(0.5).add(2).div(2);
