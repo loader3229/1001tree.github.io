@@ -18,14 +18,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.52,
+	num: 0.56,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
-	<h3>v0.52 | 2025/10/19</h3><br>
-	更新了13个游戏<br><br>
+	<h3>v0.56 | 2025/10/19</h3><br>
+	更新了14个游戏<br><br>
 	<h3>v0.48 | 2025/9/17</h3><br>
 	更新了12个游戏<br><br>
 	<h3>游戏立项 | 2025/8/28</h3><br>
@@ -39,10 +39,10 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'e
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll',
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement','getBoost',
-	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen',
+	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen', 'calcX', 
 	'updateGrid', 'numGen', 'mergeGrid', 'canMerge', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
-	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect', 'udClear','switchGrid', 
-	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText', 'genClear',
+	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect', 'udClear','switchGrid', 'calcC', 'calcB',
+	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText', 'genClear', 'getPgen', 'calcfunc',
 	'calcP1', 'enginegen', 'renginegen', 'engineeff', 'rengineeff', 'hengineeff', 'yourMovement','catGen',
 	'getRandomcode', 'getLoseText', 'getWrongPage', 'find25', 'calculateInfoDensity', 'catMove','spGen',
 	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "ai7", "ai8", "ai9", "sC1", "sC2", "sC3", "sC4", "sC5",

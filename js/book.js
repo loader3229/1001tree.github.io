@@ -20,7 +20,7 @@ addLayer("book", {
                     什么你问 <h2>开发组</h2> 都有谁?<br>
                     自己去 <h2>看</h2><br>
                     <br>
-                    一款拥有 <h2>新闻和标语</h2> 的模组树游戏<br>
+                    一款玩法为 <h2>盯着新闻和标语看</h2> 的模组树游戏<br>
                     甚至还有 <h2>(1001+10↑↑11)个增量或非增量小游戏!!!</h2><br>
                     <br>
                     部分游戏非常不支持移动端(且无支持打算),请使用 <h2>桌面端</h2> 游玩<br>
@@ -44,17 +44,17 @@ addLayer("book", {
                 ]
             ]
         },
-        愚蠢的页面: {
-            content: [
-                ["display-text","这里什么也没有"]
-            ]
-        },
         作者: {
             content: [
                 ["microtabs", "author"],
                 ["display-text","<br>"]
             ]
-        }
+        },
+        愚蠢的页面: {
+            content: [
+                ["display-text","这里什么也没有"]
+            ]
+        },
     },
     microtabs: {
         author: {
