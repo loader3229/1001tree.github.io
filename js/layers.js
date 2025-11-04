@@ -369,7 +369,8 @@ addLayer("ach", {
                 || player.global.name == "userincre" 
                 || player.global.name == "banana3864"
                 || player.global.name == "Chara404"
-                || player.global.name == "loader3229" },
+                || player.global.name == "loader3229"
+                || player.global.name == "Dr丶晨曦公主" },
             onComplete() { achievementComplete() },
             tooltip: "将名字设置为开发者之一",
             style: {

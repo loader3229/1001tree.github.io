@@ -150,8 +150,8 @@ addLayer("105", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style(){
-                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.2),hsla(212, 100%, 50%, 0.2),hsla(241, 100%, 50%, 0.2))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff"}
-                return {"margin":"-1px","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff","background-color":"#002cdd00"}
+                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.3),hsla(212, 100%, 50%, 0.3),hsla(241, 100%, 50%, 0.3))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff"}
+                return {"background":"linear-gradient(in hsl 60deg,hsla(0, 100%, 50%, 0.3),hsla(32, 100%, 50%, 0.3),hsla(0, 100%, 50%, 0.3))","margin":"-1px","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff","background-color":"#002cdd00"}
             }
         },
         12: {
@@ -178,8 +178,8 @@ addLayer("105", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style(){
-                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.2),hsla(212, 100%, 50%, 0.2),hsla(241, 100%, 50%, 0.2))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff"}
-                return {"margin":"-1px","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff","background-color":"#002cdd00"}
+                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.3),hsla(212, 100%, 50%, 0.3),hsla(241, 100%, 50%, 0.3))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff"}
+                return {"background":"linear-gradient(in hsl 60deg,hsla(0, 100%, 50%, 0.3),hsla(32, 100%, 50%, 0.3),hsla(0, 100%, 50%, 0.3))","margin":"-1px","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff","background-color":"#002cdd00"}
             }
         },
         21: {
@@ -206,8 +206,8 @@ addLayer("105", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style(){
-                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.2),hsla(212, 100%, 50%, 0.2),hsla(241, 100%, 50%, 0.2))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff"}
-                return {"margin":"-1px","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff","background-color":"#002cdd00"}
+                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.3),hsla(212, 100%, 50%, 0.3),hsla(241, 100%, 50%, 0.3))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff"}
+                return {"background":"linear-gradient(in hsl 60deg,hsla(0, 100%, 50%, 0.3),hsla(32, 100%, 50%, 0.3),hsla(0, 100%, 50%, 0.3))","margin":"-1px","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff","background-color":"#002cdd00"}
             }
         },
         22: {
@@ -234,8 +234,8 @@ addLayer("105", {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             style(){
-                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.2),hsla(212, 100%, 50%, 0.2),hsla(241, 100%, 50%, 0.2))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff"}
-                return {"margin":"-1px","height":"120px","width":"120px","color":"#002cddff","border-color":"#002cddff","background-color":"#002cdd00"}
+                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.3),hsla(212, 100%, 50%, 0.3),hsla(241, 100%, 50%, 0.3))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff"}
+                return {"background":"linear-gradient(in hsl 60deg,hsla(0, 100%, 50%, 0.3),hsla(32, 100%, 50%, 0.3),hsla(0, 100%, 50%, 0.3))","margin":"-1px","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff","background-color":"#002cdd00"}
             }
         },
     },

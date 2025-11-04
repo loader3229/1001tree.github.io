@@ -658,9 +658,9 @@ div.tbox {
 
 .st5 {
 	background: linear-gradient(in hsl 60deg,
-			hsl(241, 100%, 50%),
-			hsl(212, 100%, 50%),
-			hsl(241, 100%, 50%));
+			hsl(241, 100%, 70%),
+			hsl(212, 100%, 70%),
+			hsl(241, 100%, 70%));
 	background-size: 200% auto;
 	color: transparent;
 	background-clip: text;
