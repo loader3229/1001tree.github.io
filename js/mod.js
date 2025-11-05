@@ -39,7 +39,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'e
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll',
 	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement','getBoost',
-	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen', 'calcX', 
+	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen', 'calcX', 'calcA',
 	'updateGrid', 'numGen', 'mergeGrid', 'canMerge', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect', 'udClear','switchGrid', 'calcC', 'calcB',
 	'calcmaxhp', 'divpower', 'chalcomp', 'chaleff', 'randomButton', 'getText', 'genClear', 'getPgen', 'calcfunc',
