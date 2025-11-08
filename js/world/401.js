@@ -512,7 +512,16 @@ let MILESTONES401 = [
 		unlocked() { return player[this.layer].best.gte(54) },
 		done() { return player[this.layer].points.gte(55) }, // Used to determine when to give the milestone
 		effectDescription: function () {
-			let ret = "解锁？？？";
+			let ret = "解锁超级转生力量";
+			return ret;
+		},
+	},
+	{
+		requirementDescription: "第56个里程碑",
+		unlocked() { return player[this.layer].best.gte(55) },
+		done() { return player[this.layer].points.gte(56) }, // Used to determine when to give the milestone
+		effectDescription: function () {
+			let ret = "超级转生力量的效果变为原来的平方";
 			return ret;
 		},
 	},
@@ -579,6 +588,7 @@ addLayer("401", {
 	baseResource: "点数", // Name of resource prestige is based on
 	baseAmount() { return player[this.layer].points1 }, // Get the current amount of baseResource
 	base() {
+		if (player[this.layer].points.gte(56)) return _D(1.8);
 		if (player[this.layer].points.gte(52)) return _D(1.77);
 		if (player[this.layer].points.gte(50)) return _D(1.61);
 		if (player[this.layer].points.gte(44)) return _D(1.6);
@@ -586,7 +596,8 @@ addLayer("401", {
 		return _D(1.5);
 	},
 	exponent() {
-		if (player[this.layer].points.gte(55)) return _D(10);
+		if (player[this.layer].points.gte(56)) return _D(10);
+		if (player[this.layer].points.gte(55)) return _D(1.953);
 		if (player[this.layer].points.gte(53)) return _D(1.945);
 		if (player[this.layer].points.gte(48)) return _D(1.94);
 		if (player[this.layer].points.gte(45)) return _D(1.93);
@@ -606,6 +617,7 @@ addLayer("401", {
 			points2: _D0,
 			points2power: _D0,
 			points3: _D0,
+			points3power: _D0,
 		}
 	},
 	type: "static",
@@ -649,6 +661,10 @@ addLayer("401", {
 				}],
 				["display-text", function () {
 					if (player[401].points.gte(20)) return "你有" + format(player[401].points3) + "超级转生点数";
+					return "";
+				}],
+				["display-text", function () {
+					if (player[401].points.gte(55)) return "你有" + format(player[401].points3power) + "超级转生力量(+" + format(tmp[401].prestigePowerGain2) + "/s)，点数和转生点数获取变为原来的" + format(tmp[401].prestigePowerEff2) + "倍";
 					return "";
 				}],
 				["row", [["buyable", 11], ["buyable", 12]]],
@@ -976,6 +992,7 @@ addLayer("401", {
 		if (player[this.layer].points.gte(2)) ret = ret.mul(tmp[this.layer].milestone2Effect);
 		if (player[this.layer].points.gte(3)) ret = ret.mul(tmp[this.layer].milestone3Effect);
 		if (player[this.layer].points.gte(15)) ret = ret.mul(tmp[this.layer].prestigePowerEff);
+		if (player[this.layer].points.gte(55)) ret = ret.mul(tmp[this.layer].prestigePowerEff2);
 		if (hasUpgrade(this.layer, 11)) ret = ret.mul(upgradeEffect(this.layer, 11));
 		if (hasUpgrade(this.layer, 12)) ret = ret.mul(upgradeEffect(this.layer, 12));
 		if (hasUpgrade(this.layer, 31)) ret = ret.mul(upgradeEffect(this.layer, 31));
@@ -1050,7 +1067,10 @@ addLayer("401", {
 		if (hasUpgrade(this.layer, 13)) ret = ret.mul(upgradeEffect(this.layer, 13));
 		if (hasUpgrade(this.layer, 14)) ret = ret.mul(upgradeEffect(this.layer, 14));
 		if (hasUpgrade(this.layer, 32) && player[this.layer].points.gte(40)) ret = ret.mul(upgradeEffect(this.layer, 32));
+		if (player[this.layer].points.gte(55)) ret = ret.mul(tmp[this.layer].prestigePowerEff2);
+        
 		if (player[this.layer].points.gte(25)) ret = ret.pow(buyableEffect(this.layer, 11));
+        
 		if (hasUpgrade(this.layer, 32) && player[this.layer].points.lt(40)) ret = ret.mul(upgradeEffect(this.layer, 32));
 		return ret.floor();
 	},
@@ -1061,6 +1081,7 @@ addLayer("401", {
 		if (player[this.layer].points.gte(29)) ret = ret.mul(player[this.layer].buyables[21].gte(29)?10:3);
 		if (player[this.layer].points.gte(21)) ret = ret.mul(tmp[this.layer].milestone21Effect);
 		if (hasUpgrade(this.layer, 34)) ret = ret.mul(upgradeEffect(this.layer, 34));
+        
 		if (player[this.layer].points.gte(40)) ret = ret.pow(buyableEffect(this.layer, 12));
 		return ret.floor();
 	},
@@ -1083,6 +1104,15 @@ addLayer("401", {
 
 		return ret;
 	},
+	prestigePowerGain2() {
+		let ret = Decimal.pow(10, player[this.layer].points3.add(1).log10().div(2).sqrt()).sub(1);
+		return ret;
+	},
+	prestigePowerEff2() {
+		let ret = Decimal.pow(player[this.layer].points3power.add(1), 1/3);
+		if (player[this.layer].points.gte(56)) ret = ret.pow(2);
+		return ret;
+	},
 
 
 	resetsNothing() { return true },
@@ -1093,6 +1123,7 @@ addLayer("401", {
 		if (player[this.layer].points.gte(15)) player[this.layer].points2power = player[this.layer].points2power.add(_D(diff).mul(tmp[this.layer].prestigePowerGain));
 		if (player[this.layer].points.gte(22)) player[this.layer].points2 = player[this.layer].points2.add(_D(diff).mul(tmp[this.layer].prestigeGain).mul(player[this.layer].buyables[21].gte(22)?100:1));
 		if (player[this.layer].points.gte(44)) player[this.layer].points3 = player[this.layer].points3.add(_D(diff).mul(tmp[this.layer].prestigeGain2));
+		if (player[this.layer].points.gte(55)) player[this.layer].points3power = player[this.layer].points3power.add(_D(diff).mul(tmp[this.layer].prestigePowerGain2));
 
 
 
