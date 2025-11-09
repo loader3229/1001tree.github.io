@@ -78,7 +78,8 @@ function getNewsList() {
 		'我今天遇到了一个双眼暗淡的朋友,ta满身疲惫,我记得上次见面还不是这样的来着,于是我本能的伸手想摸摸ta,发现手上传来一阵冰凉,"我摸的好像是镜子".',
 		"我做了一个梦.在梦里,雨水不停的落下,直到淹没一切.淅淅沥沥的雨声从未停止,水,虽然是柔软的东西,但它也能摧毁那些坚硬无比的石头.城市被埋藏在地底,人们祈求着天晴,但雨从未停止",
 		...options.newsa ? [
-			// 剧透内容
+			// 剧透内容			
+			"你到底在干啥? 你什么也没得到!",
 			"概率小于0的时候,就等于0",
 			"嘿!为什么不试试给自己取个名字呢?",
 			"你也许想在下一个存档里见到我,或者就是这个?",
@@ -952,6 +953,21 @@ function getProblemList() {
 			problem: '从7,8年级中各随机挑选40人, 8年级40人中有25人考试合格, 7年级中有22人考试合格, 小明说8年级考试优秀人数一定比7年级考试优秀人数多, 他说的对不对?',
 			options: ['对', '不对', '很对', '不确定'], answer: 22
 		}, {
+			problem: '以下哪个化学物质属于氧化物?',
+			options: ['CH<sub>3</sub>OH', 'O<sub>3</sub>', 'Cl<sub>2</sub>O<sub>7</sub>', 'H<sub>2</sub>SO<sub>4</sub>'], answer: 23
+		},{
+			problem: '以下哪种操作最不可能有生命危险?',
+			options: ['使用打火机点燃酒精灯中的酒精', '使用两个并排放置的灌满酒精的酒精灯代替酒精喷灯', '不戴手套使用4.5mL量筒(上方有恰好0.5mL空余)量取5mL浓硫酸和浓盐酸混合液体', '大力嗅闻瓶装浓氨水'], answer: 24
+		},{
+			problem: '以下哪种操作最不可能有生命危险?',
+			options: ['使用5%双氧水溶液和二氧化锰制取氧气并将导管塞入鼻孔', '将分液漏斗用手串联在无绝缘层的220V电路中', '加热固体时用点燃大量不纯的氢气并通入过量氧气的试管代替酒精灯', '穿带全套防护服饮用一整瓶盐酸'], answer: 21
+		},{
+			problem: '在游戏Cookie Clicker中, 哪一个选项是对的?',
+			options: ['游戏共有32个建筑', '第一个Cursor的价格为15饼干', '奶奶很温柔', '第一次飞升需要100B饼干'], answer: 21
+		},{
+			problem: '在游戏Ordinal Markup中, 哪一个选项是对的?',
+			options: ['BHO是在进制2中到达的', '你最多能进行6次因子提升', '共有8个助推器挑战', '你的妈妈不会对你感到生气的'], answer: 23
+		},{
 			problem: '选择新闻',
 			options: [
 				layers.ach.getSomeText(player.ach.points.div(_D(Object.keys(layers.ach.achievements).length - 2))),
@@ -1126,7 +1142,25 @@ function getHardProblemList() {
 		}, {
 			problem: '数列F满足 f<sup>a</sup><sub>b</sub>=a×f<sup>a</sup><sub>b-2</sub>+f<sup>a</sup><sub>b-1</sub> (a为实数,b为大于等于2的整数),定义f<sub>0</sub>=f<sub>1</sub>=1,给定符合F定义的数m和n,求n趋向于正无穷时, f<sup>m</sup><sub>n</sub>/f<sup>m</sup><sub>n-1</sub> 的值(当它收敛时)',
 			options: ['(-1-√(1+4m))/2', '(-1+√(1+4m))/2', '(1-√(1+4m))/2', '(1+√(1+4m))/2'], answer: 22
-		}
+		}, {
+			problem: 'I wanna 同人 Not Another Needle Challenge 中, 最后一面是第几层?',
+			options: ['181', '16', '1', '15'], answer: 24,
+		},{
+			problem: '在104小游戏中, 若开启了IG规则, 65536实际上对应的数字是?',
+			options: ['32', '16', '64', '128'], answer: 21,
+		},{
+			problem: '以下哪个重量(g)的水最忧郁?',
+			options: ['16', '18', '21', '24'], answer: 22,//18g的水刚好1mol了
+		},{
+			problem: '游戏大数之路:重制版没有以下哪一内容?',
+			options: ['地下城', '时间碎片', '九头蛇溶剂', '数论研究'], answer: 23,//人家叫九头蛇溶液
+		},{
+			problem: '以下游戏和其作者匹配错误的是?',
+			options: ['反物质维度-Hevipelle', '声望树重制版-Acamaeda', '生命树-pg132', '1P1L树-Loader'], answer: 22,
+		},{
+			problem: '若两个正整数a,b满足a+b为定值k,以下哪个说法正确?',
+			options: ['k>0', '(k-1)<sup>2</sup>是正整数', 'ln(k)始终有意义,且当k大于e时ln(k)>1', '不存在a,b同时满足ab=3且a^2+b^2=7'], answer: 22,
+		},
 	]
 }
 
