@@ -24,6 +24,7 @@ addLayer("304", {
             hchoose: 0,
             optlist: ["","","","",""],
             optid: [0,0,0,0,0,0],
+            kr:false,
         }
     },
     type: "none",
@@ -37,9 +38,14 @@ addLayer("304", {
                 ["display-text", function () {
                     return layers['304'].getZKText()
                 }],
+                ["display-text", function () {
+                    return player['304'].kr ? `当前处于狂暴模式,每个行动将花费2天时间,天赋获取x3,心态损失x4!`:``
+                }],
                 "blank",
                 ["clickables", [1]], 
                 ["clickables", [4]],
+                ["clickables", [5]],
+                ["clickables", [6]],
                 "blank",
                 "blank",
                 [
@@ -131,7 +137,7 @@ addLayer("304", {
         let a = getZKOption()
         let r1
         for(i=1;i<=4;i++){
-            r1=chooseOneInArray([1,2,3])
+            r1=chooseOneInArray([1,2,3,7])
             player['304'].optlist[i]=chooseOneInArray(a[r1-1])
             player['304'].optid[i]=r1
         }
@@ -155,6 +161,9 @@ addLayer("304", {
         }
         if(id==6){
             player['304'].pe += chooseOneInArray([0.5,0.6,0.7,0.8,0.9,1])
+        }
+        if(id==7){
+            player['304'].xt += chooseOneInArray([1,1.2,1.4,1.6,2,2.4])
         }
         player['304'].dayleft--
         player['304'].xt-=chooseOneInArray([0.5,0.8,1.3,1.5,2])
@@ -376,6 +385,45 @@ addLayer("304", {
             unlocked() { return player['304'].mode == 2 },
             canClick() { return player['304'].mode == 2 },
             style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color":"hsl(170,100%,50%)","border":"4px solid"}
+        },
+        42: {
+            title() { return player['304'].optlist[2] },
+            onClick() {
+                layers['304'].executeBoost(2)
+            },
+            unlocked() { return player['304'].mode == 2 },
+            canClick() { return player['304'].mode == 2 },
+            style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color":"hsl(170,100%,50%)","border":"4px solid"}
+        },
+        51: {
+            title() { return player['304'].optlist[3] },
+            onClick() {
+                layers['304'].executeBoost(3)
+            },
+            unlocked() { return player['304'].mode == 2 },
+            canClick() { return player['304'].mode == 2 },
+            style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color":"hsl(170,100%,50%)","border":"4px solid"}
+        },
+        52: {
+            title() { return player['304'].optlist[4] },
+            onClick() {
+                layers['304'].executeBoost(4)
+            },
+            unlocked() { return player['304'].mode == 2 },
+            canClick() { return player['304'].mode == 2 },
+            style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color":"hsl(170,100%,50%)","border":"4px solid"}
+        },
+        61: {
+            title() { return '狂暴模式'+(player['304'].kr ? '[ON]':'[OFF]') },
+            onClick() {
+                player['304'].kr=!player['304'].kr
+            },
+            unlocked() { return player['304'].mode == 2 },
+            canClick() { return player['304'].mode == 2 },
+            style:{"width":"100px","height":"80px","min-height":"50px","background-color":"hsla(170,100%,50%,0.25)","color"(){
+                if(player['304'].kr) return "hsla(120, 100%, 40%, 1.00)"
+                return "hsla(0, 100%, 40%, 1.00)"
+            },"border":"4px solid","margin-top":"15px"}
         },
     }
 });

@@ -4,6 +4,9 @@ addLayer("105", {
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
+        if(player['105'].points.gte(1e20) && (!player.world[this.layer])){
+            completeWorld(this.layer)
+        }
         layers['105'].calcfunc()
         layers['105'].calcC()
         layers['105'].calcB()
@@ -27,7 +30,7 @@ addLayer("105", {
         "ax^2+bx+c": {
             content: [
                 ["display-text", function () {
-                    return `你有 <h2 class = 'st5', style = 'font-family:Bahnschrift;text-shadow: 0 0 10px #2b00ffff'>${format(player['105'].points)}</h2> 点数`
+                    return `你有 <h2 class = 'st5', style = 'font-family:Bahnschrift;text-shadow: 0 0 10px #2b00ffff'>${format(player['105'].points)}</h2> 点数,到达1e20完成世界.`
                 }],
                 "blank",
                 ["display-text", function () {
@@ -64,6 +67,7 @@ addLayer("105", {
         if(hasUpgrade("105",31)) p = p.times(upgradeEffect("105",31))
         if(hasUpgrade("105",13)) p = p.times(upgradeEffect("105",13))
         if(hasUpgrade("105",42)) p = p.times(upgradeEffect("105",42))
+        if(hasUpgrade("105",44)) p = p.times(upgradeEffect("105",44))
         return p
     },
     calcC(){
@@ -76,12 +80,14 @@ addLayer("105", {
     calcB(){
         let b = _D0
         b = buyableEffect("105",12)
+        if(hasUpgrade("105",44)) b = b.times(buyableEffect("105",33))
         player['105'].beta = b
     },
     calcX(){
         let x = _D0
         if(hasUpgrade("105",12)) x = _D1
         if(hasUpgrade("105",12)) x = x.add(buyableEffect("105",22))
+        if(hasUpgrade("105",43)) x = x.pow(1.5)
         player['105'].xeta = x
     },
     calcA(){
@@ -297,6 +303,38 @@ addLayer("105", {
                 return _D(1e11)
             },
         },
+        43: {
+            title: "X+",
+            description() { return `x的值变为^1.5` },
+            canAfford(){
+                return player['105'].points.gte(this.cost())
+            },
+            style(){
+                if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(241, 100%, 50%),hsl(212, 100%, 50%),hsl(241, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
+                return {"height":"120px","width":"120px"}
+            },
+            cost(){
+                return _D(1e15)
+            },
+        },
+        44: {
+            title: "RT2",
+            description() { return `点数获取乘以ln(b^3-4ac),最小为2,解锁B2.` },
+            canAfford(){
+                return player['105'].points.gte(this.cost())
+            },
+            style(){
+                if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(241, 100%, 50%),hsl(212, 100%, 50%),hsl(241, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
+                return {"height":"120px","width":"120px"}
+            },
+            cost(){
+                return _D(1e18)
+            },
+            effect(){
+                return player['105'].beta.pow(3).minus(player['105'].alpha.times(4).times(player['105'].ceta)).max(1).ln().max(2)
+            },
+            effectDisplay(){return `x${format(this.effect())}`},
+        },
     },
     milestones: {
     },
@@ -464,6 +502,33 @@ addLayer("105", {
             effect(x) { return x.times(this.effBase()) },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             unlocked() { return hasUpgrade("105",33) },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            style(){
+                if(this.canAfford()) return {"margin":"-1px","background":"linear-gradient(in hsl 60deg,hsla(241, 100%, 50%, 0.3),hsla(212, 100%, 50%, 0.3),hsla(241, 100%, 50%, 0.3))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 3s linear infinite","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff"}
+                return {"background":"linear-gradient(in hsl 60deg,hsla(0, 100%, 50%, 0.3),hsla(32, 100%, 50%, 0.3),hsla(0, 100%, 50%, 0.3))","margin":"-1px","height":"120px","width":"120px","color":"#fff","border-color":"#002cddff","background-color":"#002cdd00"}
+            }
+        },
+        33: {
+            title() { return `B2` },
+            display() {
+                return `将b乘以${format(this.effBase())}<br>
+                        数量:${format(getBuyableAmount(this.layer, this.id))}
+                        效果:x${format(this.effect())}
+                        下一个需要:${format(this.cost())}`
+            },
+            cost(x) { 
+                return Decimal.pow(1.5,x.pow(1.5)).times(1e18)
+            },
+            effBase() {
+                let b=_D(1.25)
+                return b
+            },
+            effect(x) { return Decimal.pow(this.effBase(),x) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            unlocked() { return hasUpgrade("105",44) },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
