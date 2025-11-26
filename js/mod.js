@@ -35,10 +35,10 @@ let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全�
 
 // 如果在Layer内添加了新函数,请在此处添加它们
 var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'executeBoost',
-	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next', 'getZKopt',
-	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText',
-	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll',
-	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement','getBoost',
+	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next', 'getZKopt', 'pgen_301',
+	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText', 'getlyrPoints',
+	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll','dolyrReset',
+	"xytoid", "idtoxy", "face", "getArrow", "click", 'calcbase', 'calcmul','doMovement','getBoost', 'calclyyrBoost',
 	'getTarget', 'checkHash', 'keyList', 'getPoint', 'getMulPoint', 'getMulMulti','pGen', 'calcX', 'calcA',
 	'updateGrid', 'numGen', 'mergeGrid', 'canMerge', 'canMax', 'noReset', 'res', 'tar', 'pointsGain',
 	'getMulPower', 'getMulGetPoint', 'getChallenge', 'subpower', 'm2effect', 'udClear','switchGrid', 'calcC', 'calcB',
