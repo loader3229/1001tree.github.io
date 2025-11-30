@@ -34,7 +34,7 @@ let changelog = `
 let winText = `恭喜你!你已经*简单*通关了本游戏,接下来向着全成就收集前进吧!`
 
 // 如果在Layer内添加了新函数,请在此处添加它们
-var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'executeBoost',
+var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'executeBoost', 'getAutoGen',
 	'clickwallReset', 'checkHash', 'nextHash', "getBoard", "getValue", 'next', 'getZKopt', 'pgen_301',
 	"resetgrid", "getWrongPage", "getRandomcode", "analyzeGrid", 'getTickTime', 'getZKText', 'getlyrPoints',
 	"getSomeText", "getRandomProblem", "randomProblem", "normalEndGame", 'mult','machineRoll','dolyrReset',
