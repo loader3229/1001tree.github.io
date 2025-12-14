@@ -313,6 +313,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        105: {
+            name: "错漏百出",
+            done() { return player[301].achtrig},
+            onComplete() { achievementComplete() },
+            tooltip: "在25 layers中进行无收益的层级重置.",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/105.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },

@@ -4,6 +4,7 @@ addLayer("301", {
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
+        if(player['301'].points.gte("1e20000")&&(!player.world[this.layer])) completeWorld(this.layer)
         player[this.layer].points = player[this.layer].points.add(layers['301'].pgen_301().times(diff))
         if(getBuyableAmount("301",21).gt(0)){
             for(i=1;i<=25;i++){
@@ -18,10 +19,11 @@ addLayer("301", {
             unlocked: true,
             points: _D0,
             level: 0,
-            nm:['点数','A1','A2','A3','A4','A5','B1','B2','B3','B4','B5','C1','C2','C3','C4','C5','D1','D2','D3','D4','D5','E1','E2','E3','E4','E5','Meta'],
+            nm:['点数','A1','A2','A3','A4','A5','B1','B2','B3','B4','B5','C1','C2','C3','C4','C5','D1','D2','D3','D4','D5','E1','E2','E3','E4','E5','Meta','[已满]'],
             pt:[null,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0,_D0],
             metapoints:_D0,
             maxlev: 0,
+            achtrig: false,
         }
     },
     type: "none",
@@ -29,7 +31,7 @@ addLayer("301", {
         "Layers":{
             content:[
                  ["display-text", function () {
-                    return `你有 <h2 class="nmpt">${format(player[this.layer].points)}</h2> 点数 (+${format(layers['301'].pgen_301())}/s)<br>下一层需要10000上一层点数解锁,每层的上级点数需求是上一层的^1.3`
+                    return `你有 <h2 class="nmpt">${format(player[this.layer].points)}</h2> 点数 (+${format(layers['301'].pgen_301())}/s),到达1e20000完成世界!<br>下一层需要10000上一层点数解锁,每层的上级点数需求是上一层的^${format(Decimal.minus(1.3,buyableEffect("301",23)))}`
                 }],
                 ["display-text", function () {
                     if(player['301'].level) return `你有 <h2 class="nmpt">${format(player[this.layer].pt[player['301'].level])}</h2> ${player['301'].nm[player['301'].level]}点数, 加成前面全部内容 ${format(layers['301'].calclyrBoost(player['301'].level))}x`
@@ -78,11 +80,11 @@ addLayer("301", {
                 l--
             }
             if(getBuyableAmount("301",13).gt(1)) a = a.times(Decimal.pow(3,player['301'].metapoints.add(1).log10()).max(1))
-            if(getBuyableAmount("301",12).neq(0)) a=a.times(player['301'].points.div(10).add(1).log10().pow(1.3).times(10))
+            if(getBuyableAmount("301",12).neq(0)) a=a.times(player['301'].points.div(10).add(1).log10().pow(Decimal.minus(1.3,buyableEffect("301",23))).times(10))
             return a
         }
         let b= (_D(player['301'].pt[x-1]).div(10000).pow(_D(0.5).div(Decimal.pow(1.3,x))))
-        if(getBuyableAmount("301",13).gt(x)) b = b.times(Decimal.pow(2.5,player['301'].metapoints.add(1).log10()).max(1))
+        if(getBuyableAmount("301",13).gt(x)) b = b.times(Decimal.pow(2.5,player['301'].metapoints.add(1).log10().pow(1-(x/100))).max(1))
         while(l>x){
             b=b.times(layers['301'].calclyrBoost(l))
             l--
@@ -92,6 +94,7 @@ addLayer("301", {
     },
     dolyrReset(x,force){
         if(x==0) return
+        if(layers['301'].getlyrPoints(x).eq(0)) player['301'].achtrig = true
         if(x==26){
             player['301'].metapoints = player['301'].metapoints.add(layers['301'].getMetaPoints())
             layers['301'].dolyrReset(25,true)
@@ -113,11 +116,12 @@ addLayer("301", {
         if(x==0) return _D1
         if(x==1 && _D(player['301'].pt[x]).gte(100)) player['301'].maxlev=Math.max(1,player['301'].maxlev)
         else if(x!=1 && _D(player['301'].pt[x-1]).gt(10000)) player['301'].maxlev=Math.max(x,player['301'].maxlev)
-        return _D(player['301'].pt[x]).pow(buyableEffect("301",22).add(Math.pow(x,0.75)*2)).add(1).log10().add(1).pow(Math.pow(x,0.75)+1).max(1)
+        return _D(player['301'].pt[x]).pow(buyableEffect("301",22).add(Math.pow(x,0.75)*2)).add(1).log10().add(1).pow(buyableEffect("301",22).add(Math.pow(x,0.75)+1)).max(1)
         return _D1
     },
     getMetaPoints(){
         let l = player['301'].maxlev
+        if(getBuyableAmount("301",13).gt(26)) l *= (player['301'].metapoints.add(1).log10().add(1).log10().div(10).add(1).min(1e308)).toNumber()
         return Decimal.pow(10,Math.pow(l,1.05)).minus(1).times(player['301'].points.add(1).log10().add(1).log10())
     },
     upgrades: {
@@ -163,7 +167,7 @@ addLayer("301", {
                         最高生效层级:`+(getBuyableAmount("301",12).gt(0) ? player['301'].nm[getBuyableAmount("301",12)] : `无`)+`
                         下一个需要:${format(this.cost())}元点数`
             },
-            cost(x) { return Decimal.pow(10,x.pow(1.25)).pow(1.1) },
+            cost(x) { return Decimal.pow(10,x).pow(1.2).times(10) },
             effect(x) { return x },
             canAfford() { return player[this.layer].metapoints.gte(this.cost()) },
             unlocked() { return true },
@@ -175,11 +179,15 @@ addLayer("301", {
                 let l=player['301'].level
                 let style={"height":"150px","width":"150px"}
                 let s1=""
+                style.color=('rgb('+s+')')
                 s=`${Math.min(255,l*10)},${Math.max(0,255-l*10)},0`
                 style.borderColor=(`rgb(`+s+`)`)
-                if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
+                if(getBuyableAmount(this.layer,this.id).gt(24)){
+                    style.backgroundColor=(`rgb(`+s+`)`)
+                    style.color="#000000"
+                }
+                else if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
                 else style.backgroundColor = "#000000"
-                style.color=('rgb('+s+')')
                 style.fontSize="10px"
                 style.boxShadow="0 0 10px rgb("+s+")"
                 return style
@@ -206,10 +214,14 @@ addLayer("301", {
                 let style={"height":"150px","width":"150px"}
                 let s1=""
                 s=`${Math.min(255,l*10)},${Math.max(0,255-l*10)},0`
-                style.borderColor=(`rgb(`+s+`)`)
-                if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
-                else style.backgroundColor = "#000000"
+                style.borderColor=(`rgb(`+s+`)`) 
                 style.color=('rgb('+s+')')
+                if(getBuyableAmount(this.layer,this.id).gt(26)){
+                    style.backgroundColor=(`rgb(`+s+`)`)
+                    style.color="#000000"
+                }
+                else if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
+                else style.backgroundColor = "#000000"
                 style.fontSize="10px"
                 style.boxShadow="0 0 10px rgb("+s+")"
                 return style
@@ -223,7 +235,7 @@ addLayer("301", {
                         最高生效层级:`+(getBuyableAmount("301",21).gt(0) ? player['301'].nm[getBuyableAmount("301",21)] : `无`)+`
                         下一个需要:${format(this.cost())}元点数`
             },
-            cost(x) { return Decimal.pow(10,x.pow(1.1)).times(5e3) },
+            cost(x) { return Decimal.pow(10,x.pow(1.05)).times(5e3) },
             effect(x) { return x },
             canAfford() { return player[this.layer].metapoints.gte(this.cost()) },
             unlocked() { return true },
@@ -237,9 +249,13 @@ addLayer("301", {
                 let s1=""
                 s=`${Math.min(255,l*10)},${Math.max(0,255-l*10)},0`
                 style.borderColor=(`rgb(`+s+`)`)
-                if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
-                else style.backgroundColor = "#000000"
                 style.color=('rgb('+s+')')
+                if(getBuyableAmount(this.layer,this.id).gt(24)){
+                    style.backgroundColor=(`rgb(`+s+`)`)
+                    style.color="#000000"
+                }
+                else if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
+                else style.backgroundColor = "#000000"
                 style.fontSize="10px"
                 style.boxShadow="0 0 10px rgb("+s+")"
                 return style
@@ -270,6 +286,40 @@ addLayer("301", {
                 if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
                 else style.backgroundColor = "#000000"
                 style.color=('rgb('+s+')')
+                style.fontSize="10px"
+                style.boxShadow="0 0 10px rgb("+s+")"
+                return style
+            }
+        },
+        23: {
+            title() { return `弱化指数` },
+            display() {
+                    return    `层级之间的指数-0.03
+                        数量:${format(getBuyableAmount(this.layer, this.id))}
+                        效果:-${format(this.effect())}
+                        下一个需要:${format(this.cost())}元点数`
+            },
+            cost(x) { return Decimal.pow(100,x.times(1.1)).times(1e12) },
+            effect(x) { return x.times(0.03) },
+            canAfford() { return player[this.layer].metapoints.gte(this.cost()) },
+            unlocked() { return true },
+            buy() {
+                player[this.layer].metapoints = player[this.layer].metapoints.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            style(){                
+                let l=player['301'].level
+                let style={"height":"150px","width":"150px"}
+                let s1=""
+                s=`${Math.min(255,l*10)},${Math.max(0,255-l*10)},0`
+                style.borderColor=(`rgb(`+s+`)`)      
+                style.color=('rgb('+s+')')
+                if(getBuyableAmount(this.layer,this.id).gt(9)){
+                    style.backgroundColor=(`rgb(`+s+`)`)
+                    style.color="#000000"
+                }
+                else if(this.canAfford()) style.backgroundColor=(`rgba(`+s+`,20%)`)
+                else style.backgroundColor = "#000000ff"
                 style.fontSize="10px"
                 style.boxShadow="0 0 10px rgb("+s+")"
                 return style
