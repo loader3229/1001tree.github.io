@@ -122,6 +122,7 @@ addLayer("301", {
     getMetaPoints(){
         let l = player['301'].maxlev
         if(getBuyableAmount("301",13).gt(26)) l *= (player['301'].metapoints.add(1).log10().add(1).log10().div(10).add(1).min(1e308)).toNumber()
+            if(l < 0.1)l = 0.1;
         return Decimal.pow(10,Math.pow(l,1.05)).minus(1).times(player['301'].points.add(1).log10().add(1).log10())
     },
     upgrades: {
