@@ -1144,7 +1144,7 @@ function getHardProblemList() {
 			problem: '数列F满足 f<sup>a</sup><sub>b</sub>=a×f<sup>a</sup><sub>b-2</sub>+f<sup>a</sup><sub>b-1</sub> (a为实数,b为大于等于2的整数),定义f<sub>0</sub>=f<sub>1</sub>=1,给定符合F定义的数m和n,求n趋向于正无穷时, f<sup>m</sup><sub>n</sub>/f<sup>m</sup><sub>n-1</sub> 的值(当它收敛时)',
 			options: ['(-1-√(1+4m))/2', '(-1+√(1+4m))/2', '(1-√(1+4m))/2', '(1+√(1+4m))/2'], answer: 22
 		}, {
-			problem: 'I wanna 同人 Not Another Needle Challenge 中, 最后一面是第几层?',
+			problem: 'I wanna 同人 Not Another Needle Game 中, 最后一面是第几层?',
 			options: ['181', '16', '1', '15'], answer: 24,
 		},{
 			problem: '在104小游戏中, 若开启了IG规则, 65536实际上对应的数字是?',
