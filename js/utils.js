@@ -448,6 +448,10 @@ function pow10(pow) {
 	return _D10.pow(_D(pow))
 }
 
+function randomBetween(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 function getEffect(layer, id, def) {
 	return hasUpgrade(layer, id) ? upgradeEffect(layer, id) : def
 }
@@ -565,6 +569,18 @@ function achievementComplete() {
 function chooseOneInArray(array, seed) {
 	if (seed) return array[Math.floor(seed % array.length)]
 	else return array[Math.floor(Math.random() * array.length)]
+}
+
+function chooseFromArray(array, count) {
+	const totalCount = Math.min(count, array.length);
+	const shuffled = [...array];
+
+	for (let i = shuffled.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+	}
+
+	return shuffled.slice(0, totalCount);
 }
 
 function chooseWeightInArray(array) {
