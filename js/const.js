@@ -21,7 +21,7 @@ function getGameName(id) {
 
 		401: ["里程碑之页", "里程碑之树迷你版", 'c2'],
 		402/* 第0110夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p6tx'],
-		403/* 第0111夜 */: ["未完成游戏", "这个游戏目前是棍木", 'p7tx'],
+		403/* 第0111夜 */: ["请输入解", "猜猜不猜", 'p7tx'],
 		404/* 第1000夜 */: ["星夜梦呓", "星空下的一片梦海", 'p8tx'],
 		405: ["未完成游戏", "这个游戏目前是棍木", ''],
 
@@ -1312,6 +1312,19 @@ const memory = {
 	100: "",
 }
 
+function get403ProblemAns() {
+	return [
+		[
+			{problem:`占位符`,answer:`占位符`},
+			{problem:`我们来问些简单的:%!是多少`,answer:`120`},
+			{problem:``,answer:``},
+			{problem:``,answer:``},
+			{problem:``,answer:``},
+			{problem:``,answer:``}
+		]
+	]
+}
+ 
 function getZKOption() {
 	return [
 		[
