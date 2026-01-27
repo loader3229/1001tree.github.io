@@ -1,6 +1,7 @@
 addLayer("205", {
     symbol: "",
     resource: "能量",
+    resource: "能量",
     color: "#aaa",
     update(diff) {
         if (player.pause[this.layer]) return
@@ -8,6 +9,29 @@ addLayer("205", {
     startData() {
         return {
             unlocked: true,
+            points: _D0,
+            score: 0,
+            getscore: 0,
+            board: [
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0]
+            ],
+            upgrade: [],
+            basic: [
+                0, 0, 0, 0, 0, 0
+            ],
+            bmult: [
+                0, 0, 0, 0, 0, 0
+            ],
+            mult: [0, 0, 1],
+            hand: 0,
+            combo: 0,
+            round: 0,
+            end: true,
             points: _D0,
             score: 0,
             getscore: 0,
