@@ -191,6 +191,8 @@ addLayer("205", {
                 player[this.layer].board[y][x] = hand
             }
 
+            if (hasUpgrade(this.layer,43)) player[this.layer].points = player[this.layer].points.add(0.1)
+
             player[this.layer].hand = getRandomNum_205()
             player[this.layer].round++
 
@@ -320,7 +322,7 @@ addLayer("205", {
                     }
                     if ([1, 2, 3].includes(val) && hasUpgrade(this.layer, 14)) {
                         player[this.layer].points = player[205].points.add(
-                            0.1 * mult[2]
+                            0.03 * mult[2] * basic[val - 1] * bmult[val - 1]
                         )
                     }
                     if (hasUpgrade(this.layer, 16)) {
@@ -631,7 +633,7 @@ addLayer("205", {
         },
         14: {
             title: "小数字",
-            description: "每次合成1、2、3时，获得0.1*基础分倍率能量",
+            description: "每次合成1、2、3时，获得0.03×基础分倍率×点数分能量",
             cost: 14,
             unlocked() {
                 return hasUpgrade(this.layer, this.id) || player[this.layer].upgrade.includes(this.id)
@@ -710,9 +712,9 @@ addLayer("205", {
         },
         31: {
             title: "升级!升级!升级!",
-            description: "增加升级的刷新数量由3至5",
+            description: "增加升级的刷新数量由4至8",
             cost: 12,
-            effect() { return 5 },
+            effect() { return 8 },
             unlocked() {
                 return hasUpgrade(this.layer, this.id) || player[this.layer].upgrade.includes(this.id)
             }
@@ -840,7 +842,7 @@ addLayer("205", {
         },
         54: {
             title: "集中精力",
-            description: "合成获得的点数降低50%，但每次合成加成6点1基础分和0.01基础分倍率",
+            description: "合成获得的点数降低50%，但每次合成加成6点的1基础分和0.01基础分倍率",
             cost: 21,
             unlocked() {
                 return hasUpgrade(this.layer, this.id) || player[this.layer].upgrade.includes(this.id)
@@ -860,7 +862,7 @@ addLayer("205", {
         56: {
             title: "完成世界",
             description: "完成世界并获得1梦力",
-            cost: 50,
+            cost: 30,
             onPurchase() {
                 if (!player.world[this.layer]) {
                     completeWorld(this.layer)
@@ -909,7 +911,7 @@ function switchUpgrade_205() {
     player[205].upgrade = chooseFromArray(
         Object.keys(layers[205].upgrades)
             .filter(key => !isNaN(key)),
-        getEffect(205, 31, 3)
+        getEffect(205, 31, 4)
     )
 }
 
@@ -936,7 +938,7 @@ function getRandomNum_205() {
 function getDiff_205() {
     let score = player[205].score
     let round = player[205].round
-    let diff = 33 * (1 / (1 + 2 ** (-(score - 5000) / 1000)) - 1 / 33) / 32 + round ** 0.85 / 250 + (Math.log2(score + 1024) - 10) / 5
+    let diff = 33 * (1 / (1 + 2 ** (-(score - 5000) / 1000)) - 1 / 33) / 32 + round ** 0.9 / 400 + (Math.log2(score + 1024) - 10) / 5
 
     if (hasUpgrade(205, 33)) diff *= 0.75
 
