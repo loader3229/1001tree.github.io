@@ -54,7 +54,7 @@ addLayer("3022", {
         },
         12: {
             title: "两情相悦",
-            description: "拘谞池的充能效率基于依托咪酯略微增加",
+            description: "拘谞池的充能力量基于依托咪酯略微增加",
             effectDisplay() {
                 return `+${format(this.effect())}`
             },
@@ -65,7 +65,7 @@ addLayer("3022", {
         },
         13: {
             title: "三无产品",
-            description() { return `每秒自动为拘谞池充能,速度为效率的${formatPersent(this.mult(), 0)}` },
+            description() { return `每秒自动为拘谞池充能,速度为力量的${formatPersent(this.mult(), 0)}` },
             effectDisplay() {
                 return `${format(this.effect())}`
             },
