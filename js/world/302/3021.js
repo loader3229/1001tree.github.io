@@ -77,7 +77,7 @@ addLayer("3021", {
         },
         12: {
             title: "飞升的左脚踩右脚",
-            description: "拘谞池的充能效率基于充能微弱增加",
+            description: "拘谞池的充能力量基于充能微弱增加",
             effectDisplay() {
                 return `+${format(this.effect())}`
             },

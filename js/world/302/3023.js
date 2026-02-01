@@ -280,7 +280,7 @@ addLayer("3023", {
         },
         34: {
             title: "<span class='c1'>最终之证</span>",
-            description: "[三无产品]充能效率最终增加拘谞池容量的1%",
+            description: "[三无产品]充能力量最终增加拘谞池容量的1%",
             effectDisplay() {
                 return `+${format(this.effect())}`
             },
@@ -321,7 +321,7 @@ addLayer("3023", {
         },
         2: {
             requirementDescription() { return `2 拚谠 | 容量利用` },
-            effectDescription() { return `你都已经20了,是时候收集小道具了,[三无产品]充能效率最终增加拘谞池容量的5%<br>效果: +${format(this.effect())} (硬上限在${format(_D(100).mul(layers[3024].effect()))})` },
+            effectDescription() { return `你都已经20了,是时候收集小道具了,[三无产品]充能力量最终增加拘谞池容量的5%<br>效果: +${format(this.effect())} (硬上限在${format(_D(100).mul(layers[3024].effect()))})` },
             done() { return player[this.layer].points.gte(2) },
             effect() {
                 let e = layers[3021].clickables[11].limit().mul(
