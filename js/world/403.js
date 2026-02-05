@@ -7,6 +7,7 @@ addLayer("403", {
         if (player.subtabs['403'].mainTabs=="新手练习"){
             player['403'].maxProblems = 5
             player['403'].realmID = 0
+            player['403'].difficultyID = 1
         }
     },
     startData() {
@@ -19,6 +20,7 @@ addLayer("403", {
             problemID:0,
             realmID:-1,
             maxProblems:0,
+            difficultyID: 0,
             Problemcompleted:[[false,false,false,false,false,false],[]],
         }
     },
@@ -66,9 +68,9 @@ addLayer("403", {
     upgrades: {
         11: {
             title: "新手练习",
-            description() { return `测试你的基本能力, 共5道题目` },
+            description() { return `测试你的基本能力, 共5道题目(不能购买提示)` },
             canAfford(){
-                return player['105'].points.gte(this.cost())
+                return player['403'].points.gte(this.cost())
             },
             style(){
                 if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(271, 100%, 50%),hsl(250, 100%, 50%),hsl(210, 100%, 50%),hsl(250, 100%, 50%),hsl(271, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 5s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
@@ -77,6 +79,23 @@ addLayer("403", {
             cost(){
                 return _D(0)
             },
+            currencyDisplayName:"谜题币"
+        },
+        21: {
+            title: "增量游戏谜题",
+            description() { return `小拜谢来到了第一道关卡!` },
+            unlocked() {return hasUpgrade("403",11)},
+            canAfford(){
+                return player['403'].coins.gte(this.cost())
+            },
+            style(){
+                if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(271, 100%, 50%),hsl(250, 100%, 50%),hsl(210, 100%, 50%),hsl(250, 100%, 50%),hsl(271, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 5s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
+                return {"height":"120px","width":"120px"}
+            },
+            cost(){
+                return _D(3)
+            },
+            currencyDisplayName:"谜题币"
         },
     },
     milestones: {
@@ -86,7 +105,13 @@ addLayer("403", {
             display() { return `输入并验证答案` },
             onClick() {
                 player['403'].answer1 = prompt("请输入你的答案!","")
-                if(player['403'].answer1 == get403ProblemAns()[player['403'].realmID][player['403'].problemID].answer) player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] = true
+                if(player['403'].answer1 == get403ProblemAns()[player['403'].realmID][player['403'].problemID].answer){
+                    if(player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] == false){
+                        player['403'].coins = player['403'].coins.add(player['403'].difficultyID)
+                        player['403'].points = player['403'].points.add(1)
+                    }
+                    player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] = true
+                }
             },
             unlocked() { return true },
             canClick() { return true },
@@ -116,7 +141,7 @@ addLayer("403", {
                 player['403'].problemID++
             },
             unlocked() { return true },
-            canClick() { return player['403'].problemID < player['403'].maxProblems },
+            canClick() { return false },
             style:{"width":"900px","min-height":"0px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff00"}
         }, 
     },

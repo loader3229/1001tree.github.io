@@ -1316,11 +1316,19 @@ function get403ProblemAns() {
 	return [
 		[
 			{problem:`占位符`,answer:`占位符`},
-			{problem:`我们来问些简单的:%!是多少`,answer:`120`},
-			{problem:``,answer:``},
-			{problem:``,answer:``},
-			{problem:``,answer:``},
-			{problem:``,answer:``}
+			{problem:`!@#￥[?]^&*()<br>本题需要一个数字作为答案`,answer:`6`},
+			{problem:`[][金][林][淼][?]<br>本题需要汉字作为答案`,answer:`燚`},
+			{problem:`This is a puzzLE. this [?] can BE the CorreCt AnswEr, Please find iT!<br>
+						本题需要一个大写英语单词作为答案`,answer:`ACCEPT`},
+			{problem:`--2-- --4--- 3- ----[?]<br>
+					  本题需要一个数字作为答案`,answer:`5`},
+			{problem:`(I)Hello, sodbhu.<br>
+				        这是一道meta题<br>
+					    这是一道team题<br>
+					    寻找位移之后的相同之处,对第五个元素取差集
+					  (II)落<b>井</b>下石的题目需要关键的头部,抛弃公元前的旧事物
+					  (III)889（#……）
+					  本题需要一个大写字母单词作为答案`,answer:`LAPTOP`}
 		]
 	]
 }
