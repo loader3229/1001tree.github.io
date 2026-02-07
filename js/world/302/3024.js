@@ -4,11 +4,13 @@ addLayer("3024", {
     color: "radial-gradient(hsl(140,45%,50%), hsl(210,30%,50%))",
     update(diff) {
         if (player.pause[302]) return
+        player[this.layer].a += 1
     },
     startData() {
         return {
             unlocked: true,
-            points: _D0
+            points: _D0,
+            a: -114514
         }
     },
     type: "normal",
@@ -25,9 +27,25 @@ addLayer("3024", {
         ['prestige-button', "飝卆"],
         'resource-display',
         ["display-text", function () {
-            return `这个层级什么都没有,因为我懒了,而且我不想再给你们加重置墙了(真的是不想吗?)`
+            return `这个层级什么其他的东西都没有,因为我懒了,而且我不想再给你们加重置墙了(真的是不想吗?)`
         }],
+        "blank",
+        "upgrades"
     ],
+    upgrades: {
+        11: {
+            title: "滴滴得得滴滴得滴滴",
+            description: "获得一个神秘的拘谞获取加成",
+            effectDisplay() {
+                return `×${format(this.effect())}`
+            },
+            effect() {
+                return Math.sin(Date.now() / 3725) / (Math.sin(Date.now() / 7014) /2 + 1) + (Math.sin(Date.now() / 4259) / 2 + 1.25) + (player[this.layer].a - player[this.layer].a)
+            },
+            cost: _D(-1),
+            unlocked() { return true }
+        }
+    },
     effect() { return player[this.layer].points.add(1).pow(1 / 2).mul(getEffect("3023", 31, _D1)) },
     hotkeys: [
         { key: "3", description: "[302] 3: 飝卆", onPress() { doReset(this.layer) } },

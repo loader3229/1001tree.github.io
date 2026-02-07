@@ -33,7 +33,6 @@ addLayer("205", {
             round: 0,
             end: true,
             points: _D0,
-            score: 0,
             getscore: 0,
             board: [
                 [0, 0, 0, 0, 0, 0],
@@ -191,7 +190,7 @@ addLayer("205", {
                 player[this.layer].board[y][x] = hand
             }
 
-            if (hasUpgrade(this.layer,43)) player[this.layer].points = player[this.layer].points.add(0.1)
+            if (hasUpgrade(this.layer, 43)) player[this.layer].points = player[this.layer].points.add(0.1)
 
             player[this.layer].hand = getRandomNum_205()
             player[this.layer].round++
@@ -348,7 +347,7 @@ addLayer("205", {
                     }
 
                     combo += 1
-                    points += val / 10
+                    points += val / 3
                     if ([1, 2, 3].includes(val) && hasUpgrade(this.layer, 41)) {
                         score -= (basic[val - 1] * bmult[val - 1])
                             *

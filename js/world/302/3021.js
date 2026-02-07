@@ -5,7 +5,7 @@ addLayer("3021", {
     update(diff) {
         if (player.pause[302]) return
 
-        player[this.layer].points = decimalMax(player[this.layer].points.add(this.pointsGain()[0].mul(diff)),0)
+        player[this.layer].points = decimalMax(player[this.layer].points.add(this.pointsGain()[0].mul(diff)), 0)
 
         if (inChallenge("3023", 12)) player[this.layer].points = decimalMin(player[this.layer].points, _D(249).add(inChallenge("3023", 22) ? getEffect("3023", 25) : 0))
 
@@ -41,13 +41,14 @@ addLayer("3021", {
         let g = player[302][1].charge
 
         g = g.add(getEffect("3023", 21, _D0))
+            .mul(getEffect("3024", 11, _D1))
+            .mul(getMilestoneEffect("3023", 1, _D1))
 
-        if (hasUpgrade("3022", 14) && !hasUpgrade("3023",32)) g = g
+        if (hasUpgrade("3022", 14) && !hasUpgrade("3023", 32)) g = g.sub(player[this.layer].points
             .sub(player[this.layer].points
-                .sub(player[this.layer].points
-                    .mul(_D(0.95).add(getEffect("3022", 34, _D0)))))
-
-        g = g.mul(getMilestoneEffect("3023", 1, _D1))
+                .mul(_D(0.95).add(getEffect("3022", 34, _D0)))
+            )
+        )
 
         let o = player[this.layer].points.eq(0) ? _D0 : g.div(player[this.layer].points)
 
