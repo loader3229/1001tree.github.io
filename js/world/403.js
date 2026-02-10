@@ -6,7 +6,7 @@ addLayer("403", {
         if (player.pause[this.layer]) return
         if (player.subtabs['403'].mainTabs=="新手练习"){
             player['403'].maxProblems = 5
-            player['403'].realmID = 0
+            player['403'].realmID = 1
             player['403'].difficultyID = 1
         }
     },
@@ -17,8 +17,8 @@ addLayer("403", {
             coins: _D0,
             answer1:"",
             answerCorrect:"",
-            problemID:0,
-            realmID:-1,
+            problemID:1,
+            realmID:0,
             maxProblems:0,
             difficultyID: 0,
             Problemcompleted:[[false,false,false,false,false,false],[]],
@@ -136,7 +136,7 @@ addLayer("403", {
             style:{"width":"50px","min-height":"50px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff"}
         },
         31: {
-            display() { return get403ProblemAns()[player['403'].realmID][player['403'].problemID].problem },
+            display() { return get403ProblemAns()[player['403'].realmID-1][player['403'].problemID].problem },
             onClick() {
                 player['403'].problemID++
             },
