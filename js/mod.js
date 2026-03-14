@@ -18,12 +18,14 @@ let modInfo = {
 
 // 在num和name中设置版本号
 let VERSION = {
-	num: 0.68,
+	num: 0.72,
 	name: ""
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
+	<h3>v0.76? | 2025/3/15</h3><br>
+	更新了19个游戏<br><br>
 	<h3>v0.68 | 2025/1/16</h3><br>
 	更新了17个游戏<br><br>
 	<h3>v0.60 | 2025/12/14</h3><br>
@@ -51,7 +53,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'e
 	'getRandomcode', 'getLoseText', 'getWrongPage', 'find25', 'calculateInfoDensity', 'catMove', 'spGen',
 	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "ai7", "ai8", "ai9", "sC1", "sC2", "sC3", "sC4", "sC5",
 	"aC1", "aC2", "aC3", "aC4", "aC5", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10",
-	"startSimulation", "endSimulation", "getColor_205", "start","checkboard"
+	"startSimulation", "endSimulation", "getColor_205", "start", "checkboard"
 ]
 
 function getStartPoints() {

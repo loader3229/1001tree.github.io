@@ -143,6 +143,11 @@ addLayer("book", {
                     width: "720px"
                 }
             },
+            banana3864: {
+                content: [
+                    ["display-text","我是Banana3864, 1001树的开发者之一. 在某处的输入框中输入新闻中的6位密码来解锁讯息1"]
+                ]
+            }
         },
     },
     tooltip: "",
