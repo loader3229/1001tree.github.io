@@ -3,12 +3,12 @@ addLayer("402", {
     resource: "",
     color: "#A04AC1",
     update(diff) {
-        if (player[402].value.sub(data402[player[402].level][2]).abs().lte(0.0000000000001)) {
+        if (player[402].value.sub(data402[player[402].level][2]).abs().lte(0.000000001)) {
             player[402].level+=1
             player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
             player[402].value=data402[player[402].level][1]
         }
-        if (player[402].maxLevel>30 && player.world[402]==false){
+        if (player[402].maxLevel>25 && player.world[402]==false){
             completeWorld(this.layer)
         }
     },
@@ -46,10 +46,15 @@ addLayer("402", {
             done() {return player[402].maxLevel>20},
             onComplete() {player.main.points=player.main.points.add(1)}
         },
+        2: {
+            requirementDescription: "完成402中中的第25关",
+            done() {return player[402].maxLevel>25},
+            onComplete() {player.main.points=player.main.points.add(1)}
+        },
     },
     clickables: {
         11: {
-            title() {return `你最高达到了第${player[402].maxLevel}关 | 当前是第${player[402].level}关<br><br>当前数值: ${format(player[402].value,3)}<br>你的目标是: ${data402[player[402].level][4]?`${data402[player[402].level][3]} ≈ ${format(data402[player[402].level][2],6)}`:data402[player[402].level][3]}`},
+            title() {return `${player[402].maxLevel<=25?"你最高达到了第"+String(player[402].maxLevel)+"关":"恭喜通关本世界！"} | 当前是第${player[402].level}关<br><br>当前数值: ${format(player[402].value,3)}<br>你的目标是: ${data402[player[402].level][4]?`${data402[player[402].level][3]} ≈ ${format(data402[player[402].level][2],5)}`:data402[player[402].level][3]}`},
             style() {return {"height":"100px","width":"560px","border":"3px solid","border-radius":"2px","background-color":"#7FFFD4","border-color":"#EEEEFF"}},
             canClick: false
         },
@@ -59,7 +64,7 @@ addLayer("402", {
             unlocked() {return player[402].level>1},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#F0CD9F","border-color":"#F03967"}},
             canClick() {return this.unlocked()},
-            onClick() {player[402].level-=1}
+            onClick() {player[402].level-=1;player[402].value=data402[player[402].level][1]}
         },
         22: {
             title: "重试本关",
@@ -71,38 +76,38 @@ addLayer("402", {
         },
         23: {
             title: "下一关",
-            display() {return `前往第${player[402].level+1}关`},
+            display() {return player[402].level!=25?`前往第${player[402].level+1}关`:"恭喜通关"},
             unlocked() {return player[402].maxLevel>player[402].level},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#CF98E6","border-color":"#37BAD1"}},
             canClick() {return this.unlocked()},
-            onClick() {player[402].level+=1}
+            onClick() {player[402].level+=1;player[402].value=data402[player[402].level][1]}
         },
         31: { //x+2
-            title: "?",
+            title() {return player[402].maxLevel>21?"x+2":"?"},
             unlocked() {return player[402].level>=1},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![22,23,24].includes(player[402].level)},
             onClick() {player[402].value=player[402].value.add(2)}
         },
         32: { //x-1
-            title: "??",
+            title() {return player[402].maxLevel>21?"x-1":"??"},
             unlocked() {return player[402].level>=2},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![23,24,25].includes(player[402].level)},
             onClick() {player[402].value=player[402].value.sub(1)}
         },
         33: { //x/2
-            title: "???",
+            title() {return player[402].maxLevel>23?"/2":"???"},
             unlocked() {return player[402].level>=4},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,22,24,25].includes(player[402].level)},
             onClick() {player[402].value=player[402].value.div(2)}
         },
         41: { //sqrt(x)
-            title: "!",
+            title() {return player[402].maxLevel>24?"sqrt(x)":"!"},
             unlocked() {return player[402].level>=7},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,22,23].includes(player[402].level)},
             onClick() {
                 if (player[402].value.lt(0)) {
                     if (player[402].level==8) {
@@ -119,10 +124,10 @@ addLayer("402", {
             }
         },
         42: { //1/x
-            title: "!!",
+            title() {return player[402].maxLevel>22?"1/x":"!!"},
             unlocked() {return player[402].level>=11},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,24,25].includes(player[402].level)},
             onClick() {
                 if (player[402].value.eq(0)) {
                     if (player[402].level==12) {
@@ -139,37 +144,37 @@ addLayer("402", {
             }
         },
         43: { //2^x
-            title: "!!!",
+            title() {return player[402].maxLevel>23?"2^x":"!!!"},
             unlocked() {return player[402].level>=15},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,22,24].includes(player[402].level)},
             onClick() {
                 player[402].value=_D2.pow(player[402].value)
             }
         },
         51: { //x^2
-            title: "#",
+            title() {return player[402].maxLevel>23?"x^2":"#"},
             unlocked() {return player[402].level>=17},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,22,24].includes(player[402].level)},
             onClick() {
                 player[402].value=player[402].value.pow(2)
             }
         },
-        52: { //2x
-            title: "##",
+        52: { //3x
+            title() {return player[402].maxLevel>21?"3x":"##"},
             unlocked() {return player[402].level>=18},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![22,23,24].includes(player[402].level)},
             onClick() {
-                player[402].value=player[402].value.mul(2)
+                player[402].value=player[402].value.mul(3)
             }
         },
         53: { //log2(x)
-            title: "###",
+            title() {return player[402].maxLevel>22?"log<sub>2</sub>x":"###"},
             unlocked() {return player[402].level>=19},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return this.unlocked()},
+            canClick() {return ![21,22,24].includes(player[402].level)},
             onClick() {
                 if (player[402].value.lte(0)) {
                     alert("前面的区域，以后再来探索吧~(本次操作无效)")

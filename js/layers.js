@@ -323,6 +323,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        106: {
+            name: "真假无限",
+            done() { return player[402].level==12 && player[402].value.gte(_DInf)},
+            onComplete() { achievementComplete() },
+            tooltip: "在402中的第12关达到1.79e308数值.",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/106.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },
