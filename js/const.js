@@ -1187,7 +1187,7 @@ const data402 = {
 	17: ["来试试这个！",_D1,_D4.cbrt().add(_D2.cbrt().mul(2)),"cbrt(4)+2cbrt(2)",true],
 	18: ["相似？而有所不同。",_D1,_D4.cbrt().sub(_D2.cbrt()),"cbrt(4)-cbrt(2)",true],
 	19: ["到此你解锁了所有按钮啦！你将在完成第25关后完成本世界。",_D1,_D7.log(2),"log<sub>2</sub>7",true],
-	20: ["本关其实已经被削弱过一次了……想来一定难不住你。(小明正在准备处理墨水……)",_D1,_D3.log(6).mul(Math.SQRT2),"sqrt(2)log<sub>6</sub>3",true],
+	20: ["本关其实已经被削弱过一次了……想来一定难不住你。(小明正在准备处理墨水……)",_D1,_D3.log(6).mul(_D3.sqrt()),"sqrt(3)log<sub>6</sub>3",true],
 	21: ["小明正在处理墨水中……看来有些按钮暂时不能用了。",_D0,new Decimal(12315008803),"12315008803",false],
 	22: ["护送根号2！(初始数值为精确的sqrt(2)值)",new Decimal(Math.SQRT2),new Decimal(-58).sub(Math.SQRT2).div(41),"-[58+sqrt(2)]/41",true],
 	23: ["我曾经知道一个57257步的解法，可惜现在用不了了……",_D0,new Decimal(114514),"114514",false],
