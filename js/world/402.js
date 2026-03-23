@@ -86,14 +86,14 @@ addLayer("402", {
             title() {return player[402].maxLevel>21?"x+2":"?"},
             unlocked() {return player[402].level>=1},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return ![22,23,24].includes(player[402].level)},
+            canClick() {return ![22,23].includes(player[402].level)},
             onClick() {player[402].value=player[402].value.add(2)}
         },
         32: { //x-1
             title() {return player[402].maxLevel>21?"x-1":"??"},
             unlocked() {return player[402].level>=2},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return ![23,24,25].includes(player[402].level)},
+            canClick() {return ![23,25].includes(player[402].level)},
             onClick() {player[402].value=player[402].value.sub(1)}
         },
         33: { //x/2
@@ -107,7 +107,7 @@ addLayer("402", {
             title() {return player[402].maxLevel>24?"sqrt(x)":"!"},
             unlocked() {return player[402].level>=7},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return ![21,22,23].includes(player[402].level)},
+            canClick() {return ![21,22,23,24].includes(player[402].level)},
             onClick() {
                 if (player[402].value.lt(0)) {
                     if (player[402].level==8) {
@@ -127,7 +127,7 @@ addLayer("402", {
             title() {return player[402].maxLevel>22?"1/x":"!!"},
             unlocked() {return player[402].level>=11},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
-            canClick() {return ![21,24,25].includes(player[402].level)},
+            canClick() {return ![21,25].includes(player[402].level)},
             onClick() {
                 if (player[402].value.eq(0)) {
                     if (player[402].level==12) {
