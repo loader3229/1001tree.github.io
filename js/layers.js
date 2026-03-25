@@ -120,6 +120,12 @@ addLayer("main", {
     },
     layerShown() { return true },
 
+    hotkeys: [
+        { key: "m", description: "-Setting- M: BGM显示", onPress() { toggleOpt("songshown") } },
+        { key: "n", description: "-Setting- N: 新闻显示", onPress() { toggleOpt('newsshown') } },
+    ],
+    //toggleOpt("songshown")toggleOpt('newsshown')
+
 });
 
 addLayer("ach", {

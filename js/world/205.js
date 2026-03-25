@@ -1,5 +1,5 @@
 addLayer("205", {
-    symbol: "",
+    symbol: "🔱",
     resource: "能量",
     resource: "能量",
     color: "#aaa",

@@ -7,6 +7,7 @@ addLayer("505", {
         let bC = "#000"
         let C = "#888"
 
+        /*
         if (p == -5) bC = "#FFF"
         if (p == -4) bC = "#DDD"
         if (p == -3) bC = "#AAA"
@@ -30,6 +31,7 @@ addLayer("505", {
         if (p == 22) C = "#B72D0E"
         if (p == 28) C = "#000"
         if (p == 39) C = "#F00"
+        */
 
         return {
             backgroundColor: bC,
@@ -101,8 +103,10 @@ addLayer("505", {
             },
             onClick() {
                 let p = player[this.layer].page
+                /*
                 if (p == 21) player[this.layer].choose[0] = false
                 if (p == 31) player[this.layer].choose[1] = false
+                */
 
                 player[this.layer].page++
                 if (player[this.layer].page > 100) {
@@ -119,6 +123,7 @@ addLayer("505", {
                 }
             }
         },
+        /*
         12: {
             title: "停止",
             canClick() {
@@ -201,6 +206,7 @@ addLayer("505", {
             },
             shake: true
         }
+            */
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
 

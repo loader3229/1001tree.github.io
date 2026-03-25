@@ -397,7 +397,7 @@ var systemComponents = {
         bottom: songshown ? '20px' : '-202px',
         'z-index': '100000'
     	}">
-			<p v-if="songshown">你可以在设置主题样式-组件-BGM显示隐藏此栏</p>
+			<p v-if="songshown">你可以在 设置-主题设置-组件-BGM显示 隐藏此栏，或按 M 键切换</p>
 			<br>
 
         <div class="pc" :style="{width: tab ? 'calc(100vw - 70px)' : 'calc(50vw - 70px)'}">
@@ -510,6 +510,11 @@ var systemComponents = {
 					{ name: 'kuatari、William Spradlin - Little Seed, Arrival (Ederak)', src: './resources/song/background21.mp3' },
 					{ name: 'Plum - Rainbow Chaser (2021 Remake)', src: './resources/song/background22.mp3' },
 					{ name: 'Crywolf - DATURA (paroxysm)', src: './resources/song/background23.mp3' },
+					{ name: 'かめりあ - LORELEI', src: './resources/song/background24.mp3' },
+					{ name: '失落花园_、Nommi - 破窗效应', src: './resources/song/background25.mp3' },
+					{ name: 'Aika - CALAMITY RHAPSODY', src: './resources/song/background26.mp3' },
+					{ name: "Zekk、Minhyuk Choi - The King's Return", src: './resources/song/background27.mp3' },
+					
 				]
 			};
 		},
