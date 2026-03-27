@@ -3,13 +3,10 @@ addLayer("402", {
     resource: "",
     color: "#A04AC1",
     update(diff) {
-        if (player[402].value.sub(data402[player[402].level][2]).abs().lte(0.000000001)) {
+        if (player[402].value.sub(data402[player[402].level][2]).abs().lte(data402[player[402].level][4])) {
             player[402].level+=1
             player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
             player[402].value=data402[player[402].level][1]
-        }
-        if (player[402].maxLevel>25 && player.world[402]==false){
-            completeWorld(this.layer)
         }
     },
     startData() {
@@ -49,12 +46,12 @@ addLayer("402", {
         2: {
             requirementDescription: "完成402中中的第25关",
             done() {return player[402].maxLevel>25},
-            onComplete() {player.main.points=player.main.points.add(1)}
+            onComplete() {completeWorld(this.layer)}
         },
     },
     clickables: {
         11: {
-            title() {return `${player[402].maxLevel<=25?"你最高达到了第"+String(player[402].maxLevel)+"关":"恭喜通关本世界！"} | 当前是第${player[402].level}关<br><br>当前数值: ${format(player[402].value,3)}<br>你的目标是: ${data402[player[402].level][4]?`${data402[player[402].level][3]} ≈ ${format(data402[player[402].level][2],5)}`:data402[player[402].level][3]}`},
+            title() {return `${player[402].maxLevel<=25?"你最高达到了第"+String(player[402].maxLevel)+"关":"恭喜通关本世界！"} | 当前是第${player[402].level}关<br><br>当前数值: ${format(player[402].value,3)}<br>你的目标是: ${data402[player[402].level][5]?`${data402[player[402].level][3]} ≈ ${format(data402[player[402].level][2],5)}`:data402[player[402].level][3]}`},
             style() {return {"height":"100px","width":"560px","border":"3px solid","border-radius":"2px","background-color":"#7FFFD4","border-color":"#EEEEFF"}},
             canClick: false
         },

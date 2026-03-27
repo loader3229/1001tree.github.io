@@ -279,6 +279,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        25: {
+            name: "真假无限",
+            done() { return player[402].level==12 && player[402].value.gte(_DInf)},
+            onComplete() { achievementComplete() },
+            tooltip: "在402中的第12关达到1.79e308数值.",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/25.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         101: {
             name: "愚人节玩笑",
             done() { return !player._501.lose && player._501.complete },
@@ -326,16 +336,6 @@ addLayer("ach", {
             tooltip: "在25 layers中进行无收益的层级重置.",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/105.jpg)",
-            },
-            unlocked() { return hasAchievement(this.layer, this.id) }
-        },
-        106: {
-            name: "真假无限",
-            done() { return player[402].level==12 && player[402].value.gte(_DInf)},
-            onComplete() { achievementComplete() },
-            tooltip: "在402中的第12关达到1.79e308数值.",
-            style: {
-                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/106.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
