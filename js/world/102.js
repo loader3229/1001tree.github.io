@@ -36,7 +36,7 @@ addLayer("102", {
     tabFormat: [
         "main-display",
         ["display-text", function () {
-            return `你挖到了 ${player[this.layer].level} 狐币,挖到 500 个以完成世界 ${player[this.layer].pause ? "[目前在暂停状态]" : ""}`
+            return `你挖到了 ${format(player[this.layer].level)} 狐币,挖到 500 个以完成世界 ${player[this.layer].pause ? "[目前在暂停状态]" : ""}`
         }],
         "blank",
         ["display-text", function () {
@@ -209,7 +209,7 @@ addLayer("102", {
             requirementDescription() { return `1500狐币` },
             effectDescription() { return `无关紧要的加成,大幅降低批量计算价格` },
             done() { return player[this.layer].level >= 1500 },
-            effect() { return 0.8 },
+            effect() { return 1.05 },
             unlocked() { return hasMilestone(this.layer, this.id - 1) },
         },
         8: {
@@ -300,8 +300,7 @@ addLayer("102", {
             },
             unlocked() {
                 return hasUpgrade(this.layer, 14)
-            },
-            purchaseLimit: 5000
+            }
         },
     },
     clickables: {

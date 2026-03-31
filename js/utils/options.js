@@ -138,9 +138,9 @@ function adjustFont() {
 	document.body.style.setProperty("--Font", options.font);
 }
 
-const COUNT_DISPLAYS = ["默认", "2的幂", "10的幂", "SaveMySin", "狐狸", "丨目计数法", "wtf"];
+const COUNT_DISPLAYS = ["默认", "2的幂", "10的幂",  "狐狸", "丨目计数法", "wtf"];
 
-const COUNT_SETTINGS = [0, 1, 2, 3, 4, 5, 6];
+const COUNT_SETTINGS = [0, 1, 2,  4, 5, 6];
 
 function adjustCount() {
 	options.count = COUNT_SETTINGS[(COUNT_SETTINGS.indexOf(options.count) + 1) % COUNT_SETTINGS.length];
