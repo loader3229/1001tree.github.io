@@ -546,7 +546,7 @@ addLayer("205", {
             }
 
             if (hasUpgrade(this.layer, 44)) {
-                player[this.layer].mult += getDiff_205() / 50
+                player[this.layer].mult[2] += getDiff_205() / 50
             }
 
             if (hasUpgrade(this.layer, 51)) {
