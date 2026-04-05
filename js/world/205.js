@@ -11,15 +11,6 @@ addLayer("205", {
             unlocked: true,
             points: _D0,
             score: 0,
-            getscore: 0,
-            board: [
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0]
-            ],
             upgrade: [],
             basic: [
                 0, 0, 0, 0, 0, 0
@@ -524,15 +515,21 @@ addLayer("205", {
 
             BoardToGrid_205()
 
-            if (hasUpgrade(this.layer, 22)) score = score ** 0.5
+            if (hasUpgrade(this.layer, 22)) {
+                if (score < 0) {
+                    score = -((-score) ** 0.5)
+                }else score = score ** 0.5
+            }
+
             score *= getEffect(this.layer, 23, 1)
-            if (hasUpgrade(this.layer, 54)) score = score /= 2
+
+            if (hasUpgrade(this.layer, 54)) score = score / 2
 
             if (hasUpgrade(this.layer, 36)) combo *= 1.5
 
             player[this.layer].combo = combo == 0 && !inround ? 0 : player[this.layer].combo + combo
             player[this.layer].getscore = score
-            player[this.layer].score += score
+            player[this.layer].score = Math.max(0,player[this.layer].score +score)
             player[this.layer].points = player[this.layer].points.add(points)
 
             if (hasUpgrade(this.layer, 36)) player[this.layer].combo = Math.max(player[this.layer].combo, 0.5)
