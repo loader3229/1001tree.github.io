@@ -327,8 +327,8 @@ addLayer("205", {
                         let r = [Math.random(), Math.random(), Math.random()]
                         if (r[0] < 0.1) combo += 2
                         else if (r[0] < 0.3) combo += 1
-                        if (r[1] < 0.1) val += 2
-                        else if (r[1] < 0.3) val += 1
+                        if (r[1] < 0.1) basic[val-1] += 2
+                        else if (r[1] < 0.3) basic[val-1] += 1
                         if (r[2] < 0.1) points += val / 5
                         else if (r[2] < 0.3) points += val / 10
                     }
@@ -514,7 +514,6 @@ addLayer("205", {
             }
 
             BoardToGrid_205()
-
             if (hasUpgrade(this.layer, 22)) {
                 if (score < 0) {
                     score = -((-score) ** 0.5)
@@ -529,7 +528,7 @@ addLayer("205", {
 
             player[this.layer].combo = combo == 0 && !inround ? 0 : player[this.layer].combo + combo
             player[this.layer].getscore = score
-            player[this.layer].score = Math.max(0,player[this.layer].score +score)
+            player[this.layer].score = Math.max(0,player[this.layer].score + score)
             player[this.layer].points = player[this.layer].points.add(points)
 
             if (hasUpgrade(this.layer, 36)) player[this.layer].combo = Math.max(player[this.layer].combo, 0.5)
@@ -806,7 +805,7 @@ addLayer("205", {
         },
         46: {
             title: "Elemental",
-            description: "合成时，增加基础分、combo分、muti分和基础分倍率，概率获得额外combo、额外mult和额外能量",
+            description: "合成时，增加基础分、combo分、muti分和基础分倍率，概率获得额外combo、额外基础分和额外能量",
             cost: 159,
             unlocked() {
                 return hasUpgrade(this.layer, this.id) || player[this.layer].upgrade.includes(this.id)
