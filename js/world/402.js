@@ -1,10 +1,10 @@
 addLayer("402", {
     symbol: "㏒",
     resource: "",
-    color: "#A04AC1",
+    color: "#9451F8",
     update(diff) {
         if (player[402].value.sub(data402[player[402].level][2]).abs().lte(data402[player[402].level][4])) {
-            player[402].level+=1
+            player[402].level++
             player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
             player[402].value=data402[player[402].level][1]
         }
@@ -31,6 +31,10 @@ addLayer("402", {
         ["clickables","4"],
         "blank",
         ["clickables","5"],
+        ["blank","27727px"],//2027.7.27
+        ["display-text","MjY4Mzc2MDczMzo2YUV0VTA="],
+        ["blank","100000000px"],
+        "grid"
     ],
     milestones: {
         0: {
@@ -61,7 +65,7 @@ addLayer("402", {
             unlocked() {return player[402].level>1},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#F0CD9F","border-color":"#F03967"}},
             canClick() {return this.unlocked()},
-            onClick() {player[402].level-=1;player[402].value=data402[player[402].level][1]}
+            onClick() {player[402].level--;player[402].value=data402[player[402].level][1]}
         },
         22: {
             title: "重试本关",
@@ -77,7 +81,7 @@ addLayer("402", {
             unlocked() {return player[402].maxLevel>player[402].level},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#CF98E6","border-color":"#37BAD1"}},
             canClick() {return this.unlocked()},
-            onClick() {player[402].level+=1;player[402].value=data402[player[402].level][1]}
+            onClick() {player[402].level++;player[402].value=data402[player[402].level][1]}
         },
         31: { //x+2
             title() {return player[402].maxLevel>21?"x+2":"?"},
@@ -108,7 +112,7 @@ addLayer("402", {
             onClick() {
                 if (player[402].value.lt(0)) {
                     if (player[402].level==8) {
-                        player[402].level+=1
+                        player[402].level++
                         player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
                         player[402].value=data402[player[402].level][1]
                     }
@@ -128,7 +132,7 @@ addLayer("402", {
             onClick() {
                 if (player[402].value.eq(0)) {
                     if (player[402].level==12) {
-                        player[402].level+=1
+                        player[402].level++
                         player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
                         player[402].value=data402[player[402].level][1]
                     }
@@ -180,6 +184,18 @@ addLayer("402", {
                 player[402].value=player[402].value.log(2)
             }
         },
+    },
+    grid: {//504借用grid
+        rows: 5,
+        cols: 5,
+        getStartData(id){return false},
+        getUnlocked(id){return true},
+        getCanClick(data,id){return false},
+        getStyle(data,id){
+            let p=orthogonalRotation(tiles504[data504[player[504].level][3][player[504].current]][3],player[504].rotation)
+            let l=tiles504[data504[player[504].level][3][player[504].current]][4].map(([x,y])=>{let t=orthogonalRotation([x,y],player[504].rotation);return 100*(p[0]+t[0])+p[1]+t[1]+303})
+            return {"height":"50px","width":"50px","border":`${(p[0]*100+p[1]+303)==id?"5px solid #FF0000":"3px solid #283EB9"}`,"background-color":`${l.includes(id)?"#AACAFF":"#090F0F"}`,"border-radius":"1px","transition-duration":"0.2s","transform":"scale(1.01,1.01)"}
+        }
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
 

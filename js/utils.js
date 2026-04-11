@@ -547,7 +547,21 @@ function getYFromOrderedPoints(points, x) {
 	);
 }
 
-// 你知道的太多了
+function orthogonalRotation([x,y],rotation){//坐标(x,y)顺时针90°旋转rotation次后的坐标
+    switch (rotation%4) {
+        case 0: return [x,y]
+        case 1: return [y,-x]
+        case 2: return [-x,-y]
+        case 3: return [-y,x]
+    }
+}
+
+function RGBtoHEX([r,g,b]){return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)}
+function HEXtoRGB(h){
+  	return [parseInt(h.substring(1, 3), 16),parseInt(h.substring(3, 5), 16),parseInt(h.substring(5, 7), 16)];
+}
+
+// 你知道的太多了(?)
 // 避免重复定义开销
 const randomString_chars = `ABCDEFGHJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890?!;=+-/@#$%^&*~|"'()[]{},.`;
 function randomString(length) {
