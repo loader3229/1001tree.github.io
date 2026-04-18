@@ -46,6 +46,18 @@ addLayer("504", {
         ]],
         ["blank","100px"]
     ],
+    milestones: {
+        0: {
+            requirementDescription: "完成504中的第15关",
+            done() {return player[504].maxLevel>15},
+            onComplete() {player.main.points=player.main.points.add(1)}
+        },
+        1: {
+            requirementDescription: "完成504中的第25关",
+            done() {return player[504].maxLevel>25},
+            onComplete() {completeWorld(504)}
+        },
+    },
     clickables: {
         11: {
             title() {return `${player[504].maxLevel<=25?"你最高达到了第"+String(player[504].maxLevel)+"关":"恭喜通关本世界！"} | 当前是第${player[504].level}关`},
@@ -108,7 +120,11 @@ addLayer("504", {
                 let v=true
                 c.forEach(([id,x])=>{t.forEach(v=>{if(v==id)x--});if(x!=0)v=false})
                 data504[player[504].level][5].forEach(id=>{if(!d.includes(id))v=false})
-                if(v){player[504].maxLevel=Math.max(player[504].maxLevel,++player[504].level);player[504].tileList=[]}
+                if(v){
+                    player[504].maxLevel=Math.max(player[504].maxLevel,++player[504].level)
+                    player[504].tileList=[]
+                    makeParticles(WINWINWIN,50)
+                }
             }
         },
         41: {
@@ -173,7 +189,7 @@ addLayer("504", {
             }
             if (data504[player[504].level][5].includes(id)){bType="5px solid";bColor=flag?[63,240,31]:[255,31,31]}
             if (player[504].hoveringPreview.map(([x,y])=>100*x+y+player[504].hoverID).includes(id)) color=color.map(v=>Math.floor(Math.min(v*(1.35+0.4*Math.sin(player[504].resetTime*5)),255)))
-            return {"height":"72px","width":"72px","border":`${bType} ${RGBtoHEX(bColor)}`,"background-color":`${RGBtoHEX(color)}`,"border-radius":"0px","transition-duration":"0.3s","transform":"scale(1,1)"}
+            return {"height":"66px","width":"66px","border":`${bType} ${RGBtoHEX(bColor)}`,"background-color":`${RGBtoHEX(color)}`,"border-radius":"0px","transition-duration":"0.3s","transform":"scale(1,1)"}
         },
         onClick(data, id) {
             let valid=true

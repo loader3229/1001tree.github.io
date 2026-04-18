@@ -7,6 +7,7 @@ addLayer("402", {
             player[402].level++
             player[402].maxLevel=Math.max(player[402].maxLevel,player[402].level)
             player[402].value=data402[player[402].level][1]
+            makeParticles(WINWINWIN,50)
         }
     },
     startData() {
