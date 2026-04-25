@@ -999,7 +999,10 @@ let a = {
 		"5": "Unlock a permanent charger and a buyable for permanent charge.",
 		"33": "Enable maximized ascension and unlock two new permanent chargers.",
 		"56": "Your simulations start with 6 Ascension Levels.",
-		"72": "Once, they tried to escape from the dome...",
+		"72": "Recursion Tab is unlocked.",
+		"101": "You can automatically gain Ascension Levels. Unlock a new charger.",
+		"800": "Unlock two new chargers.",
+		"1e308": "-Infinity Reached-",
 	}
 }
 
