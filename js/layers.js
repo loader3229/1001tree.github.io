@@ -19,13 +19,13 @@ addLayer("main", {
         ["bar", 1],
         "blank",
         ["display-text", `<div style="
-                        width: 400px;
+                        width: 450px;
                         padding: 10px;
 	                    border-radius: 5px;
 	                    border: 2px solid white;
                         background: #111;
                     ">
-                    游戏类型 | <span class='c1'>???</span> <span class='c2'>增量</span> <span class='c3'>非增量</span>
+                    游戏类型 | <span class='c1'>???</span> <span class='c2'>增量</span> <span class='c3'>非增量</span> | 悬浮以查看玩法标签
                     </div>`],
         "blank",
         "grid",
@@ -34,7 +34,7 @@ addLayer("main", {
     bars: {
         1: {
             direction: RIGHT,
-            width: 725,
+            width: 750,
             height: 30,
             display() {
                 return '<span style="color:#88888888">游戏完成进度</span>'
@@ -64,47 +64,63 @@ addLayer("main", {
         },
         getDisplay(data, id) {
             let mode = options.hcmode
-            let style = getGameName(id)[2]
+            let n = getGameName(id)
 
-            if (mode) {
-                return `<h1>${getGameName(id)[0]}</h1>
-                <h3>${getGameName(id)[1]}</h3>
+            if (mode % 3 == 2) {
+                return `<h1>${n[0]}</h1>
+                <h3>${n[1]}</h3>
                 <br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
-            } else {
-                return `<h2 class="${style}">${getGameName(id)[0]}</h2>
-                <span class="${style}">${getGameName(id)[1]}</span>
+            }
+            else if (mode % 3 == 0) {
+                return `<h2 class="${n[2]}">${n[0]}</h2>
+                <span class="${n[2]}">${n[1]}</span>
                 <br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
+            }
+            else {
+                return `<h1>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")} | ${n[0]}&nbsp;&nbsp;&nbsp;</h1><h2>[${n[1]}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标签:${n[3]}</h2>`
             }
         },
         getStyle(data, id) {
-            let style = {
-                width: "144px",
-                height: "115px",
-                backgroundClip: "padding-box",
-            }
+            let style = {backgroundClip: "padding-box","transition-duration":"0s"}
 
             let mode = options.hcmode
 
-            if (mode) {
+            if (mode % 3 == 2) {
+                style.width = "150px"
+                style.height = "114px"
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #AAF, #FAA)"
                 else if (data) style.backgroundImage = "linear-gradient(to bottom, #EEE, #FAA)"
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #EEE, #999)"
                 else style.backgroundImage = "linear-gradient(#666)"
-            } else {
+            }
+            else if (mode % 3 == 0){
+                style.width = "148px"
+                style.height = "116px"
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
                 else if (data) style.backgroundImage = "linear-gradient(to bottom, #0F8, #6CC)"
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
                 else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
             }
+            else {
+                style.width = "720px"
+                style.height = "720px"
+                style["border-style"] = "solid"
+                style["border-color"] = "transparent"
+                if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #ED0, #C20)"
+                else if (data) style.backgroundImage = "linear-gradient(to bottom, #1E7, #3A9)"
+                else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDE, #776)"
+                else style.backgroundImage = "linear-gradient(to bottom, #666, #555)"
+            }
 
             return style
-        }
+        },
+        getTooltip(data, id) {return getGameName(id)[3]}
     },
     clickables: {
         11: {
-            title() { return options.hcmode ? "易读模式" : "常规模式" },
+            title() { return hcmodeName[options.hcmode] },
             onClick() {
-                toggleOpt('hcmode')
+                options['hcmode']++
             },
             canClick() { return true },
             onHold() { },

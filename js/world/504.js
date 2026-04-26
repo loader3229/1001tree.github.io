@@ -36,8 +36,8 @@ addLayer("504", {
                 ["display-text","下方显示当前选择的拼图块<br>放置拼图的拼图板在右边"],
                 "blank",
                 ["clickables","4"],
-                "blank",
                 ["layer-proxy",["402",["grid"]]],
+                ["display-text",function(){return `当前选择第${player[504].current}/${data504[player[504].level][3][0]}块拼图`}],
                 "blank",
                 ["clickables","5"]
             ]],

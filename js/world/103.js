@@ -19,6 +19,7 @@ addLayer("103", {
         return {
             unlocked: true,
             points: _D0,
+            resets: 0,
             res: [[1,20],[2,20],[3,20],[4,20],[5,5],[6,5],[7,5],[8,5]],
             roll: _D0,
             r: 0,
@@ -36,6 +37,7 @@ addLayer("103", {
             cid: 0,
             ctext: "",
             cboost: [1,_D0],
+            confirmTime: -5
         }
     },
     type: "none",
@@ -52,6 +54,7 @@ addLayer("103", {
                 ["clickables", [1]],
                 "blank",
                 ["display-text", function () {
+                    if (player['103'].r==0) return ""
                     return `本次抽中`+((player['103'].r % 2 == 1) ? `<b style="color: #05bd05ff">(${formatWhole(player['103'].r)})</b>` : `<b style="color: #bd0505ff">(${formatWhole(player['103'].r)})</b>`)+`,` +player['103'].rtext
                 }],
                 "blank",
@@ -60,7 +63,8 @@ addLayer("103", {
                 ["clickables", [2]],
                 ["clickables", [3]],
             ]
-        }
+        },
+        "reset": {content: [["clickables",[4]]]}
     },
     pGen(){
         g = player['103'].basegen
@@ -121,7 +125,7 @@ addLayer("103", {
     clickables: {
         11: {
             title() { return `拉动拉杆` },
-            display() { return player['103'].cd <= 0 ? `` : `还需冷却${format(player['103'].cd)}s` },
+            display() { return player['103'].cd <= 0 ? `` : `<h3>还需冷却${format(player['103'].cd)}s</h3>` },
             onClick() {
                 let c = (3*player['103'].cboost[0])
                 if(chooseWeightInArray([[0,Math.max(100-player['103'].bboost[2],0)],[1,player['103'].bboost[2]]])) player['103'].cd = 0
@@ -226,6 +230,37 @@ addLayer("103", {
             canClick() { return player['103'].bmode },
             style:{"margin-top":"15px","color":"#fe0000ff","text-shadow":"2px 2px 5px #fe0000","border-color":"#fe0000","box-shadow":"0px 0px 10px #fe0000","border":"6px solid","background-color":"#fe000025"}
         }, 
+        41: {
+            title() {return `<h1>!重新开始本世界!</h1><br><h5>(你重开过${player['103'].resets}次)</h5>`},
+            display() {return (player['103'].resetTime-player['103'].confirmTime<=5)?`<h1 style='color:#FF0000'>你真的确定吗?<br>${format(5.5-player['103'].resetTime+player['103'].confirmTime,0)}秒内再次按下以确认重开</h1>`:"<h2 style='color:#D21415'>警告⚠️这将重置本世界的所有进度<br>你不会获得任何奖励<br>运气太差时可用于重开</h2>"},
+            canClick: true,
+            onClick() {
+                if (player['103'].resetTime-player['103'].confirmTime<=5) {
+                    player[103].resets++
+                    player[103].points = _D0
+                    player[103].res = [[1,20],[2,20],[3,20],[4,20],[5,5],[6,5],[7,5],[8,5]]
+                    player[103].roll = _D0
+                    player[103].r = 0
+                    player[103].cd = 0
+                    player[103].basegen = _D0
+                    player[103].req = _D(20)
+                    player[103].bmode = false
+                    player[103].rtext = ""
+                    player[103].atext = ""
+                    player[103].aid = 0
+                    player[103].aboost = [_D0,_D0,_D1,_D0,_D0]
+                    player[103].btext = ""
+                    player[103].bid = 0
+                    player[103].bboost = [_D0,_D0,0,_D1]
+                    player[103].cid = 0
+                    player[103].ctext = ""
+                    player[103].cboost = [1,_D0]
+                    player[103].confirmTime = -5
+                }
+                else player['103'].confirmTime = player['103'].resetTime
+            },
+            style: {"height":"200px","width":"400px","background-color":"#ACC"}
+        }
     },
     bars: {
         1: {

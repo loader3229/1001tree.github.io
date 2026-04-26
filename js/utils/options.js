@@ -24,7 +24,7 @@ function getStartOptions() {
 
 		count: 0,
 		forceOneTab: false,
-		hcmode: false,
+		hcmode: 0,
 		hqTree: false,
 		msDisplay: "always",
 		hideChallenges: false,
@@ -95,7 +95,6 @@ function getOpt(name) {
 function toggleOpt(name) {
 	if (name == "oldStyle" && styleCooldown > 0)
 		return;
-
 	options[name] = !options[name];
 	if (name == "hqTree")
 		changeTreeQuality();
