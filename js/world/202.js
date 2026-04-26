@@ -1483,19 +1483,14 @@ addLayer("202", {
             onExit() {
                 layers[this.layer].resetGame()
             },
-            unlocked() {
-                return hasChallenge(this.layer, 111)
-            },
             onComplete() {
                 player.main.points = player.main.points.add(1)
+                playsound("cc")
             },
             unlocked() {
                 return hasChallenge(this.layer, 121)
             },
             target: 115277425,
-            onComplete() {
-                playsound("cc")
-            }
         },
     },
     clickables: {

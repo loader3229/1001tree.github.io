@@ -468,6 +468,14 @@ function s256(text) {
 	return CryptoJS.SHA256(text).toString().toUpperCase()
 }
 
+function xytoid(x, y) {
+	return 100 * y + x + 101
+}
+
+function idtoxy(id) {
+	return { x: id % 100 - 1, y: ~~(id / 100) - 1 }
+}
+
 function updateTickTime(diff) {
 	if (diff > 5) return
 	player.global.tickTime.unshift(diff);
