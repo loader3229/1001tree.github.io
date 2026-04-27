@@ -9,6 +9,7 @@ addLayer("305", {
         energy: _D0,
         bestAscensions: _D0,
         charge:[0,0,0,0,0,0,0,0,0],
+        s2lock: false,
         simulating2: false,
         timeSimulated2: 0,
         microEnergy: _D0,
@@ -87,7 +88,7 @@ addLayer("305", {
             display(){return player[305].simulating?`Current simulation ends in <h2 style="color:#3F0010">${format(7-player[305].timeSimulated)}</h2> seconds.`:"Timer inactive."},
             canClick: true,
             onClick(){if(player[305].simulating){layers[305].endSimulation()}else {layers[305].startSimulation()}},
-            style(){return {"height":"100px","width":"500px","border-radius":"1%","border":"5px solid", "border-color":"#99cccc"}}
+            style(){return {"height":"100px","width":"550px","border-radius":"1%","border":"5px solid", "border-color":"#99cccc"}}
         },
         21: {
             title: "Respec Charge",
@@ -129,10 +130,10 @@ addLayer("305", {
             title(){return `Charger:<br>Extension<br>Charge:${player[305].charge[4]}<br>`},
             display(){return `Reduce the time speed slightly. Tick rate remains.<br>-[Factor #1:Charge]<br>-Effect: *${format(this.effect(),4)}`},
             unlocked(){return player[305].bestAscensions.gte(800)},
-            tooltip: "Formula: *0.88<sup>charge</sup>",
+            tooltip: "Formula: *0.89<sup>charge</sup>",
             canClick(){return layers[305].getAvailableCharges().gt(0)},
             onClick(){player[305].charge[4]++},
-            effect(){return Math.pow(0.88,player[305].charge[4])},
+            effect(){return Math.pow(0.89,player[305].charge[4])},
             style(){return {"height":"200px","width":"140px","border-radius":"2%","border":"5px solid", "border-color":"#bbffdd", "background-color":(this.canClick()?"#88bbbb":"#336666")}},
         },
         52: {
@@ -159,12 +160,20 @@ addLayer("305", {
             title: "Start a new simulation inside current simulation.",
             display(){return player[305].simulating?`Remaining Lifespan: ${format(7-player[305].timeSimulated2)} micro-seconds.`:"You must be in a simulation to do this!"},
             unlocked(){return player[305].bestAscensions.gte(72)},
-            canClick(){return player[305].simulating},
+            canClick(){return player[305].simulating&&!(player[305].simulating2&&player[305].s2lock)},
             onClick(){
                 if(!player[305].simulating2){player[305].simulating2=true;player[305].timeSimulated2=0}
                 else{player[305].simulating2=false;player[305].timeSimulated2=0;player[305].microEnergy=_D0}
             },
-            style(){return {"height":"100px","width":"500px","border-radius":"1%","border":"5px solid", "border-color":"#99cccc"}}
+            style(){return {"height":"100px","width":"450px","border-radius":"1%","border":"5px solid", "border-color":"#99DDCC"}}
+        },
+        82: {
+            title(){return player[305].s2lock?"Enable Cancelling":"Disable Cancelling"}
+            display: "Toggle whether you can cancel a simulation."
+            unlocked(){return player[305].bestAscensions.gte(72)},
+            canClick: true,
+            onClick(){player[305].s2lock=!player[305].s2lock},
+            style(){return {"height":"100px","width":"100px","border-radius":"1%","border":"5px solid", "border-color":"#99DDCC"}}
         }
     },
     buyables: {
