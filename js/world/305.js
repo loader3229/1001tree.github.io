@@ -168,8 +168,8 @@ addLayer("305", {
             style(){return {"height":"100px","width":"450px","border-radius":"1%","border":"5px solid", "border-color":"#99DDCC"}}
         },
         82: {
-            title(){return player[305].s2lock?"Enable Cancelling":"Disable Cancelling"}
-            display: "Toggle whether you can cancel a simulation."
+            title(){return player[305].s2lock?"Enable Cancelling":"Disable Cancelling"},
+            display: "Toggle whether you can cancel a simulation.",
             unlocked(){return player[305].bestAscensions.gte(72)},
             canClick: true,
             onClick(){player[305].s2lock=!player[305].s2lock},
