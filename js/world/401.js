@@ -1118,7 +1118,7 @@ addLayer("401", {
 	resetsNothing() { return true },
 	layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
 	update(diff) {
-		if (player.pause[this.layer]) return
+		if (!getGridData('main', this.layer)||player.pause[this.layer]) return
 		if (player[this.layer].points.gte(1)) player[this.layer].points1 = player[this.layer].points1.add(_D(diff).mul(tmp[this.layer].milestone1Effect));
 		if (player[this.layer].points.gte(15)) player[this.layer].points2power = player[this.layer].points2power.add(_D(diff).mul(tmp[this.layer].prestigePowerGain));
 		if (player[this.layer].points.gte(22)) player[this.layer].points2 = player[this.layer].points2.add(_D(diff).mul(tmp[this.layer].prestigeGain).mul(player[this.layer].buyables[21].gte(22)?100:1));

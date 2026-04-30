@@ -103,7 +103,7 @@ addLayer("main", {
             }
             else {
                 style.width = "720px"
-                style.height = "720px"
+                style.height = "100px"
                 style["border-style"] = "solid"
                 style["border-color"] = "transparent"
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #ED0, #C20)"
@@ -355,6 +355,16 @@ addLayer("ach", {
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
+        106: {
+            name: "填满沙盒",
+            done() { return player[504].ach},
+            onComplete() { achievementComplete() },
+            tooltip: "你真的用拼图块填满了通关之后的沙盒板...",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/106.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
         201: {
             name: "更高的质量",
             done() { return options.hqTree },
@@ -558,7 +568,7 @@ addLayer("", {
     resource: "",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
     },
     startData() {
         return {

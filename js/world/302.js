@@ -3,7 +3,7 @@ addLayer("302", {
     resource: "拜谢",
     color: "hsl(140,100%,50%)",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (!player.world[this.layer] && player[this.layer].points.gte(1)) {
             completeWorld(this.layer)
         }

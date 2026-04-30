@@ -78,7 +78,7 @@ addLayer("204", {
         return [21, 22, 23, 24].sort(() => Math.random() - 0.5)
     },
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
     },
     clickables: {
         11: {

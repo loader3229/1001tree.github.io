@@ -3,7 +3,7 @@ addLayer("201", {
     resource: "点数",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         this.calcmul()
         if(player[this.layer].points.gte("10^^2025")&&player[this.layer].trig){
             player[this.layer].trig = false

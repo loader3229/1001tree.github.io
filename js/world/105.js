@@ -3,7 +3,7 @@ addLayer("105", {
     resource: "点数",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if(player['105'].points.gte(1e20) && (!player.world[this.layer])){
             completeWorld(this.layer)
         }

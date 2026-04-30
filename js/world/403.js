@@ -3,7 +3,7 @@ addLayer("403", {
     resource: "题目",
     color: "hsl(250,100%,50%)",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (player.subtabs['403'].mainTabs=="新手练习"){
             player['403'].maxProblems = 5
             player['403'].realmID = 1

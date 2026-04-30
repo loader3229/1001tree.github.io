@@ -3,7 +3,7 @@ addLayer("504", {
     resource: "",
     color: "#4EFF67",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (player[504].hoverID==-10000){player[504].hoveringPreview=[]}
         else player[504].hoveringPreview=tiles504[data504[player[504].level][3][player[504].current]][4].map(([x,y])=>{return orthogonalRotation([x,y],player[504].rotation)})
     },
@@ -18,6 +18,7 @@ addLayer("504", {
             flip: false, //是否翻转
             hoverID: -10000, //鼠标悬浮位置(网格编号)
             hoveringPreview: [], //鼠标悬浮时显示虚影格编号
+            ach: false
         }
     },
     type: "none",
@@ -103,7 +104,6 @@ addLayer("504", {
             style() {return {"width":"190px","border":"4px solid","border-radius":"2px","background-color":"#F1C375","border-color":"#D89C58"}},
             canClick() {return this.unlocked()},
             onClick() {
-                if(player[504].level==26)return
                 let c=[]
                 let d=[]
                 Object.entries(player[504].grid).forEach(([id,data])=>{
@@ -121,9 +121,10 @@ addLayer("504", {
                 c.forEach(([id,x])=>{t.forEach(v=>{if(v==id)x--});if(x!=0)v=false})
                 data504[player[504].level][5].forEach(id=>{if(!d.includes(id))v=false})
                 if(v){
+                    makeParticles(WINWINWIN,50)
+                    if(player[504].level==26){player[504].ach=true;return}
                     player[504].maxLevel=Math.max(player[504].maxLevel,++player[504].level)
                     player[504].tileList=[]
-                    makeParticles(WINWINWIN,50)
                 }
             }
         },

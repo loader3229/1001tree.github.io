@@ -3,7 +3,7 @@ addLayer("503", {
     resource: "分数",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (player['503'].tck>=(40-(player['503'].difficulty/2))){
             layers['503'].catGen()
             if(player['503'].difficulty>=10) layers['503'].catGen()

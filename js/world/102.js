@@ -3,7 +3,7 @@ addLayer("102", {
     resource: "Hash点",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (player[this.layer].pause) return
 
         player[this.layer].tickt = player[this.layer].tickt.add(diff)

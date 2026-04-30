@@ -3,7 +3,7 @@ addLayer("103", {
     resource: "点数",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         player['103'].cd -= diff
         if(!player['103'].bmode) player['103'].points = player['103'].points.add(layers['103'].pGen().times(diff))
         if(player['103'].points.gte(player['103'].req)){

@@ -4,7 +4,7 @@ addLayer("205", {
     resource: "能量",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
     },
     startData() {
         return {

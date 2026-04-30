@@ -3,7 +3,7 @@ addLayer("405", {
     resource: "麦粒",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
 
         let sum = _D0
         let dp = _D1

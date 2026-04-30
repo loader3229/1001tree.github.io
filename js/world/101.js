@@ -3,7 +3,7 @@ addLayer("101", {
     resource: "点数",
     color: "#aaa",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
 
         let gap = this.gap()
         for (let i = 0; i < gap.length; i++) {

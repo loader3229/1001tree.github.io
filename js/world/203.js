@@ -130,7 +130,7 @@ addLayer("203", {
         return e
     },
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         if (hasMilestone(this.layer, 9) && player[this.layer].wallbreak.lte(15)) layers[this.layer].clickables[11].onClick()
         player[this.layer].timeplayed = player[this.layer].timeplayed.add(diff)
     },

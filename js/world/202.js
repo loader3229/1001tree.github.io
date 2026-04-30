@@ -3,7 +3,7 @@ addLayer("202", {
     resource: "点数",
     color: "hsl(0,50%,50%)",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         let ltl = layers[this.layer];
 
         let ic = this.getChallenge()

@@ -40,7 +40,7 @@ addLayer("505", {
     },
     color() { return `rgba(128,128,128,${player[this.layer].page / 100})` },
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
     },
     startData() {
         return {

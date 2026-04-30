@@ -3,7 +3,7 @@ addLayer("304", {
     resource: "分",
     color: "hsl(170, 100%, 50%)",
     update(diff) {
-        if (player.pause[this.layer]) return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
     },
     startData() {
         return {

@@ -61,7 +61,7 @@ addLayer("305", {
     },
     getAvailableCharges(){let c=getBuyableAmount(305, 21);return c.sub(player[305].charge.reduce((p,s)=>p+s,0))},
     update(diff) {
-        if(player.pause[305])return
+        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
         diff*=layers[305].clickables[51].effect()
         if(player[305].simulating){
             player[305].timeSimulated+=diff
