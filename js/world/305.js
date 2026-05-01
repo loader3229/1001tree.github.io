@@ -129,7 +129,7 @@ addLayer("305", {
         51: {
             title(){return `Charger:<br>Extension<br>Charge:${player[305].charge[4]}<br>`},
             display(){return `Reduce the time speed slightly. Tick rate remains.<br>-[Factor #1:Charge]<br>-Effect: *${format(this.effect(),4)}`},
-            unlocked(){return player[305].bestAscensions.gte(800)},
+            unlocked(){return player[305].bestAscensions.gte(1001)},
             tooltip: "Formula: *0.89<sup>charge</sup>",
             canClick(){return layers[305].getAvailableCharges().gt(0)},
             onClick(){player[305].charge[4]++},
@@ -149,7 +149,7 @@ addLayer("305", {
         53: {
             title(){return `Charger:<br>Dilation<br>Charge:${player[305].charge[6]}<br>`},
             display(){return `Enable Self-Replication for Micro Energy.<br>Warning: Replicates every tick.<br>-[Factor #1:Charge]<br>-Effect: *${format(this.effect(),1)}/tick`},
-            unlocked(){return player[305].bestAscensions.gte(800)},
+            unlocked(){return player[305].bestAscensions.gte(1001)},
             tooltip: "Formula: *2<sup>charge</sup>",
             canClick(){return layers[305].getAvailableCharges().gt(0)},
             onClick(){player[305].charge[6]++},

@@ -1002,7 +1002,7 @@ let a = {
 		"56": "Your simulations start with 6 Ascension Levels.",
 		"72": "Recursion Tab is unlocked.",
 		"101": "You can automatically gain Ascension Levels. Unlock a new charger.",
-		"800": "Unlock two new chargers.",
+		"1001": "Unlock two new chargers.",
 		"1e308": "-Infinity Reached-",
 	}
 }

@@ -71,7 +71,7 @@ addLayer("504", {
             unlocked() {return player[504].level>1},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#F0CD9F","border-color":"#F03967"}},
             canClick() {return this.unlocked()},
-            onClick() {player[504].level--;player[504].tileList=[]}
+            onClick() {player[504].level--;player[504].tileList=[];player[504].current=Math.min(player[504].current,data504[player[504].level][3][0])}
         },
         22: {
             title: "重试本关",
@@ -87,7 +87,7 @@ addLayer("504", {
             unlocked() {return player[504].maxLevel>player[504].level},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"4px solid","border-radius":"2px","background-color":"#CF98E6","border-color":"#37BAD1"}},
             canClick() {return this.unlocked()},
-            onClick() {player[504].level++;player[504].tileList=[]}
+            onClick() {player[504].level++;player[504].tileList=[];player[504].current=Math.min(player[504].current,data504[player[504].level][3][0])}
         },
         31: {
             title: "撤销上一步",
@@ -194,7 +194,7 @@ addLayer("504", {
         },
         onClick(data, id) {
             let valid=true
-            let prep=tiles504[data504[player[504].level][3][player[504].current]][4].map(([x,y])=>{let n=orthogonalRotation([x,y],player[504].rotation);let p=n[0]*100+n[1]+id;if(data504[player[504].level][4].includes(p)){valid=false};return p})
+            let prep=tiles504[data504[player[504].level][3][player[504].current]][4].map(([x,y])=>{let n=orthogonalRotation([x,y],player[504].rotation);let p=n[0]*100+n[1]+id;if(data504[player[504].level][4].includes(p)||Math.floor(p/100)<=0||Math.floor(p/100)>data504[player[504].level][1]||p%100<=0||p%100>data504[player[504].level][2]){valid=false};return p})
             if(valid)player[504].tileList.push(prep)
         }
     },
