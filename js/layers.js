@@ -4,6 +4,7 @@ addLayer("main", {
     resource: "梦力",
     color: "#9b43f4",
     update(diff) {
+        player.global.click *= (2 ** diff)
     },
     startData() {
         return {
@@ -83,7 +84,7 @@ addLayer("main", {
             }
         },
         getStyle(data, id) {
-            let style = {backgroundClip: "padding-box","transition-duration":"0s"}
+            let style = { backgroundClip: "padding-box", "transition-duration": "0s" }
 
             let mode = options.hcmode
 
@@ -95,7 +96,7 @@ addLayer("main", {
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
                 else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
             }
-            else if (mode == 1){
+            else if (mode == 1) {
                 style.width = "750px"
                 style.height = "100px"
                 style["border-style"] = "solid"
@@ -105,7 +106,7 @@ addLayer("main", {
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDE, #776)"
                 else style.backgroundImage = "linear-gradient(to bottom, #666, #555)"
             }
-            else if (mode == 2){
+            else if (mode == 2) {
                 style.width = "148px"
                 style.height = "148px"
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #AAF, #FAA)"
@@ -116,7 +117,7 @@ addLayer("main", {
 
             return style
         },
-        getTooltip(data, id) {return getGameName(id)[3]}
+        getTooltip(data, id) { return getGameName(id)[3] }
     },
     clickables: {
         11: {
@@ -299,7 +300,7 @@ addLayer("ach", {
         },
         25: {
             name: "真假无限",
-            done() { return player[402].level==12 && player[402].value.gte(_DInf)},
+            done() { return player[402].level == 12 && player[402].value.gte(_DInf) },
             onComplete() { achievementComplete() },
             tooltip: "在402中的第12关达到1.79e308数值.",
             style: {
@@ -325,47 +326,47 @@ addLayer("ach", {
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/102.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         103: {
             name: "绝对的幸运玩家",
-            done() { return player[201].rg <0 },
+            done() { return player[201].rg < 0 },
             onComplete() { achievementComplete() },
             tooltip: "在暴涨子小游戏中随机超频效果达到0％以下",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/103.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         104: {
             name: "真正的游戏大师",
-            done() { return (player[104].maxx.gte(2048)) && (player[104].ob3 && player[104].db && player[104].ob1 && player[104].bl) && (!(player[104].ud || player[104].t5 || player[104].t6))},
+            done() { return (player[104].maxx.gte(2048)) && (player[104].ob3 && player[104].db && player[104].ob1 && player[104].bl) && (!(player[104].ud || player[104].t5 || player[104].t6)) },
             onComplete() { achievementComplete() },
             tooltip: "在2048小游戏中, 开启DB, OB1, OB3, BL同时禁用UD和T+合成2048",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/104.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         105: {
             name: "错漏百出",
-            done() { return player[301].achtrig},
+            done() { return player[301].achtrig },
             onComplete() { achievementComplete() },
             tooltip: "在25 layers中进行无收益的层级重置.",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/105.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         106: {
             name: "填满沙盒",
-            done() { return player[504].ach},
+            done() { return player[504].ach },
             onComplete() { achievementComplete() },
             tooltip: "你真的用拼图块填满了通关之后的沙盒板...",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/106.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         201: {
             name: "更高的质量",
@@ -395,7 +396,7 @@ addLayer("ach", {
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/203.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         204: {
             name: "欢迎回来",
@@ -419,12 +420,14 @@ addLayer("ach", {
         },
         206: {
             name: "冒名顶替者",
-            done() { return player.global.name == "乾狐离光" 
-                || player.global.name == "userincre" 
-                || player.global.name == "banana3864"
-                || player.global.name == "Chara404"
-                || player.global.name == "loader3229"
-                || player.global.name == "Dr丶晨曦公主" },
+            done() {
+                return player.global.name == "乾狐离光"
+                    || player.global.name == "userincre"
+                    || player.global.name == "banana3864"
+                    || player.global.name == "Chara404"
+                    || player.global.name == "loader3229"
+                    || player.global.name == "Dr丶晨曦公主"
+            },
             onComplete() { achievementComplete() },
             tooltip: "将名字设置为开发者之一",
             style: {
@@ -439,6 +442,16 @@ addLayer("ach", {
             tooltip: "完成这个成就,你就完成了所有成就!",
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/301.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
+        302: {
+            name: "一招!全城制霸!",
+            done() { return player.global.click === Infinity },
+            onComplete() { achievementComplete()  },
+            tooltip: "设置里的游戏标签里的小游戏也是游戏",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/302.jpg)",
             },
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
@@ -462,6 +475,14 @@ addLayer("ach", {
             canClick() { return true },
             onClick() {
                 player.completeallachivement = true
+                /*
+                for (key in layers[this.layer].achievements) {
+                    if (key == "rows" || key == "cols") continue
+                    else if (hasAchievement(this.layer, key)) continue
+                    player[this.layer].achievements.push(key)
+                    achievementComplete()
+                }
+                */
             }
         }
     },

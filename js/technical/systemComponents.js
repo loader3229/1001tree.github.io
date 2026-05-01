@@ -270,14 +270,14 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideMilestonePopups')">里程碑<br>完成提示<br>{{ options.hideMilestonePopups?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('forceTooltips')">Shift+左键<br>锁定提示栏<br>{{ formatOption('forceTooltips') }}</button></td>
-				<td></td>
-                <td><button class="opt" onclick="player.click+=1">点击我!<br>{{ player.click }}</button></td>
 			</tr>
             <tr v-if="options.tmtclass">
 				<td><button class="info" disabled>游戏</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideWorld')">已完成世界<br>{{ options.hideWorld?"隐藏":"显示" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('autopause')">完成世界<br>自动暂停<br>{{ formatOption('autopause') }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('achivement')">成就<br>{{ options.achivement?"隐藏":"显示" }}</button></td>
+				<td></td>
+                <td><button class="opt" onclick="player.global.click+=1">点击我!<br>{{ formatWhole(player.global.click) }}</button></td>
 			</tr>
 			<tr v-if="options.tmtclass">
 			<br>

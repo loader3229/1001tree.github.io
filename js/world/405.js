@@ -342,7 +342,6 @@ addLayer("405", {
         cols: 8,
         onClick(data, id) {
             let { x, y } = idtoxy(id)
-            console.log(x + y * 8, player[this.layer].block)
             if (x + y * 8 < player[this.layer].block) {
                 makeParticles({
                     time: 1.5,
