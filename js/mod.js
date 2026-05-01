@@ -115,8 +115,10 @@ function addedPlayerData() {
 			import: false,
 			mynews: "请输入文本",
 			achseed: Date.now(),
-			tickTime: []
-		}
+			tickTime: [],
+			click: 0
+		},
+		completeallachivement : false
 	}
 }
 

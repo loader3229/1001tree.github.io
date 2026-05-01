@@ -207,6 +207,10 @@ var systemComponents = {
                 <td><button class="opt" onclick="importSave()">导入存档</button></td>
 			</tr>
             <tr v-if="options.saveclass">
+				<td></td>
+				<td><button class="opt" disabled>这是一个用来给banana写功能的占位符</button></td>
+			</tr>
+            <tr v-if="options.saveclass">
 				<td><button class="info" disabled>除错</button></td>
                 <td><button class="opt" onclick="save();window.location.reload();">保存并<br>刷新页面</button></td>
 				<td></td>
@@ -257,7 +261,7 @@ var systemComponents = {
 				<td><button class="info" disabled>显示</button></td>
                 <td><button class="opt" onclick="adjustCount()">计数法<br>{{ COUNT_DISPLAYS[COUNT_SETTINGS.indexOf(options.count)] }}<br>文本描述不支<br>持特殊计数法</button></td>
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">页面布局<br>{{ options.forceOneTab ? "强制单页面" : "优先双页面 窄屏单页面" }}</button></td>
-                <td><button class="opt" onclick="options['hcmode']++">世界选择器<br>{{ hcmodeName[options.hcmode] }}</button></td>
+                <td><button class="opt" onclick="adjustMode()">世界选择器<br>{{ MODE_DISPLAYS[MODE_SETTINGS.indexOf(options.hcmode)] }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hqTree')">高质量的树<br>{{ formatOption('hqTree') }}</button></td>
                 <td><button class="opt" onclick="adjustMSDisp()">显示里程碑<br>{{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)] }}</button></td>
 			</tr>
@@ -266,6 +270,8 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('hideChallenges')">已完成挑战<br>{{ options.hideChallenges?"隐藏":"显示" }}</button></td>
                 <td><button class="opt" onclick="toggleOpt('hideMilestonePopups')">里程碑<br>完成提示<br>{{ options.hideMilestonePopups?"隐藏":"显示" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('forceTooltips')">Shift+左键<br>锁定提示栏<br>{{ formatOption('forceTooltips') }}</button></td>
+				<td></td>
+                <td><button class="opt" onclick="player.click+=1">点击我!<br>{{ player.click }}</button></td>
 			</tr>
             <tr v-if="options.tmtclass">
 				<td><button class="info" disabled>游戏</button></td>
@@ -286,7 +292,15 @@ var systemComponents = {
 					}
 					toggleOpt('newsa');reinitializeNews();
 					">成就剧透<br>{{ formatOption('newsa') }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('newsv');reinitializeNews();">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
+				<td><button class="opt" onclick="
+					if (!options.newsv) {
+						let p = confirm('您确定打开低俗笑话吗?这可能不好笑!');
+						if (!p) return
+						let q = confirm('您是否同意:我已年满18岁,继续访问!');
+						if (!q) return
+					}
+					toggleOpt('newsv');reinitializeNews();
+				">低俗笑话<br>{{ formatOption('newsv') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsh');reinitializeNews();">地狱笑话<br>{{ formatOption('newsh') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsp');reinitializeNews();">特殊样式<br>{{ formatOption('newsp') }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('newsn');reinitializeNews();">其他梗语<br>{{ formatOption('newsn') }}</button></td>

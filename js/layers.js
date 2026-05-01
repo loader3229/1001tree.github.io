@@ -28,8 +28,8 @@ addLayer("main", {
                     游戏类型 | <span class='c1'>???</span> <span class='c2'>增量</span> <span class='c3'>非增量</span> | 悬浮以查看玩法标签
                     </div>`],
         "blank",
-        "grid",
         "clickables",
+        "grid",
     ],
     bars: {
         1: {
@@ -77,7 +77,9 @@ addLayer("main", {
                 <br>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")}`
             }
             else {
-                return `<h1>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")} | ${n[0]}&nbsp;&nbsp;&nbsp;</h1><h2>[${n[1]}]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标签:${n[3]}</h2>`
+                return `<h1>${player.world[id] ? "已完成" : (data ? "已解锁" : "未解锁")} | ${n[0]}</h1>
+                <h2>${n[1]}</h2>
+                <h3>标签:${n[3]}</h3>`
             }
         },
         getStyle(data, id) {
@@ -85,15 +87,7 @@ addLayer("main", {
 
             let mode = options.hcmode
 
-            if (mode % 3 == 2) {
-                style.width = "150px"
-                style.height = "114px"
-                if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #AAF, #FAA)"
-                else if (data) style.backgroundImage = "linear-gradient(to bottom, #EEE, #FAA)"
-                else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #EEE, #999)"
-                else style.backgroundImage = "linear-gradient(#666)"
-            }
-            else if (mode % 3 == 0){
+            if (mode == 0) {
                 style.width = "148px"
                 style.height = "116px"
                 if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #FD0, #D00)"
@@ -101,8 +95,8 @@ addLayer("main", {
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDD, #888)"
                 else style.backgroundImage = "linear-gradient(to bottom, #666, #222)"
             }
-            else {
-                style.width = "720px"
+            else if (mode == 1){
+                style.width = "750px"
                 style.height = "100px"
                 style["border-style"] = "solid"
                 style["border-color"] = "transparent"
@@ -111,6 +105,14 @@ addLayer("main", {
                 else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #DDE, #776)"
                 else style.backgroundImage = "linear-gradient(to bottom, #666, #555)"
             }
+            else if (mode == 2){
+                style.width = "148px"
+                style.height = "148px"
+                if (player.world[id]) style.backgroundImage = "linear-gradient(to bottom, #AAF, #FAA)"
+                else if (data) style.backgroundImage = "linear-gradient(to bottom, #EEE, #FAA)"
+                else if (this.getCanClick(data, id)) style.backgroundImage = "linear-gradient(to bottom, #EEE, #999)"
+                else style.backgroundImage = "linear-gradient(#666)"
+            }
 
             return style
         },
@@ -118,16 +120,16 @@ addLayer("main", {
     },
     clickables: {
         11: {
-            title() { return hcmodeName[options.hcmode] },
+            title() { return MODE_DISPLAYS[MODE_SETTINGS.indexOf(options.hcmode)] },
             onClick() {
-                options['hcmode']++
+                adjustMode()
             },
             canClick() { return true },
             onHold() { },
             style() {
                 return {
                     minHeight: "50px",
-                    width: "720px",
+                    width: "750px",
                     transform: "unset",
                     backgroundColor: "#eee"
                 }
@@ -313,7 +315,7 @@ addLayer("ach", {
             style: {
                 backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/101.jpg)",
             },
-            unlocked() { return hasAchievement(this.layer, this.id) }
+            unlocked() { return true }
         },
         102: {
             name: "幸运玩家...还是倒霉玩家?",
@@ -431,12 +433,22 @@ addLayer("ach", {
             unlocked() { return hasAchievement(this.layer, this.id) }
         },
         301: {
+            name: "所有",
+            done() { return player.completeallachivement },
+            onComplete() { achievementComplete() },
+            tooltip: "完成这个成就,你就完成了所有成就!",
+            style: {
+                backgroundImage: "linear-gradient(to bottom, #00000060, #00000000),url(resources/achpic/301.jpg)",
+            },
+            unlocked() { return hasAchievement(this.layer, this.id) }
+        },
+        401: {
             name: "所有,除了这一个",
             done() {
-                return player[this.layer].points.gte(_D(Object.keys(layers[this.layer].achievements).length - 3.5))
+                return player[this.layer].points.gte(999)
             },
             onComplete() { achievementComplete() },
-            tooltip: "完成其他所有成就",
+            tooltip: "完成全部其他成就(当前版本暂不可完成)",
             style: {
                 backgroundImage: "linear-gradient(in hsl longer hue to bottom, hsl(0,100%,30%), hsl(330,100%,60%))",
             }
@@ -446,15 +458,10 @@ addLayer("ach", {
     clickables: {
         11: {
             title: "完成所有成就",
-            display: "测试用,可能会出bug",
+            display: "按下我完成所有成就",
             canClick() { return true },
             onClick() {
-                for (key in layers[this.layer].achievements) {
-                    if (key == "rows" || key == "cols") continue
-                    else if (hasAchievement(this.layer, key)) continue
-                    player[this.layer].achievements.push(key)
-                    achievementComplete()
-                }
+                player.completeallachivement = true
             }
         }
     },

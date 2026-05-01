@@ -153,6 +153,14 @@ function adjustSpeed() {
 	options.newsspeed = NEWSSPEED_SETTINGS[(NEWSSPEED_SETTINGS.indexOf(options.newsspeed) + 1) % NEWSSPEED_SETTINGS.length];
 }
 
+const MODE_DISPLAYS = ["常规模式", "列表模式", "易读模式"];
+
+const MODE_SETTINGS = [0,1,2];
+
+function adjustMode() {
+	options.hcmode = MODE_SETTINGS[(MODE_SETTINGS.indexOf(options.hcmode) + 1) % MODE_SETTINGS.length];
+}
+
 function milestoneShown(layer, id) {
 	complete = player[layer].milestones.includes(id);
 

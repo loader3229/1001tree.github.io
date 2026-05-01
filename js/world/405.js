@@ -3,7 +3,7 @@ addLayer("405", {
     resource: "麦粒",
     color: "#aaa",
     update(diff) {
-        if (!getGridData('main', this.layer)||player.pause[this.layer]) return
+        if (!getGridData('main', this.layer) || player.pause[this.layer]) return
 
         let sum = _D0
         let dp = _D1
@@ -31,9 +31,9 @@ addLayer("405", {
                 if (player[this.layer].theory[1] && theory1.includes(n)) {
                     dp = dp.mul(player[this.layer].wheel[i][j].add(2).log2().pow(_D(n).pow(0.5)))
                 }
-                
+
                 if (player[this.layer].theory[2] && theory2.includes(n)) {
-                    mul =  mul.mul(player[this.layer].seed.add(1).log(2))
+                    mul = mul.mul(player[this.layer].seed.add(1).log(2))
                 }
 
                 player[this.layer].wheel[i][j] = player[this.layer].wheel[i][j].add(
@@ -51,7 +51,7 @@ addLayer("405", {
 
         if (player[this.layer].theory[1]) {
             player[this.layer].p = player[this.layer].p.add(dp.sub(1).mul(diff))
-            player[this.layer].wheel[0][0] = player[this.layer].wheel[0][0].add(player[this.layer].p.add(1).log2().pow(1.1).mul(diff))
+            player[this.layer].wheel[0][0] = player[this.layer].wheel[0][0].add(player[this.layer].p.add(1).log2().pow(1.5).mul(diff))
         }
 
     },
@@ -84,12 +84,12 @@ addLayer("405", {
                         () => {
                             return `<br><h2>你有 <h1 class="nmpt">${format(player[405].points)}</h1> 麦粒</h2><br>
                             <h3>你解锁了 <h2 class="nmpt">${formatWhole(player[405].block)}</h2> 个棋盘格子</h3><br>
-                            <h3>你有 <h2 class="nmpt">${formatWhole(player[405].seed)}</h2> 颗种子 (+${format((_D(1 / 10).mul(player[405].theory[2] ? player[405].wheel[0][2] : 1)))}/s)</h3> ${ player[405].theory[2]?`=> ${format(player[405].seed.add(1).log2())}</h3>`:""}`
+                            <h3>你有 <h2 class="nmpt">${formatWhole(player[405].seed)}</h2> 颗种子 (+${format((_D(1 / 10).mul(player[405].theory[2] ? player[405].wheel[0][2] : 1)))}/s)</h3> ${player[405].theory[2] ? `=> ${format(player[405].seed.add(1).log2())}</h3>` : ""}`
                         }
                     ],
                     ["display-text",
                         () => {
-                            if (player[405].theory[1]) return `<h3>P = <h2 class="nmpt">${format(player[405].p)}</h2> => ${format(player[405].p.add(1).log2().pow(1.1))}</h3>`
+                            if (player[405].theory[1]) return `<h3>P = <h2 class="nmpt">${format(player[405].p)}</h2> => ${format(player[405].p.add(1).log2().pow(1.5))}</h3>`
                             else return
                         }
                     ],
@@ -155,13 +155,13 @@ addLayer("405", {
                         []是在此中的项不计，未在[]中的第一项计为首项<br>
                         公式：<br>
                         dP/dt = ∏((log<sub>2</sub>(2+B(x<sub>n</sub>)))<sup>x<sub>n</sub><sup>0.5</sup></sup>)-1<br>
-                        x1/dt = log2(1+P)<sup>0.5</sup>
+                        dB(x<sub>1</sub>)/dt = log2(1+P)<sup>0.5</sup>
                         `
                     ],
                     "blank",
                     ["display-text",
                         () => {
-                            return `<h3>P = <h2 class="nmpt">${format(player[405].p)}</h2> => ${format(player[405].p.add(1).log2().pow(1.1))}</h3>`
+                            return `<h3>P = <h2 class="nmpt">${format(player[405].p)}</h2> => ${format(player[405].p.add(1).log2().pow(1.5))}</h3>`
                         }
                     ],
                 ],
@@ -177,7 +177,7 @@ addLayer("405", {
                         生效范围: 三角数<br>
                         [1,]3,6,10,15,21,28,36,45,55<br>
                         公式：<br>
-                        B(x<sub>n</sub>)/dt × log2(1+Seed)<br>
+                        dB(x<sub>n</sub>)/dt × log2(1+Seed)<br>
                         dSeed/dt × B(x1)
                         `
                     ],
@@ -214,6 +214,27 @@ addLayer("405", {
             onClick() {
                 player[this.layer].seed = player[this.layer].seed.sub(1)
                 player[this.layer].wheel[0][0] = player[this.layer].wheel[0][0].add(1)
+                makeParticles({
+                    time: 1.5,
+                    fadeOutTime: 1,
+                    fadeInTime: 0.5,
+                    gravity: 1,
+                    image: "",
+                    text: `<spam style="color:#ff0">麦粒</spam>`,
+                    speed() {
+                        return (Math.random() + 1) * 8
+                    },
+                    angle() {
+                        return (Math.random() - 0.5) * 180
+                    },
+                    dir() {
+                        return (Math.random() - 0.5) * 90
+                    },
+                    spread: 0,
+                    rotation() {
+                        return (Math.random() - 0.5) * 45
+                    },
+                }, 1)
             }
         },
         12: {
@@ -232,6 +253,27 @@ addLayer("405", {
             },
             onClick() {
                 player[this.layer].block += 1
+                makeParticles({
+                    time: 1.5,
+                    fadeOutTime: 1,
+                    fadeInTime: 0.5,
+                    gravity: 1,
+                    image: "",
+                    text: `<spam style="color:#ff0">麦粒</spam>`,
+                    speed() {
+                        return (Math.random() + 1) * 8
+                    },
+                    angle() {
+                        return (Math.random() - 0.5) * 180
+                    },
+                    dir() {
+                        return (Math.random() - 0.5) * 90
+                    },
+                    spread: 0,
+                    rotation() {
+                        return (Math.random() - 0.5) * 45
+                    },
+                }, player[this.layer].block)
             }
         },
         21: {
@@ -298,6 +340,33 @@ addLayer("405", {
     grid: {
         rows: 8,
         cols: 8,
+        onClick(data, id) {
+            let { x, y } = idtoxy(id)
+            console.log(x + y * 8, player[this.layer].block)
+            if (x + y * 8 < player[this.layer].block) {
+                makeParticles({
+                    time: 1.5,
+                    fadeOutTime: 1,
+                    fadeInTime: 0.5,
+                    gravity: 1,
+                    image: "",
+                    text: `<spam style="color:#ff0">麦粒</spam>`,
+                    speed() {
+                        return (Math.random() + 1) * 8
+                    },
+                    angle() {
+                        return (Math.random() - 0.5) * 180
+                    },
+                    dir() {
+                        return (Math.random() - 0.5) * 90
+                    },
+                    spread: 0,
+                    rotation() {
+                        return (Math.random() - 0.5) * 45
+                    },
+                }, Math.floor((x + y * 8 +1)**0.5))
+            }
+        },
         getStartData(id) {
             return 0
         },
@@ -305,7 +374,7 @@ addLayer("405", {
             return true
         },
         getCanClick(data, id) {
-            return false
+            return true
         },
         getDisplay(data, id) {
             let { x, y } = idtoxy(id)
@@ -314,7 +383,7 @@ addLayer("405", {
                 return "locked"
             }
 
-            return `${String.fromCharCode(65 + x)}${7 - y} | ${x + y * 8 + 1}<br><br>${format(data)}`
+            return `${String.fromCharCode(65 + x)}${8 - y} | ${x + y * 8 + 1}<br><br>${format(data)}`
         },
         getStyle(data, id) {
             let { x, y } = idtoxy(id)
