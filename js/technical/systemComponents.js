@@ -208,7 +208,6 @@ var systemComponents = {
 			</tr>
             <tr v-if="options.saveclass">
 				<td></td>
-				<td><button class="opt" disabled>这是一个用来给banana写功能的占位符</button></td>
 			</tr>
             <tr v-if="options.saveclass">
 				<td><button class="info" disabled>除错</button></td>

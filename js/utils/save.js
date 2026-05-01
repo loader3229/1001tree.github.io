@@ -333,6 +333,18 @@ function importSave(imported = undefined, forced = false) {
 		return;
 	}
 }
+
+function importSaveFromFile() {
+	let f = document.createElement("input")
+    f.setAttribute("type","file")
+	f.click()
+	f.onchange = () => {
+        let r = new FileReader();
+        r.onload = () => importSave(r.result)
+        r.readAsText(f.files[0]);
+    }
+}
+
 function versionCheck() {
 	let setVersion = true;
 
