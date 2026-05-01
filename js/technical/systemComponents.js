@@ -208,6 +208,7 @@ var systemComponents = {
 			</tr>
             <tr v-if="options.saveclass">
 				<td></td>
+				<td><button class="opt" onClick="importSaveFromFile()">从文件导入存档</button></td>
 			</tr>
             <tr v-if="options.saveclass">
 				<td><button class="info" disabled>除错</button></td>
