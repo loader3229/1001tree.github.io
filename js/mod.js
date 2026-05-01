@@ -19,11 +19,13 @@ let modInfo = {
 // 在num和name中设置版本号
 let VERSION = {
 	num: 0.72,
-	name: ""
+	name: "发布版v1"
 }
 
 let changelog = `
 	<h1>更新日志:</h1><br><br>
+	<h3>v1|0.72 | 2025/5/1</h3><br>
+	发布版<br><br>
 	<h3>v0.76? | 2025/3/15</h3><br>
 	更新了19个游戏<br><br>
 	<h3>v0.68 | 2025/1/16</h3><br>
