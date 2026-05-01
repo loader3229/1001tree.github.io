@@ -99,7 +99,7 @@ addLayer("402", {
             onClick() {player[402].value=player[402].value.sub(1)}
         },
         33: { //x/2
-            title() {return player[402].maxLevel>23?"/2":"???"},
+            title() {return player[402].maxLevel>23?"x/2":"???"},
             unlocked() {return player[402].level>=4},
             style() {return {"min-height":"90px","height":"90px","width":"130px","border":"2px solid","border-radius":"6px","background-color":"#9CABDA","border-color":"#EEEEFF"}},
             canClick() {return ![21,22,24,25].includes(player[402].level)},
@@ -122,6 +122,10 @@ addLayer("402", {
                         alert("前面的区域，以后再来探索吧~(本次操作无效)")
                         return
                     }
+                }
+                if (player[402].value.lte(1e-16)) {
+                    player[402].value.mag/=2
+                    return
                 }
                 player[402].value=player[402].value.sqrt()
             }
