@@ -245,7 +245,7 @@ addLayer("201", {
         },
         25: {
             title: "指数递归",
-            description: "暴涨I效果变为^1.667, 解锁指数引擎",
+            description: "暴涨I效果变为^1.333, 解锁指数引擎",
             cost: _D("1e800"),
             effect() {
                 return _D(1.333)
