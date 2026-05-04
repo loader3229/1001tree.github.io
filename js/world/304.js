@@ -69,8 +69,8 @@ addLayer("304", {
             fl3answer:0,
             fl3answer1:0,
             fl4progress:0,
-            fl5timeleft:15,
-            fl5timecap:15,
+            fl5timeleft:20,
+            fl5timecap:20,
             fl7answer:0,
             fl7answer1:0,
             fl7trig:false,
@@ -125,14 +125,17 @@ addLayer("304", {
                 }],
                 "blank",
                 "upgrades",
-                ["row",[["clickable", [21]],
-                ["clickable", [22]],["clickable",[23]]]],
-                ["row",[["clickable", [24]],
-                ["clickable", [25]],["clickable",[26]]]],
-                ["row",[["clickable", [27]],
-                ["clickable", [28]],["clickable",[29]]]],
-                ["row",[["clickable", [31]],
-                ["clickable", [32]],["clickable",[33]]]],
+                ["row",[["clickable", [22]],
+                ["clickable", [23]],["clickable",[24]]]],
+                ["row",[["clickable", [25]],
+                ["clickable", [27]],["clickable",[26]]]],
+                ["row",[["clickable", [28]],
+                ["clickable", [29]],["clickable",[31]]]],
+                ["row",[["clickable", [33]],
+                ["clickable", [21]],["clickable",[32]]]],
+                "blank",
+                ["row",[["clickable", [51]],
+                ["clickable", [52]],["clickable",[53]]]],
             ]
         },
     },
@@ -168,38 +171,38 @@ addLayer("304", {
         let s=""       
         let l=player['304'].lv
         if(l==1){
-            s = `呃,嘿!我有一些工作要完成,你能在我回来之前盯着这些指示计吗?<br>只有20秒!这很简单的,不让这些数值降到0就行,感谢您的付出!`
+            s = `呃,嘿!我有一些工作要完成,你能在我回来之前盯着这些指示计吗?<br>只有20秒!这很简单的,不让这些数值降到0就行,感谢您的付出!<br>当下方指示灯变红,表示需要赶快添加燃料`
         }
         if(l==2){
             s = `这是不是有点太简单了?没关系,我的工作不止这些<br>每一关你都可以到访新的一层,通过上下层的按钮(你已经看见了)<br>在非5的倍数层中(不包括1),你的任务都是需要达到某种目标而不是避免某种东西降为0.`
         }
         if(l==3){
-            s = `你发现燃料消耗变快了吗?没关系!<br>本层不允许暂停哦!`
+            s = `你发现燃料消耗变快了吗?没关系!第3层有点难,我给你加10s倒计时<br>本层不允许暂停哦!`
         }
         if(l==4){
-            s = `或许我该给你加点时间....记得在完成其他层任务的同时别忘了给1层加燃料`
+            s = `或许我该再给你加点时间....记得在完成其他层任务的同时别忘了给1层加燃料`
         }
         if(l==5){
-            s = `倒计时的确增加了20s!<br>第5层有一个炸弹,它有15s的倒计时,你需要在它爆炸前点击它将它重置回到15s`
+            s = `倒计时的确增加了20s!<br>第5层有一个炸弹,它有15s的倒计时,你需要在它爆炸前点击它将它重置回到15s<br>新的指示灯同样可以提示你何时重置倒计时`
         }
         if(l==6){
             s = `为了防止你在倒计时增加之后没事干,我给你做了一个增量游戏!好耶`
         }
         if(l==7){
-            s = `你已经完成一大半了,加油!<br>巧妙利用第6层点数的加成!`
+            s = `你已经完成一大半了,加油!<br>还有就是,倒计时又一次增加了10s!`
         }
         if(l==8){
-            s = `以防你不知道,燃料最多可以加到120%,你最好使用连点器来应对第8层<br>还有就是,倒计时又一次增加了10s!`
+            s = `以防你不知道,燃料最多可以加到120%,你最好使用连点器来应对第8层`
         }
         if(l==9){
             s = `咱们再来撬开一扇门吧,这次要比上次难一点....`
         }
         if(l==10){
-            s = `挺过这关你就可以获得梦力了,倒计时再次增加了10s!<br>第10层的炸弹更具毁灭性,它的倒计时为20s,并且每次重置它的倒计时都会使得5层倒计时上限-2s并减半第8层点击数!`
+            s = `挺过这关你就可以获得梦力了,倒计时再次增加了10s!<br>第10层的炸弹更具毁灭性,它的倒计时为20s,并且每次重置它的倒计时都会使得5层倒计时上限-1s并减半第8层点击数!`
         }
-        if(l==11){
-            s = `恭喜你完成了世界!暂时如此....`
-        }
+        // if(l==11){
+        //     s = `恭喜你完成了世界!但如果你想寻求挑战获得额外梦力,我还有额外的一些工作!<br>接下来的东西可能很有难度,我首先给你加20s倒计时<br>来介绍一下11层,`
+        // }
         return s
     },
     getfltext(){
@@ -233,10 +236,10 @@ addLayer("304", {
         let a2=0
         let a3=0
         let a4=0
-        a1=Math.floor(Math.random()*2237)
-        a2=Math.floor(Math.random()*2765)
-        a3=Math.floor(Math.random()*2136)
-        a4=Math.floor(Math.random()*2343)
+        a1=Math.floor(Math.random()*1000)
+        a2=Math.floor(Math.random()*1000)
+        a3=Math.floor(Math.random()*1000)
+        a4=Math.floor(Math.random()*1000)
         player['304'].fl3answer1 = (a1*a3)-(a2*a4)
         player['304'].fl3problem = `${formatWhole(a1)}x${formatWhole(a3)}-${formatWhole(a2)}x${formatWhole(a4)}=?`
     },
@@ -258,7 +261,7 @@ addLayer("304", {
             display: "",
             onClick() {
                 player['304'].Fl = 1
-                player['304'].timeleft304 = (player['304'].lv>=10 ? 60 : player['304'].lv>=8 ? 50 : player['304'].lv>=5 ? 40:20)
+                player['304'].timeleft304 = (player['304'].lv>=10 ? 70 : player['304'].lv>=7 ? 60 : player['304'].lv>=5 ? 50: player['304'].lv>=3 ? 30 : 20)
                 player['304'].started = true
                 player['304'].fl1fuel = 50
                 player['304'].fl2progress = 0
@@ -623,11 +626,51 @@ addLayer("304", {
             display() {return ``},
             onClick() {
                 player['304'].fl10timeleft = 20
-                player['304'].fl5timecap -= 2
+                player['304'].fl5timecap -= 1
+                player['304'].fl8cnt = Math.floor(player['304'].fl8cnt/2)
             },
             unlocked() { return player['304'].Fl==10 && player['304'].started },
             canClick() { return player['304'].Fl==10 },
             style(){}
+        },
+        51: {
+            title() { return `1` },
+            display() {return ``},
+            onClick() {
+                return
+            },
+            unlocked() { return player['304'].lv>=1 && player['304'].started },
+            canClick() { return false },
+            style:{"height":"40px","min-height":"40px","width":"40px","margin":"0px","border":"2px solid white","color":"#FFFFFF","background-color"(){
+                if(player['304'].fl1fuel<=20) return '#FF0000'
+                return "#00000000"
+            }}
+        },
+        52: {
+            title() { return `5` },
+            display() {return ``},
+            onClick() {
+                return
+            },
+            unlocked() { return player['304'].lv>=5 && player['304'].started },
+            canClick() { return false },
+            style:{"height":"40px","min-height":"40px","width":"40px","margin":"0px","border":"2px solid white","color":"#FFFFFF","background-color"(){
+                if(player['304'].fl5timeleft<=3) return '#FF0000'
+                return "#00000000"
+            }}
+        },
+        53: {
+            title() { return `10` },
+            display() {return ``},
+            onClick() {
+                return
+            },
+            unlocked() { return player['304'].lv>=10 && player['304'].started },
+            canClick() { return player['304'].Fl==10 },
+            style:{"height":"40px","min-height":"40px","width":"40px","margin":"0px","border":"2px solid white","color":"#FFFFFF","background-color"(){
+                if(player['304'].fl10timeleft<=5) return '#FF0000'
+                return "#00000000"
+            }}
         },
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },
