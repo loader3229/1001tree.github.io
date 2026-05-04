@@ -56,7 +56,7 @@ var doNotCallTheseFunctionsEveryTick = ['resetGame', 'getPrice', 'getEffect', 'e
 	"ai0", "ai1", "ai2", "ai3", "ai4", "ai5", "ai6", "ai7", "ai8", "ai9", "sC1", "sC2", "sC3", "sC4", "sC5",
 	"aC1", "aC2", "aC3", "aC4", "aC5", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10",
 	"startSimulation", "endSimulation", "getColor_205", "start", "checkboard", "initializeGrid",
-	"price","getlvtext","getfltext","getfl3problem","getfl6mult","getfl7problem"
+	"price","getlvtext","getfltext","getfl3problem","getfl6mult","getfl7problem","initfl11grid","calc304left",
 ]
 
 function getStartPoints() {
