@@ -1,160 +1,151 @@
 addLayer("403", {
-    symbol: "🔓",
-    resource: "题目",
-    color: "hsl(250,100%,50%)",
+    symbol: "",
+    resource: "",
+    color: "#4A7FCF",
     update(diff) {
         if (!getGridData('main', this.layer)||player.pause[this.layer]) return
-        if (player.subtabs['403'].mainTabs=="新手练习"){
-            player['403'].maxProblems = 5
-            player['403'].realmID = 1
-            player['403'].difficultyID = 1
-        }
     },
     startData() {
         return {
             unlocked: true,
-            points: _D0,
-            coins: _D0,
-            answer1:"",
-            answerCorrect:"",
-            problemID:1,
-            realmID:0,
-            maxProblems:0,
-            difficultyID: 0,
-            Problemcompleted:[[false,false,false,false,false,false],[]],
+            level: 0,
+            scenario: 1,
+            value: "",
+            select: 1, //选择第几行呢
+            program: [],
+            // examples:
+            // A: "x→y"
+            // [A,B,C]: A->B->C
+            // [[A,B,C]]: loop{A->B->C}
+            // [[A],[B],[C]]: loop{A}->loop{B}->loop{C}
+            // [[[A],B],C] loop{loop{A}->B}->C
         }
     },
+    execute(c,str) { //执行一串命令
+        let ret=str
+        if (c===undefined) return
+        if (c.length==0) return
+        for (let i in c) {
+            if (c[i] instanceof Array) {ret=layers[403].executeLoop(c[i],str)}
+            else ret=layers[403].executeCommand(c[i],ret)
+        }
+        return ret
+    },
+    executeLoop(c,str) { //循环执行一串命令直到不动点
+        if (c.length==0)return str
+        let ret=str
+        while (true) {
+            let mret=layers[403].execute(c,ret)
+            if (mret==ret) break
+            else ret=mret
+        }
+        return ret
+    },
+    executeCommand(c,str) { //执行单条命令
+        console.log(str)
+        let [x,y]=c.split("→")
+        return str.replaceAll(x,y)
+    },
     type: "none",
-    tabFormat: {
-        "Main": {
-            content: [
-                ["display-text", function () {
-                    return `你已经解决了 <h2 class = 'p7tx'>${format(player['403'].points)}</h2> 道题目.`
-                }],
-                ["display-text", function () {
-                    return `你有 ${format(player['403'].coins)} 谜题币(通过解决的题目获得).`
-                }],
-                "blank",
-                ["infobox",[1]],
-                "blank",
-                "upgrades",
-            ]
-        },
-        "新手练习": {
-            content: [
-                ["display-text", function () {
-                    return `你已经解决了 <h2 class = 'p7tx'>${format(player['403'].points)}</h2> 道题目.`
-                }],
-                ["display-text", function () {
-                    return `你有 ${format(player['403'].coins)} 谜题币(通过解决的题目获得).`
-                }],
-                "blank",
-                ["clickables",[1]],
-                "blank",
-                ["clickables",[3]],
-                "blank",
-                ["row", [
-                    ["clickable", [21]],
-                    "blank",
-                    ["display-text", function () {
-                            return player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] ? `<p style = "color:#00ff00">当前题目: #${formatWhole(player['403'].problemID)}(已完成)</p>` : `当前题目: #${formatWhole(player['403'].problemID)}` 
-                    }],
-                    "blank",
-                    ["clickable", [22]],
-                ]]
-            ]
-        },
-    },
-    upgrades: {
-        11: {
-            title: "新手练习",
-            description() { return `测试你的基本能力, 共5道题目(不能购买提示)` },
-            canAfford(){
-                return player['403'].points.gte(this.cost())
-            },
-            style(){
-                if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(271, 100%, 50%),hsl(250, 100%, 50%),hsl(210, 100%, 50%),hsl(250, 100%, 50%),hsl(271, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 5s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
-                return {"height":"120px","width":"120px"}
-            },
-            cost(){
-                return _D(0)
-            },
-            currencyDisplayName:"谜题币"
-        },
-        21: {
-            title: "增量游戏谜题",
-            description() { return `小拜谢来到了第一道关卡!` },
-            unlocked() {return hasUpgrade("403",11)},
-            canAfford(){
-                return player['403'].coins.gte(this.cost())
-            },
-            style(){
-                if(this.canAfford() && (!hasUpgrade(this.layer,this.id))) return {background:"linear-gradient(in hsl 60deg,hsl(271, 100%, 50%),hsl(250, 100%, 50%),hsl(210, 100%, 50%),hsl(250, 100%, 50%),hsl(271, 100%, 50%))","background-size": "200% auto","background-clip":"broder-box","-webkit-background-clip": "border-box","animation": "rainbow 5s linear infinite","height":"120px","width":"120px","color":"#000000","border-color":"#002cddff"}
-                return {"height":"120px","width":"120px"}
-            },
-            cost(){
-                return _D(3)
-            },
-            currencyDisplayName:"谜题币"
-        },
-    },
-    milestones: {
-    },
+    tabFormat: [
+        ["blank","36px"],
+        ["display-text",function(){return player[403].level==0?"<h1>选 关 界 面</h1><br><h3>点击以进入关卡</h3>":data403[player[403].level][0]}],
+        ["blank","14px"],
+        ["clickables","1"],
+        ["blank","10px"],
+        ["clickables","2"],
+        ["blank","10px"],
+        ["clickables","3"],
+        ["blank","10px"],
+        ["clickables","4"],
+        ["clickables","5"],
+        ["clickables",[100]],
+        "grid",
+        
+    ],
     clickables: {
         11: {
-            display() { return `输入并验证答案` },
-            onClick() {
-                player['403'].answer1 = prompt("请输入你的答案!","")
-                if(player['403'].answer1 == get403ProblemAns()[player['403'].realmID][player['403'].problemID].answer){
-                    if(player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] == false){
-                        player['403'].coins = player['403'].coins.add(player['403'].difficultyID)
-                        player['403'].points = player['403'].points.add(1)
-                    }
-                    player['403'].Problemcompleted[player['403'].realmID][player['403'].problemID] = true
-                }
-            },
-            unlocked() { return true },
-            canClick() { return true },
-            style:{"width":"200px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff"}
+            title: "<h1>◀</h1>",
+            display: "返回选关界面",
+            unlocked() {return player[403].level!=0},
+            canClick: true,
+            onClick() {player[403].level=0;player[403].program=[]},
+            style() {return {"min-height":"88px","height":"88px","width":"104px","border-radius":"0px","color":"#10140A","background-color":"#E6448F","border":"4px solid #255072"}}
         },
-        21: {
-            display() { return `<` },
-            onClick() {
-                player['403'].problemID--
-            },
-            unlocked() { return true },
-            canClick() { return player['403'].problemID>1 },
-            style:{"width":"50px","min-height":"50px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff"}
-        },    
-        22: {
-            display() { return '>' },
-            onClick() {
-                player['403'].problemID++
-            },
-            unlocked() { return true },
-            canClick() { return player['403'].problemID < player['403'].maxProblems },
-            style:{"width":"50px","min-height":"50px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff"}
+        12: {
+            title() {return ` <h2>关卡 ${player[403].level%100+4*Math.floor(player[403].level/100)-4} </h2>`},
+            display() {return ` <h3>Level ${player[403].level%100+4*Math.floor(player[403].level/100)-4} </h3>`},
+            unlocked() {return player[403].level!=0},
+            canClick: false,
+            style() {return {"min-height":"88px","height":"88px","width":"145px","border-radius":"0px","color":"#10140A","background-color":"#4A7FFF","border":"4px solid #255072"}}
+        },
+        24: {
+            title() {return ` <h2>目标：${data403[player[403].level][2][player[403].scenario][0]} → ${data403[player[403].level][2][player[403].scenario][1]}</h2>`},
+            unlocked() {return player[403].level!=0},
+            canClick: false,
+            style() {return {"min-height":"60px","height":"60px","width":"540px","border-radius":"1px","color":"#10140A","background-color":"#5A8FDF","border":"3px solid #295476"}}
         },
         31: {
-            display() { return get403ProblemAns()[player['403'].realmID-1][player['403'].problemID].problem },
+            title() {return data403[player[403].level][1][1]},
+            unlocked() {return player[403].level!=0},
+            canClick: true,
             onClick() {
-                player['403'].problemID++
+                return
             },
-            unlocked() { return true },
-            canClick() { return false },
-            style:{"width":"900px","min-height":"0px","font-size":"18px","color":"#ffffff","text-shadow":"0 0 5px #aa89ff","background-color":"#00000000","border":"4px soild","border-color":"#ffffff00"}
-        }, 
+            style() {return {"min-height":"82px","height":"82px","width":"82px","border-radius":"1px","color":"#10140A","background-color":"#5A8FDF","border":"3px solid #295476"}}
+        },
+        32: {
+            title() {return data403[player[403].level][1][2]},
+            unlocked() {return player[403].level!=0},
+            canClick: true,
+            onClick() {
+                return
+            },
+            style() {return {"min-height":"82px","height":"82px","width":"82px","border-radius":"1px","color":"#10140A","background-color":"#5A8FDF","border":"3px solid #295476"}}
+        },
+        41: {
+            title: "Program 但是我其实没做上面几个按钮的功能所以你自己写吧",
+            unlocked() {return player[403].level!=0},
+            canClick: false,
+            style() {return {"min-height":"32px","height":"32px","width":"500px","border-radius":"0px","color":"#CCCCCF","background-color":"#030301","border":"2px solid #71717F","text-align":"left"}}
+        },
+        51: {
+            display() {
+                return player[403].program
+            },
+            unlocked() {return player[403].level!=0},
+            canClick: false,
+            style() {return {"min-height":"300px","height":"300px","width":"500px","border-radius":"0px","color":"#CCCCCF","background-color":"#030301","border":"2px solid #87889E","text-align":"left"}}
+        },
+        61: {
+            title: "<h1>▲</h1>",
+            unlocked() {return player[403].level!=0},
+            style() {return {"min-height":"300px","height":"300px","width":"500px","border-radius":"0px","color":"#CCCCCF","background-color":"#030301","border":"2px solid #87889E"}}
+        },
+        1001: {
+            title: "点我输入程序",
+            unlocked() {return player[403].level!=0},
+            canClick: true,
+            onClick() {player[403].program=prompt("请输入程序",'["x→z"]')},
+        }
+
     },
-    infoboxes:{
-        1:{
-            title: "I(请读我^-^)",
-            body() { return `今年是2126年8月10日, 小拜谢一直在期待的猜猜不猜117终于要召开了!<br>
-                            不幸的是, 本次比赛的出题者和参赛团队全部被邪恶的QHLG抓走去写2002树了<br>
-                            可怜的小拜谢因为起得太晚成为了唯一没有被抓走的参赛者, 国王要求你--小拜谢一路闯关到QHLG的老巢<br>
-                            这样你就可以解救他们并得到本届的冠军, 你肩负着重大责任!<br>
-                            在路上你会遇到很多QHLG设下的题目, 祝好运!<br>
-                            在完成题目后, 你会被奖励一定谜题币(基于题目难度), 用它可以购买提示或解锁新谜题` },
-            style:{"width":"800px","box-shadow":"-5px 10px 10px #0000FF"},
+    grid: {
+        rows: 4,
+        cols: 4,
+        getStartData(){return false},
+        getUnlocked(){return player[403].level==0},
+        getCanClick(data,id){
+            if (id==101) return true
+            return id%100==1?getGridData(403,id-97):getGridData(403,id-1)
+        },
+        onClick(data,id){player[403].level=id},
+        getTitle(data,id){return `<h1>${id%100+4*Math.floor(id/100)-4}</h1>`},
+        getStyle(data,id){
+            let bgColor="#777A7F"
+            if (id==101||player[403].grid[`${id-1}`]==true) bgColor=RGBtoHEX([70,100,140].map(v=>Math.floor(v*(Math.min(1.2+0.55*Math.sin(player[403].resetTime*3),255)))))
+            if (data==true) bgColor="#1E5E3E"
+            return {"height":"106px","width":"106px","border":"4px solid #255072","border-radius":"3px","margin":"20px","background-color":`${bgColor}`}
         }
     },
     layerShown() { return getGridData('main', this.layer) && (!options.hideWorld || !player.world[this.layer]) },

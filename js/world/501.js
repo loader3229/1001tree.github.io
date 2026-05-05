@@ -217,6 +217,7 @@ addLayer("501", {
         }
         if (player._501.trig[5]) {
             player._501.started = false
+            player._501.trigach = true
             return `你输了,但你本不应该看到这句话,也许你开挂了吧,给你一个成就`
         }
         if (player._501.trig[6]) {
