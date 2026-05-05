@@ -6,7 +6,7 @@ addLayer("304", {
         if (!getGridData('main', this.layer)) return
         if(player['304'].started) player['304'].timeleft304 -= diff
         if(player['304'].lv>=11 && (!player.world[this.layer])) completeWorld(this.layer)
-        if(player['304'].fl1fuel<=0||(player['304'].lv>=5 && player['304'].fl5timeleft<=0)||(player['304'].lv>=10 && player['304'].fl10timeleft<=0)){//判断立刻失败
+        if(player['304'].fl1fuel<=0||(player['304'].lv>=5 && player['304'].fl5timeleft<=0)||(player['304'].lv>=10 && player['304'].fl10timeleft<=0)||(player['304'].lv>=15 && player['304'].fl15timeleft<=0)){//判断立刻失败
             player['304'].started = false
             player['304'].losetrig304 = true
         }
@@ -38,6 +38,15 @@ addLayer("304", {
             }else if(player['304'].lv>=11&&(player['304'].fl11cnt < 25)){
                 player['304'].started = false
                 player['304'].losetrig304 = true
+            }else if(player['304'].lv>=12&&(player['304'].fl12cur<player['304'].fl12digit)){
+                player['304'].started = false
+                player['304'].losetrig304 = true
+            }else if(player['304'].lv>=13&&(!hasUpgrade("304",18))){
+                player['304'].started = false
+                player['304'].losetrig304 = true
+            }else if(player['304'].lv>=14&&(player['304'].fl14progress<100)){
+                player['304'].started = false
+                player['304'].losetrig304 = true
             }else{
                 player['304'].lv++
                 player['304'].shoppoints = player['304'].shoppoints.add(1)
@@ -55,6 +64,7 @@ addLayer("304", {
                 player['304'].fl9progress = Math.min(player['304'].fl9progress,100)
             }
             if(player['304'].lv>=10) player['304'].fl10timeleft -= diff
+            if(player['304'].lv>=15) player['304'].fl15timeleft -= diff
         }
     },
     startData() {
@@ -86,6 +96,15 @@ addLayer("304", {
             fl10timeleft:0,
             fl11box:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
             fl11cnt:0,
+            pi:[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,1,9,7,1,6,9,3,9,9,3,7,5,1,0,5,8,2,0,9,7,4,9,4,4,5,9,2,3,0,7,8,1,6,4,0,6,2,8,6,2,0,8,9,9,8,6,2,8,0,3,4,8,2,5,3,4,2,1,1,7,0,6,7],
+            fl12digit:0,
+            fl12cur:0,
+            fl12text:"pi=3.",
+            fl13points:_D0,
+            fl14mode:0,
+            fl14progress:0,
+            fl15timeleft:24,
+            fl15pos:15,
         }
     },
     type: "none",
@@ -119,15 +138,10 @@ addLayer("304", {
                 ["row",[["clickable", [42]],
                 ["clickable", [43]]]],
                 ["clickable", [44]],
-                ["display-text", function () {
-                    return (player['304'].started&&player['304'].Fl==3 ? `当前答案:${Math.floor(player['304'].fl3answer)}` : ``)
-                }],
-                ["display-text", function () {
-                    return (player['304'].started&&player['304'].Fl==6 ? `你有<h2 class = 'p5pt'>${format(player['304'].points)}点数</h2>,使得每次增加的燃料x${format(player['304'].points.add(1).log10().div(2).add(1))}` : ``)
-                }],
-                ["display-text", function () {
-                    return (player['304'].started&&player['304'].Fl==7 ? `当前答案:${Math.floor(player['304'].fl7answer)}` : ``)
-                }],
+                ["clickable", [45]],
+                ["clickable", [46]],
+                ["clickable", [47]],
+                "blank",
                 ["row",[["clickable", [22]],
                 ["clickable", [23]],["clickable",[24]]]],
                 ["row",[["clickable", [25]],
@@ -139,7 +153,8 @@ addLayer("304", {
                 "blank",
                 ["upgrades",[1]],
                 ["row",[["clickable", [51]],
-                ["clickable", [52]],["clickable",[53]]]],
+                ["clickable", [52]],["clickable",[53]],
+                ["clickable", [54]]]],
                 "grid"
             ]
         },
@@ -179,6 +194,51 @@ addLayer("304", {
             description: "完成本层任务",
             cost: _D(300),
             unlocked(){return player['304'].Fl==6 && player['304'].started}
+        },
+        15: {
+            title: "欢迎来到第十三层",
+            description: "Floor6点数获取x5,倒计时增加10s",
+            cost: _D(1),
+            currencyDisplayName:`声望点数`,
+            currencyInternalName:`fl13points`,
+            currencyLayer:"304",
+            unlocked(){return player['304'].Fl==13 && player['304'].started},
+            onPurchase(){
+                player['304'].timeleft304 += 10
+            }
+        },
+        16: {
+            title: "我知道这个世界",
+            description: "将5层炸弹重置时间调回正常值",
+            cost: _D(1),
+            currencyDisplayName:`声望点数`,
+            currencyInternalName:`fl13points`,
+            currencyLayer:"304",
+            unlocked(){return player['304'].Fl==13 && player['304'].started},
+            onPurchase(){
+                player['304'].fl5timecap = (hasUpgrade("304",32)?20:15)
+            }
+        },
+        17: {
+            title: "真的很难",
+            description: "Floor6点数获取x3,10层炸弹倒计时增加20s",
+            cost: _D(1),
+            currencyDisplayName:`声望点数`,
+            currencyInternalName:`fl13points`,
+            currencyLayer:"304",
+            unlocked(){return player['304'].Fl==13 && player['304'].started},
+            onPurchase(){
+                player['304'].fl10timeleft+=20
+            }
+        },
+        18: {
+            title: "加油!",
+            description: "完成本层任务",
+            cost: _D(4),
+            currencyDisplayName:`声望点数`,
+            currencyInternalName:`fl13points`,
+            currencyLayer:"304",
+            unlocked(){return player['304'].Fl==13 && player['304'].started},
         },
         21: {
             title: "Time1",
@@ -395,6 +455,18 @@ addLayer("304", {
         if(l==11){
             s = `恭喜你完成了世界!但如果你想寻求挑战获得额外梦力,我还有额外的一些工作!<br>接下来的东西可能很有难度,我首先给你加20s倒计时<br>来介绍一下11层,舒尔特方格是一种注意力训练游戏,由25个方格组成的方阵构成,训练时将数字1-25随机填入,被测者需按顺序指读并计时完成`
         }
+        if(l==12){
+            s = `本关考验你默写功夫!<br>哦对了,倒计时是不是不够用了?再加20s!`
+        }
+        if(l==13){
+            s = `这么长的倒计时会让10层炸弹重置很多次的,一定要小心<br>为了防止你无聊,我给那个增量游戏做了一个声望层,好耶!`
+        }
+        if(l==14){
+            s = `这估计将会是迄今为止最难的一关了,如果你到现在还没有使用连点器和分屏的话说明你的水平极高`
+        }
+        if(l==15){
+            s = `欢迎来到15关,你又获得了20s倒计时,通过这关,你就完成了额外挑战的一半了<br>15层是一个24s倒计时的炸弹,但每点击一次它的重置按钮,它就会到另一个层,这非常考验你的手速`
+        }
         return s
     },
     getfltext(){
@@ -407,19 +479,34 @@ addLayer("304", {
             s = `撬锁进度:<p class="p5pt">${format(player['304'].fl2progress)}%/100%</p>`+(player['304'].fl2progress>=100 ? `<br>大门已打开,恭喜!`:``)
         }
         if(l==3){
-            s = (player['304'].fl3trig? `恭喜,回答正确!<br>`:`若问题回答错误,将重置2层进度!<br>注意数字为负数时0~9将不再正常工作<br>`)+player['304'].fl3problem
+            s = (player['304'].fl3trig? `恭喜,回答正确!<br>`:`若问题回答错误,将重置2层进度!<br>注意数字为负数时0~9将不再正常工作<br>`)+player['304'].fl3problem+`<br>当前答案:${Math.floor(player['304'].fl3answer)}`
         }
         if(l==5){
             s = `倒计时:<p class="p5pt">${format(player['304'].fl5timeleft)}s</p>`
         }
+        if(l==6){
+            s = `你有<h2 class = 'p5pt'>${format(player['304'].points)}点数</h2>,使得每次增加的燃料x${format(player['304'].points.add(1).log10().div(2).add(1))}`
+        }
         if(l==7){
-            s = (player['304'].fl7trig? `恭喜,回答正确!`:(window.btoa(unescape(encodeURIComponent(player['304'].fl7answer1)))+`<br>答错将重置4层进度!`))
+            s = (player['304'].fl7trig? `恭喜,回答正确!`:(window.btoa(unescape(encodeURIComponent(player['304'].fl7answer1)))+`<br>答错将重置4层进度!`))+`<br>当前答案:${Math.floor(player['304'].fl7answer)}`
         }
         if(l==9){
             s = `撬锁进度:<p class="p5pt">${format(player['304'].fl9progress)}%/100%</p><br>当前旋转度数:${formatWhole(player['304'].fl9degree)}°,转到${formatWhole(player['304'].fl9target)}°可使进度增加20%`+(player['304'].fl2progress>=100 ? `<br>大门已打开,恭喜!`:``)
         }
         if(l==10){
             s = `毁灭倒计时:<p class="p5pt">${format(player['304'].fl10timeleft)}s</p>`
+        }
+        if(l==12){
+            s = `请默写圆周率小数点后的${formatWhole(player['304'].fl12digit)}位,每默对1位倒计时增加1s<br>如果默错,增加的倒计时归零并需要重新开始默写<br>${player['304'].fl12text}`
+        }
+        if(l==13){
+            s = `你有<h2 class = 'p5pt'>${format(player['304'].fl13points)}声望点数</h2>,使得倒计时增加${format(player['304'].fl13points.pow(0.8))}s`
+        }
+        if(l==14){
+            s =  `当按钮为蓝色时,你应长按按钮;若为黄色则应点击按钮`
+        }
+        if(l==15){
+            s = `十五号倒计时:<p class="p5pt">${format(player['304'].fl15timeleft)}s</p>`
         }
         return s
     },
@@ -430,6 +517,8 @@ addLayer("304", {
         if(l>=5) b=50
         if(l>=10) b=60
         if(l>=11) b=80
+        if(l>=12) b=100
+        if(l>=15) b=120
         if(hasUpgrade("304",21)) b+=10
         if(hasUpgrade("304",22)) b+=10
         if(hasUpgrade("304",23)) b+=10
@@ -460,6 +549,8 @@ addLayer("304", {
         if(hasUpgrade("304",11)) mt = mt.times(2)
         if(hasUpgrade("304",12)) mt = mt.times(3)
         if(hasUpgrade("304",13)) mt = mt.times(5)
+        if(hasUpgrade("304",15)) mt = mt.times(5)
+        if(hasUpgrade("304",17)) mt = mt.times(3)
         return mt
     },
     initfl11grid(){
@@ -471,6 +562,11 @@ addLayer("304", {
             let z = xytoid(x,y)
             player['304'].grid[z] = player['304'].fl11box[i]
         }
+    },
+    getfl13gain(){
+        let p = player['304'].points
+        let b = p.div(300).pow(0.75).max(0).floor()
+        return b
     },
     clickables:{
         11: {
@@ -500,6 +596,14 @@ addLayer("304", {
                 player['304'].fl10timeleft = (hasUpgrade("304",33)?40:20)
                 layers['304'].initfl11grid()
                 player['304'].fl11cnt = 0
+                player['304'].fl12cur = 0
+                player['304'].fl12digit = Math.max(Math.min((chooseOneInArray(player['304'].pi))*((chooseOneInArray(player['304'].pi)*2)),50),20)
+                player['304'].fl12text = "pi=3."
+                player['304'].fl13points = _D0
+                player['304'].fl14mode = 1
+                player['304'].fl14progress = 0
+                player['304'].fl15pos = 15
+                player['304'].fl15timeleft = 24
                 player['304'].losetrig304 = false
             },
             unlocked() { return !player['304'].started },
@@ -609,9 +713,21 @@ addLayer("304", {
                     player['304'].fl7answer*=10
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==0){
+                        player['304'].fl12text += '0'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12) && player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         22: {
@@ -628,9 +744,21 @@ addLayer("304", {
                     player['304'].fl7answer+=1
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==1){
+                        player['304'].fl12text += '1'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12)&& player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         23: {
@@ -647,9 +775,21 @@ addLayer("304", {
                     player['304'].fl7answer+=2
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==2){
+                        player['304'].fl12text += '2'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12)&& player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         24: {
@@ -666,9 +806,21 @@ addLayer("304", {
                     player['304'].fl7answer+=3
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==3){
+                        player['304'].fl12text += '3'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12) && player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         25: {
@@ -685,9 +837,21 @@ addLayer("304", {
                     player['304'].fl7answer+=4
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==4){
+                        player['304'].fl12text += '4'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12)&& player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         26: {
@@ -704,9 +868,21 @@ addLayer("304", {
                     player['304'].fl7answer+=5
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==5){
+                        player['304'].fl12text += '5'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12)&& player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         27: {
@@ -723,9 +899,21 @@ addLayer("304", {
                     player['304'].fl7answer+=6
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==6){
+                        player['304'].fl12text += '6'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12)&& player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         28: {
@@ -742,9 +930,21 @@ addLayer("304", {
                     player['304'].fl7answer+=7
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==7){
+                        player['304'].fl12text += '7'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12) && player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         29: {
@@ -761,9 +961,21 @@ addLayer("304", {
                     player['304'].fl7answer+=8
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==8){
+                        player['304'].fl12text += '8'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12) && player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         31: {
@@ -780,9 +992,21 @@ addLayer("304", {
                     player['304'].fl7answer+=9
                     player['304'].fl7answer = Math.min(Math.abs(player['304'].fl7answer),1e7)
                 }
+                if(player['304'].Fl==12){
+                    if(player['304'].fl12cur >= player['304'].fl12digit) return
+                    player['304'].fl12cur++
+                    if(player['304'].pi[player['304'].fl12cur]==9){
+                        player['304'].fl12text += '9'
+                        player['304'].timeleft304 += 1
+                    }else{
+                        player['304'].fl12text = "pi=3."
+                        player['304'].timeleft304 -= (player['304'].fl12cur)
+                        player['304'].fl12cur = 0
+                    }
+                }
             },
-            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7) && player['304'].started },
-            canClick() { return player['304'].Fl==3||player['304'].Fl==7 },
+            unlocked() { return (player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12) && player['304'].started },
+            canClick() { return player['304'].Fl==3||player['304'].Fl==7||player['304'].Fl==12 },
             style:{"height":"30px","min-height":"30px","width":"30px","margin":"0px"}
         },
         32: {
@@ -852,6 +1076,56 @@ addLayer("304", {
             canClick() { return player['304'].Fl==10 },
             style(){}
         },
+        45: {
+            title() { return `重置Floor6以获得${format(layers['304'].getfl13gain())}声望点数` },
+            display() {return ``},
+            onClick() {
+                if(player['304'].points.lt(300)) return
+                player['304'].fl13points = player['304'].fl13points.add(layers['304'].getfl13gain())
+                player['304'].points = _D0
+                player['304'].upgrades = player['304'].upgrades.filter(n => (n>15))
+            },
+            unlocked() { return player['304'].Fl==13 && player['304'].started },
+            canClick() { return player['304'].Fl==13 && player['304'].points.gte(300) },
+            style:{"width":"150px","border":"4px solid hsl(170,100%,50%)","color":"hsl(170,100%,50%)","background-color"(){
+                if(player['304'].points.gte(300)) return "rgba(0, 255, 255, 0.25)"
+                return "#00000000"
+            }}
+        },
+        46: {
+            title() { return player['304'].fl14mode == 1 ? `请长按我!`:`请点击我!` },
+            display() {return `进度:${format(player['304'].fl14progress)}%/100%`},
+            onClick(){
+                if(player['304'].fl14mode==1) return
+                player['304'].fl14progress = player['304'].fl14progress+1.2
+                player['304'].fl14progress = Math.min(player['304'].fl14progress,100)
+                if(chooseWeightInArray([[0,80],[1,20]])) player['304'].fl14mode = 1
+            },
+            onHold() {
+                if(player['304'].fl14mode==2) return
+                player['304'].fl14progress = player['304'].fl14progress+0.3
+                player['304'].fl14progress = Math.min(player['304'].fl14progress,100)
+                if(chooseWeightInArray([[0,90],[1,10]])) player['304'].fl14mode = 2
+            },
+            unlocked() { return player['304'].Fl==14 && player['304'].started },
+            canClick() { return player['304'].Fl==14 },
+            style(){
+                if(player['304'].fl14progress>=100) return {"background-color":"#32d600","border":"5px solid #007e0d"}
+                if(player['304'].fl14mode==1) return {"background-color":"#0060d6","border":"5px solid #00247e"}
+                if(player['304'].fl14mode==2) return {"background-color":"#ffea00","border":"5px solid #ffa600"}
+            }
+        },
+        47: {
+            title() { return `重置十五号炸弹倒计时` },
+            display() {return ``},
+            onClick() {
+                player['304'].fl15timeleft = 24
+                player['304'].fl15pos = chooseOneInArray([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+            },
+            unlocked() { return player['304'].Fl==player['304'].fl15pos && player['304'].started },
+            canClick() { return player['304'].Fl==player['304'].fl15pos },
+            style(){}
+        },
         51: {
             title() { return `1` },
             display() {return ``},
@@ -885,9 +1159,22 @@ addLayer("304", {
                 return
             },
             unlocked() { return player['304'].lv>=10 && player['304'].started },
-            canClick() { return player['304'].Fl==10 },
+            canClick() { return false },
             style:{"height":"40px","min-height":"40px","width":"40px","margin":"0px","border":"2px solid white","color":"#FFFFFF","background-color"(){
                 if(player['304'].fl10timeleft<=5) return '#FF0000'
+                return "#00000000"
+            }}
+        },
+        54: {
+            title() { return `15` },
+            display() {return ``},
+            onClick() {
+                return
+            },
+            unlocked() { return player['304'].lv>=15 && player['304'].started },
+            canClick() { return false },
+            style:{"height":"40px","min-height":"40px","width":"40px","margin":"0px","border":"2px solid white","color":"#FFFFFF","background-color"(){
+                if(player['304'].fl15timeleft<=3) return '#FF0000'
                 return "#00000000"
             }}
         },
@@ -917,8 +1204,9 @@ addLayer("304", {
         },
         onClick(data, id) {
             if((data-player['304'].fl11cnt)!=1){
-                player['304'].losetrig304 = true
-                player['304'].started = false
+                player['304'].fl11cnt = 0
+                layers['304'].initfl11grid()
+                return
             }
             player[this.layer].grid[id] = 0;
             player['304'].fl11cnt++;
